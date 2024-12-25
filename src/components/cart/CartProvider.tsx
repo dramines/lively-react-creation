@@ -19,19 +19,24 @@ interface CartContextType {
   removeFromCart: (id: number) => void;
   updateQuantity: (id: number, quantity: number) => void;
   clearCart: () => void;
+  hasNewsletterDiscount: boolean;
+  applyNewsletterDiscount: () => void;
+  removeNewsletterDiscount: () => void;
+  calculateTotal: () => { subtotal: number; discount: number; total: number };
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export const CartProvider = ({ children }: { children: React.ReactNode }) => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [hasNewsletterDiscount, setHasNewsletterDiscount] = useState<boolean>(() => {
+    return localStorage.getItem('newsletterDiscount') === 'true';
+  });
 
-  // Load cart items from localStorage on mount
   useEffect(() => {
     const savedItems = getCartItems();
     const personalizations = getPersonalizations();
     
-    // Merge personalizations with cart items
     const itemsWithPersonalization = savedItems.map(item => ({
       ...item,
       personalization: item.personalization || personalizations[item.id] || '',
@@ -42,7 +47,6 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     }
   }, []);
 
-  // Save cart items to localStorage whenever they change
   useEffect(() => {
     saveCartItems(cartItems);
   }, [cartItems]);
@@ -86,10 +90,39 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
 
   const clearCart = () => {
     setCartItems([]);
+    removeNewsletterDiscount();
+  };
+
+  const applyNewsletterDiscount = () => {
+    setHasNewsletterDiscount(true);
+    localStorage.setItem('newsletterDiscount', 'true');
+  };
+
+  const removeNewsletterDiscount = () => {
+    setHasNewsletterDiscount(false);
+    localStorage.removeItem('newsletterDiscount');
+  };
+
+  const calculateTotal = () => {
+    const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    const discount = hasNewsletterDiscount && cartItems.length > 0 ? subtotal * 0.05 : 0;
+    const total = subtotal - discount;
+    
+    return { subtotal, discount, total };
   };
 
   return (
-    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, updateQuantity, clearCart }}>
+    <CartContext.Provider value={{ 
+      cartItems, 
+      addToCart, 
+      removeFromCart, 
+      updateQuantity, 
+      clearCart,
+      hasNewsletterDiscount,
+      applyNewsletterDiscount,
+      removeNewsletterDiscount,
+      calculateTotal
+    }}>
       {children}
     </CartContext.Provider>
   );

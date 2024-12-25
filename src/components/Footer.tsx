@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { useToast } from "@/components/ui/use-toast";
+import { useCart } from './cart/CartProvider';
 import axios from 'axios';
 
 const Footer = () => {
   const [email, setEmail] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
+  const { applyNewsletterDiscount } = useCart();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -17,9 +19,10 @@ const Footer = () => {
       });
 
       if (response.data.status === 'success') {
+        applyNewsletterDiscount();
         toast({
           title: "Inscription réussie !",
-          description: "Merci de vous être inscrit à notre newsletter.",
+          description: "Merci de vous être inscrit à notre newsletter. Votre réduction de 5% a été appliquée à votre panier.",
           duration: 3000,
         });
         setEmail('');
