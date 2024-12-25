@@ -2,11 +2,10 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { UserDetails } from '@/utils/userDetailsStorage';
 import PaymentButtons from './PaymentButtons';
-import { Pencil, Trash2, Tag } from 'lucide-react';
+import { Pencil, Trash2 } from 'lucide-react';
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/components/ui/use-toast";
-import { Link } from 'react-router-dom';
 import { useCart } from './CartProvider';
 
 const promoCodes = {
@@ -117,7 +116,6 @@ const OrderSummary = ({
             <span>{shipping === 0 ? 'Gratuite' : `${shipping.toFixed(2)} TND`}</span>
           </div>
           
-          {/* Discount Code Section */}
           <div className="space-y-2 pt-2 border-t border-gray-100">
             <div className="flex gap-2">
               <Input
