@@ -4,7 +4,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { toast } from "@/components/ui/use-toast";
 import { initKonnectPayment } from '@/services/konnectApi';
-import { updateStockForCartItems } from '@/services/stockApi';
 import PaymentLoadingScreen from '../payment/PaymentLoadingScreen';
 
 interface PaymentButtonsProps {
@@ -26,21 +25,6 @@ const PaymentButtons = ({
 }: PaymentButtonsProps) => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
-
-  const handleStockUpdate = async () => {
-    try {
-      await updateStockForCartItems(cartItems);
-      console.log('Stock updated successfully for all items');
-    } catch (error) {
-      console.error('Failed to update stock:', error);
-      toast({
-        title: "Erreur",
-        description: "Erreur lors de la mise à jour du stock. Veuillez réessayer.",
-        variant: "destructive",
-      });
-      throw error;
-    }
-  };
 
   const handleKonnectPayment = async () => {
     if (!enabled || !userDetails) {
@@ -67,9 +51,6 @@ const PaymentButtons = ({
         orderId,
       });
 
-      // Update stock before redirecting to payment
-      await handleStockUpdate();
-
       window.location.href = response.payUrl;
     } catch (error) {
       console.error('Payment error:', error);
@@ -82,7 +63,7 @@ const PaymentButtons = ({
     }
   };
 
-  const handleCashPayment = async () => {
+  const handleCashPayment = () => {
     if (!enabled || !userDetails) {
       toast({
         title: "Erreur",
@@ -92,33 +73,18 @@ const PaymentButtons = ({
       return;
     }
 
-    setIsLoading(true);
-
-    try {
-      // Update stock before proceeding with cash payment
-      await handleStockUpdate();
-
-      navigate('/order-preview', {
-        state: {
-          orderDetails: {
-            items: cartItems,
-            userDetails,
-            total,
-            shipping,
-            finalTotal,
-            paymentMethod: 'cash'
-          }
+    navigate('/order-preview', {
+      state: {
+        orderDetails: {
+          items: cartItems,
+          userDetails,
+          total,
+          shipping,
+          finalTotal,
+          paymentMethod: 'cash'
         }
-      });
-    } catch (error) {
-      console.error('Cash payment error:', error);
-      setIsLoading(false);
-      toast({
-        title: "Erreur",
-        description: "Une erreur est survenue. Veuillez réessayer.",
-        variant: "destructive",
-      });
-    }
+      }
+    });
   };
 
   return (
