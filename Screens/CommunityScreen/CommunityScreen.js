@@ -1,3 +1,4 @@
+
 import React from 'react';
 import {
   Text,
@@ -7,50 +8,38 @@ import {
   useWindowDimensions,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import Header from '../Commons/Header';
 import Cards4 from './Components/Cards4';
 import { useTranslation } from 'react-i18next';
-import FooterNavigator from '../FooterNavigator/FooterNavigator';
-import { Colors } from '../../common/design';
 
 export default function CommunityScreen() {
   const { width } = useWindowDimensions();
   const { t } = useTranslation();
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Header />
-      <View style={styles.contentContainer}>
-        <ScrollView 
-          contentContainerStyle={styles.scrollContainer}
-          showsVerticalScrollIndicator={false}
-        >
-          <View style={styles.communityHeader}>
-            <LinearGradient 
-              colors={['#893571', '#b8658f']} 
-              style={styles.communityBanner}
-              start={{ x: 0, y: 0 }}
-              end={{ x: 1, y: 1 }}
-            >
-              <Text style={styles.bannerText}>{t('CommunityScreen.WelcomeToTheCommunity')}</Text>
-              <Text style={styles.bannerSubText}>{t('CommunityScreen.SupportLocalShareAndConnect')}</Text>
-            </LinearGradient>
-          </View>
-          
-          <Cards4 />
-        </ScrollView>
-      </View>
-      <FooterNavigator />
-    </SafeAreaView>
+    <View style={styles.contentContainer}>
+      <ScrollView 
+        contentContainerStyle={styles.scrollContainer}
+        showsVerticalScrollIndicator={false}
+      >
+        <View style={styles.communityHeader}>
+          <LinearGradient 
+            colors={['#893571', '#b8658f']} 
+            style={styles.communityBanner}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
+          >
+            <Text style={styles.bannerText}>{t('CommunityScreen.WelcomeToTheCommunity')}</Text>
+            <Text style={styles.bannerSubText}>{t('CommunityScreen.SupportLocalShareAndConnect')}</Text>
+          </LinearGradient>
+        </View>
+        
+        <Cards4 />
+      </ScrollView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#F8F9FA',
-  },
   contentContainer: {
     flex: 1,
   },

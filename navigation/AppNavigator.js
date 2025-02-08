@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
@@ -24,8 +25,13 @@ import OrderFood from '../Screens/FoodPage/OrderFood';
 import StatsScreen from '../Screens/StatsScreen/StatsScreen';
 import HistoryScreen from '../Screens/HistoryScreen/HistoryScreen';
 import RewardScreen from '../Screens/RewardScreen/RewardScreen';
+import MainLayout from '../Screens/Layout/MainLayout';
 
 const Stack = createStackNavigator();
+
+const ScreenWithLayout = ({ children }) => (
+  <MainLayout>{children}</MainLayout>
+);
 
 export default function AppNavigator() {
   return (
@@ -35,87 +41,107 @@ export default function AppNavigator() {
       <Stack.Screen
         name="StartScreen"
         component={StartScreen}
-        options={{ headerShown: false }} // Hide header for this screen
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="Login"
         component={LoginScreen}
-        options={{ headerShown: false }} // Hide header for this screen
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="SignupScreen"
         component={SignupScreen}
-        options={{ headerShown: false }} // Hide header for this screen
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="ForgetScreen"
         component={ForgetScreen}
-        options={{ headerShown: false }} // Hide header for this screen
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="HomeScreen"
-        component={HomeScreen}
-        options={{ headerShown: false }} // Hide header for this screen
-      />
-       <Stack.Screen
+        options={{ headerShown: false }}
+      >
+        {() => (
+          <ScreenWithLayout>
+            <HomeScreen />
+          </ScreenWithLayout>
+        )}
+      </Stack.Screen>
+      <Stack.Screen
         name="MapScreen"
-        component={MapScreen}
-        options={{ headerShown: false }} // Hide header for this screen
-      />
-        <Stack.Screen
+        options={{ headerShown: false }}
+      >
+        {() => (
+          <ScreenWithLayout>
+            <MapScreen />
+          </ScreenWithLayout>
+        )}
+      </Stack.Screen>
+      <Stack.Screen
         name="SettingsScreen"
-        component={SettingsScreen}
-        options={{ headerShown: false }} // Hide header for this screen
-      />
+        options={{ headerShown: false }}
+      >
+        {() => (
+          <ScreenWithLayout>
+            <SettingsScreen />
+          </ScreenWithLayout>
+        )}
+      </Stack.Screen>
+      <Stack.Screen
+        name="CommunityScreen"
+        options={{ headerShown: false }}
+      >
+        {() => (
+          <ScreenWithLayout>
+            <CommunityScreen />
+          </ScreenWithLayout>
+        )}
+      </Stack.Screen>
       <Stack.Screen
         name="ScreenHome"
         component={ScreenHome}
-        options={{ headerShown: false }} // Hide header for this screen
-      />
-       <Stack.Screen
-        name="CommunityScreen"
-        component={CommunityScreen}
-        options={{ headerShown: false }} // Hide header for this screen
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="SignUpGmail"
         component={SignUpGmail}
-        options={{ headerShown: false }} // Hide header for this screen
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="NotificationScreen"
         component={NotificationScreen}
-        options={{ headerShown: false }} // Hide header for this screen
+        options={{ headerShown: false }}
       />
-       <Stack.Screen
+      <Stack.Screen
         name="DonateScreen"
         component={DonateScreen}
-        options={{ headerShown: false }} // Hide header for this screen
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="NgoFindScreen"
         component={NgoFindScreen}
-        options={{ headerShown: false }} // Hide header for this screen
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="FoodDetail"
         component={FoodDetail}
-        options={{ headerShown: false }} // Hide header for this screen
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="NGODetail"
         component={NGODetail}
-        options={{ headerShown: false }} // Hide header for this screen
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="StoreScreen"
         component={StoreSceen}
-        options={{ headerShown: false }} // Hide header for this screen
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="AdressPickerScreen"
         component={AdressPickerScreen}
-        options={{ headerShown: false }} // Hide header for this screen
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="OrderFood"
@@ -124,15 +150,20 @@ export default function AppNavigator() {
       />
       <Stack.Screen
         name="StatsScreen"
-        component={StatsScreen}
         options={{ headerShown: false }}
-      />
+      >
+        {() => (
+          <ScreenWithLayout>
+            <StatsScreen />
+          </ScreenWithLayout>
+        )}
+      </Stack.Screen>
       <Stack.Screen
         name="HistoryScreen"
         component={HistoryScreen}
         options={{ headerShown: false }}
       />
-       <Stack.Screen
+      <Stack.Screen
         name="RewardScreen"
         component={RewardScreen}
         options={{ headerShown: false }}
