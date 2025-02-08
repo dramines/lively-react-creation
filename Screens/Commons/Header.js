@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Text, View, Image, StyleSheet, StatusBar, TouchableOpacity } from 'react-native';
 import { IconButton, Searchbar, Surface } from 'react-native-paper';
 import { useWindowDimensions } from 'react-native';
@@ -6,11 +6,32 @@ import { useNavigation } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useTranslation } from 'react-i18next';
 import Icon from 'react-native-vector-icons/Ionicons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 const Header = () => {
   const { t } = useTranslation();
   const [searchQuery, setSearchQuery] = useState('');
   const { width } = useWindowDimensions();
   const navigation = useNavigation();
+  const [userName, setUserName] = useState('');
+
+  useEffect(() => {
+    const getUserData = async () => {
+      try {
+        const userDataString = await AsyncStorage.getItem('userData');
+        if (userDataString) {
+          const userData = JSON.parse(userDataString);
+          const fullName = `${userData.firstName || ''} ${userData.lastName || ''}`.trim();
+          setUserName(fullName || 'User');
+        }
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+        setUserName('User');
+      }
+    };
+
+    getUserData();
+  }, []);
 
   const navigateToNotifications = () => {
     navigation.navigate('NotificationScreen');
@@ -19,6 +40,7 @@ const Header = () => {
   const navigateToRewards = () => {
     navigation.navigate('RewardScreen');
   };
+
   return (
     <Surface style={styles.container}>
       <LinearGradient
@@ -44,7 +66,7 @@ const Header = () => {
             </View>
             <View style={styles.greetingContainer}>
               <Text style={styles.greeting}>{t('Header.good_morning')}</Text>
-              <Text style={styles.username}>Iheb Chebbi</Text>
+              <Text style={styles.username}>{userName}</Text>
             </View>
           </View>
           
@@ -190,8 +212,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
   },
-
-  
 });
 
 export default Header;
