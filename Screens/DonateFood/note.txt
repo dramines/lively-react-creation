@@ -1,0 +1,4 @@
+console.log(`Updates Consent: ${step4.updatesConsent}`);
+console.log(`Future Contact Consent: ${step4.futureContactConsent}`);
+---------------------------------------------------
+need to get the user.id

@@ -1,0 +1,242 @@
+{
+    "AddressPickerScreen": {
+      "location_saved_successfully": "Emplacement enregistré avec succès",
+      "error": "Erreur",
+      "failed_to_save_address": "Échec de l'enregistrement de l'adresse",
+      "permission_denied": "Permission refusée",
+      "enable_location_services": "Veuillez activer les services de localisation dans les paramètres de votre appareil pour utiliser cette fonctionnalité.",
+      "no_location_selected": "Aucun emplacement sélectionné",
+      "please_select_location": "Veuillez sélectionner un emplacement sur la carte.",
+      "address_not_found": "Adresse non trouvée",
+      "could_not_determine_address": "Impossible de déterminer l'adresse pour l'emplacement sélectionné. Veuillez réessayer.",
+      "error_getting_address": "Une erreur est survenue lors de l'obtention de l'adresse. Veuillez réessayer plus tard.",
+      "selected_location": "Emplacement sélectionné",
+      "tap_to_select_location": "Touchez n'importe où pour sélectionner un emplacement",
+      "confirm_location": "Confirmer l'emplacement"
+    },
+    "yes": "oui",
+    "no": "non",
+    "Header": {
+        "good_morning": "Bonjour,",
+        "search_placeholder": "Rechercher des repas ...",
+        "notification_screen": "Écran de notification"
+    },
+    "CommunityScreen": {
+        "WelcomeToTheCommunity": "Bienvenue dans la communauté",
+        "SupportLocalShareAndConnect": "Soutenez localement, partagez et connectez-vous"
+    },
+    "DonateScreen": {
+        "shareYourFood": "Partagez Votre Nourriture",
+        "donationComplete": "Don terminé",
+        "step": "Étape {{currentStep}} sur 4"
+    },
+    "Step1": {
+        "AddPhotos": "Ajouter des photos",
+        "UploadUpTo": "Téléchargez jusqu'à 4 images claires de votre nourriture (les 3e et 4e images sont facultatives)",
+        "AddPhoto": "Ajouter une photo",
+        "WhatFoodAreYouSharing": "Quelle nourriture partagez-vous ?",
+        "Describeyourfood": "Décrivez votre nourriture (quantité, fraîcheur, etc.)",
+        "Enterquantity": "Entrez la quantité",
+        "grams": "grammes",
+        "container": "conteneur",
+        "box": "boîte",
+        "kg": "kg",
+        "meal": "repas",
+        "plate": "assiette"
+    },
+    "Step2": {
+        "FoodDetails": "Détails des aliments",
+        "Pleaseprovidedetails": "Veuillez fournir des détails sur la nourriture que vous donnez",
+        "SelectFoodType": "Sélectionnez le type de nourriture",
+        "HomeCookedMeal": "Repas fait maison",
+        "PackagedFood": "Nourriture emballée",
+        "FreshProduce": "Produits frais",
+        "CannedGoods": "Conserves",
+        "StorageState": "État de conservation",
+        "Frozen": "Congelé",
+        "RoomTemp": "Température ambiante",
+        "PreparationDate": "Date de préparation",
+        "FoodSafetyChecks": "Vérifications de sécurité alimentaire :",
+        "Anypossibleallergens": "Présence d’allergènes possibles ?",
+        "IsitconsideredHalal": "Est-ce considéré comme Halal ?",
+        "AdditionalNotes": "Notes supplémentaires",
+        "Addanyadditionaldetails": "Ajoutez des détails supplémentaires sur la nourriture"
+    },
+    "Step3": {
+        "PickupDeliveryDetails": "Détails du ramassage et de la livraison",
+        "Pleaseprovideyourpreferred": "Veuillez indiquer votre méthode et moment de livraison préférés",
+        "DeliveryMethod": "Méthode de livraison",
+        "Pickup": "Ramassage",
+        "Delivery": "Livraison",
+        "Enterpickupaddress": "Entrez l'adresse de ramassage",
+        "PreferredDate": "Date préférée",
+        "AvailableTimeSlots": "Plages horaires disponibles"
+    },
+    "Step4": {
+        "ConsentandAcknowledgements": "Consentements et reconnaissances",
+        "Pleaseprovidethe": "Veuillez fournir les confirmations nécessaires ci-dessous.",
+        "Iconfirmprepared": "Je confirme que le plat a été préparé dans des conditions hygiéniques.",
+        "informationsolelyfordonationpurposes": "Je consens à partager mes informations uniquement à des fins de don.",
+        "OptionalQuestions": "Questions facultatives",
+        "updatesimpact": "Souhaitez-vous recevoir des mises à jour sur l'impact de votre don ?",
+        "openbeingcontacted": "Êtes-vous ouvert à être contacté pour de futurs dons ?"
+    },
+    "thankyou": {
+        "Thankgenerous": "Merci pour votre généreux don !",
+        "Someoneinneed": "Quelqu'un dans le besoin vous contactera bientôt",
+        "Submittingyourfood": "Soumission de votre nourriture",
+        "Analyzingpictures": "Analyse des images",
+        "Sharingournetwork": "Partage avec notre réseau"
+    },
+    "ImpaContainer": {
+        "YourImpact": "Votre impact",
+        "MealsShared": "Repas partagés",
+        "LivesTouched": "Vies touchées",
+        "NGOsHelped": "ONG aidées",
+        "Overall": "Globalement"
+    },
+    "LatestArticles": {
+        "NearbyFood": "Nourriture à proximité"
+    },
+    "QuickActions": {
+        "Donate": "Faire un don",
+        "FindNGOs": "Trouver ONG",
+        "History": "Historique"
+    },
+    "NeedsCompaigns": {
+        "FoodDonationEvents": "Événements de don",
+        "ViewAll": "Voir tout"
+    },
+    "Footer": {
+        "Home": "Accueil",
+        "Community": "Réseau",
+        "Stats": "Stats",
+        "Profile": "Profil"
+    },
+    "CommunityActions": {
+        "Give": "Donner",
+        "Support": "Soutenir",
+        "Post": "Publier",
+        "Join": "Rejoindre",
+        "NeedAnything": "Besoin de quelque chose"
+    },
+    "MapScreen": {
+        "Searchformeals": "Rechercher des repas ou des ONG..."
+    },
+    "SettingsScreen": {
+        "account_information": "Informations du compte",
+        "first_name": "Prénom",
+        "last_name": "Nom",
+        "email": "Email",
+        "phone": "Numéro de téléphone",
+        "save": "Enregistrer",
+        "address_information": "Informations d'adresse",
+        "country": "Pays",
+        "address": "Adresse",
+        "postal_code": "Code postal",
+        "select_country": "Sélectionnez un pays",
+        "select_language": "Sélectionnez un language",
+        "change_language": "Changer de langue",
+        "close": "fermer",
+        "language": "Langue"
+
+    },
+    "FAQ": {
+        "title": "FAQs",
+        "reset_password": "Comment réinitialiser mon mot de passe ?",
+        "reset_password_answer": "Pour réinitialiser votre mot de passe, allez sur la page de connexion et cliquez sur \"Mot de passe oublié\". Suivez les instructions pour le réinitialiser.",
+        "profile_picture": "Comment changer ma photo de profil ?",
+        "profile_picture_answer": "Pour changer votre photo de profil, allez dans \"Informations du compte\" et sélectionnez \"Modifier le profil\".",
+        "dark_mode": "Puis-je passer en mode sombre ?",
+        "dark_mode_answer": "Oui ! Vous pouvez activer ou désactiver le mode sombre dans les paramètres sous \"Mode sombre\"."
+    },
+    "DeleteAccount": {
+        "delete_account": "Supprimer le compte",
+        "confirmation": "Êtes-vous sûr de vouloir supprimer votre compte ?",
+        "warning": "Cette action ne peut pas être annulée.",
+        "confirm_delete": "Confirmer la suppression",
+        "cancel": "Annuler"
+    },
+    "Logout": {
+        "logout": "Se déconnecter",
+        "confirmation": "Êtes-vous sûr de vouloir vous déconnecter ?",
+        "yes": "Oui",
+        "cancel": "Annuler"
+    },
+    "LoginScreen": {
+        "welcome_back": "Bon retour 👋",
+        "login_to_continue": "Connectez-vous pour continuer",
+        "enter_email": "Entrez votre email",
+        "enter_password": "Entrez votre mot de passe",
+        "forgot_password": "Mot de passe oublié ?",
+        "login": "Se connecter",
+        "or": "OU",
+        "sign_in_google": " Se connecter avec Google",
+        "dont_have_account": "Vous n'avez pas de compte ?",
+        "sign_up": "S'inscrire",
+        "logging_in": "Connexion en cours..."
+    },
+    "SignupScreen": {
+        "create_account": "Créer un compte 👋",
+        "sign_up_start": "Inscrivez-vous pour commencer",
+        "first_name": "Prénom",
+        "last_name": "Nom",
+        "email": "Email",
+        "select_country": "Sélectionnez un pays",
+        "password": "Mot de passe",
+        "confirm_password": "Confirmer le mot de passe",
+        "sign_up_button": "S'inscrire",
+        "or": "OU",
+        "sign_in_google": "Se connecter avec Google",
+        "already_account": "Vous avez déjà un compte ?",
+        "login": "Se connecter",
+        "united_states": "États-Unis",
+        "canada": "Canada"
+    },
+    "StoreScreen": {
+        "search_placeholder": "Rechercher des magasins et des articles..."
+    },
+    "PromoContainer": {
+        "FreshDeals": "Offres Fraîches",
+        "GetFreshDealsDesc": "Profitez d'offres exceptionnelles sur des repas faits maison de votre communauté",
+        "SpecialOffer": "Offre Spéciale",
+        "SpecialOfferDesc": "Rejoignez notre communauté et obtenez des réductions sur votre premier repas partagé",
+        "DailySpecials": "Spécialités du Jour",
+        "DailySpecialsDesc": "Découvrez des plats uniques partagés par des cuisiniers talentueux près de chez vous",
+        "WeekendSale": "Spécial Weekend",
+        "WeekendSaleDesc": "Portions supplémentaires disponibles ce weekend ! Ne manquez pas ça",
+        "OrderNow": "Commander"
+    },
+    "OrderConfirmation": {
+        "CheckingInfo": "Vérification de vos informations...",
+        "ValidatingOrder": "Validation de la commande...",
+        "SendingNotification": "Envoi de la notification...",
+        "OrderCompleted": "Commande terminée !",
+        "Congratulations": "Félicitations ! Votre commande de nourriture a été passée.",
+        "WaitForConfirmation": "Veuillez attendre la confirmation du donneur."
+    },
+    "Notifications": {
+        "title": "Notifications",
+        "summary": "Vous avez {{count}} notifications",
+        "empty": "Pas encore de notifications"
+    },
+    "HistoryScreen": {
+        "YourHistory": "Votre Historique",
+        "TrackYourImpact": "Suivez votre impact dans la communauté",
+        "RecentActivity": "Activité Récente",
+        "FoodsDonated": "Aliments Donnés",
+        "PeopleHelped": "Personnes Aidées",
+        "TimeSpent": "Temps Passé"
+    },
+    "StatsScreen": {
+        "FoodDonationImpact": "Impact des Dons Alimentaires",
+        "MealsDonated": "Repas Donnés",
+        "ThisMonth": "Ce Mois",
+        "PeopleFed": "Personnes Nourries",
+        "MonthlyDonationsDistribution": "Distribution Mensuelle des Dons",
+        "FoodTypeDistribution": "Distribution par Type d'Aliment",
+        "FreshFood": "Aliments Frais",
+        "PackagedFood": "Emballés",
+        "CookedFood": "Cuisinés"
+      }
+}

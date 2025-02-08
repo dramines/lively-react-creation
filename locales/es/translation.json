@@ -1,0 +1,83 @@
+{
+  "yes": "Sí",
+  "no": "No",
+  "CommunityScreen": {
+    "WelcomeToTheCommunity": "Bienvenido a la Comunidad",
+    "SupportLocalShareAndConnect": "Apoya lo local, comparte y conéctate"
+  },
+  "Step1": {
+    "AddPhotos": "Agregar Fotos",
+    "UploadUpTo": "Sube hasta 4 fotos de la comida que quieres donar",
+    "WhatFoodAreYouSharing": "¿Qué comida estás compartiendo?",
+    "Describeyourfood": "Describe tu comida",
+    "Enterquantity": "Ingresa la cantidad",
+    "AddPhoto": "Agregar Foto",
+    "grams": "gramos",
+    "kg": "kg",
+    "container": "contenedor",
+    "box": "caja",
+    "meal": "comida",
+    "plate": "plato"
+  },
+  "Step2": {
+    "FoodDetails": "Detalles de la Comida",
+    "Pleaseprovidedetails": "Por favor proporciona los detalles de la comida",
+    "FoodType": "Tipo de Comida",
+    "SelectFoodType": "Selecciona el tipo de comida",
+    "HomeCookedMeal": "Comida Casera",
+    "PackagedFood": "Comida Empaquetada",
+    "FreshProduce": "Productos Frescos",
+    "CannedGoods": "Productos Enlatados",
+    "StorageState": "Estado de Almacenamiento",
+    "Frozen": "Congelado",
+    "RoomTemp": "Temperatura Ambiente",
+    "PreparationDate": "Fecha de Preparación",
+    "FoodSafetyChecks": "Controles de Seguridad Alimentaria",
+    "Anypossibleallergens": "¿Posibles alérgenos?",
+    "IsitconsideredHalal": "¿Es considerado Halal?",
+    "AdditionalNotes": "Notas Adicionales",
+    "Addanyadditionaldetails": "Agrega cualquier detalle adicional"
+  },
+  "Step3": {
+    "PickupDeliveryDetails": "Detalles de Recogida/Entrega",
+    "Pleaseprovideyourpreferred": "Por favor proporciona tus preferencias de recogida/entrega",
+    "DeliveryMethod": "Método de Entrega",
+    "Pickup": "Recoger",
+    "Delivery": "Entregar",
+    "Enterpickupaddress": "Ingresa la dirección de recogida",
+    "PreferredDate": "Fecha Preferida",
+    "AvailableTimeSlots": "Horarios Disponibles"
+  },
+  "Step4": {
+    "ConsentandAcknowledgements": "Consentimientos y Reconocimientos",
+    "Pleaseprovidethe": "Por favor proporciona los siguientes consentimientos",
+    "Iconfirmprepared": "Confirmo que la comida fue preparada siguiendo las normas de higiene",
+    "informationsolelyfordonationpurposes": "La información proporcionada será utilizada únicamente para propósitos de donación",
+    "OptionalQuestions": "Preguntas Opcionales",
+    "updatesimpact": "Me gustaría recibir actualizaciones sobre el impacto de mi donación",
+    "openbeingcontacted": "Estoy dispuesto a ser contactado para futuras donaciones",
+    "Submit": "Enviar"
+  },
+  "thankyou": {
+    "Submittingyourfood": "Enviando tu comida",
+    "Analyzingpictures": "Analizando imágenes",
+    "Sharingournetwork": "Compartiendo con nuestra red",
+    "Thankgenerous": "¡Gracias por tu generosa donación!",
+    "Someoneinneed": "Alguien necesitado apreciará tu ayuda"
+  },
+  "HistoryScreen": {
+    "YourHistory": "Tu Historial",
+    "TrackYourImpact": "Rastrea tu Impacto",
+    "FoodsDonated": "Comidas Donadas",
+    "PeopleHelped": "Personas Ayudadas",
+    "TimeSpent": "Tiempo Dedicado"
+  },
+  "SettingsScreen": {
+    "language": "Idioma",
+    "select_language": "Seleccionar Idioma",
+    "close": "Cerrar"
+  },
+  "StoreScreen": {
+    "search_placeholder": "Buscar productos..."
+  }
+}
