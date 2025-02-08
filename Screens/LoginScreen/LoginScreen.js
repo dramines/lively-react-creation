@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useCallback } from 'react';
 import {
   Text,
@@ -6,26 +7,18 @@ import {
   TouchableOpacity,
   View,
   Image,
-  ImageBackground,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
   Alert,
-  Dimensions,
 } from 'react-native';
-import { Card } from 'react-native-paper';
-import { MaterialIcons } from '@expo/vector-icons';
+import { MaterialIcons, FontAwesome } from '@expo/vector-icons';
 import { useOAuth } from '@clerk/clerk-expo';
-import { LinearGradient } from 'expo-linear-gradient';
 import * as WebBrowser from 'expo-web-browser';
-import * as Linking from 'expo-linking';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTranslation } from 'react-i18next';
-import styles from './Style';
-import {  FontAwesome } from '@expo/vector-icons';
 import { useClerk } from '@clerk/clerk-react';
-
-const { width } = Dimensions.get('window');
+import styles from './Style';
 
 const useWarmUpBrowser = () => {
   useEffect(() => {
@@ -48,15 +41,15 @@ const LoginScreen = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
   const [method, setMethod] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [activeTab, setActiveTab] = useState('login');
 
   useEffect(() => {
     const signOutUser = async () => {
       await signOut();
     };
-    
     signOutUser();
   }, []);
-  
+
   const handleLogin = async () => {
     if (!email || !password) {
       Alert.alert('Validation Error', 'Please fill in both email and password.');
@@ -117,128 +110,119 @@ const LoginScreen = ({ navigation }) => {
   }, [startOAuthFlow, navigation]);
 
   return (
-    <ImageBackground 
-      source={require('../../assets/bgcover.png')} 
-      style={styles.background}
-      resizeMode="cover"
-    >
-      <LinearGradient
-        colors={['rgba(255,255,255,0.9)', 'rgba(255,255,255,0.8)']}
-        style={styles.gradientOverlay}
+    <SafeAreaView style={styles.background}>
+      <KeyboardAvoidingView 
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'} 
+        style={styles.container}
       >
-        <KeyboardAvoidingView 
-          behavior={Platform.OS === 'ios' ? 'padding' : 'height'} 
-          style={styles.container}
+        <ScrollView 
+          contentContainerStyle={styles.scrollContainer} 
+          showsVerticalScrollIndicator={false}
         >
-          <ScrollView 
-            contentContainerStyle={styles.scrollContainer} 
-            showsVerticalScrollIndicator={false}
+          <View style={styles.logoContainer}>
+            <Image 
+              source={require('../../assets/logo.png')} 
+              style={styles.logo} 
+              resizeMode="contain" 
+            />
+          </View>
+
+          <Text style={styles.title}>{t('LoginScreen.welcome_back')}</Text>
+          <Text style={styles.subtitle}>{t('LoginScreen.login_to_continue')}</Text>
+
+          <View style={styles.loginTabs}>
+            <TouchableOpacity 
+              style={[styles.tab, activeTab === 'login' && styles.activeTab]}
+              onPress={() => setActiveTab('login')}
+            >
+              <Text style={[styles.tabText, activeTab === 'login' && styles.activeTabText]}>
+                Login
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity 
+              style={[styles.tab, activeTab === 'signup' && styles.activeTab]}
+              onPress={() => navigation.navigate('SignupScreen')}
+            >
+              <Text style={[styles.tabText, activeTab === 'signup' && styles.activeTabText]}>
+                Sign Up
+              </Text>
+            </TouchableOpacity>
+          </View>
+
+          <TouchableOpacity style={styles.socialButton}>
+            <FontAwesome name="apple" size={24} color="#000000" />
+            <Text style={styles.socialText}> Login with Apple</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.socialButton} onPress={onGooglePress}>
+            <FontAwesome name="google" size={24} color="#893571" />
+            <Text style={styles.socialText}> Login with Google</Text>
+          </TouchableOpacity>
+
+          <View style={styles.dividerContainer}>
+            <View style={styles.divider} />
+            <Text style={styles.orText}>or continue with email</Text>
+            <View style={styles.divider} />
+          </View>
+
+          <View style={styles.inputContainer}>
+            <MaterialIcons name="email" size={24} color="#b8658f" />
+            <TextInput
+              placeholder={t('LoginScreen.enter_email')}
+              style={styles.input}
+              keyboardType="email-address"
+              value={email}
+              onChangeText={setEmail}
+              autoCapitalize="none"
+            />
+          </View>
+
+          <View style={styles.inputContainer}>
+            <MaterialIcons name="lock" size={24} color="#b8658f" />
+            <TextInput
+              placeholder={t('LoginScreen.enter_password')}
+              style={styles.input}
+              secureTextEntry={!showPassword}
+              value={password}
+              onChangeText={setPassword}
+              autoCapitalize="none"
+            />
+            <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
+              <MaterialIcons 
+                name={showPassword ? "visibility" : "visibility-off"} 
+                size={24} 
+                color="#b8658f" 
+              />
+            </TouchableOpacity>
+          </View>
+
+          <TouchableOpacity onPress={() => navigation.navigate('ForgetScreen')}>
+            <Text style={styles.forgotPassword}>
+              {t('LoginScreen.forgot_password')}
+            </Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity 
+            style={styles.loginButton} 
+            onPress={handleLogin}
+            disabled={loading}
           >
-            <SafeAreaView style={styles.safeArea}>
-              <View style={styles.logoContainer}>
-                <Image 
-                  source={require('../../assets/logo.png')} 
-                  style={styles.logo} 
-                  resizeMode="contain" 
-                />
-              </View>
+            <Text style={styles.loginButtonText}>
+              {loading ? t('LoginScreen.logging_in') : t('LoginScreen.login')}
+            </Text>
+          </TouchableOpacity>
 
-              <Card style={styles.card}>
-                <Text style={styles.title}>{t('LoginScreen.welcome_back')}</Text>
-                <Text style={styles.subtitle}>{t('LoginScreen.login_to_continue')}</Text>
-
-                <View style={styles.inputContainer}>
-                  <MaterialIcons name="email" size={24} color="#b8658f" />
-                  <TextInput
-                    placeholder={t('LoginScreen.enter_email')}
-                    style={styles.input}
-                    keyboardType="email-address"
-                    value={email}
-                    onChangeText={setEmail}
-                    autoCapitalize="none"
-                  />
-                </View>
-
-                <View style={styles.inputContainer}>
-                  <MaterialIcons name="lock" size={24} color="#b8658f" />
-                  <TextInput
-                    placeholder={t('LoginScreen.enter_password')}
-                    style={styles.input}
-                    secureTextEntry={!showPassword}
-                    value={password}
-                    onChangeText={setPassword}
-                    autoCapitalize="none"
-                  />
-                  <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
-                    <MaterialIcons 
-                      name={showPassword ? "visibility" : "visibility-off"} 
-                      size={24} 
-                      color="#b8658f" 
-                    />
-                  </TouchableOpacity>
-                </View>
-
-                <TouchableOpacity 
-                  onPress={() => navigation.navigate('ForgetScreen')}
-                  style={styles.forgotPasswordContainer}
-                >
-                  <Text style={styles.forgotPassword}>
-                    {t('LoginScreen.forgot_password')}
-                  </Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity 
-                  onPress={handleLogin} 
-                  disabled={loading}
-                  style={styles.loginButton}
-                >
-                  <LinearGradient
-                    colors={['#b8658f', '#893571']}
-                    start={{ x: 0, y: 0 }}
-                    end={{ x: 1, y: 0 }}
-                    style={styles.gradientButton}
-                  >
-                    <Text style={styles.buttonText}>
-                      {loading ? t('LoginScreen.logging_in') : t('LoginScreen.login')}
-                    </Text>
-                  </LinearGradient>
-                </TouchableOpacity>
-
-                <View style={styles.dividerContainer}>
-                  <View style={styles.divider} />
-                  <Text style={styles.orText}>{t('LoginScreen.or')}</Text>
-                  <View style={styles.divider} />
-                </View>
-
-                <TouchableOpacity 
-                  style={styles.googleButton} 
-                  onPress={onGooglePress}
-                >
-                <FontAwesome name="google" size={24} color="#893571" />
-                  <Text style={styles.googleText}>
-                     {t('LoginScreen.sign_in_google')}
-                  </Text>
-                </TouchableOpacity>
-              </Card>
-
-              <View style={styles.bottomContainer}>
-                <TouchableOpacity 
-                  onPress={() => navigation.navigate('SignupScreen')}
-                  style={styles.signupContainer}
-                >
-                  <Text style={styles.bottomText}>
-                    {t('LoginScreen.dont_have_account')}{' '}
-                    <Text style={styles.signupLink}>
-                      {t('LoginScreen.sign_up')}
-                    </Text>
-                  </Text>
-                </TouchableOpacity>
-              </View>
-            </SafeAreaView>
-          </ScrollView>
-        </KeyboardAvoidingView>
-      </LinearGradient>
-    </ImageBackground>
+          <View style={styles.termsContainer}>
+            <Text style={styles.termsText}>
+              By signing up, you agree to our{' '}
+              <Text style={styles.termsLink}>Terms of service</Text>
+              {' '}and{' '}
+              <Text style={styles.termsLink}>Privacy policy</Text>
+            </Text>
+          </View>
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 };
 
