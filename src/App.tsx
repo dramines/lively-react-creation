@@ -13,6 +13,9 @@ import Favorites from './pages/Favorites';
 import VetementsCuisine from './pages/categories/VetementsCuisine';
 import VetementsBoulanger from './pages/categories/VetementsBoulanger';
 import VetementsBoucher from './pages/categories/VetementsBoucher';
+import TableirsBoucher from './pages/categories/vetements-boucher/TableirsBoucher';
+import VestesBoucher from './pages/categories/vetements-boucher/VestesBoucher';
+import AccessoiresBoucher from './pages/categories/vetements-boucher/AccessoiresBoucher';
 import VetementsHotellerie from './pages/categories/VetementsHotellerie';
 import VetementsMedicaux from './pages/categories/VetementsMedicaux';
 import VetementsEsthetique from './pages/categories/VetementsEsthetique';
@@ -36,6 +39,9 @@ function App() {
           <Route path="/vetements-cuisine" element={<VetementsCuisine />} />
           <Route path="/vetements-boulanger" element={<VetementsBoulanger />} />
           <Route path="/vetements-boucher" element={<VetementsBoucher />} />
+          <Route path="/vetements-boucher/tabliers" element={<TableirsBoucher />} />
+          <Route path="/vetements-boucher/vestes" element={<VestesBoucher />} />
+          <Route path="/vetements-boucher/accessoires" element={<AccessoiresBoucher />} />
           <Route path="/vetements-hotellerie" element={<VetementsHotellerie />} />
           <Route path="/vetements-medicaux" element={<VetementsMedicaux />} />
           <Route path="/vetements-esthetique" element={<VetementsEsthetique />} />
