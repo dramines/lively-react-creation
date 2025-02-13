@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from 'react';
-import { Menu, X, ChevronDown, ChevronRight } from 'lucide-react';
+import { Menu, X, ChevronDown, ChevronRight, ArrowLeft } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Button } from './ui/button';
@@ -13,11 +13,19 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+} from "@/components/ui/sheet";
 
 export const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [openSubMenus, setOpenSubMenus] = useState<string[]>([]);
+  const [selectedSubmenu, setSelectedSubmenu] = useState<string | null>(null);
+  const [isSubmenuOpen, setIsSubmenuOpen] = useState(false);
+  const [activeMenuItem, setActiveMenuItem] = useState<typeof menuItems[0] | null>(null);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -31,15 +39,13 @@ export const Navigation = () => {
 
   const handleNavigation = (path: string) => {
     setIsMobileMenuOpen(false);
+    setIsSubmenuOpen(false);
     navigate(path);
   };
 
-  const toggleSubMenu = (path: string) => {
-    setOpenSubMenus(prev => 
-      prev.includes(path) 
-        ? prev.filter(item => item !== path)
-        : [...prev, path]
-    );
+  const openSubmenu = (item: typeof menuItems[0]) => {
+    setActiveMenuItem(item);
+    setIsSubmenuOpen(true);
   };
 
   return (
@@ -66,6 +72,7 @@ export const Navigation = () => {
             )}
           </Button>
 
+          {/* Desktop Navigation */}
           <div className="hidden md:block">
             <NavigationMenu>
               <NavigationMenuList>
@@ -112,63 +119,78 @@ export const Navigation = () => {
         </div>
 
         {/* Mobile Menu */}
-        {isMobileMenuOpen && (
-          <div className="md:hidden absolute top-full left-0 right-0 bg-white/95 backdrop-blur-lg shadow-lg animate-fade-in">
-            <div className="flex flex-col space-y-1 p-4">
-              {menuItems.map((item) => (
-                <div key={item.path} className="border-b border-gray-100 last:border-0">
+        <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
+          <SheetContent side="left" className="w-full sm:w-[350px] p-0">
+            <div className="flex flex-col h-full">
+              <SheetHeader className="p-4 border-b">
+                <SheetTitle>Menu</SheetTitle>
+              </SheetHeader>
+              <div className="flex-1 overflow-y-auto">
+                {menuItems.map((item) => (
                   <Button
+                    key={item.path}
                     variant="ghost"
                     className={cn(
-                      "justify-between w-full flex items-center py-3",
+                      "justify-between w-full flex items-center py-6 px-4 border-b border-gray-100",
                       location.pathname === item.path && "border-2 border-primary text-primary rounded-md"
                     )}
-                    onClick={() => toggleSubMenu(item.path)}
+                    onClick={() => openSubmenu(item)}
                   >
                     <div className="flex flex-col items-start">
                       <span>{item.topText}</span>
                       <span>{item.bottomText}</span>
                     </div>
-                    <ChevronDown 
-                      className={cn(
-                        "ml-2 h-4 w-4 transition-transform",
-                        openSubMenus.includes(item.path) && "transform rotate-180"
-                      )} 
-                    />
+                    <ChevronRight className="h-5 w-5" />
                   </Button>
-                  
-                  {openSubMenus.includes(item.path) && (
-                    <div className="pl-4 py-2 space-y-2">
-                      {item.subItems.map((subItem) => (
-                        <Button
-                          key={subItem.path}
-                          variant="ghost"
-                          className="w-full justify-start text-sm py-2"
-                          onClick={() => handleNavigation(subItem.path)}
-                        >
-                          <div className="flex items-center w-full">
-                            <div className="w-12 h-12 rounded-lg overflow-hidden mr-3">
-                              <img 
-                                src={subItem.image} 
-                                alt={subItem.title}
-                                className="w-full h-full object-cover"
-                              />
-                            </div>
-                            <div className="flex-1 text-left">
-                              <p className="font-medium">{subItem.title}</p>
-                              <p className="text-xs text-gray-500">{subItem.description}</p>
-                            </div>
-                            <ChevronRight className="h-4 w-4 text-gray-400" />
-                          </div>
-                        </Button>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
-        )}
+          </SheetContent>
+        </Sheet>
+
+        {/* Submenu Sheet */}
+        <Sheet open={isSubmenuOpen} onOpenChange={setIsSubmenuOpen}>
+          <SheetContent side="left" className="w-full sm:w-[350px] p-0">
+            {activeMenuItem && (
+              <div className="flex flex-col h-full">
+                <SheetHeader className="p-4 border-b">
+                  <Button 
+                    variant="ghost" 
+                    className="flex items-center gap-2 -ml-2"
+                    onClick={() => setIsSubmenuOpen(false)}
+                  >
+                    <ArrowLeft className="h-5 w-5" />
+                    <span>Retour</span>
+                  </Button>
+                  <SheetTitle className="mt-2">{activeMenuItem.title}</SheetTitle>
+                </SheetHeader>
+                <div className="flex-1 overflow-y-auto p-4 space-y-4">
+                  {activeMenuItem.subItems.map((subItem) => (
+                    <div
+                      key={subItem.path}
+                      className="group cursor-pointer"
+                      onClick={() => handleNavigation(subItem.path)}
+                    >
+                      <div className="aspect-video rounded-lg overflow-hidden bg-gray-100 mb-3">
+                        <img 
+                          src={subItem.image} 
+                          alt={subItem.title}
+                          className="w-full h-full object-cover transition-transform group-hover:scale-105"
+                        />
+                      </div>
+                      <h3 className="font-medium text-gray-900 group-hover:text-primary transition-colors">
+                        {subItem.title}
+                      </h3>
+                      <p className="text-sm text-gray-500 mt-1">
+                        {subItem.description}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </SheetContent>
+        </Sheet>
       </div>
     </nav>
   );
