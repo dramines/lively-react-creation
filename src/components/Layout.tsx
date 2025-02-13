@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ShoppingCart, Heart, ClipboardList, Search, Menu, X, Percent, ChevronRight, Facebook, Instagram, Youtube } from "lucide-react";
+import { ShoppingCart, Heart, ClipboardList, Search, Menu, X, Percent, ChevronRight, Facebook, Instagram, Youtube, ArrowLeft } from "lucide-react";
 import Footer from "./Footer";
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { cn } from "@/lib/utils";
@@ -32,10 +32,17 @@ const CategoryLink = ({
   }>; 
 }) => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   return (
     <NavigationMenuItem>
-      <NavigationMenuTrigger className="h-auto py-2" onClick={() => navigate(href)}>
+      <NavigationMenuTrigger 
+        className={cn(
+          "h-auto py-2",
+          location.pathname === href && "border-2 border-primary rounded-md bg-transparent text-primary"
+        )} 
+        onClick={() => navigate(href)}
+      >
         <div className="flex flex-col text-left min-w-max px-3 rounded-md transition-all">
           <span className="text-sm font-medium text-gray-800 whitespace-nowrap">
             {topText}
@@ -81,6 +88,8 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
   const [favorites, setFavorites] = useState<string[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [showSearchResults, setShowSearchResults] = useState(false);
+  const [activeMenuItem, setActiveMenuItem] = useState<typeof menuItems[0] | null>(null);
+  const [isSubmenuOpen, setIsSubmenuOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -114,6 +123,16 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
     }
   }, [location.pathname]);
 
+  const openSubmenu = (item: typeof menuItems[0]) => {
+    setActiveMenuItem(item);
+    setIsSubmenuOpen(true);
+  };
+
+  const handleNavigation = (path: string) => {
+    setIsSubmenuOpen(false);
+    navigate(path);
+  };
+
   return (
     <div className="min-h-screen flex flex-col">
       {/* Top Banner */}
@@ -141,7 +160,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
                   <SheetTitle className="text-left">Menu</SheetTitle>
                 </SheetHeader>
                 
-                {/* Logo Header (replaced PROMOTIONS) */}
+                {/* Logo Header */}
                 <div className="bg-white p-4 flex items-center justify-center border-b">
                   <img src="/logo.png" alt="ELLES" className="h-12" />
                 </div>
@@ -151,8 +170,11 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
                   {menuItems.map((item, index) => (
                     <button
                       key={index}
-                      className="w-full flex items-center justify-between p-4 hover:bg-gray-50"
-                      onClick={() => navigate(item.path)}
+                      className={cn(
+                        "w-full flex items-center justify-between p-4 hover:bg-gray-50",
+                        location.pathname === item.path && "border-2 border-primary text-primary rounded-md"
+                      )}
+                      onClick={() => openSubmenu(item)}
                     >
                       <div className="flex items-center gap-3">
                         <div className="w-10 h-10 rounded-full overflow-hidden">
@@ -242,7 +264,6 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
           <div className="hidden md:block border-t">
             <div className="container mx-auto">
               <div className="flex items-center justify-between py-3">
-                {/* Left-aligned Categories with improved spacing */}
                 <NavigationMenu>
                   <NavigationMenuList>
                     {menuItems.map((item, index) => (
@@ -257,7 +278,6 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
                   </NavigationMenuList>
                 </NavigationMenu>
 
-                {/* Right Buttons */}
                 <div className="flex items-center gap-3 ml-4">
                   <button
                     onClick={() => navigate('/marques')}
@@ -281,6 +301,49 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
       <main className="flex-grow" onClick={() => setShowSearchResults(false)}>
         {children}
       </main>
+
+      <Sheet open={isSubmenuOpen} onOpenChange={setIsSubmenuOpen}>
+        <SheetContent side="left" className="w-full sm:w-[350px] p-0">
+          {activeMenuItem && (
+            <div className="flex flex-col h-full">
+              <SheetHeader className="p-4 border-b">
+                <Button 
+                  variant="ghost" 
+                  className="flex items-center gap-2 -ml-2"
+                  onClick={() => setIsSubmenuOpen(false)}
+                >
+                  <ArrowLeft className="h-5 w-5" />
+                  <span>Retour</span>
+                </Button>
+                <SheetTitle className="mt-2">{activeMenuItem.title}</SheetTitle>
+              </SheetHeader>
+              <div className="flex-1 overflow-y-auto p-4 space-y-4">
+                {activeMenuItem.subItems.map((subItem) => (
+                  <div
+                    key={subItem.path}
+                    className="group cursor-pointer"
+                    onClick={() => handleNavigation(subItem.path)}
+                  >
+                    <div className="aspect-video rounded-lg overflow-hidden bg-gray-100 mb-3">
+                      <img 
+                        src={subItem.image} 
+                        alt={subItem.title}
+                        className="w-full h-full object-cover transition-transform group-hover:scale-105"
+                      />
+                    </div>
+                    <h3 className="font-medium text-gray-900 group-hover:text-primary transition-colors">
+                      {subItem.title}
+                    </h3>
+                    <p className="text-sm text-gray-500 mt-1">
+                      {subItem.description}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </SheetContent>
+      </Sheet>
 
       {/* Social Media Icons */}
       <div className="fixed right-6 bottom-6 z-50 flex flex-col gap-3">
