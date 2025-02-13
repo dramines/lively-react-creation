@@ -1,9 +1,10 @@
 
 import { useState, useEffect } from 'react';
-import { Menu, X, ChevronDown } from 'lucide-react';
+import { Menu, X, ChevronDown, ChevronRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Button } from './ui/button';
+import { menuItems } from '../config/menuConfig';
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -13,108 +14,10 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 
-const navigationItems = [
-  {
-    label: 'Produits',
-    path: '/products',
-    subItems: [
-      {
-        title: "Vêtements de Cuisine",
-        description: "Collection professionnelle pour la restauration",
-        image: "/lovable-uploads/f0e25fb0-eac3-41ef-85f4-134f71438f42.png",
-        path: "/vetements-cuisine"
-      },
-      {
-        title: "Vêtements de Boucher",
-        description: "Équipement spécialisé pour la boucherie",
-        image: "/lovable-uploads/f0e25fb0-eac3-41ef-85f4-134f71438f42.png",
-        path: "/vetements-boucher"
-      },
-      {
-        title: "Vêtements de Travail",
-        description: "Tenues professionnelles polyvalentes",
-        image: "/lovable-uploads/f0e25fb0-eac3-41ef-85f4-134f71438f42.png",
-        path: "/vetements-travail"
-      }
-    ]
-  },
-  {
-    label: 'Caractéristiques',
-    path: '/features',
-    subItems: [
-      {
-        title: "Matériaux Premium",
-        description: "Qualité et durabilité garanties",
-        image: "/lovable-uploads/98a68746-eff6-4ad1-b7d9-7fed922db14f.png",
-        path: "/features/materials"
-      },
-      {
-        title: "Sur Mesure",
-        description: "Personnalisation complète",
-        image: "/lovable-uploads/98a68746-eff6-4ad1-b7d9-7fed922db14f.png",
-        path: "/features/custom"
-      },
-      {
-        title: "Entretien Facile",
-        description: "Vêtements pratiques au quotidien",
-        image: "/lovable-uploads/98a68746-eff6-4ad1-b7d9-7fed922db14f.png",
-        path: "/features/care"
-      }
-    ]
-  },
-  {
-    label: 'À propos',
-    path: '/about',
-    subItems: [
-      {
-        title: "Notre Histoire",
-        description: "Plus de 20 ans d'expertise",
-        image: "/lovable-uploads/cdabb2a1-03dd-46f0-bda9-019861f8fb42.png",
-        path: "/about/history"
-      },
-      {
-        title: "Notre Équipe",
-        description: "Des professionnels passionnés",
-        image: "/lovable-uploads/cdabb2a1-03dd-46f0-bda9-019861f8fb42.png",
-        path: "/about/team"
-      },
-      {
-        title: "Nos Valeurs",
-        description: "Engagement et qualité",
-        image: "/lovable-uploads/cdabb2a1-03dd-46f0-bda9-019861f8fb42.png",
-        path: "/about/values"
-      }
-    ]
-  },
-  {
-    label: 'Contact',
-    path: '/contact',
-    subItems: [
-      {
-        title: "Service Client",
-        description: "À votre écoute 6j/7",
-        image: "/lovable-uploads/c7046d56-7f03-4b6d-b599-ad3148741218.png",
-        path: "/contact/support"
-      },
-      {
-        title: "Showroom",
-        description: "Visitez notre espace d'exposition",
-        image: "/lovable-uploads/c7046d56-7f03-4b6d-b599-ad3148741218.png",
-        path: "/contact/showroom"
-      },
-      {
-        title: "Partenariats",
-        description: "Collaborons ensemble",
-        image: "/lovable-uploads/c7046d56-7f03-4b6d-b599-ad3148741218.png",
-        path: "/contact/partnerships"
-      }
-    ]
-  }
-];
-
 export const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [openSubMenus, setOpenSubMenus] = useState<string[]>([]);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -129,6 +32,14 @@ export const Navigation = () => {
   const handleNavigation = (path: string) => {
     setIsMobileMenuOpen(false);
     navigate(path);
+  };
+
+  const toggleSubMenu = (path: string) => {
+    setOpenSubMenus(prev => 
+      prev.includes(path) 
+        ? prev.filter(item => item !== path)
+        : [...prev, path]
+    );
   };
 
   return (
@@ -158,15 +69,19 @@ export const Navigation = () => {
           <div className="hidden md:block">
             <NavigationMenu>
               <NavigationMenuList>
-                {navigationItems.map((item) => (
-                  <NavigationMenuItem key={item.label}>
+                {menuItems.map((item) => (
+                  <NavigationMenuItem key={item.path}>
                     <NavigationMenuTrigger 
                       className={cn(
                         "text-gray-600 hover:text-primary transition-colors",
-                        location.pathname.includes(item.path) && "text-primary"
+                        location.pathname === item.path && "border-2 border-primary rounded-md bg-transparent text-primary"
                       )}
+                      onClick={() => handleNavigation(item.path)}
                     >
-                      {item.label}
+                      <div className="flex flex-col items-start">
+                        <span>{item.topText}</span>
+                        <span>{item.bottomText}</span>
+                      </div>
                     </NavigationMenuTrigger>
                     <NavigationMenuContent>
                       <div className="grid grid-cols-3 gap-4 p-6 w-[600px]">
@@ -196,31 +111,59 @@ export const Navigation = () => {
           </div>
         </div>
 
+        {/* Mobile Menu */}
         {isMobileMenuOpen && (
           <div className="md:hidden absolute top-full left-0 right-0 bg-white/95 backdrop-blur-lg shadow-lg animate-fade-in">
-            <div className="flex flex-col space-y-4 p-6">
-              {navigationItems.map((item) => (
-                <div key={item.label} className="space-y-2">
+            <div className="flex flex-col space-y-1 p-4">
+              {menuItems.map((item) => (
+                <div key={item.path} className="border-b border-gray-100 last:border-0">
                   <Button
                     variant="ghost"
-                    className="justify-start w-full flex items-center"
-                    onClick={() => handleNavigation(item.path)}
+                    className={cn(
+                      "justify-between w-full flex items-center py-3",
+                      location.pathname === item.path && "border-2 border-primary text-primary rounded-md"
+                    )}
+                    onClick={() => toggleSubMenu(item.path)}
                   >
-                    {item.label}
-                    <ChevronDown className="ml-2 h-4 w-4" />
+                    <div className="flex flex-col items-start">
+                      <span>{item.topText}</span>
+                      <span>{item.bottomText}</span>
+                    </div>
+                    <ChevronDown 
+                      className={cn(
+                        "ml-2 h-4 w-4 transition-transform",
+                        openSubMenus.includes(item.path) && "transform rotate-180"
+                      )} 
+                    />
                   </Button>
-                  <div className="pl-4 space-y-2">
-                    {item.subItems.map((subItem) => (
-                      <Button
-                        key={subItem.path}
-                        variant="ghost"
-                        className="justify-start w-full text-sm"
-                        onClick={() => handleNavigation(subItem.path)}
-                      >
-                        {subItem.title}
-                      </Button>
-                    ))}
-                  </div>
+                  
+                  {openSubMenus.includes(item.path) && (
+                    <div className="pl-4 py-2 space-y-2">
+                      {item.subItems.map((subItem) => (
+                        <Button
+                          key={subItem.path}
+                          variant="ghost"
+                          className="w-full justify-start text-sm py-2"
+                          onClick={() => handleNavigation(subItem.path)}
+                        >
+                          <div className="flex items-center w-full">
+                            <div className="w-12 h-12 rounded-lg overflow-hidden mr-3">
+                              <img 
+                                src={subItem.image} 
+                                alt={subItem.title}
+                                className="w-full h-full object-cover"
+                              />
+                            </div>
+                            <div className="flex-1 text-left">
+                              <p className="font-medium">{subItem.title}</p>
+                              <p className="text-xs text-gray-500">{subItem.description}</p>
+                            </div>
+                            <ChevronRight className="h-4 w-4 text-gray-400" />
+                          </div>
+                        </Button>
+                      ))}
+                    </div>
+                  )}
                 </div>
               ))}
             </div>

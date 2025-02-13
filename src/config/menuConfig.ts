@@ -5,7 +5,7 @@ export interface MenuItem {
   path: string;
   topText: string;
   bottomText: string;
-  subItems?: SubItem[];
+  subItems: SubItem[];
 }
 
 export interface SubItem {
@@ -102,34 +102,134 @@ export const menuItems: MenuItem[] = [
     image: "/lovable-uploads/f0e25fb0-eac3-41ef-85f4-134f71438f42.png",
     path: "/vetements-hotellerie",
     topText: "Vêtements",
-    bottomText: "Service & Hôtellerie"
+    bottomText: "Service & Hôtellerie",
+    subItems: [
+      {
+        title: "Uniformes de Service",
+        description: "Élégance et confort pour le service",
+        image: "/lovable-uploads/f0e25fb0-eac3-41ef-85f4-134f71438f42.png",
+        path: "/vetements-hotellerie/service"
+      },
+      {
+        title: "Tenues d'Accueil",
+        description: "Pour un accueil professionnel",
+        image: "/lovable-uploads/f0e25fb0-eac3-41ef-85f4-134f71438f42.png",
+        path: "/vetements-hotellerie/accueil"
+      },
+      {
+        title: "Accessoires Hôteliers",
+        description: "Compléments indispensables",
+        image: "/lovable-uploads/f0e25fb0-eac3-41ef-85f4-134f71438f42.png",
+        path: "/vetements-hotellerie/accessoires"
+      }
+    ]
   },
   {
     title: "Vêtements Médicaux",
     image: "/lovable-uploads/f0e25fb0-eac3-41ef-85f4-134f71438f42.png",
     path: "/vetements-medicaux",
     topText: "Vêtements",
-    bottomText: "Médicaux"
+    bottomText: "Médicaux",
+    subItems: [
+      {
+        title: "Blouses Médicales",
+        description: "Pour les professionnels de santé",
+        image: "/lovable-uploads/f0e25fb0-eac3-41ef-85f4-134f71438f42.png",
+        path: "/vetements-medicaux/blouses"
+      },
+      {
+        title: "Tuniques",
+        description: "Confort et praticité",
+        image: "/lovable-uploads/f0e25fb0-eac3-41ef-85f4-134f71438f42.png",
+        path: "/vetements-medicaux/tuniques"
+      },
+      {
+        title: "Accessoires Médicaux",
+        description: "Équipements essentiels",
+        image: "/lovable-uploads/f0e25fb0-eac3-41ef-85f4-134f71438f42.png",
+        path: "/vetements-medicaux/accessoires"
+      }
+    ]
   },
   {
     title: "Vêtements esthéticiennes",
     image: "/lovable-uploads/f0e25fb0-eac3-41ef-85f4-134f71438f42.png",
     path: "/vetements-esthetique",
     topText: "Vêtements",
-    bottomText: "esthéticiennes"
+    bottomText: "esthéticiennes",
+    subItems: [
+      {
+        title: "Tuniques Esthétique",
+        description: "Pour les soins professionnels",
+        image: "/lovable-uploads/f0e25fb0-eac3-41ef-85f4-134f71438f42.png",
+        path: "/vetements-esthetique/tuniques"
+      },
+      {
+        title: "Pantalons",
+        description: "Confort et élégance",
+        image: "/lovable-uploads/f0e25fb0-eac3-41ef-85f4-134f71438f42.png",
+        path: "/vetements-esthetique/pantalons"
+      },
+      {
+        title: "Accessoires Beauté",
+        description: "Compléments indispensables",
+        image: "/lovable-uploads/f0e25fb0-eac3-41ef-85f4-134f71438f42.png",
+        path: "/vetements-esthetique/accessoires"
+      }
+    ]
   },
   {
     title: "Vêtements de travail",
     image: "/lovable-uploads/f0e25fb0-eac3-41ef-85f4-134f71438f42.png",
     path: "/vetements-travail",
     topText: "Vêtements",
-    bottomText: "de travail"
+    bottomText: "de travail",
+    subItems: [
+      {
+        title: "Combinaisons",
+        description: "Protection intégrale",
+        image: "/lovable-uploads/f0e25fb0-eac3-41ef-85f4-134f71438f42.png",
+        path: "/vetements-travail/combinaisons"
+      },
+      {
+        title: "Vestes de Travail",
+        description: "Robustes et fonctionnelles",
+        image: "/lovable-uploads/f0e25fb0-eac3-41ef-85f4-134f71438f42.png",
+        path: "/vetements-travail/vestes"
+      },
+      {
+        title: "Équipements",
+        description: "Accessoires de protection",
+        image: "/lovable-uploads/f0e25fb0-eac3-41ef-85f4-134f71438f42.png",
+        path: "/vetements-travail/equipements"
+      }
+    ]
   },
   {
     title: "Chaussures de sécurité",
     image: "/lovable-uploads/f0e25fb0-eac3-41ef-85f4-134f71438f42.png",
     path: "/chaussures",
     topText: "Chaussures",
-    bottomText: "de sécurité"
+    bottomText: "de sécurité",
+    subItems: [
+      {
+        title: "Chaussures Cuisine",
+        description: "Sécurité en cuisine",
+        image: "/lovable-uploads/f0e25fb0-eac3-41ef-85f4-134f71438f42.png",
+        path: "/chaussures/cuisine"
+      },
+      {
+        title: "Chaussures Industrie",
+        description: "Protection renforcée",
+        image: "/lovable-uploads/f0e25fb0-eac3-41ef-85f4-134f71438f42.png",
+        path: "/chaussures/industrie"
+      },
+      {
+        title: "Accessoires",
+        description: "Entretien et confort",
+        image: "/lovable-uploads/f0e25fb0-eac3-41ef-85f4-134f71438f42.png",
+        path: "/chaussures/accessoires"
+      }
+    ]
   }
 ];
