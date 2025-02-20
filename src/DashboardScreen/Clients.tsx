@@ -33,6 +33,12 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import {
+  ClientsProps,
+  UserData,
+  APISeasonResponse,
+  APIUserSeasonsResponse,
+} from '../types/users';
 
 const Clients: React.FC<ClientsProps> = ({ user }) => {
   const queryClient = useQueryClient();
@@ -44,13 +50,11 @@ const Clients: React.FC<ClientsProps> = ({ user }) => {
   const [actionType, setActionType] = useState('');
   const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
   const [selectedUserEmail, setSelectedUserEmail] = useState('');
-  
   const [userSearchTerm, setUserSearchTerm] = useState('');
   const [userFilterStatus, setUserFilterStatus] = useState<string>('all');
   const [userFilterSeason, setUserFilterSeason] = useState<string>('all');
   const [userFilterAllocation, setUserFilterAllocation] = useState<string>('all');
   const [currentPage, setCurrentPage] = useState(1);
-  
   const [allSeasons, setAllSeasons] = useState<APISeasonResponse['saisons']>([]);
   const [userSeasons, setUserSeasons] = useState<APIUserSeasonsResponse['seasons']>([]);
   const [key] = useState("38457");
