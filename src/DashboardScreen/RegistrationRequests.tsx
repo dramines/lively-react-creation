@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -10,14 +11,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {
-  Pagination,
-  PaginationContent,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from "@/components/ui/pagination";
 import { toast } from "@/hooks/use-toast";
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { fetchRegistrationRequests, fetchSaisons } from '../api/users';
@@ -28,8 +21,6 @@ const RegistrationRequests = () => {
   const queryClient = useQueryClient();
   const [requestSearchTerm, setRequestSearchTerm] = useState('');
   const [requestFilterSeason, setRequestFilterSeason] = useState<string>('all');
-  const [currentRequestPage, setCurrentRequestPage] = useState(1);
-  const requestsPerPage = 15;
 
   const { 
     data: registrationRequests = [], 
@@ -72,7 +63,6 @@ const RegistrationRequests = () => {
         className: "bg-green-500 text-white font-medium border-none",
       });
       
-      // Refresh the data
       await refetchRequests();
       await queryClient.invalidateQueries({ queryKey: ['users'] });
     } catch (error) {
@@ -107,7 +97,6 @@ const RegistrationRequests = () => {
         className: "bg-green-500 text-white font-medium border-none",
       });
 
-      // Refresh the data
       await refetchRequests();
     } catch (error) {
       console.error('Error rejecting request:', error);
@@ -142,10 +131,6 @@ const RegistrationRequests = () => {
   
     return matchesSearchTerm && matchesSeason;
   });
-  
-  const totalRequestPages = Math.ceil(filteredRequests.length / requestsPerPage);
-  const requestStartIndex = (currentRequestPage - 1) * requestsPerPage;
-  const currentRequests = filteredRequests.slice(requestStartIndex, requestStartIndex + requestsPerPage);
 
   return (
     <div className="p-6 mt-16">
@@ -230,7 +215,7 @@ const RegistrationRequests = () => {
                       <RequestSkeletonRow key={index} />
                     ))
                   ) : (
-                    currentRequests.map((request) => (
+                    filteredRequests.map((request) => (
                       <tr key={request.id} className="border-b hover:bg-[#2a98cb]/5 transition-colors">
                         <td className="py-4 px-4 text-black">
                           {`${request.prenom_client} ${request.nom_client} (#${request.id_client})`}
@@ -269,41 +254,6 @@ const RegistrationRequests = () => {
               </table>
             )}
           </div>
-          
-          {totalRequestPages > 1 && (
-            <div className="mt-4 flex justify-center">
-              <Pagination>
-                <PaginationContent>
-                  <PaginationItem>
-                    <PaginationPrevious 
-                      onClick={() => setCurrentRequestPage(prev => Math.max(1, prev - 1))}
-                      className={currentRequestPage === 1 ? 'pointer-events-none opacity-50' : ''}
-                    />
-                  </PaginationItem>
-                  {Array.from({ length: totalRequestPages }, (_, i) => i + 1).map((page) => (
-                    <PaginationItem key={page}>
-                      <PaginationLink
-                        onClick={() => setCurrentRequestPage(page)}
-                        className={`${
-                          currentRequestPage === page 
-                            ? 'bg-primary text-white hover:bg-primary/90'
-                            : 'hover:bg-primary/10'
-                        } text-black`}
-                      >
-                        {page}
-                      </PaginationLink>
-                    </PaginationItem>
-                  ))}
-                  <PaginationItem>
-                    <PaginationNext
-                      onClick={() => setCurrentRequestPage(prev => Math.min(totalRequestPages, prev + 1))}
-                      className={currentRequestPage === totalRequestPages ? 'pointer-events-none opacity-50' : ''}
-                    />
-                  </PaginationItem>
-                </PaginationContent>
-              </Pagination>
-            </div>
-          )}
         </div>
       </Card>
     </div>
