@@ -33,8 +33,6 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-// ... keep existing interfaces and constants
-
 const Clients: React.FC<ClientsProps> = ({ user }) => {
   const queryClient = useQueryClient();
   const itemsPerPage = 10;
@@ -295,7 +293,7 @@ const Clients: React.FC<ClientsProps> = ({ user }) => {
                 className: "bg-[#2a98cb] text-white font-medium border-none",
               });
             }}
-            className="gap-2"
+            className="gap-2 bg-white text-black hover:bg-gray-100"
             disabled={usersLoading}
           >
             <RotateCw className={`h-4 w-4 ${usersLoading ? 'animate-spin' : ''}`} />

@@ -38,6 +38,8 @@ const RegistrationRequests = () => {
   } = useQuery({
     queryKey: ['registrationRequests'],
     queryFn: fetchRegistrationRequests,
+    refetchOnWindowFocus: false,
+    retry: 1,
   });
 
   const { data: saisonsData = [], isLoading: loadingSaisons } = useQuery({
@@ -161,7 +163,7 @@ const RegistrationRequests = () => {
                   className: "bg-[#2a98cb] text-white font-medium border-none",
                 });
               }}
-              className="gap-2"
+              className="gap-2 bg-white text-black hover:bg-gray-100"
               disabled={loadingRequests}
             >
               <RotateCw className={`h-4 w-4 ${loadingRequests ? 'animate-spin' : ''}`} />
