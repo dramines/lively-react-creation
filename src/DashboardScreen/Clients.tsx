@@ -31,6 +31,7 @@ import {
   APISeasonResponse, 
   APIUserSeasonsResponse 
 } from '@/types/users';
+import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination"
 
 const Clients: React.FC<ClientsProps> = ({ user }) => {
   const queryClient = useQueryClient();

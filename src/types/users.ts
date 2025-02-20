@@ -1,6 +1,4 @@
 
-import { User, SaisonPermission, Saison, UserData, RegistrationRequest, SaisonData } from './users';
-
 export interface User {
   id_client: string;
   nom_client: string;
