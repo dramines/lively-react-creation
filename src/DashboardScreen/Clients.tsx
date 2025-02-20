@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react'; // Added useEffect import
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Check, Pause, Box, Trash2, Search, ChevronDown } from 'lucide-react';
+import { Check, Pause, Box, Trash2, Search, ChevronDown, RotateCw } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Skeleton } from "@/components/ui/skeleton";
 import {
@@ -33,73 +33,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-interface User {
-  id_client: string;
-  nom_client: string;
-  prenom_client: string;
-  email_client: string;
-  telephone_client: string;
-  createdat_client: string;
-  status_client: string;
-}
-
-interface SaisonPermission {
-  id_client: number;
-  id_saison: number;
-}
-
-interface Saison {
-  id_saison: number;
-  nom_saison: string;
-}
-
-interface UserData {
-  user: User;
-  user_saison_permissions: SaisonPermission[];
-  saison_objects: Saison[];
-}
-
-interface ClientsProps {
-  user: any;
-}
-
-interface APISeasonResponse {
-  success: boolean;
-  saisons: {
-    id_saison: number;
-    name_saison: string;
-    havechapters_saisons: number;
-    photo_saison: string;
-  }[];
-}
-
-interface APIUserSeasonsResponse {
-  success: boolean;
-  seasons: {
-    id: string;
-    id_client: string;
-    id_saison: string;
-    name_saison: string;
-  }[];
-}
-
-const SkeletonRow = () => (
-  <tr>
-    <td className="px-6 py-4"><Skeleton className="h-4 w-[100px]" /></td>
-    <td className="px-6 py-4"><Skeleton className="h-4 w-[100px]" /></td>
-    <td className="px-6 py-4"><Skeleton className="h-4 w-[100px]" /></td>
-    <td className="px-6 py-4"><Skeleton className="h-4 w-[150px]" /></td>
-    <td className="px-6 py-4"><Skeleton className="h-4 w-[100px]" /></td>
-    <td className="px-6 py-4"><Skeleton className="h-4 w-[100px]" /></td>
-    <td className="px-6 py-4"><Skeleton className="h-4 w-[100px]" /></td>
-    <td className="px-6 py-4">
-      <div className="flex gap-2">
-        <Skeleton className="h-9 w-[100px]" />
-        <Skeleton className="h-9 w-[100px]" />
-      </div>
-    </td>
-  </tr>
-);
+// ... keep existing interfaces and constants
 
 const Clients: React.FC<ClientsProps> = ({ user }) => {
   const queryClient = useQueryClient();
@@ -125,7 +59,7 @@ const Clients: React.FC<ClientsProps> = ({ user }) => {
   const [userSeasonsLoading, setUserSeasonsLoading] = useState(false);
   const [selectedFormations, setSelectedFormations] = useState<string[]>([]);
 
-  const { data: users = [], isLoading: usersLoading } = useQuery({
+  const { data: users = [], isLoading: usersLoading, refetch: refetchUsers } = useQuery({
     queryKey: ['users'],
     queryFn: fetchUsers,
     staleTime: 1000 * 60 * 5, // 5 minutes
@@ -351,6 +285,22 @@ const Clients: React.FC<ClientsProps> = ({ user }) => {
           <p className="text-gray-500">Liste des utilisateurs enregistrés</p>
         </div>
         <div className="flex gap-4 items-center">
+          <Button 
+            variant="outline"
+            onClick={() => {
+              refetchUsers();
+              toast({
+                title: "Actualisation",
+                description: "Les données sont en cours d'actualisation",
+                className: "bg-[#2a98cb] text-white font-medium border-none",
+              });
+            }}
+            className="gap-2"
+            disabled={usersLoading}
+          >
+            <RotateCw className={`h-4 w-4 ${usersLoading ? 'animate-spin' : ''}`} />
+            Actualiser
+          </Button>
           <Select
             value={userFilterAllocation}
             onValueChange={setUserFilterAllocation}

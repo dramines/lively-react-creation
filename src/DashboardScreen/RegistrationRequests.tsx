@@ -1,8 +1,7 @@
-
 import React, { useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Box, Check, Search, Trash2 } from 'lucide-react';
+import { Box, Check, Search, Trash2, RotateCw } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import {
   Select,
@@ -32,7 +31,11 @@ const RegistrationRequests = () => {
   const [currentRequestPage, setCurrentRequestPage] = useState(1);
   const requestsPerPage = 15;
 
-  const { data: registrationRequests = [], isLoading: loadingRequests, refetch: refetchRequests } = useQuery({
+  const { 
+    data: registrationRequests = [], 
+    isLoading: loadingRequests, 
+    refetch: refetchRequests 
+  } = useQuery({
     queryKey: ['registrationRequests'],
     queryFn: fetchRegistrationRequests,
   });
@@ -146,7 +149,25 @@ const RegistrationRequests = () => {
     <div className="p-6 mt-16">
       <Card className="mb-8 border-[#d175a1]/20">
         <div className="p-6">
-          <h3 className="text-xl font-semibold mb-4 text-[#000000]">Demandes d'inscription en attente</h3>
+          <div className="flex justify-between items-center mb-4">
+            <h3 className="text-xl font-semibold text-[#000000]">Demandes d'inscription en attente</h3>
+            <Button 
+              variant="outline"
+              onClick={() => {
+                refetchRequests();
+                toast({
+                  title: "Actualisation",
+                  description: "Les demandes sont en cours d'actualisation",
+                  className: "bg-[#2a98cb] text-white font-medium border-none",
+                });
+              }}
+              className="gap-2"
+              disabled={loadingRequests}
+            >
+              <RotateCw className={`h-4 w-4 ${loadingRequests ? 'animate-spin' : ''}`} />
+              Actualiser
+            </Button>
+          </div>
           <div className="space-y-4 mb-4">
             <div className="flex gap-4">
               <div className="flex-1">
