@@ -118,7 +118,7 @@ const Clients: React.FC<ClientsProps> = ({ user }) => {
       ? true
       : selectedFormations.some(selectedSeason => 
           userSeasonsList.some(userSeason => userSeason.id_saison === selectedSeason)
-        );
+      );
 
     const matchesAllocation = userFilterAllocation === 'all'
       ? true
