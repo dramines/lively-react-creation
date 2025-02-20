@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Card } from '@/components/ui/card';
@@ -5,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Check, Pause, Box, Trash2, Search, ChevronDown, RotateCw } from 'lucide-react';
 import { Input } from '@/components/ui/input';
-import { Skeleton } from "@/components/ui/skeleton";
+import { RequestSkeletonRow } from "./components/RequestSkeletonRow";
 import {
   Select,
   SelectContent,
@@ -414,7 +415,7 @@ const Clients: React.FC<ClientsProps> = ({ user }) => {
             <tbody>
               {usersLoading ? (
                 Array(5).fill(null).map((_, index) => (
-                  <SkeletonRow key={index} />
+                  <RequestSkeletonRow key={index} />
                 ))
               ) : (
                 paginatedUsers.map((userData) => (
