@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Check, Pause, Box, Trash2, Search, ChevronDown, RotateCw } from 'lucide-react';
 import { Input } from '@/components/ui/input';
-import { Skeleton } from "@/components/ui/skeleton";
+import { SkeletonRow } from "@/components/SkeletonRow";
 import {
   Select,
   SelectContent,
@@ -14,29 +14,26 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import {
-  Pagination,
-  PaginationContent,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from "@/components/ui/pagination";
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { toast } from "@/components/ui/use-toast";
 import Modal from './Modal';
 import AllowerModal from './AllowerModal';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { fetchUsers } from '../api/users';
 import { Checkbox } from "@/components/ui/checkbox";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
 import VirtualizedTable from '@/components/VirtualizedTable';
+import { 
+  ClientsProps, 
+  UserData, 
+  APISeasonResponse, 
+  APIUserSeasonsResponse 
+} from '@/types/users';
 
 const Clients: React.FC<ClientsProps> = ({ user }) => {
   const queryClient = useQueryClient();
-  const itemsPerPage = 10;
   const [alertMessage, setAlertMessage] = useState('');
   const [showAlert, setShowAlert] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -61,8 +58,8 @@ const Clients: React.FC<ClientsProps> = ({ user }) => {
   const { data: users = [], isLoading: usersLoading, refetch: refetchUsers } = useQuery({
     queryKey: ['users'],
     queryFn: fetchUsers,
-    staleTime: 1000 * 60 * 5, // 5 minutes
-    gcTime: 1000 * 60 * 30, // 30 minutes
+    staleTime: 1000 * 60 * 5,
+    gcTime: 1000 * 60 * 30,
   });
 
   useEffect(() => {
@@ -127,9 +124,9 @@ const Clients: React.FC<ClientsProps> = ({ user }) => {
     });
   }, [users, userSearchTerm, userFilterStatus, selectedFormations, userFilterAllocation]);
 
-  const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const paginatedUsers = filteredUsers.slice(startIndex, startIndex + itemsPerPage);
+  const totalPages = Math.ceil(filteredUsers.length / 10);
+  const startIndex = (currentPage - 1) * 10;
+  const paginatedUsers = filteredUsers.slice(startIndex, startIndex + 10);
 
   const handleDelete = async (id_client: string) => {
     setIsModalOpen(false);
@@ -401,7 +398,7 @@ const Clients: React.FC<ClientsProps> = ({ user }) => {
 
       <Card className="overflow-hidden">
         {usersLoading ? (
-          <div className="p-6">
+          <div className="p-6 space-y-4">
             {Array(5).fill(null).map((_, index) => (
               <SkeletonRow key={index} />
             ))}

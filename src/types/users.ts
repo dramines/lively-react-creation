@@ -1,4 +1,6 @@
 
+import { User, SaisonPermission, Saison, UserData, RegistrationRequest, SaisonData } from './users';
+
 export interface User {
   id_client: string;
   nom_client: string;
@@ -25,6 +27,28 @@ export interface UserData {
   saison_objects: Saison[];
 }
 
+export interface ClientsProps {
+  user: {
+    email: string;
+  };
+}
+
+export interface APISeasonResponse {
+  success: boolean;
+  saisons: Array<{
+    id_saison: string;
+    name_saison: string;
+  }>;
+}
+
+export interface APIUserSeasonsResponse {
+  success: boolean;
+  seasons: Array<{
+    id_client: string;
+    id_saison: string;
+  }>;
+}
+
 export interface RegistrationRequest {
   id: string;
   id_user: string;
@@ -45,4 +69,3 @@ export interface SaisonData {
   about_link: string;
   photo_saison: string;
 }
-
