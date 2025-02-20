@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Check, Pause, Box, Trash2, Search, ChevronDown, RotateCw } from 'lucide-react';
 import { Input } from '@/components/ui/input';
-import { SkeletonRow } from "@/components/SkeletonRow";
+import { Skeleton } from "@/components/ui/skeleton";
 import {
   Select,
   SelectContent,
@@ -14,27 +14,28 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
 import { toast } from "@/components/ui/use-toast";
 import Modal from './Modal';
 import AllowerModal from './AllowerModal';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { fetchUsers } from '../api/users';
 import { Checkbox } from "@/components/ui/checkbox";
-import VirtualizedTable from '@/components/VirtualizedTable';
-import { 
-  ClientsProps, 
-  UserData, 
-  APISeasonResponse, 
-  APIUserSeasonsResponse 
-} from '@/types/users';
-import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
 const Clients: React.FC<ClientsProps> = ({ user }) => {
   const queryClient = useQueryClient();
+  const itemsPerPage = 10;
   const [alertMessage, setAlertMessage] = useState('');
   const [showAlert, setShowAlert] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -59,8 +60,8 @@ const Clients: React.FC<ClientsProps> = ({ user }) => {
   const { data: users = [], isLoading: usersLoading, refetch: refetchUsers } = useQuery({
     queryKey: ['users'],
     queryFn: fetchUsers,
-    staleTime: 1000 * 60 * 5,
-    gcTime: 1000 * 60 * 30,
+    staleTime: 1000 * 60 * 5, // 5 minutes
+    gcTime: 1000 * 60 * 30, // 30 minutes
   });
 
   useEffect(() => {
@@ -97,37 +98,35 @@ const Clients: React.FC<ClientsProps> = ({ user }) => {
     return userSeasons.filter(season => season.id_client === userId);
   };
 
-  const filteredUsers = React.useMemo(() => {
-    return users.filter((userData: UserData) => {
-      const matchesSearch = Object.values(userData.user).some(value =>
-        String(value).toLowerCase().includes(userSearchTerm.toLowerCase())
-      );
-      
-      const matchesStatus = userFilterStatus === 'all' 
-        ? true 
-        : userData.user.status_client === (userFilterStatus === 'active' ? '1' : '0');
+  const filteredUsers = users.filter((userData: UserData) => {
+    const matchesSearch = Object.values(userData.user).some(value =>
+      String(value).toLowerCase().includes(userSearchTerm.toLowerCase())
+    );
+    
+    const matchesStatus = userFilterStatus === 'all' 
+      ? true 
+      : userData.user.status_client === (userFilterStatus === 'active' ? '1' : '0');
 
-      const userSeasonsList = getUserSeasons(userData.user.id_client);
-      
-      const matchesSeason = selectedFormations.length === 0
-        ? true
-        : selectedFormations.some(selectedSeason => 
-            userSeasonsList.some(userSeason => userSeason.id_saison === selectedSeason)
-          );
+    const userSeasonsList = getUserSeasons(userData.user.id_client);
+    
+    const matchesSeason = selectedFormations.length === 0
+      ? true
+      : selectedFormations.some(selectedSeason => 
+          userSeasonsList.some(userSeason => userSeason.id_saison === selectedSeason)
+        );
 
-      const matchesAllocation = userFilterAllocation === 'all'
-        ? true
-        : userFilterAllocation === 'with-seasons'
-        ? userSeasonsList.length > 0
-        : userSeasonsList.length === 0;
+    const matchesAllocation = userFilterAllocation === 'all'
+      ? true
+      : userFilterAllocation === 'with-seasons'
+      ? userSeasonsList.length > 0
+      : userSeasonsList.length === 0;
 
-      return matchesSearch && matchesStatus && matchesSeason && matchesAllocation;
-    });
-  }, [users, userSearchTerm, userFilterStatus, selectedFormations, userFilterAllocation]);
+    return matchesSearch && matchesStatus && matchesSeason && matchesAllocation;
+  });
 
-  const totalPages = Math.ceil(filteredUsers.length / 10);
-  const startIndex = (currentPage - 1) * 10;
-  const paginatedUsers = filteredUsers.slice(startIndex, startIndex + 10);
+  const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const paginatedUsers = filteredUsers.slice(startIndex, startIndex + itemsPerPage);
 
   const handleDelete = async (id_client: string) => {
     setIsModalOpen(false);
@@ -398,21 +397,90 @@ const Clients: React.FC<ClientsProps> = ({ user }) => {
       )}
 
       <Card className="overflow-hidden">
-        {usersLoading ? (
-          <div className="p-6 space-y-4">
-            {Array(5).fill(null).map((_, index) => (
-              <SkeletonRow key={index} />
-            ))}
-          </div>
-        ) : (
-          <VirtualizedTable
-            data={filteredUsers}
-            onActivate={(id, email) => confirmAction(id, email, 'activate')}
-            onDeactivate={(id) => confirmAction(id, '', 'deactivate')}
-            onDelete={(id) => confirmAction(id, '', 'delete')}
-            onAlloc={(id) => openAllowerModal(id)}
-          />
-        )}
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="border-b bg-gray-50">
+                <th className="px-6 py-4 text-left font-medium text-gray-500">ID</th>
+                <th className="px-6 py-4 text-left font-medium text-gray-500">Nom</th>
+                <th className="px-6 py-4 text-left font-medium text-gray-500">Prénom</th>
+                <th className="px-6 py-4 text-left font-medium text-gray-500">Email</th>
+                <th className="px-6 py-4 text-left font-medium text-gray-500">Téléphone</th>
+                <th className="px-6 py-4 text-left font-medium text-gray-500">Date de création</th>
+                <th className="px-6 py-4 text-left font-medium text-gray-500">Statut</th>
+                <th className="px-6 py-4 text-left font-medium text-gray-500">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {usersLoading ? (
+                Array(5).fill(null).map((_, index) => (
+                  <SkeletonRow key={index} />
+                ))
+              ) : (
+                paginatedUsers.map((userData) => (
+                  <tr key={userData.user.id_client} className="border-b hover:bg-gray-50">
+                    <td className="px-6 py-4">{userData.user.id_client}</td>
+                    <td className="px-6 py-4">{userData.user.nom_client}</td>
+                    <td className="px-6 py-4">{userData.user.prenom_client}</td>
+                    <td className="px-6 py-4">{userData.user.email_client}</td>
+                    <td className="px-6 py-4">{userData.user.telephone_client}</td>
+                    <td className="px-6 py-4">{new Date(userData.user.createdat_client).toLocaleDateString()}</td>
+                    <td className="px-6 py-4">
+                      <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                        userData.user.status_client === '1' 
+                          ? 'bg-green-100 text-green-800'
+                          : 'bg-red-100 text-red-800'
+                      }`}>
+                        {userData.user.status_client === '1' ? "Actif" : "Inactif"}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4">
+                      <div className="flex gap-2">
+                        {userData.user.status_client === '0' && (
+                          <Button
+                            size="sm"
+                            onClick={() => confirmAction(userData.user.id_client, userData.user.email_client, 'activate')}
+                            className="bg-green-500 hover:bg-green-600"
+                          >
+                            <Check className="h-4 w-4 mr-1" />
+                            Activer
+                          </Button>
+                        )}
+                        {userData.user.status_client === '1' && (
+                          <>
+                            <Button
+                              size="sm"
+                              variant="destructive"
+                              onClick={() => confirmAction(userData.user.id_client, userData.user.email_client, 'deactivate')}
+                            >
+                              <Pause className="h-4 w-4 mr-1" />
+                              Désactiver
+                            </Button>
+                            <Button
+                              size="sm"
+                              onClick={() => openAllowerModal(userData.user.id_client)}
+                            >
+                              <Box className="h-4 w-4 mr-1" />
+                              Allouer
+                            </Button>
+                          </>
+                        )}
+                        <Button
+                          size="sm"
+                          variant="destructive"
+                          onClick={() => confirmAction(userData.user.id_client, userData.user.email_client, 'delete')}
+                        >
+                          <Trash2 className="h-4 w-4 mr-1" />
+                          Supprimer
+                        </Button>
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
       </Card>
 
       {totalPages > 1 && (

@@ -8,7 +8,7 @@ interface Video {
   videoUrl: string;
   thumbnail: string;
   seasonId?: string;
-  seasonName?: string;
+  chapterId?: string;
 }
 
 interface VideoCardProps {
