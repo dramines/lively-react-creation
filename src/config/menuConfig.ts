@@ -54,19 +54,19 @@ export const menuItems: MenuItem[] = [
         title: "Vestes de Boulanger",
         description: "Tenues adaptées à la boulangerie",
         image: "/VetementDeBoulanger&patissier/VesteDeBoulanger.jpg",
-        path: "/vetements-cuisine/vestes-boulanger"
+        path: "/vetements-boulanger/vestes"
       },
       {
         title: "Tabliers Pro",
         description: "Protection maximale pour pâtissiers",
         image: "/VetementDeBoulanger&patissier/TablierDeBoucher.jpg",
-        path: "/vetements-cuisine/tabliers-patissier"
+        path: "/vetements-boulanger/tabliers"
       },
       {
         title: "Vestes Pro Boucher",
         description: "Confort et hygiène pour la boucherie",
         image: "/VetementDeBoulanger&patissier/VesteProBoucher.jpg",
-        path: "/vetements-cuisine/vestes-boucher"
+        path: "/vetements-boulanger/vestes-boucher"
       }
     ]
   },
