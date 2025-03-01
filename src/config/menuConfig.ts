@@ -137,6 +137,39 @@ export const menuItems: MenuItem[] = [
     ]
   },
   {
+    title: "Nos packs",
+    image: "/Packs/PacksBanner.jpg",
+    path: "/nos-packs",
+    topText: "Nos",
+    bottomText: "packs",
+    subItems: [
+      {
+        title: "Pack Restaurant",
+        description: "Solution complète pour restaurant",
+        image: "/Packs/PackRestaurant.jpg",
+        path: "/nos-packs/restaurant"
+      },
+      {
+        title: "Pack Café",
+        description: "Équipement pour café et brasserie",
+        image: "/Packs/PackCafe.jpg",
+        path: "/nos-packs/cafe"
+      },
+      {
+        title: "Pack Hôtel",
+        description: "Tout pour votre établissement hôtelier",
+        image: "/Packs/PackHotel.jpg",
+        path: "/nos-packs/hotel"
+      },
+      {
+        title: "Pack Médecin",
+        description: "Équipement complet pour professionnels de santé",
+        image: "/Packs/PackMedecin.jpg",
+        path: "/nos-packs/medecin"
+      }
+    ]
+  },
+  {
     title: "Produits Marketing",
     image: "/ProduitsMarketing/ProduitMarketingBanner.jpg",
     path: "/produits-marketing",
