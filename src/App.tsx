@@ -12,6 +12,8 @@ import DesignSummary from './pages/DesignSummary';
 import Favorites from './pages/Favorites';
 import CategoryPage from './components/categories/CategoryPage';
 import ProductDetail from './pages/ProductDetail';
+import NosPacks from './pages/NosPacks';
+import PackDetail from './pages/packs/PackDetail';
 
 function App() {
   return (
@@ -26,6 +28,10 @@ function App() {
         <Route path="/design-validation" element={<DesignValidation />} />
         <Route path="/design-summary" element={<DesignSummary />} />
         <Route path="/favorites" element={<Favorites />} />
+        
+        {/* Packs Routes */}
+        <Route path="/nos-packs" element={<NosPacks />} />
+        <Route path="/nos-packs/:packId" element={<PackDetail />} />
         
         {/* Category Routes - All using the same template */}
         <Route path="/vetements-cuisine/*" element={<CategoryPage />} />
