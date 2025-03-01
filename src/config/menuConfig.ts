@@ -40,33 +40,24 @@ export const menuItems: MenuItem[] = [
         description: "Confort et durabilité garantis",
         image: "/VetementDeCuisine/PontalonDeChef.jpg",
         path: "/vetements-cuisine/pantalons"
-      }
-    ]
-  },
-  {
-    title: "Vêtements Boulanger & Pâtissier",
-    image: "/VetementDeBoulanger&patissier/VetementTheBoulangerPattisierBanner.jpg",
-    path: "/vetements-boulanger",
-    topText: "Vêtements",
-    bottomText: "Boulanger & Pâtissier",
-    subItems: [
+      },
       {
         title: "Vestes de Boulanger",
         description: "Tenues adaptées à la boulangerie",
         image: "/VetementDeBoulanger&patissier/VesteDeBoulanger.jpg",
-        path: "/vetements-boulanger/vestes"
+        path: "/vetements-cuisine/vestes-boulanger"
       },
       {
         title: "Tabliers Pro",
         description: "Protection maximale pour pâtissiers",
         image: "/VetementDeBoulanger&patissier/TablierDeBoucher.jpg",
-        path: "/vetements-boulanger/tabliers"
+        path: "/vetements-cuisine/tabliers-pro"
       },
       {
         title: "Vestes Pro Boucher",
         description: "Confort et hygiène pour la boucherie",
         image: "/VetementDeBoulanger&patissier/VesteProBoucher.jpg",
-        path: "/vetements-boulanger/vestes-boucher"
+        path: "/vetements-cuisine/vestes-boucher"
       }
     ]
   },
