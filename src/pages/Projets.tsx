@@ -1,10 +1,10 @@
-
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Plus } from 'lucide-react';
 
 const Projets = () => {
-  const [projects, setProjects] = useState([]);
+  // Remove the unused variables or use them if needed
+  // const [projects, setProjects] = useState<Project[]>([]);
   
   return (
     <div className="space-y-6">

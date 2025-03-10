@@ -1,12 +1,12 @@
 
-import { fetchData, createData, updateData } from '../utils/api';
+import { fetchData, createData, updateData, deleteData } from '../utils/api';
 import { AuthService } from './auth.service';
 import { toast } from 'react-hot-toast';
-import { Transaction } from '../types';
+import { Transaction as TransactionType } from '../types';
 
 const ENDPOINT = '/transactions';
 
-// Create a local Transaction type that matches the backend API
+// Create a local Transaction interface to match the backend API
 export interface Transaction {
   id?: string;
   date: string;

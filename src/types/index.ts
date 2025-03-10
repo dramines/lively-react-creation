@@ -17,6 +17,7 @@ export interface Tache {
   priorite: 'basse' | 'moyenne' | 'haute';
   statut: 'à_faire' | 'en_cours' | 'terminé';
   assignéÀ: string;
+  assigned_to?: string; // Add the assigned_to field for API compatibility
   dateEchéance: string;
   user_id: string;
 }
@@ -28,7 +29,7 @@ export interface Evenement {
   description: string;
   date: string;
   lieu: string;
-  statut: string;
+  statut: 'planifié' | 'en_cours' | 'terminé';
   artistes: string[];
   user_id: string;
   created_at: string;
@@ -103,18 +104,27 @@ export interface Invoice {
   notes: string;
   created_at: string;
   user_id: string;
+  
+  // Additional fields for frontend display
+  numeroFacture?: string;
+  dateFacture?: string;
+  dateEcheance?: string;
+  clientName?: string;
+  montantHT?: number;
+  montantTVA?: number;
+  total?: number;
 }
 
-// Transaction type
+// Transaction type for types file - updating to match service definition
 export interface Transaction {
   id: string;
   date: string;
-  artist_supplier: string;
   description: string;
   amount: number;
   category: string;
   status: 'payé' | 'en_attente' | 'annulé';
   type: 'dépense' | 'revenu';
+  artist_supplier?: string;
   user_id?: string;
 }
 

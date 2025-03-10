@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { MapPin, Calendar as CalendarIcon, Users, DollarSign, Plus, Upload, Image as ImageIcon, X, Edit, Trash } from 'lucide-react';
+import { MapPin, Calendar as CalendarIcon, Users, DollarSign, Plus, Upload, X, Edit, Trash } from 'lucide-react';
 import Calendar from '../components/Calendar/Calendar';
 import Modal from '../components/Modal';
 import { Evenement } from '../types';
 import { getFromLocalStorage, saveToLocalStorage } from '../utils/localStorage';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { AuthService } from '../services/auth.service';
 
-const EventCard = ({ evenement, onEdit, onDelete }: { evenement: Evenement; onEdit: (event: Evenement) => void; onDelete: (id: string) => void }) => {
-  const statusColors = {
+const EventCard = ({ evenement, onEdit, onDelete }: { 
+  evenement: Evenement; 
+  onEdit: (event: Evenement) => void; 
+  onDelete: (id: string) => void 
+}) => {
+  const statusColors: Record<string, string> = {
     planifié: 'bg-blue-500',
     en_cours: 'bg-yellow-500',
     terminé: 'bg-green-500'
@@ -41,13 +46,13 @@ const EventCard = ({ evenement, onEdit, onDelete }: { evenement: Evenement; onEd
                 </div>
                 <div className="flex items-center gap-2 text-gray-400">
                   <DollarSign className="h-4 w-4" />
-                  <span>{evenement.budget.toLocaleString('fr-FR')} €</span>
+                  <span>{(evenement.budget || 0).toLocaleString('fr-FR')} €</span>
                 </div>
               </div>
               <p className="mt-2 text-gray-400">{evenement.description}</p>
             </div>
             <div className="flex flex-col items-end gap-2">
-              <span className={`px-3 py-1 rounded-full text-xs font-semibold ${statusColors[evenement.statut]} text-white`}>
+              <span className={`px-3 py-1 rounded-full text-xs font-semibold ${statusColors[evenement.statut as keyof typeof statusColors] || 'bg-gray-500'} text-white`}>
                 {evenement.statut.toUpperCase()}
               </span>
               <div className="flex gap-2">
@@ -106,6 +111,7 @@ const Evenements = () => {
     artistes: [] as string[]
   });
   const [previewImage, setPreviewImage] = useState<string | null>(null);
+  const currentUser = AuthService.getCurrentUser();
 
   useEffect(() => {
     const storedEvents = getFromLocalStorage<Evenement[]>('evenements', []);
@@ -136,8 +142,9 @@ const Evenements = () => {
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setPreviewImage(reader.result as string);
-        setNewEvent({ ...newEvent, photo: reader.result as string });
+        const result = reader.result as string;
+        setPreviewImage(result);
+        setNewEvent({ ...newEvent, photo: result });
       };
       reader.readAsDataURL(file);
     }
@@ -152,7 +159,7 @@ const Evenements = () => {
       date: newEvent.date,
       lieu: newEvent.lieu,
       budget: parseFloat(newEvent.budget) || 0,
-      statut: 'planifié',
+      statut: 'planifié' as 'planifié' | 'en_cours' | 'terminé',
       artistes: newEvent.artistes.length > 0 ? newEvent.artistes : ['Artiste non spécifié'],
       photo: previewImage || 'https://images.unsplash.com/photo-1501386761578-eac5c94b800a?w=800',
       description: newEvent.description,
@@ -163,7 +170,10 @@ const Evenements = () => {
       pays: newEvent.pays,
       ville: newEvent.ville,
       latitude: parseFloat(newEvent.latitude) || 0,
-      longitude: parseFloat(newEvent.longitude) || 0
+      longitude: parseFloat(newEvent.longitude) || 0,
+      user_id: currentUser?.id || '',
+      created_at: editingEvent?.created_at || new Date().toISOString(),
+      updated_at: new Date().toISOString()
     };
 
     if (editingEvent) {
@@ -186,7 +196,7 @@ const Evenements = () => {
       titre: event.titre,
       description: event.description || '',
       date: event.date,
-      budget: event.budget.toString(),
+      budget: event.budget?.toString() || '0',
       placesDisponibles: event.placesDisponibles?.toString() || '',
       lieu: event.lieu,
       pays: event.pays || '',
@@ -199,7 +209,9 @@ const Evenements = () => {
       photo: event.photo || '',
       artistes: event.artistes
     });
-    setPreviewImage(event.photo);
+    if (event.photo) {
+      setPreviewImage(event.photo);
+    }
     setIsModalOpen(true);
   };
 
