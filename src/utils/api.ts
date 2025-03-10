@@ -1,3 +1,4 @@
+
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
 
@@ -41,8 +42,8 @@ const getUserForRequest = () => {
   return userStr ? JSON.parse(userStr) : null;
 };
 
-// This function handles API fetch requests
-export const fetchData = async (endpoint: string, params: Record<string, any> = {}) => {
+// Generic GET function
+export const fetchData = async (endpoint: string, params = {}) => {
   try {
     const user = getUserForRequest();
     let requestParams = { ...params };

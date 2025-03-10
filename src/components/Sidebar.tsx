@@ -1,4 +1,4 @@
-
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { 
   Home, 
@@ -120,7 +120,7 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
           <div className="p-4 border-t border-gray-700/50">
             <div className="text-center text-sm text-gray-400">
               <p>Version 1.0.0</p>
-              <p className="mt-1">D��veloppé par <a href="https://github.com/ihebchebbi1" target="_blank" rel="noopener noreferrer" className="text-gold-400 hover:text-gold-300 transition-colors">Iheb Chebbi</a></p>
+              <p className="mt-1">Développé par <a href="https://github.com/ihebchebbi1" target="_blank" rel="noopener noreferrer" className="text-gold-400 hover:text-gold-300 transition-colors">Iheb Chebbi</a></p>
             </div>
           </div>
         </div>

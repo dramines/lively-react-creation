@@ -13,7 +13,7 @@ const mapToDbFields = (task: Partial<Tache>) => {
     status: mapStatusToDb(task.statut),
     due_date: task.dateEchéance,
     priority: mapPriorityToDb(task.priorite),
-    assigned_to: task.assigned_to || '', // Use the assigned_to field
+    assigned_to: task.assigned_to, // The user ID for assignment
     user_id: task.user_id
   };
 };
