@@ -9,3 +9,4 @@ export * from './passwords.service';
 export * from './invoices.service';
 export * from './transactions.service';
 export * from './projects.service';
+export * from './project-tasks.service';

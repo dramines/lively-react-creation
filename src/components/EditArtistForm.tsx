@@ -1,22 +1,24 @@
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ArtistsService } from '../services';
 import { toast } from 'react-hot-toast';
 
-interface NewArtistFormProps {
+interface EditArtistFormProps {
+  artist: any;
   onSuccess: (artist: any) => void;
   onCancel: () => void;
 }
 
-const NewArtistForm = ({ onSuccess, onCancel }: NewArtistFormProps) => {
+const EditArtistForm = ({ artist, onSuccess, onCancel }: EditArtistFormProps) => {
   const [formData, setFormData] = useState({
+    id: '',
     name: '',
     genre: '',
     email: '',
     phone: '',
     address: '',
     bio: '',
-    photo: 'https://via.placeholder.com/150',
+    photo: '',
     social: {
       instagram: '',
       facebook: '',
@@ -25,6 +27,27 @@ const NewArtistForm = ({ onSuccess, onCancel }: NewArtistFormProps) => {
     }
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    if (artist) {
+      setFormData({
+        id: artist.id,
+        name: artist.nom || artist.name || '',
+        genre: artist.genre || '',
+        email: artist.email || '',
+        phone: artist.telephone || artist.phone || '',
+        address: artist.adresse || artist.address || '',
+        bio: artist.bio || '',
+        photo: artist.photo || 'https://via.placeholder.com/150',
+        social: artist.social || {
+          instagram: '',
+          facebook: '',
+          twitter: '',
+          youtube: ''
+        }
+      });
+    }
+  }, [artist]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -54,19 +77,20 @@ const NewArtistForm = ({ onSuccess, onCancel }: NewArtistFormProps) => {
         return;
       }
       
-      console.log('Submitting artist data:', formData);
-      const result = await ArtistsService.createArtist(formData);
-      console.log('Artist created:', result);
+      console.log('Updating artist data:', formData);
+      const result = await ArtistsService.updateArtist(formData);
+      console.log('Artist updated:', result);
       
-      if (result && result.id) {
-        onSuccess(result);
-        toast.success('Artiste créé avec succès');
-      } else {
-        toast.error('Erreur lors de la création de l\'artiste');
-      }
+      onSuccess({
+        ...formData,
+        nom: formData.name,
+        telephone: formData.phone,
+        adresse: formData.address
+      });
+      toast.success('Artiste mis à jour avec succès');
     } catch (error) {
-      console.error('Error creating artist:', error);
-      toast.error('Erreur lors de la création de l\'artiste');
+      console.error('Error updating artist:', error);
+      toast.error('Erreur lors de la mise à jour de l\'artiste');
     } finally {
       setIsSubmitting(false);
     }
@@ -245,11 +269,11 @@ const NewArtistForm = ({ onSuccess, onCancel }: NewArtistFormProps) => {
           {isSubmitting && (
             <div className="w-4 h-4 border-2 border-gray-300 border-t-white rounded-full animate-spin"></div>
           )}
-          Créer l'artiste
+          Mettre à jour
         </button>
       </div>
     </form>
   );
 };
 
-export default NewArtistForm;
+export default EditArtistForm;

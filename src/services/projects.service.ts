@@ -1,27 +1,39 @@
 
-import { fetchData, createData, updateData, deleteData } from '../utils/api';
+import { fetchData, createData, updateData } from '../utils/api';
 import { AuthService } from './auth.service';
 import { toast } from 'react-hot-toast';
-import { Project } from '../types';
 
 const ENDPOINT = '/projects';
 
+export interface Project {
+  id: string;
+  name: string;
+  description: string;
+  status: string;
+  start_date: string;
+  end_date?: string;
+  budget: number;
+  artist_id: string;
+  artist_name?: string;
+  user_id?: string;
+  created_at?: string;
+  updated_at?: string;
+  tasks?: any[];
+}
+
 export const ProjectsService = {
-  getAllProjects: async () => {
+  getAllProjects: async (artistId?: string) => {
     const currentUser = AuthService.getCurrentUser();
     const userId = currentUser?.id;
-    const params = userId ? { user_id: userId } : {};
+    const params: any = userId ? { user_id: userId } : {};
+    
+    if (artistId) {
+      params.artist_id = artistId;
+    }
     
     try {
       const response = await fetchData(`${ENDPOINT}/read.php`, params);
-      console.log('API response for projects:', response);
-      
-      if (!response) {
-        console.error('Empty response from projects API');
-        return [];
-      }
-      
-      if (!Array.isArray(response)) {
+      if (!response || !Array.isArray(response)) {
         console.error('Invalid response format from projects API:', response);
         return [];
       }
@@ -40,19 +52,11 @@ export const ProjectsService = {
     const params = { id, ...(userId ? { user_id: userId } : {}) };
     
     try {
-      const response = await fetchData(`${ENDPOINT}/read_one.php`, params);
-      
-      if (!response || response.message === "Project not found.") {
-        console.error(`Project with ID ${id} not found`);
-        toast.error('Project not found');
-        return null;
-      }
-      
-      return response;
+      return await fetchData(`${ENDPOINT}/read_one.php`, params);
     } catch (error) {
       console.error(`Error fetching project ${id}:`, error);
       toast.error('Failed to load project details');
-      return null;
+      throw error;
     }
   },
 
@@ -66,16 +70,8 @@ export const ProjectsService = {
     }
     
     try {
-      console.log('Creating project with data:', { ...projectData, user_id: userId });
       const data = { ...projectData, user_id: userId };
       const response = await createData(`${ENDPOINT}/create.php`, data);
-      
-      if (!response || !response.id) {
-        console.error('Invalid response from project creation:', response);
-        toast.error('Failed to create project');
-        throw new Error('Invalid server response');
-      }
-      
       toast.success('Project created successfully');
       return response;
     } catch (error) {
@@ -95,16 +91,8 @@ export const ProjectsService = {
     }
     
     try {
-      console.log('Updating project with data:', { ...projectData, user_id: userId });
       const data = { ...projectData, user_id: userId };
       const response = await updateData(`${ENDPOINT}/update.php`, data);
-      
-      if (!response) {
-        console.error('Invalid response from project update:', response);
-        toast.error('Failed to update project');
-        throw new Error('Invalid server response');
-      }
-      
       toast.success('Project updated successfully');
       return response;
     } catch (error) {
@@ -124,15 +112,8 @@ export const ProjectsService = {
     }
     
     try {
-      console.log('Deleting project:', { id, user_id: userId });
-      const response = await deleteData(`${ENDPOINT}/delete.php`, id);
-      
-      if (!response) {
-        console.error('Invalid response from project deletion:', response);
-        toast.error('Failed to delete project');
-        throw new Error('Invalid server response');
-      }
-      
+      const data = { id, user_id: userId };
+      const response = await createData(`${ENDPOINT}/delete.php`, data);
       toast.success('Project deleted successfully');
       return response;
     } catch (error) {

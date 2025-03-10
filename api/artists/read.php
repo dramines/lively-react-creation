@@ -7,11 +7,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $db = $database->getConnection();
     
     try {
-        $query = "SELECT * FROM artists";
+        $query = "SELECT a.*, 
+                 (SELECT COUNT(*) FROM artist_events WHERE artist_id = a.id) as events_count 
+                 FROM artists a";
+                 
         if (isset($_GET['user_id'])) {
-            $query .= " WHERE user_id = :user_id";
+            $query .= " WHERE a.user_id = :user_id";
         }
-        $query .= " ORDER BY name ASC";
+        $query .= " ORDER BY a.name ASC";
         
         $stmt = $db->prepare($query);
         
@@ -22,6 +25,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $stmt->execute();
         
         $artists = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        // Format social media data
+        foreach($artists as &$artist) {
+            if(isset($artist['social']) && !empty($artist['social'])) {
+                $artist['social'] = json_decode($artist['social']);
+            } else {
+                $artist['social'] = [
+                    "instagram" => "",
+                    "facebook" => "",
+                    "twitter" => "",
+                    "youtube" => ""
+                ];
+            }
+        }
         
         http_response_code(200);
         echo json_encode($artists);

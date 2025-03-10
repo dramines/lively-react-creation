@@ -11,11 +11,14 @@ export interface Artist {
   genre?: string;
   email?: string;
   phone?: string;
+  address?: string;
+  bio?: string;
+  photo?: string;
+  rehearsal_hours?: number;
+  total_revenue?: number;
   user_id?: string;
   created_at?: string;
   updated_at?: string;
-  photo?: string;
-  bio?: string;
   social?: {
     instagram?: string;
     facebook?: string;
@@ -77,8 +80,10 @@ export const ArtistsService = {
         photo: response.photo || 'https://via.placeholder.com/150',
         bio: response.bio || '',
         social: response.social || { instagram: '', facebook: '', twitter: '', youtube: '' },
-        evenementsPassés: 0,
-        adresse: '',
+        evenementsPassés: response.events_count || 0,
+        adresse: response.address || '',
+        rehearsal_hours: response.rehearsal_hours || 0,
+        total_revenue: response.total_revenue || 0,
         user_id: response.user_id
       };
       
@@ -176,6 +181,33 @@ export const ArtistsService = {
     } catch (error) {
       console.error('Error deleting artist:', error);
       toast.error('Failed to delete artist');
+      throw error;
+    }
+  },
+
+  updateRehearsalHours: async (artistId: string, hours: number) => {
+    const currentUser = AuthService.getCurrentUser();
+    const userId = currentUser?.id;
+    
+    if (!userId) {
+      toast.error('You must be logged in to update rehearsal hours');
+      throw new Error('Authentication required');
+    }
+    
+    try {
+      const data = { id: artistId, rehearsal_hours: hours, user_id: userId };
+      const response = await updateData(`${ENDPOINT}/update_rehearsal.php`, data);
+      
+      if (!response) {
+        toast.error('Failed to update rehearsal hours');
+        throw new Error('Invalid server response');
+      }
+      
+      toast.success('Rehearsal hours updated successfully');
+      return response;
+    } catch (error) {
+      console.error('Error updating rehearsal hours:', error);
+      toast.error('Failed to update rehearsal hours');
       throw error;
     }
   }
