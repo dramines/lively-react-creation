@@ -39,6 +39,7 @@ const NewArtistForm = ({ onSuccess, onCancel }: NewArtistFormProps) => {
       
       if (result && result.id) {
         onSuccess(result);
+        toast.success('Artiste créé avec succès');
       } else {
         toast.error('Erreur lors de la création de l\'artiste');
       }
