@@ -16,9 +16,10 @@ import {
 import { FilesService } from '../services/files.service';
 import { InvoicesService } from '../services';
 import Modal from '../components/Modal';
-import { PDFDownloadLink } from '@react-pdf/renderer';
 import InvoicePDF from '../components/InvoicePDF';
+import PDFDownloadButton from '../components/PDFDownloadButton';
 import { toast } from 'react-hot-toast';
+import { Invoice } from '../types';
 
 interface FileType {
   id: string;
@@ -27,7 +28,7 @@ interface FileType {
   size: string;
   date: string;
   url?: string;
-  content?: any; // For devis content
+  content?: Invoice; // For devis content
 }
 
 const FileManager = () => {
@@ -40,28 +41,23 @@ const FileManager = () => {
   const [isViewModalOpen, setIsViewModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Load files and invoices from API
   useEffect(() => {
     const loadData = async () => {
       setIsLoading(true);
       try {
-        // Load files from API
         const apiFiles = await FilesService.getAllFiles();
         
-        // Load invoices from API
         const invoices = await InvoicesService.getAllInvoices();
         
-        // Convert invoices to file format
         const invoiceFiles = invoices.map(invoice => ({
           id: invoice.id || '',
           name: `Devis ${invoice.numeroFacture}`,
           type: 'devis' as const,
           size: '1 MB',
-          date: invoice.dateFacture,
+          date: invoice.dateFacture || '',
           content: invoice
         }));
 
-        // Combine API files with invoice files
         const allFiles = [...apiFiles, ...invoiceFiles];
         setFiles(allFiles);
       } catch (error) {
@@ -83,7 +79,6 @@ const FileManager = () => {
       try {
         const newFile = await FilesService.uploadFile(uploadedFile);
         
-        // Make sure the new file has the correct type
         const fileWithCorrectType = {
           ...newFile,
           type: newFile.type as 'pdf' | 'image' | 'document' | 'devis'
@@ -240,14 +235,14 @@ const FileManager = () => {
                               <Eye className="h-4 w-4" />
                             </button>
                           )}
-                          {file.type === 'devis' ? (
-                            <PDFDownloadLink
-                              document={<InvoicePDF invoice={file.content} />}
+                          {file.type === 'devis' && file.content ? (
+                            <PDFDownloadButton
+                              invoice={file.content}
                               fileName={`devis_${file.content.numeroFacture}.pdf`}
                               className="btn-secondary p-2"
                             >
-                              {() => <Download className="h-4 w-4" />}
-                            </PDFDownloadLink>
+                              <Download className="h-4 w-4" />
+                            </PDFDownloadButton>
                           ) : (
                             <button className="btn-secondary p-2">
                               <Download className="h-4 w-4" />
@@ -315,14 +310,14 @@ const FileManager = () => {
                                     <Eye className="h-4 w-4" />
                                   </button>
                                 )}
-                                {file.type === 'devis' ? (
-                                  <PDFDownloadLink
-                                    document={<InvoicePDF invoice={file.content} />}
+                                {file.type === 'devis' && file.content ? (
+                                  <PDFDownloadButton
+                                    invoice={file.content}
                                     fileName={`devis_${file.content.numeroFacture}.pdf`}
                                     className="btn-secondary p-2"
                                   >
-                                    {() => <Download className="h-4 w-4" />}
-                                  </PDFDownloadLink>
+                                    <Download className="h-4 w-4" />
+                                  </PDFDownloadButton>
                                 ) : (
                                   <button className="btn-secondary p-2">
                                     <Download className="h-4 w-4" />
@@ -348,7 +343,6 @@ const FileManager = () => {
         </>
       )}
 
-      {/* Upload Modal */}
       <Modal
         isOpen={isUploadModalOpen}
         onClose={() => setIsUploadModalOpen(false)}
@@ -375,7 +369,6 @@ const FileManager = () => {
         </div>
       </Modal>
 
-      {/* View Modal */}
       <Modal
         isOpen={isViewModalOpen}
         onClose={() => {
@@ -384,7 +377,7 @@ const FileManager = () => {
         }}
         title={selectedFile?.name || ''}
       >
-        {selectedFile?.type === 'devis' ? (
+        {selectedFile?.type === 'devis' && selectedFile.content ? (
           <div className="space-y-6">
             <div className="grid grid-cols-2 gap-4">
               <div>
@@ -443,18 +436,16 @@ const FileManager = () => {
               >
                 Fermer
               </button>
-              <PDFDownloadLink
-                document={<InvoicePDF invoice={selectedFile.content} />}
+              <PDFDownloadButton
+                invoice={selectedFile.content}
                 fileName={`devis_${selectedFile.content.numeroFacture}.pdf`}
                 className="btn-primary flex items-center gap-2"
               >
-                {() => (
-                  <>
-                    <Download className="h-4 w-4" />
-                    Télécharger
-                  </>
-                )}
-              </PDFDownloadLink>
+                <>
+                  <Download className="h-4 w-4" />
+                  Télécharger
+                </>
+              </PDFDownloadButton>
             </div>
           </div>
         ) : (

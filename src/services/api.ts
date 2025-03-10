@@ -1,67 +1,67 @@
 
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
+import { getToken } from '../utils/localStorage';
 
-const API_BASE_URL = 'https://respizenmedical.com/vilartprod/api';
+const API_URL = import.meta.env.VITE_API_URL || '';
 
-const api = axios.create({
-  baseURL: API_BASE_URL,
-  headers: {
-    'Content-Type': 'application/json',
-  },
+// Create a custom Axios instance for API calls
+const apiClient = axios.create({
+  baseURL: API_URL,
 });
 
-// Add request interceptor to include auth token
-api.interceptors.request.use((config) => {
-  const token = localStorage.getItem('token');
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-  return config;
-});
-
-// Add response interceptor to handle errors
-api.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    if (error.response?.status === 401) {
-      localStorage.removeItem('token');
-      localStorage.removeItem('user');
-      window.location.href = '/login';
+// Intercept requests to add the Authorization header
+apiClient.interceptors.request.use(
+  (config) => {
+    const token = getToken();
+    if (token) {
+      // Instead of using array, convert to record
+      config.headers = config.headers || {};
+      config.headers['Authorization'] = `Bearer ${token}`;
     }
+    return config;
+  },
+  (error) => {
     return Promise.reject(error);
   }
 );
 
-export interface ApiResponse<T> {
-  data: T;
-  error?: string;
-}
-
-export async function fetchApi<T>(
-  endpoint: string,
-  options: RequestInit = {}
-): Promise<ApiResponse<T>> {
+// Generic API functions
+export const getData = async (endpoint: string, params = {}) => {
   try {
-    const response = await api.request({
-      url: endpoint,
-      method: options.method || 'GET',
-      data: options.body ? JSON.parse(options.body as string) : undefined,
-      headers: options.headers,
-    });
-    
-    return { data: response.data };
+    const response = await apiClient.get(endpoint, { params });
+    return response.data;
   } catch (error) {
-    if (axios.isAxiosError(error)) {
-      return {
-        data: {} as T,
-        error: error.response?.data?.message || error.message
-      };
-    }
-    return {
-      data: {} as T,
-      error: 'An unexpected error occurred'
-    };
+    console.error(`Error fetching data from ${endpoint}:`, error);
+    throw error;
   }
-}
+};
 
-export default api;
+export const postData = async (endpoint: string, data = {}, config: AxiosRequestConfig = {}) => {
+  try {
+    const response = await apiClient.post(endpoint, data, config);
+    return response.data;
+  } catch (error) {
+    console.error(`Error posting data to ${endpoint}:`, error);
+    throw error;
+  }
+};
+
+export const putData = async (endpoint: string, data = {}, config: AxiosRequestConfig = {}) => {
+  try {
+    const response = await apiClient.put(endpoint, data, config);
+    return response.data;
+  } catch (error) {
+    console.error(`Error updating data at ${endpoint}:`, error);
+    throw error;
+  }
+};
+
+export const deleteData = async (endpoint: string, id: string) => {
+  try {
+    const response = await apiClient.delete(`${endpoint}/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error(`Error deleting data at ${endpoint}/${id}:`, error);
+    throw error;
+  }
+};

@@ -3,9 +3,10 @@ import React from 'react';
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import InvoicePDF from './InvoicePDF';
 import { Download } from 'lucide-react';
+import { Invoice } from '../types';
 
 interface PDFDownloadButtonProps {
-  invoice: any;
+  invoice: Invoice;
   fileName: string;
   className?: string;
   children?: React.ReactNode;
@@ -23,7 +24,7 @@ const PDFDownloadButton: React.FC<PDFDownloadButtonProps> = ({
       fileName={fileName}
       className={className}
     >
-      {({ loading }) => 
+      {({ loading }) => (
         loading ? (
           <span>Loading...</span>
         ) : (
@@ -34,7 +35,7 @@ const PDFDownloadButton: React.FC<PDFDownloadButtonProps> = ({
             </>
           )
         )
-      }
+      )}
     </PDFDownloadLink>
   );
 };

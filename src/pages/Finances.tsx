@@ -16,29 +16,11 @@ import { format } from 'date-fns';
 import { Plus, Eye, Trash, Edit, Save, DollarSign, Download } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import Modal from '../components/Modal';
-import { PDFDownloadLink } from '@react-pdf/renderer';
 import InvoicePDF from '../components/InvoicePDF';
+import PDFDownloadButton from '../components/PDFDownloadButton';
 import { InvoicesService } from '../services/invoices.service';
-import { TransactionsService, Transaction } from '../services/transactions.service';
-import { AuthService } from '../services/auth.service';
-
-interface Invoice {
-  id: string;
-  numeroFacture: string;
-  dateFacture: string;
-  dateEcheance: string;
-  clientName: string;
-  montantHT: number;
-  montantTVA: number;
-  total: number;
-  items: Array<{
-    description: string;
-    quantite: number;
-    prixUnitaire: number;
-    taxes: number;
-  }>;
-  notes?: string;
-}
+import { TransactionsService } from '../services/transactions.service';
+import { Invoice, Transaction } from '../types';
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8'];
 
@@ -53,15 +35,6 @@ const Finances = () => {
   const [isViewInvoiceModalOpen, setIsViewInvoiceModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [newTransaction, setNewTransaction] = useState<Partial<Transaction>>({
-    date: new Date().toISOString().split('T')[0],
-    artist_supplier: '',
-    description: '',
-    amount: 0,
-    category: 'autre',
-    status: 'en_attente',
-    type: 'dépense'
-  });
 
   useEffect(() => {
     fetchTransactions();
@@ -82,7 +55,6 @@ const Finances = () => {
     try {
       const data = await InvoicesService.getAllInvoices();
       
-      // Map API response to frontend model
       const mappedInvoices: Invoice[] = data.map((invoice: any) => ({
         id: invoice.id,
         numeroFacture: invoice.numeroFacture,
@@ -117,10 +89,8 @@ const Finances = () => {
         await TransactionsService.createTransaction(newTransaction as Transaction);
       }
       
-      // Refresh the transactions list
       await fetchTransactions();
       
-      // Reset form and close modal
       setIsNewTransactionModalOpen(false);
       setNewTransaction({
         date: new Date().toISOString().split('T')[0],
@@ -152,7 +122,6 @@ const Finances = () => {
     try {
       await TransactionsService.deleteTransaction(id);
       
-      // Refresh the transactions list
       await fetchTransactions();
     } catch (err) {
       console.error('Error deleting transaction:', err);
@@ -167,17 +136,17 @@ const Finances = () => {
 
   const handleDeleteInvoice = async (id: string) => {
     try {
-      await InvoicesService.deleteInvoice(id);
-      
-      // Refresh the invoices list
-      await fetchInvoices();
+      if (id) {
+        await InvoicesService.deleteInvoice(id);
+        
+        await fetchInvoices();
+      }
     } catch (err) {
       console.error('Error deleting invoice:', err);
       setError('Une erreur est survenue lors de la suppression du devis.');
     }
   };
 
-  // Prepare data for charts
   const monthlyData = transactions.reduce((acc: any[], transaction) => {
     const month = format(new Date(transaction.date), 'MMMM');
     const existingMonth = acc.find(item => item.month === month);
@@ -246,7 +215,6 @@ const Finances = () => {
         </div>
       </div>
 
-      {/* Charts */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="card">
           <h2 className="text-xl font-bold mb-4">Évolution mensuelle</h2>
@@ -290,7 +258,6 @@ const Finances = () => {
         </div>
       </div>
 
-      {/* Transactions Table */}
       <div className="card">
         <h2 className="text-xl font-bold mb-4">Transactions récentes</h2>
         <div className="overflow-x-auto">
@@ -356,7 +323,6 @@ const Finances = () => {
         </div>
       </div>
 
-      {/* Invoices Table */}
       <div className="card">
         <h2 className="text-xl font-bold mb-4">Devis récents</h2>
         <div className="overflow-x-auto">
@@ -376,9 +342,9 @@ const Finances = () => {
                 <tr key={invoice.id} className="border-b border-gray-700/50">
                   <td className="py-3">{invoice.numeroFacture}</td>
                   <td className="py-3">{invoice.clientName}</td>
-                  <td className="py-3">{format(new Date(invoice.dateFacture), 'dd/MM/yyyy')}</td>
-                  <td className="py-3">{format(new Date(invoice.dateEcheance), 'dd/MM/yyyy')}</td>
-                  <td className="py-3 font-semibold">{invoice.total.toLocaleString('fr-FR')} €</td>
+                  <td className="py-3">{format(new Date(invoice.dateFacture || ''), 'dd/MM/yyyy')}</td>
+                  <td className="py-3">{format(new Date(invoice.dateEcheance || ''), 'dd/MM/yyyy')}</td>
+                  <td className="py-3 font-semibold">{invoice.total?.toLocaleString('fr-FR')} €</td>
                   <td className="py-3">
                     <div className="flex gap-2">
                       <button 
@@ -387,13 +353,13 @@ const Finances = () => {
                       >
                         <Eye className="h-4 w-4" />
                       </button>
-                      <PDFDownloadLink
-                        document={<InvoicePDF invoice={invoice} />}
+                      <PDFDownloadButton
+                        invoice={invoice}
                         fileName={`facture_${invoice.numeroFacture}.pdf`}
                         className="p-1 hover:text-white text-gray-400"
                       >
-                        {() => <Download className="h-4 w-4" />}
-                      </PDFDownloadLink>
+                        <Download className="h-4 w-4" />
+                      </PDFDownloadButton>
                       <button 
                         onClick={() => handleDeleteInvoice(invoice.id)}
                         className="p-1 hover:text-red-400 text-gray-400"
@@ -409,7 +375,6 @@ const Finances = () => {
         </div>
       </div>
 
-      {/* New Transaction Modal */}
       <Modal
         isOpen={isNewTransactionModalOpen}
         onClose={() => {
@@ -546,7 +511,6 @@ const Finances = () => {
         </div>
       </Modal>
 
-      {/* View Invoice Modal */}
       <Modal
         isOpen={isViewInvoiceModalOpen}
         onClose={() => {
@@ -619,18 +583,16 @@ const Finances = () => {
               >
                 Fermer
               </button>
-              <PDFDownloadLink
-                document={<InvoicePDF invoice={selectedInvoice} />}
+              <PDFDownloadButton
+                invoice={selectedInvoice}
                 fileName={`facture_${selectedInvoice.numeroFacture}.pdf`}
                 className="btn-primary flex items-center gap-2"
               >
-                {() => (
-                  <>
-                    <Download className="h-4 w-4" />
-                    Télécharger
-                  </>
-                )}
-              </PDFDownloadLink>
+                <>
+                  <Download className="h-4 w-4" />
+                  Télécharger
+                </>
+              </PDFDownloadButton>
             </div>
           </div>
         )}

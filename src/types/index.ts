@@ -97,7 +97,7 @@ export interface Invoice {
   client_name: string;
   issue_date: string;
   due_date: string;
-  items: string; // JSON string of line items
+  items: any; // JSON string of line items or parsed objects
   subtotal: number;
   tax_amount: number;
   total_amount: number;
@@ -115,7 +115,7 @@ export interface Invoice {
   total?: number;
 }
 
-// Transaction type for types file - updating to match service definition
+// Transaction type updated to match service definition
 export interface Transaction {
   id: string;
   date: string;
@@ -128,7 +128,7 @@ export interface Transaction {
   user_id?: string;
 }
 
-// Message type
+// Message type with fixed category
 export interface Message {
   id: string;
   category: 'inbox' | 'sent' | 'archived' | 'draft';
