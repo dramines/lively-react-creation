@@ -1,77 +1,55 @@
 
-import { fetchData, createData, updateData } from '../utils/api';
-import { AuthService } from './auth.service';
-import { toast } from 'react-hot-toast';
-
-const ENDPOINT = '/project_tasks';
+import { createData, updateData, deleteData, fetchData } from '../utils/api';
 
 export interface ProjectTask {
   id: string;
   title: string;
-  description?: string;
+  description: string;
   status: 'à_faire' | 'en_cours' | 'terminé';
-  assigned_to?: string;
-  deadline?: string;
+  assigned_to: string;
+  deadline: string;
   project_id: string;
-  user_id?: string;
+  user_id: string;
   created_at?: string;
   updated_at?: string;
 }
 
+const ENDPOINT = '/project_tasks';
+
 export const ProjectTasksService = {
-  createTask: async (taskData: Partial<ProjectTask>) => {
-    const currentUser = AuthService.getCurrentUser();
-    const userId = currentUser?.id;
-    
-    if (!userId) {
-      toast.error('You must be logged in to create tasks');
-      throw new Error('Authentication required');
-    }
-    
+  getAllProjectTasks: async (projectId: string): Promise<ProjectTask[]> => {
     try {
-      const data = { ...taskData, user_id: userId };
-      const response = await createData(`${ENDPOINT}/create.php`, data);
-      return response;
+      const response = await fetchData(`${ENDPOINT}/read.php`, { project_id: projectId });
+      return Array.isArray(response) ? response : [];
     } catch (error) {
-      console.error('Error creating task:', error);
+      console.error('Error fetching project tasks:', error);
+      return [];
+    }
+  },
+
+  createProjectTask: async (taskData: Partial<ProjectTask>): Promise<ProjectTask> => {
+    try {
+      return await createData(`${ENDPOINT}/create.php`, taskData);
+    } catch (error) {
+      console.error('Error creating project task:', error);
       throw error;
     }
   },
 
-  updateTask: async (taskData: Partial<ProjectTask>) => {
-    const currentUser = AuthService.getCurrentUser();
-    const userId = currentUser?.id;
-    
-    if (!userId) {
-      toast.error('You must be logged in to update tasks');
-      throw new Error('Authentication required');
-    }
-    
+  updateProjectTask: async (taskData: Partial<ProjectTask>): Promise<ProjectTask> => {
     try {
-      const data = { ...taskData, user_id: userId };
-      const response = await updateData(`${ENDPOINT}/update.php`, data);
-      return response;
+      return await updateData(`${ENDPOINT}/update.php`, taskData);
     } catch (error) {
-      console.error('Error updating task:', error);
+      console.error('Error updating project task:', error);
       throw error;
     }
   },
 
-  deleteTask: async (id: string) => {
-    const currentUser = AuthService.getCurrentUser();
-    const userId = currentUser?.id;
-    
-    if (!userId) {
-      toast.error('You must be logged in to delete tasks');
-      throw new Error('Authentication required');
-    }
-    
+  deleteProjectTask: async (taskId: string, userId: string): Promise<void> => {
     try {
-      const data = { id, user_id: userId };
-      const response = await createData(`${ENDPOINT}/delete.php`, data);
-      return response;
+      await deleteData(`${ENDPOINT}/delete.php`, { id: taskId, user_id: userId });
     } catch (error) {
-      console.error('Error deleting task:', error);
+      console.error('Error deleting project task:', error);
       throw error;
     }
   }

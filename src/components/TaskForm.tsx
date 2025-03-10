@@ -1,106 +1,146 @@
 
-import { useState } from 'react';
-import { toast } from 'react-hot-toast';
-import { ProjectTasksService } from '../services';
+import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import { Save, X, AlertCircle } from 'lucide-react';
+import { UsersService, UserResponse } from '../services/users.service';
 
 interface TaskFormProps {
-  projectId: string;
-  onSuccess: (task: any) => void;
+  initialTask?: {
+    id?: string;
+    title: string;
+    description: string;
+    status: 'à_faire' | 'en_cours' | 'terminé';
+    deadline: string;
+    assigned_to: string;
+    project_id?: string;
+  };
+  onSubmit: (taskData: any) => void;
   onCancel: () => void;
-  existingTask?: any;
+  projectId?: string;
 }
 
-const TaskForm = ({ projectId, onSuccess, onCancel, existingTask }: TaskFormProps) => {
-  const [formData, setFormData] = useState({
-    id: existingTask?.id || '',
-    title: existingTask?.title || '',
-    description: existingTask?.description || '',
-    status: existingTask?.status || 'à_faire',
-    assigned_to: existingTask?.assigned_to || '',
-    deadline: existingTask?.deadline ? new Date(existingTask.deadline).toISOString().split('T')[0] : '',
-    project_id: projectId
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
+const TaskForm: React.FC<TaskFormProps> = ({
+  initialTask = {
+    title: '',
+    description: '',
+    status: 'à_faire',
+    deadline: new Date().toISOString().split('T')[0],
+    assigned_to: '',
+  },
+  onSubmit,
+  onCancel,
+  projectId,
+}) => {
+  const [task, setTask] = useState(initialTask);
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [users, setUsers] = useState<UserResponse[]>([]);
+  const [isLoadingUsers, setIsLoadingUsers] = useState(false);
+  
+  useEffect(() => {
+    const loadUsers = async () => {
+      setIsLoadingUsers(true);
+      try {
+        const fetchedUsers = await UsersService.getAllUsers();
+        setUsers(fetchedUsers);
+      } catch (error) {
+        console.error('Error loading users:', error);
+      } finally {
+        setIsLoadingUsers(false);
+      }
+    };
+    
+    loadUsers();
+  }, []);
+
+  const validate = (): boolean => {
+    const newErrors: Record<string, string> = {};
+    
+    if (!task.title.trim()) {
+      newErrors.title = 'Le titre est requis';
+    }
+    
+    if (!task.deadline) {
+      newErrors.deadline = 'La date d\'échéance est requise';
+    }
+    
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
+    setTask({ ...task, [name]: value });
     
-    try {
-      // Validate form
-      if (!formData.title.trim()) {
-        toast.error('Le titre de la tâche est requis');
-        setIsSubmitting(false);
-        return;
-      }
-      
-      let result;
-      if (existingTask) {
-        result = await ProjectTasksService.updateTask(formData);
-        toast.success('Tâche mise à jour avec succès');
-      } else {
-        result = await ProjectTasksService.createTask(formData);
-        toast.success('Tâche créée avec succès');
-      }
-      
-      onSuccess(result);
-    } catch (error) {
-      console.error('Error saving task:', error);
-      toast.error(existingTask 
-        ? 'Erreur lors de la mise à jour de la tâche' 
-        : 'Erreur lors de la création de la tâche');
-    } finally {
-      setIsSubmitting(false);
+    // Clear error when field is edited
+    if (errors[name]) {
+      setErrors({ ...errors, [name]: '' });
     }
   };
 
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!validate()) return;
+    
+    const taskData = {
+      ...task,
+      project_id: projectId || task.project_id,
+    };
+    
+    onSubmit(taskData);
+  };
+
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <motion.form
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      className="space-y-4"
+      onSubmit={handleSubmit}
+    >
       <div>
-        <label htmlFor="title" className="block text-sm font-medium text-gray-300 mb-1">
-          Titre *
+        <label className="block text-sm font-medium text-gray-400 mb-1">
+          Titre <span className="text-red-500">*</span>
         </label>
         <input
           type="text"
-          id="title"
           name="title"
-          value={formData.title}
+          className={`input w-full ${errors.title ? 'border-red-500' : ''}`}
+          value={task.title}
           onChange={handleChange}
-          className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-gold-500"
-          required
+          placeholder="Titre de la tâche"
         />
+        {errors.title && (
+          <p className="mt-1 text-sm text-red-500 flex items-center gap-1">
+            <AlertCircle className="h-4 w-4" />
+            {errors.title}
+          </p>
+        )}
       </div>
       
       <div>
-        <label htmlFor="description" className="block text-sm font-medium text-gray-300 mb-1">
+        <label className="block text-sm font-medium text-gray-400 mb-1">
           Description
         </label>
         <textarea
-          id="description"
           name="description"
-          value={formData.description}
+          className="input w-full h-24 resize-none"
+          value={task.description}
           onChange={handleChange}
-          rows={3}
-          className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-gold-500"
+          placeholder="Description de la tâche"
         />
       </div>
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <label htmlFor="status" className="block text-sm font-medium text-gray-300 mb-1">
+          <label className="block text-sm font-medium text-gray-400 mb-1">
             Statut
           </label>
           <select
-            id="status"
             name="status"
-            value={formData.status}
+            className="input w-full"
+            value={task.status}
             onChange={handleChange}
-            className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-gold-500"
           >
             <option value="à_faire">À faire</option>
             <option value="en_cours">En cours</option>
@@ -109,56 +149,64 @@ const TaskForm = ({ projectId, onSuccess, onCancel, existingTask }: TaskFormProp
         </div>
         
         <div>
-          <label htmlFor="deadline" className="block text-sm font-medium text-gray-300 mb-1">
-            Date d'échéance
+          <label className="block text-sm font-medium text-gray-400 mb-1">
+            Assigné à
           </label>
-          <input
-            type="date"
-            id="deadline"
-            name="deadline"
-            value={formData.deadline}
+          <select
+            name="assigned_to"
+            className="input w-full"
+            value={task.assigned_to}
             onChange={handleChange}
-            className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-gold-500"
-          />
+            disabled={isLoadingUsers}
+          >
+            <option value="">Sélectionner un utilisateur</option>
+            {users.map(user => (
+              <option key={user.id} value={user.id}>{user.full_name}</option>
+            ))}
+          </select>
+          {isLoadingUsers && (
+            <p className="mt-1 text-sm text-gray-400">Chargement des utilisateurs...</p>
+          )}
         </div>
       </div>
       
       <div>
-        <label htmlFor="assigned_to" className="block text-sm font-medium text-gray-300 mb-1">
-          Assigné à
+        <label className="block text-sm font-medium text-gray-400 mb-1">
+          Date d'échéance <span className="text-red-500">*</span>
         </label>
         <input
-          type="text"
-          id="assigned_to"
-          name="assigned_to"
-          value={formData.assigned_to}
+          type="date"
+          name="deadline"
+          className={`input w-full ${errors.deadline ? 'border-red-500' : ''}`}
+          value={task.deadline}
           onChange={handleChange}
-          placeholder="Nom de la personne assignée"
-          className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-gold-500"
         />
+        {errors.deadline && (
+          <p className="mt-1 text-sm text-red-500 flex items-center gap-1">
+            <AlertCircle className="h-4 w-4" />
+            {errors.deadline}
+          </p>
+        )}
       </div>
       
-      <div className="flex justify-end gap-2 pt-4">
+      <div className="flex justify-end gap-2 mt-6">
         <button
           type="button"
+          className="btn-secondary flex items-center gap-2"
           onClick={onCancel}
-          className="px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-500 transition-colors"
-          disabled={isSubmitting}
         >
+          <X className="h-4 w-4" />
           Annuler
         </button>
         <button
           type="submit"
-          className="px-4 py-2 bg-gold-500 text-white rounded-md hover:bg-gold-400 transition-colors flex items-center gap-2"
-          disabled={isSubmitting}
+          className="btn-primary flex items-center gap-2"
         >
-          {isSubmitting && (
-            <div className="w-4 h-4 border-2 border-gray-300 border-t-white rounded-full animate-spin"></div>
-          )}
-          {existingTask ? 'Mettre à jour' : 'Créer la tâche'}
+          <Save className="h-4 w-4" />
+          Enregistrer
         </button>
       </div>
-    </form>
+    </motion.form>
   );
 };
 

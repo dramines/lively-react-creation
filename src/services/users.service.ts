@@ -5,8 +5,17 @@ import { User } from '../types';
 
 const ENDPOINT = '/users';
 
+export interface UserResponse {
+  id: string;
+  email: string;
+  full_name: string;
+  role: string;
+  created_at: string;
+  updated_at: string;
+}
+
 export const UsersService = {
-  getAllUsers: async () => {
+  getAllUsers: async (): Promise<UserResponse[]> => {
     try {
       const response = await fetchData(`${ENDPOINT}/read.php`);
       return response;

@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { Plus, CheckCircle2, Circle, Clock, AlertCircle, Save, Check, Trash } from 'lucide-react';
 import Modal from '../components/Modal';
 import { TasksService } from '../services';
+import { UsersService, UserResponse } from '../services/users.service';
 import { Tache } from '../types';
 
 const TaskCard = ({ task, onToggleStatus, onDelete }: { task: Tache; onToggleStatus: (id: string) => void; onDelete: (id: string) => void }) => {
@@ -87,6 +88,9 @@ const Taches = () => {
   const [saveNotification, setSaveNotification] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [users, setUsers] = useState<UserResponse[]>([]);
+  const [selectedUserId, setSelectedUserId] = useState<string>('');
+  const [isLoadingUsers, setIsLoadingUsers] = useState(false);
 
   const loadTasks = async () => {
     setIsLoading(true);
@@ -105,14 +109,36 @@ const Taches = () => {
     }
   };
 
+  const loadUsers = async () => {
+    setIsLoadingUsers(true);
+    try {
+      const fetchedUsers = await UsersService.getAllUsers();
+      console.log('Fetched users:', fetchedUsers);
+      setUsers(fetchedUsers);
+    } catch (err) {
+      console.error('Error loading users:', err);
+      setError('Failed to load users. Please try again later.');
+    } finally {
+      setIsLoadingUsers(false);
+    }
+  };
+
   useEffect(() => {
     loadTasks();
+    loadUsers();
   }, []);
 
   const handleAddTask = async () => {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
+    
+    // Find the selected user's name
+    const selectedUser = users.find(u => u.id === selectedUserId);
+    const assignedToName = selectedUser ? selectedUser.full_name : '';
+    
     const task = {
       ...newTask,
+      assignéÀ: assignedToName,
+      assigned_to: selectedUserId, // Store the user ID for the backend
       user_id: user.id
     };
     
@@ -133,6 +159,7 @@ const Taches = () => {
         assignéÀ: '',
         dateEchéance: new Date().toISOString().split('T')[0]
       });
+      setSelectedUserId('');
     } catch (err) {
       console.error('Error adding task:', err);
       setError('Failed to add task. Please try again.');
@@ -333,13 +360,20 @@ const Taches = () => {
               <label className="block text-sm font-medium text-gray-400 mb-1">
                 Assigné à
               </label>
-              <input
-                type="text"
+              <select
                 className="input w-full"
-                value={newTask.assignéÀ}
-                onChange={(e) => setNewTask({ ...newTask, assignéÀ: e.target.value })}
-                placeholder="Nom de la personne"
-              />
+                value={selectedUserId}
+                onChange={(e) => setSelectedUserId(e.target.value)}
+                disabled={isLoadingUsers}
+              >
+                <option value="">Sélectionner un utilisateur</option>
+                {users.map(user => (
+                  <option key={user.id} value={user.id}>{user.full_name}</option>
+                ))}
+              </select>
+              {isLoadingUsers && (
+                <p className="text-sm text-gray-400 mt-1">Chargement des utilisateurs...</p>
+              )}
             </div>
           </div>
           <div>

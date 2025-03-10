@@ -1,12 +1,12 @@
-
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Calendar as CalendarIcon, Users, DollarSign, CheckSquare, Plus, Trash, Check, AlertCircle } from 'lucide-react';
 import Calendar from '../components/Calendar/Calendar';
 import Modal from '../components/Modal';
 import { useNavigate } from 'react-router-dom';
-import { TasksService, EventsService, ArtistsService, TransactionsService } from '../services';
-import { Tache, Evenement } from '../types';
+import { TasksService, EventsService, ArtistsService, TransactionsService, UsersService } from '../services';
+import { Tache } from '../types';
+import { UserResponse } from '../services/users.service';
 
 const StatCard = ({ icon: Icon, title, value, prefix = '' }: { 
   icon: React.ComponentType<any>; 
@@ -118,8 +118,8 @@ const Dashboard = () => {
     { icon: DollarSign, title: 'Total des dépenses', value: '0', prefix: '€' },
     { icon: CheckSquare, title: 'Tâches en cours', value: '0' },
   ]);
-  const [upcomingEvents, setUpcomingEvents] = useState<DashboardEvent[]>([]);
-  const [priorityTasks, setPriorityTasks] = useState<DashboardTask[]>([]);
+  const [upcomingEvents, setUpcomingEvents] = useState<any[]>([]);
+  const [priorityTasks, setPriorityTasks] = useState<any[]>([]);
   const [events, setEvents] = useState<any[]>([]);
   const [isNewTaskModalOpen, setIsNewTaskModalOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
@@ -132,6 +132,9 @@ const Dashboard = () => {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [users, setUsers] = useState<UserResponse[]>([]);
+  const [selectedUserId, setSelectedUserId] = useState<string>('');
+  const [isLoadingUsers, setIsLoadingUsers] = useState(false);
 
   const loadData = async () => {
     setIsLoading(true);
@@ -156,6 +159,11 @@ const Dashboard = () => {
       // Load transactions
       const transactionsData = await TransactionsService.getAllTransactions();
       console.log('Fetched transactions:', transactionsData);
+      
+      // Load users
+      const usersData = await UsersService.getAllUsers();
+      console.log('Fetched users:', usersData);
+      setUsers(usersData);
       
       // Calculate statistics
       const now = new Date();
@@ -256,10 +264,17 @@ const Dashboard = () => {
     
     try {
       const user = JSON.parse(localStorage.getItem('user') || '{}');
+      
+      // Find the selected user's name
+      const selectedUser = users.find(u => u.id === selectedUserId);
+      const assignedToName = selectedUser ? selectedUser.full_name : '';
+      
       const task: Partial<Tache> = {
         ...newTask,
         dateEchéance: selectedDate ? selectedDate.toISOString().split('T')[0] : newTask.dateEchéance,
         statut: 'à_faire',
+        assignéÀ: assignedToName,
+        assigned_to: selectedUserId, // Store the user ID for the backend
         user_id: user.id
       };
       
@@ -276,6 +291,7 @@ const Dashboard = () => {
         assignéÀ: ''
       });
       setSelectedDate(null);
+      setSelectedUserId('');
     } catch (err) {
       console.error('Error adding task:', err);
       setError('Failed to add task. Please try again.');
@@ -445,6 +461,7 @@ const Dashboard = () => {
         onClose={() => {
           setIsNewTaskModalOpen(false);
           setSelectedDate(null);
+          setSelectedUserId('');
         }}
         title="Nouvelle tâche"
       >
@@ -476,13 +493,20 @@ const Dashboard = () => {
             <label className="block text-sm font-medium text-gray-400 mb-1">
               Assigné à
             </label>
-            <input
-              type="text"
+            <select
               className="input w-full"
-              value={newTask.assignéÀ}
-              onChange={(e) => setNewTask({ ...newTask, assignéÀ: e.target.value })}
-              placeholder="Nom de la personne"
-            />
+              value={selectedUserId}
+              onChange={(e) => setSelectedUserId(e.target.value)}
+              disabled={isLoadingUsers}
+            >
+              <option value="">Sélectionner un utilisateur</option>
+              {users.map(user => (
+                <option key={user.id} value={user.id}>{user.full_name}</option>
+              ))}
+            </select>
+            {isLoadingUsers && (
+              <p className="text-sm text-gray-400 mt-1">Chargement des utilisateurs...</p>
+            )}
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-400 mb-1">
@@ -501,6 +525,7 @@ const Dashboard = () => {
               onClick={() => {
                 setIsNewTaskModalOpen(false);
                 setSelectedDate(null);
+                setSelectedUserId('');
               }}
             >
               Annuler

@@ -13,6 +13,7 @@ const mapToDbFields = (task: Partial<Tache>) => {
     status: mapStatusToDb(task.statut),
     due_date: task.dateEchéance,
     priority: mapPriorityToDb(task.priorite),
+    assigned_to: task.assigned_to, // The user ID for assignment
     user_id: task.user_id
   };
 };
@@ -26,7 +27,8 @@ const mapToFrontendFields = (dbTask: any): Tache => {
     statut: mapStatusToFrontend(dbTask.status),
     dateEchéance: dbTask.due_date,
     priorite: mapPriorityToFrontend(dbTask.priority),
-    assignéÀ: dbTask.assigned_to || '',
+    assignéÀ: dbTask.assigned_to_name || '', // The user name for display
+    assigned_to: dbTask.assigned_to || '', // The user ID for reference
     user_id: dbTask.user_id
   };
 };
