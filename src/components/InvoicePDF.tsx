@@ -1,8 +1,8 @@
 
 import React from 'react';
-import { Document, Page, Text, View, StyleSheet, Font } from '@react-pdf/renderer';
+import { Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
 import { format } from 'date-fns';
-import fr from 'date-fns/locale/fr';
+import { fr } from 'date-fns/locale/fr';
 
 // Define styles
 const styles = StyleSheet.create({
@@ -168,11 +168,11 @@ const InvoicePDF: React.FC<InvoiceProps> = ({ invoice }) => {
           <View style={{ width: '50%' }}>
             <Text style={styles.infoLabel}>Date du devis:</Text>
             <Text style={styles.infoValue}>
-              {format(new Date(invoice.dateFacture), 'dd/MM/yyyy')}
+              {format(new Date(invoice.dateFacture), 'dd/MM/yyyy', { locale: fr })}
             </Text>
             <Text style={styles.infoLabel}>Date d'échéance:</Text>
             <Text style={styles.infoValue}>
-              {format(new Date(invoice.dateEcheance), 'dd/MM/yyyy')}
+              {format(new Date(invoice.dateEcheance), 'dd/MM/yyyy', { locale: fr })}
             </Text>
           </View>
         </View>
