@@ -1,16 +1,18 @@
 
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Plus, AlertCircle } from 'lucide-react';
 import { toast } from 'react-hot-toast';
 import { ArtistsService } from '../services';
 import { Artiste } from '../types';
+import Modal from '../components/Modal';
+import NewArtistForm from '../components/NewArtistForm';
 
 const Artistes = () => {
   const [artists, setArtists] = useState<Artiste[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [isNewArtistModalOpen, setIsNewArtistModalOpen] = useState(false);
 
   useEffect(() => {
     loadArtists();
@@ -47,6 +49,28 @@ const Artistes = () => {
     }
   };
 
+  const handleArtistAdded = (newArtist: any) => {
+    setArtists((prevArtists) => [
+      {
+        id: newArtist.id,
+        nom: newArtist.name || '',
+        genre: newArtist.genre || '',
+        email: newArtist.email || '',
+        telephone: newArtist.phone || '',
+        photo: newArtist.photo || 'https://via.placeholder.com/150',
+        user_id: newArtist.user_id,
+        bio: newArtist.bio || '',
+        social: { instagram: '', facebook: '', twitter: '', youtube: '' },
+        evenementsPassés: 0,
+        adresse: ''
+      },
+      ...prevArtists
+    ]);
+    
+    setIsNewArtistModalOpen(false);
+    toast.success('Artiste ajouté avec succès!');
+  };
+
   return (
     <div className="space-y-6">
       {error && (
@@ -69,10 +93,13 @@ const Artistes = () => {
 
       <div className="flex justify-between items-center">
         <h1 className="text-3xl font-bold text-white">Artistes</h1>
-        <Link to="/artistes/nouveau" className="btn-primary flex items-center gap-2">
+        <button 
+          onClick={() => setIsNewArtistModalOpen(true)}
+          className="btn-primary flex items-center gap-2"
+        >
           <Plus className="h-5 w-5" />
           Nouveau artiste
-        </Link>
+        </button>
       </div>
 
       {loading ? (
@@ -92,7 +119,7 @@ const Artistes = () => {
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
         >
           {artists.map((artist) => (
-            <Link to={`/artistes/${artist.id}`} key={artist.id}>
+            <a href={`/artistes/${artist.id}`} key={artist.id} className="no-underline">
               <motion.div
                 whileHover={{ scale: 1.05 }}
                 className="card p-4 flex flex-col items-center"
@@ -105,10 +132,21 @@ const Artistes = () => {
                 <h3 className="text-lg font-semibold text-white">{artist.nom}</h3>
                 <p className="text-gray-400 text-center">{artist.genre}</p>
               </motion.div>
-            </Link>
+            </a>
           ))}
         </motion.div>
       )}
+
+      <Modal 
+        isOpen={isNewArtistModalOpen} 
+        onClose={() => setIsNewArtistModalOpen(false)}
+        title="Ajouter un nouvel artiste"
+      >
+        <NewArtistForm 
+          onSuccess={handleArtistAdded} 
+          onCancel={() => setIsNewArtistModalOpen(false)} 
+        />
+      </Modal>
     </div>
   );
 };
