@@ -2,79 +2,74 @@
 const db = require("../config/db");
 
 class Review {
-  // Récupérer tous les avis avec filtres optionnels
+  // Get all reviews with optional filters
   static async getAll(filters = {}) {
     let query = "SELECT * FROM reviews WHERE 1=1";
     const params = [];
 
-    // Filtre par lieu
-    if (filters.place_id) {
-      query += " AND place_id = ?";
-      params.push(filters.place_id);
+    // Filter by place
+    if (filters.placeId) {
+      query += " AND placeId = ?";
+      params.push(filters.placeId);
     }
 
-    // Filtre par utilisateur
-    if (filters.user_id) {
-      query += " AND user_id = ?";
-      params.push(filters.user_id);
+    // Filter by user
+    if (filters.userId) {
+      query += " AND userId = ?";
+      params.push(filters.userId);
     }
 
-    // Filtre par statut
-    if (filters.status) {
-      query += " AND status = ?";
-      params.push(filters.status);
-    }
-
-    // Tri par date de création (décroissant)
-    query += " ORDER BY created_at DESC";
+    // Order by creation date (descending)
+    query += " ORDER BY createdAt DESC";
 
     const [rows] = await db.query(query, params);
     return rows;
   }
 
-  // Récupérer un avis par son ID
+  // Get a review by its ID
   static async getById(id) {
-    const [rows] = await db.query("SELECT * FROM reviews WHERE review_id = ?", [id]);
+    const [rows] = await db.query("SELECT * FROM reviews WHERE id = ?", [id]);
     return rows[0];
   }
 
-  // Créer un nouvel avis
+  // Create a new review
   static async create(reviewData) {
     const [result] = await db.query(
       `INSERT INTO reviews 
-      (place_id, user_id, rating, comment, status)
-      VALUES (?, ?, ?, ?, ?)`,
+      (userId, placeId, rating, comment, createdAt)
+      VALUES (?, ?, ?, ?, NOW())`,
       [
-        reviewData.place_id,
-        reviewData.user_id,
+        reviewData.userId,
+        reviewData.placeId,
         reviewData.rating,
-        reviewData.comment,
-        reviewData.status || 'pending',
+        reviewData.comment
       ]
     );
     return result.insertId;
   }
 
-  // Mettre à jour un avis existant
+  // Update an existing review
   static async update(id, updates) {
+    updates.updatedAt = new Date(); // Add the updatedAt timestamp
+    
     const fields = Object.keys(updates).join(" = ?, ") + " = ?";
     const values = Object.values(updates);
 
-    await db.query(`UPDATE reviews SET ${fields} WHERE review_id = ?`, [
+    await db.query(`UPDATE reviews SET ${fields} WHERE id = ?`, [
       ...values,
       id,
     ]);
   }
 
-  // Supprimer un avis
+  // Delete a review
   static async delete(id) {
-    await db.query("DELETE FROM reviews WHERE review_id = ?", [id]);
+    await db.query("DELETE FROM reviews WHERE id = ?", [id]);
   }
 
-  // Calculer la note moyenne pour un lieu
+  // Calculate average rating for a place
   static async getAverageRatingForPlace(placeId) {
     const [rows] = await db.query(
-      "SELECT AVG(rating) as average_rating FROM reviews WHERE place_id = ? AND status = 'approved'",
+      "SELECT AVG(rating) as average_rating FROM reviews WHERE placeId = ?",
       [placeId]
     );
     return rows[0]?.average_rating || 0;

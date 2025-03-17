@@ -1,4 +1,3 @@
-
 -- Create database if not exists with proper character set
 CREATE DATABASE IF NOT EXISTS myapp_database1 
 CHARACTER SET utf8mb4 
@@ -92,24 +91,22 @@ CREATE TABLE IF NOT EXISTS messages (
     INDEX idx_senderId (senderId)
 ) ENGINE=InnoDB CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
--- The rest of the schema stays the same for other tables
--- Reviews Table
+-- Reviews Table (updated to match new specification)
 CREATE TABLE IF NOT EXISTS reviews (
-    review_id INT AUTO_INCREMENT PRIMARY KEY,
-    place_id INT NOT NULL,
-    user_id INT NOT NULL,
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    userId INT NOT NULL,
+    placeId INT NOT NULL,
     rating DECIMAL(3,2) NOT NULL COMMENT 'Rating from 0 to 5',
     comment TEXT,
-    status ENUM('pending', 'approved', 'rejected') DEFAULT 'pending',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (place_id) REFERENCES places(id) ON DELETE CASCADE,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-    INDEX idx_place_id (place_id),
-    INDEX idx_user_id (user_id),
-    INDEX idx_status (status)
+    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (placeId) REFERENCES places(id) ON DELETE CASCADE,
+    FOREIGN KEY (userId) REFERENCES users(id) ON DELETE CASCADE,
+    INDEX idx_place_id (placeId),
+    INDEX idx_user_id (userId)
 ) ENGINE=InnoDB CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
+-- The rest of the schema stays the same
 -- Reservations Table
 CREATE TABLE IF NOT EXISTS reservations (
     reservation_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -173,8 +170,8 @@ FOR EACH ROW
 BEGIN
     UPDATE places SET average_rating = (
         SELECT AVG(rating) FROM reviews 
-        WHERE place_id = NEW.place_id AND status = 'approved'
-    ) WHERE id = NEW.place_id;
+        WHERE placeId = NEW.placeId
+    ) WHERE id = NEW.placeId;
 END;
 
 CREATE TRIGGER update_place_rating_update AFTER UPDATE ON reviews
@@ -182,8 +179,8 @@ FOR EACH ROW
 BEGIN
     UPDATE places SET average_rating = (
         SELECT AVG(rating) FROM reviews 
-        WHERE place_id = NEW.place_id AND status = 'approved'
-    ) WHERE id = NEW.place_id;
+        WHERE placeId = NEW.placeId
+    ) WHERE id = NEW.placeId;
 END;
 
 CREATE TRIGGER update_place_rating_delete AFTER DELETE ON reviews
@@ -191,8 +188,8 @@ FOR EACH ROW
 BEGIN
     UPDATE places SET average_rating = (
         SELECT AVG(rating) FROM reviews 
-        WHERE place_id = OLD.place_id AND status = 'approved'
-    ) WHERE id = OLD.place_id;
+        WHERE placeId = OLD.placeId
+    ) WHERE id = OLD.placeId;
 END;
 
 -- Trigger to update lastMessageAt in session when a new message is created

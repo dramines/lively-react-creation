@@ -1,4 +1,3 @@
-
 const { body, validationResult, param, query } = require("express-validator");
 
 exports.registerValidation = [
@@ -59,7 +58,7 @@ exports.placeValidation = [
 exports.idValidation = [param("id").isInt().withMessage("Invalid ID format")];
 
 exports.reviewValidation = [
-  body("place_id").isInt().withMessage("Place ID is required"),
+  body("placeId").isInt().withMessage("Place ID is required"),
   body("rating")
     .isFloat({ min: 0, max: 5 })
     .withMessage("Rating must be between 0 and 5"),
