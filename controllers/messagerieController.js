@@ -1,6 +1,7 @@
 
 const Messagerie = require("../models/messagerieModel");
 const User = require("../models/userModel");
+const Session = require("../models/sessionModel");
 const { validationResult } = require("express-validator");
 
 // Send a new message
@@ -17,9 +18,28 @@ exports.sendMessage = async (req, res) => {
       return res.status(404).json({ message: "Recipient not found" });
     }
 
+    const senderId = req.user.id;
+    const recipientId = req.body.id_destinataire;
+
+    // Check if a session already exists between these users
+    let session = await Session.findBetweenUsers(senderId, recipientId);
+    
+    // If no session exists, create one
+    if (!session) {
+      const sessionData = {
+        userId1: senderId,
+        userId2: recipientId,
+        isActive: true
+      };
+      
+      const sessionId = await Session.create(sessionData);
+      session = await Session.getById(sessionId, false);
+      console.log(`New session created between users ${senderId} and ${recipientId}: Session ID ${sessionId}`);
+    }
+
     const messageData = {
-      id_expediteur: req.user.id, // From auth middleware
-      id_destinataire: req.body.id_destinataire,
+      id_expediteur: senderId,
+      id_destinataire: recipientId,
       texte: req.body.texte,
     };
 
@@ -29,7 +49,10 @@ exports.sendMessage = async (req, res) => {
     res.status(201).json({
       success: true,
       message: "Message sent successfully",
-      data: message,
+      data: {
+        message,
+        session: session || null
+      },
     });
   } catch (error) {
     console.error("Error sending message:", error);
