@@ -1,3 +1,4 @@
+
 const { body, validationResult, param, query } = require("express-validator");
 
 exports.registerValidation = [
@@ -69,21 +70,59 @@ exports.reviewValidation = [
 ];
 
 exports.reservationValidation = [
-  body("place_id").isInt().withMessage("Place ID is required"),
-  body("reservation_date")
-    .isDate()
-    .withMessage("Valid reservation date is required"),
-  body("start_time")
-    .matches(/^([01]\d|2[0-3]):([0-5]\d)$/)
-    .withMessage("Start time must be in format HH:MM"),
-  body("end_time")
+  body("userId").optional().isInt().withMessage("Valid user ID is required"),
+  body("eventId")
     .optional()
-    .matches(/^([01]\d|2[0-3]):([0-5]\d)$/)
-    .withMessage("End time must be in format HH:MM"),
-  body("num_guests")
+    .isInt()
+    .withMessage("Valid event ID is required")
+    .custom((value, { req }) => {
+      if (!value && !req.body.placeId) {
+        throw new Error("Either eventId or placeId is required");
+      }
+      return true;
+    }),
+  body("placeId")
+    .optional()
+    .isInt()
+    .withMessage("Valid place ID is required"),
+  body("numberOfTickets")
     .optional()
     .isInt({ min: 1 })
-    .withMessage("Number of guests must be at least 1"),
+    .withMessage("Number of tickets must be at least 1")
+    .custom((value, { req }) => {
+      if (req.body.eventId && !value) {
+        throw new Error("Number of tickets is required for event reservations");
+      }
+      return true;
+    }),
+  body("numberOfPersons")
+    .optional()
+    .isInt({ min: 1 })
+    .withMessage("Number of persons must be at least 1")
+    .custom((value, { req }) => {
+      if (req.body.placeId && !value) {
+        throw new Error("Number of persons is required for place reservations");
+      }
+      return true;
+    }),
+  body("visitDate")
+    .optional()
+    .isISO8601()
+    .withMessage("Valid visit date is required")
+    .custom((value, { req }) => {
+      if (req.body.placeId && !value) {
+        throw new Error("Visit date is required for place reservations");
+      }
+      return true;
+    }),
+  body("paymentMethod")
+    .optional()
+    .isString()
+    .withMessage("Valid payment method is required"),
+  body("status")
+    .optional()
+    .isIn(["pending", "confirmed", "cancelled", "completed"])
+    .withMessage("Invalid status value"),
 ];
 
 exports.eventValidation = [

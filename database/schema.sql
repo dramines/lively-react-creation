@@ -1,3 +1,4 @@
+
 -- Create database if not exists with proper character set
 CREATE DATABASE IF NOT EXISTS myapp_database1 
 CHARACTER SET utf8mb4 
@@ -91,7 +92,7 @@ CREATE TABLE IF NOT EXISTS messages (
     INDEX idx_senderId (senderId)
 ) ENGINE=InnoDB CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
--- Reviews Table (updated to match new specification)
+-- Reviews Table
 CREATE TABLE IF NOT EXISTS reviews (
     id INT AUTO_INCREMENT PRIMARY KEY,
     userId INT NOT NULL,
@@ -106,27 +107,27 @@ CREATE TABLE IF NOT EXISTS reviews (
     INDEX idx_user_id (userId)
 ) ENGINE=InnoDB CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
--- The rest of the schema stays the same
--- Reservations Table
+-- Updated Reservations Table
 CREATE TABLE IF NOT EXISTS reservations (
-    reservation_id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NOT NULL,
-    place_id INT NOT NULL,
-    event_id INT,
-    reservation_date DATE NOT NULL,
-    start_time TIME NOT NULL,
-    end_time TIME,
-    num_guests INT DEFAULT 1,
-    status ENUM('pending', 'confirmed', 'cancelled', 'completed') DEFAULT 'pending',
-    notes TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-    FOREIGN KEY (place_id) REFERENCES places(id) ON DELETE CASCADE,
-    FOREIGN KEY (event_id) REFERENCES events(id) ON DELETE SET NULL,
-    INDEX idx_user_id (user_id),
-    INDEX idx_place_id (place_id),
-    INDEX idx_date (reservation_date),
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    userId INT NOT NULL,
+    eventId INT,
+    placeId INT,
+    numberOfTickets INT,
+    numberOfPersons INT,
+    totalPrice DECIMAL(10,2),
+    status VARCHAR(50) DEFAULT 'pending',
+    paymentMethod VARCHAR(50),
+    paymentId VARCHAR(100),
+    visitDate DATETIME,
+    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (userId) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (placeId) REFERENCES places(id) ON DELETE SET NULL,
+    FOREIGN KEY (eventId) REFERENCES events(id) ON DELETE SET NULL,
+    INDEX idx_user_id (userId),
+    INDEX idx_place_id (placeId),
+    INDEX idx_event_id (eventId),
     INDEX idx_status (status)
 ) ENGINE=InnoDB CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 

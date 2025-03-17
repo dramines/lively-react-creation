@@ -2,115 +2,138 @@
 const db = require("../config/db");
 
 class Reservation {
-  // Récupérer toutes les réservations avec filtres optionnels
+  // Get all reservations with optional filters
   static async getAll(filters = {}) {
     let query = "SELECT * FROM reservations WHERE 1=1";
     const params = [];
 
-    // Filtre par utilisateur
-    if (filters.user_id) {
-      query += " AND user_id = ?";
-      params.push(filters.user_id);
+    // Filter by user
+    if (filters.userId) {
+      query += " AND userId = ?";
+      params.push(filters.userId);
     }
 
-    // Filtre par lieu
-    if (filters.place_id) {
-      query += " AND place_id = ?";
-      params.push(filters.place_id);
+    // Filter by place
+    if (filters.placeId) {
+      query += " AND placeId = ?";
+      params.push(filters.placeId);
     }
 
-    // Filtre par événement
-    if (filters.event_id) {
-      query += " AND event_id = ?";
-      params.push(filters.event_id);
+    // Filter by event
+    if (filters.eventId) {
+      query += " AND eventId = ?";
+      params.push(filters.eventId);
     }
 
-    // Filtre par statut
+    // Filter by status
     if (filters.status) {
       query += " AND status = ?";
       params.push(filters.status);
     }
 
-    // Filtre par plage de dates
-    if (filters.from_date) {
-      query += " AND reservation_date >= ?";
-      params.push(filters.from_date);
+    // Filter by date range
+    if (filters.fromDate) {
+      query += " AND (visitDate >= ? OR createdAt >= ?)";
+      params.push(filters.fromDate, filters.fromDate);
     }
 
-    if (filters.to_date) {
-      query += " AND reservation_date <= ?";
-      params.push(filters.to_date);
+    if (filters.toDate) {
+      query += " AND (visitDate <= ? OR createdAt <= ?)";
+      params.push(filters.toDate, filters.toDate);
     }
 
-    // Tri par date et heure de réservation
-    query += " ORDER BY reservation_date ASC, start_time ASC";
+    // Order by creation date (descending)
+    query += " ORDER BY createdAt DESC";
 
     const [rows] = await db.query(query, params);
     return rows;
   }
 
-  // Récupérer une réservation par son ID
+  // Get a reservation by its ID
   static async getById(id) {
-    const [rows] = await db.query("SELECT * FROM reservations WHERE reservation_id = ?", [id]);
+    const [rows] = await db.query("SELECT * FROM reservations WHERE id = ?", [id]);
     return rows[0];
   }
 
-  // Créer une nouvelle réservation
+  // Create a new reservation
   static async create(reservationData) {
     const [result] = await db.query(
       `INSERT INTO reservations 
-      (user_id, place_id, event_id, reservation_date, start_time, end_time, num_guests, status, notes)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      (userId, eventId, placeId, numberOfTickets, numberOfPersons, totalPrice, status, paymentMethod, paymentId, visitDate)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
-        reservationData.user_id,
-        reservationData.place_id,
-        reservationData.event_id || null,
-        reservationData.reservation_date,
-        reservationData.start_time,
-        reservationData.end_time || null,
-        reservationData.num_guests || 1,
+        reservationData.userId,
+        reservationData.eventId || null,
+        reservationData.placeId || null,
+        reservationData.numberOfTickets || null,
+        reservationData.numberOfPersons || null,
+        reservationData.totalPrice || null,
         reservationData.status || 'pending',
-        reservationData.notes || null,
+        reservationData.paymentMethod || null,
+        reservationData.paymentId || null,
+        reservationData.visitDate || null
       ]
     );
     return result.insertId;
   }
 
-  // Mettre à jour une réservation existante
+  // Update an existing reservation
   static async update(id, updates) {
+    // Add the updatedAt timestamp
+    updates.updatedAt = new Date();
+    
     const fields = Object.keys(updates).join(" = ?, ") + " = ?";
     const values = Object.values(updates);
 
-    await db.query(`UPDATE reservations SET ${fields} WHERE reservation_id = ?`, [
+    await db.query(`UPDATE reservations SET ${fields} WHERE id = ?`, [
       ...values,
       id,
     ]);
   }
 
-  // Supprimer une réservation
+  // Delete a reservation
   static async delete(id) {
-    await db.query("DELETE FROM reservations WHERE reservation_id = ?", [id]);
+    await db.query("DELETE FROM reservations WHERE id = ?", [id]);
   }
 
-  // Vérifier la disponibilité d'un créneau horaire
-  static async checkAvailability(placeId, date, startTime, endTime = null) {
-    let query = `
-      SELECT COUNT(*) as count FROM reservations 
-      WHERE place_id = ? AND reservation_date = ? 
-      AND status IN ('pending', 'confirmed')
-    `;
-    const params = [placeId, date];
+  // Check availability (for events or places based on capacity and existing reservations)
+  static async checkAvailability(entityType, entityId, date = null, numberOfTickets = 1) {
+    let query;
+    let params;
 
-    if (endTime) {
-      query += ` AND ((start_time <= ? AND end_time >= ?) OR (start_time >= ? AND start_time <= ?))`;
-      params.push(endTime, startTime, startTime, endTime);
+    if (entityType === 'event') {
+      // For events, check if there are enough tickets available
+      query = `
+        SELECT e.capacity, COALESCE(SUM(r.numberOfTickets), 0) as bookedTickets
+        FROM events e
+        LEFT JOIN reservations r ON e.id = r.eventId AND r.status != 'cancelled'
+        WHERE e.id = ?
+        GROUP BY e.id
+      `;
+      params = [entityId];
+    } else if (entityType === 'place' && date) {
+      // For places, check if the place is available on the specified date
+      query = `
+        SELECT COUNT(*) as existingReservations
+        FROM reservations
+        WHERE placeId = ? AND DATE(visitDate) = DATE(?) AND status != 'cancelled'
+      `;
+      params = [entityId, date];
     } else {
-      query += ` AND start_time = ?`;
-      params.push(startTime);
+      throw new Error('Invalid entity type or missing required parameters');
     }
 
     const [rows] = await db.query(query, params);
-    return rows[0].count === 0; // True si disponible
+    
+    if (entityType === 'event') {
+      if (!rows.length) return false; // Event not found
+      const { capacity, bookedTickets } = rows[0];
+      return (capacity - bookedTickets) >= numberOfTickets;
+    } else {
+      // For places, implement your availability logic based on your business rules
+      // This is a simple example that just checks if there are any reservations on that date
+      return rows[0].existingReservations === 0;
+    }
   }
 }
 
