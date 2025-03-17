@@ -1,46 +1,2825 @@
 
-    <!DOCTYPE html>
-    <html lang="fr">
-    <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Documentation API JendoubaLife</title>
-      <style>
-        body { font-family: Arial, sans-serif; line-height: 1.6; max-width: 800px; margin: 40px auto; padding: 20px; }
-        h1 { color: #333; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        .card { border: 1px solid #ddd; border-radius: 8px; padding: 20px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        .btn { display: inline-block; background: #4CAF50; color: white; padding: 10px 20px; text-decoration: none; border-radius: 4px; margin-right: 10px; }
-        .info { background-color: #e7f3fe; border-left: 6px solid #2196F3; padding: 10px 20px; margin: 15px 0; }
-      </style>
-    </head>
-    <body>
-      <h1>Documentation API JendoubaLife</h1>
-      <div class="info">
-        <p>Cette documentation présente toutes les routes API disponibles et des exemples de requêtes pour tester l'API.</p>
-        <p>Date de génération: 15/03/2025</p>
-      </div>
-      
-      <div class="card">
-        <h2>Formats disponibles</h2>
-        <p>Choisissez le format qui vous convient :</p>
-        <a href="/docs/documentation_api.html" class="btn">Version HTML</a>
-        <a href="/docs/documentation_api.md" class="btn">Version Markdown</a>
-        <a href="/docs/documentation_api.pdf" class="btn">Version PDF</a>
-      </div>
-      
-      <div class="card">
-        <h2>Comment tester l'API</h2>
-        <p>Vous pouvez utiliser les exemples de code fournis dans la documentation avec :</p>
-        <ul>
-          <li>Un client HTTP comme Postman</li>
-          <li>cURL en ligne de commande</li>
-          <li>fetch() ou axios dans votre code JavaScript</li>
-        </ul>
-        <p>Exemple avec fetch :</p>
-        <pre><code>fetch('http://localhost:3000/api/users')
-  .then(response => response.json())
-  .then(data => console.log(data));</code></pre>
-      </div>
-    </body>
-    </html>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JenCity API Documentation</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #4361ee;
+      --secondary-color: #3f37c9;
+      --success-color: #4cc9f0;
+      --danger-color: #f72585;
+      --warning-color: #f8961e;
+      --info-color: #4895ef;
+      --light-color: #f8f9fa;
+      --dark-color: #212529;
+      --code-bg: #f5f5f5;
+      --border-color: #dee2e6;
+    }
     
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background-color: #f8f9fa;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    header {
+      background: var(--primary-color);
+      color: #fff;
+      padding: 2rem 0;
+      position: relative;
+    }
+    
+    header .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    
+    .header-title {
+      margin-bottom: 1rem;
+      font-size: 2.5rem;
+    }
+    
+    .header-subtitle {
+      font-size: 1.2rem;
+      opacity: 0.8;
+      margin-bottom: 1.5rem;
+    }
+    
+    .search-container {
+      width: 100%;
+      max-width: 600px;
+      margin: 0 auto;
+      position: relative;
+    }
+    
+    #search {
+      width: 100%;
+      padding: 12px 20px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 50px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    
+    #search:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px var(--secondary-color);
+    }
+    
+    .search-icon {
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--primary-color);
+    }
+    
+    nav {
+      background: #fff;
+      padding: 1rem 0;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--primary-color);
+      text-decoration: none;
+    }
+    
+    .nav-links {
+      display: flex;
+      list-style: none;
+    }
+    
+    .nav-links li {
+      margin-left: 1.5rem;
+    }
+    
+    .nav-link {
+      color: #333;
+      text-decoration: none;
+      transition: color 0.3s;
+      font-weight: 500;
+    }
+    
+    .nav-link:hover {
+      color: var(--primary-color);
+    }
+    
+    .nav-link.active {
+      color: var(--primary-color);
+    }
+    
+    main {
+      padding: 3rem 0;
+    }
+    
+    .section {
+      margin-bottom: 3rem;
+    }
+    
+    .section-title {
+      font-size: 2rem;
+      color: var(--primary-color);
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--primary-color);
+    }
+    
+    .entity-card {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      margin-bottom: 2rem;
+      overflow: hidden;
+    }
+    
+    .entity-header {
+      background: var(--primary-color);
+      color: #fff;
+      padding: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+    }
+    
+    .entity-title {
+      font-size: 1.5rem;
+      margin: 0;
+      display: flex;
+      align-items: center;
+    }
+    
+    .entity-title i {
+      margin-right: 10px;
+    }
+    
+    .entity-body {
+      padding: 0;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease;
+    }
+    
+    .entity-body.active {
+      padding: 1.5rem;
+      max-height: 5000px;
+    }
+    
+    .entity-description {
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    .routes-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    
+    .route-card {
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    
+    .route-header {
+      display: flex;
+      align-items: center;
+      padding: 1rem;
+      background: var(--light-color);
+      cursor: pointer;
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    .route-method {
+      font-weight: bold;
+      padding: 5px 10px;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      width: 80px;
+      text-align: center;
+      margin-right: 1rem;
+    }
+    
+    .method-get {
+      background: var(--info-color);
+      color: white;
+    }
+    
+    .method-post {
+      background: var(--success-color);
+      color: white;
+    }
+    
+    .method-put {
+      background: var(--warning-color);
+      color: white;
+    }
+    
+    .method-delete {
+      background: var(--danger-color);
+      color: white;
+    }
+    
+    .route-path {
+      font-family: 'Courier New', monospace;
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+    
+    .route-summary {
+      margin-left: auto;
+      font-size: 0.9rem;
+      color: #666;
+    }
+    
+    .route-body {
+      padding: 0;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease;
+    }
+    
+    .route-body.active {
+      padding: 1.5rem;
+      max-height: 2000px;
+    }
+    
+    .route-details {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+    
+    .route-section {
+      margin-bottom: 1.5rem;
+    }
+    
+    .route-section-title {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+      color: var(--primary-color);
+      font-weight: 600;
+    }
+    
+    .params-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1rem;
+    }
+    
+    .params-table th, .params-table td {
+      padding: 10px;
+      text-align: left;
+      border: 1px solid var(--border-color);
+    }
+    
+    .params-table th {
+      background: var(--light-color);
+      font-weight: 600;
+    }
+    
+    .info-tag {
+      display: inline-block;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      margin-right: 5px;
+      font-weight: 500;
+    }
+    
+    .tag-required {
+      background: #ffccd5;
+      color: #e63946;
+    }
+    
+    .tag-optional {
+      background: #ccf1ff;
+      color: #0077b6;
+    }
+    
+    .code-block {
+      background: var(--code-bg);
+      border-radius: 6px;
+      padding: 1rem;
+      font-family: 'Courier New', monospace;
+      overflow-x: auto;
+      margin-bottom: 1rem;
+    }
+    
+    .code-block pre {
+      margin: 0;
+      white-space: pre-wrap;
+    }
+    
+    .response-section {
+      margin-bottom: 1.5rem;
+    }
+    
+    .status-tag {
+      display: inline-block;
+      padding: 5px 10px;
+      border-radius: 4px;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+    
+    .status-200 {
+      background: #d1fae5;
+      color: #047857;
+    }
+    
+    .status-201 {
+      background: #c7ffd8;
+      color: #047857;
+    }
+    
+    .status-204 {
+      background: #c7ffd8;
+      color: #047857;
+    }
+    
+    .status-400 {
+      background: #fed7aa;
+      color: #c2410c;
+    }
+    
+    .status-401 {
+      background: #fed7aa;
+      color: #c2410c;
+    }
+    
+    .status-403 {
+      background: #fed7aa;
+      color: #c2410c;
+    }
+    
+    .status-404 {
+      background: #fed7aa;
+      color: #c2410c;
+    }
+    
+    .status-500 {
+      background: #fecaca;
+      color: #b91c1c;
+    }
+    
+    .btn-test {
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: background 0.3s;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 1rem;
+    }
+    
+    .btn-test:hover {
+      background: var(--secondary-color);
+    }
+    
+    .btn-try {
+      background: var(--success-color);
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: background 0.3s;
+      text-decoration: none;
+      display: inline-block;
+      margin-left: 10px;
+    }
+    
+    .btn-try:hover {
+      background: #36aed7;
+    }
+    
+    .entity-attribute-title {
+      margin: 1rem 0 0.5rem;
+      font-size: 1.1rem;
+      color: var(--primary-color);
+    }
+    
+    .attributes-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1.5rem;
+    }
+    
+    .attributes-table th, .attributes-table td {
+      padding: 10px;
+      text-align: left;
+      border: 1px solid var(--border-color);
+    }
+    
+    .attributes-table th {
+      background: var(--light-color);
+      font-weight: 600;
+    }
+    
+    footer {
+      background: var(--dark-color);
+      color: white;
+      padding: 2rem 0;
+    }
+    
+    .footer-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .footer-text {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+    
+    .footer-links {
+      display: flex;
+      list-style: none;
+    }
+    
+    .footer-links li {
+      margin-left: 1.5rem;
+    }
+    
+    .footer-link {
+      color: white;
+      text-decoration: none;
+      opacity: 0.8;
+      transition: opacity 0.3s;
+    }
+    
+    .footer-link:hover {
+      opacity: 1;
+    }
+    
+    @media (max-width: 992px) {
+      .route-details {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .nav-container {
+        flex-direction: column;
+      }
+      
+      .nav-links {
+        margin-top: 1rem;
+      }
+      
+      .nav-links li:first-child {
+        margin-left: 0;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .header-title {
+        font-size: 2rem;
+      }
+      
+      .entity-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      
+      .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      
+      .footer-container {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .footer-links {
+        margin-top: 1rem;
+        justify-content: center;
+      }
+      
+      .footer-links li:first-child {
+        margin-left: 0;
+      }
+    }
+    
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    .fade-in {
+      animation: fadeIn 0.5s ease-in-out;
+    }
+    
+    /* Toggle styles */
+    .toggle-icon {
+      transition: transform 0.3s;
+    }
+    
+    .toggle-icon.active {
+      transform: rotate(180deg);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1 class="header-title">JenCity API Documentation</h1>
+      <p class="header-subtitle">Explorez toutes les routes API disponibles et apprenez à les utiliser</p>
+      <div class="search-container">
+        <input type="text" id="search" placeholder="Rechercher une route, une entité ou une méthode...">
+        <i class="fas fa-search search-icon"></i>
+      </div>
+    </div>
+  </header>
+  
+  <nav>
+    <div class="container nav-container">
+      <a href="#" class="logo">JenCity API</a>
+      <ul class="nav-links">
+        <li><a href="#introduction" class="nav-link active">Introduction</a></li>
+        <li><a href="#users" class="nav-link">Utilisateurs</a></li>
+        <li><a href="#places" class="nav-link">Lieux</a></li>
+        <li><a href="#events" class="nav-link">Événements</a></li>
+        <li><a href="#reservations" class="nav-link">Réservations</a></li>
+        <li><a href="#reviews" class="nav-link">Avis</a></li>
+        <li><a href="#messaging" class="nav-link">Messagerie</a></li>
+      </ul>
+    </div>
+  </nav>
+  
+  <main class="container">
+    <section id="introduction" class="section fade-in">
+      <h2 class="section-title">Introduction</h2>
+      <div class="entity-card">
+        <div class="entity-body active">
+          <div class="entity-description">
+            <p>L'API JenCity fournit des interfaces pour accéder aux données touristiques, gérer les utilisateurs, les lieux d'intérêt, les événements, les réservations, les avis et la communication entre utilisateurs.</p>
+            <p>Cette documentation détaille toutes les routes disponibles, les paramètres requis, et les formats de réponse.</p>
+            <h3 style="margin-top: 20px; margin-bottom: 10px;">Base URL</h3>
+            <p>Toutes les requêtes doivent être préfixées avec l'URL de base :</p>
+            <div class="code-block">
+              <pre><code>http://localhost:3000</code></pre>
+            </div>
+            <h3 style="margin-top: 20px; margin-bottom: 10px;">Authentification</h3>
+            <p>La plupart des routes nécessitent une authentification. Après vous être connecté avec la route <code>/api/users/login</code>, vous recevrez un token JWT qu'il faudra inclure dans vos requêtes suivantes :</p>
+            <div class="code-block">
+              <pre><code>Authorization: Bearer votre_token_jwt</code></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- USERS -->
+    <section id="users" class="section fade-in">
+      <h2 class="section-title">Utilisateurs</h2>
+      <div class="entity-card">
+        <div class="entity-header" onclick="toggleEntity(this)">
+          <h3 class="entity-title"><i class="fas fa-users"></i> Entité User</h3>
+          <i class="fas fa-chevron-down toggle-icon"></i>
+        </div>
+        <div class="entity-body">
+          <div class="entity-description">
+            <p>L'entité User représente les utilisateurs de l'application. Elle contient les informations de profil et d'authentification.</p>
+            
+            <h4 class="entity-attribute-title">Attributs</h4>
+            <table class="attributes-table">
+              <thead>
+                <tr>
+                  <th>Attribut</th>
+                  <th>Type</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>user_id</td>
+                  <td>number</td>
+                  <td>Identifiant unique</td>
+                </tr>
+                <tr>
+                  <td>email</td>
+                  <td>string</td>
+                  <td>Adresse email unique</td>
+                </tr>
+                <tr>
+                  <td>password</td>
+                  <td>string</td>
+                  <td>Mot de passe (hashé)</td>
+                </tr>
+                <tr>
+                  <td>nom</td>
+                  <td>string</td>
+                  <td>Nom de famille</td>
+                </tr>
+                <tr>
+                  <td>prenom</td>
+                  <td>string</td>
+                  <td>Prénom</td>
+                </tr>
+                <tr>
+                  <td>role</td>
+                  <td>string</td>
+                  <td>Rôle (user, provider, admin)</td>
+                </tr>
+                <tr>
+                  <td>profile_image</td>
+                  <td>string</td>
+                  <td>URL de l'image de profil</td>
+                </tr>
+                <tr>
+                  <td>created_at</td>
+                  <td>date</td>
+                  <td>Date de création</td>
+                </tr>
+                <tr>
+                  <td>updated_at</td>
+                  <td>date</td>
+                  <td>Date de dernière mise à jour</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+          <div class="routes-container">
+            <!-- Route: Register User -->
+            <div class="route-card">
+              <div class="route-header" onclick="toggleRoute(this)">
+                <div class="route-method method-post">POST</div>
+                <div class="route-path">/api/users/register</div>
+                <div class="route-summary">Créer un nouveau utilisateur</div>
+              </div>
+              <div class="route-body">
+                <div class="route-details">
+                  <div>
+                    <div class="route-section">
+                      <h4 class="route-section-title">Description</h4>
+                      <p>Crée un nouveau compte utilisateur et retourne les informations de base de l'utilisateur avec un token JWT.</p>
+                    </div>
+                    
+                    <div class="route-section">
+                      <h4 class="route-section-title">Paramètres</h4>
+                      <p>Cette route n'utilise pas de paramètres d'URL.</p>
+                    </div>
+                    
+                    <div class="route-section">
+                      <h4 class="route-section-title">Corps de la Requête</h4>
+                      <table class="params-table">
+                        <thead>
+                          <tr>
+                            <th>Paramètre</th>
+                            <th>Type</th>
+                            <th>Description</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>nom <span class="info-tag tag-required">Requis</span></td>
+                            <td>string</td>
+                            <td>Nom de famille</td>
+                          </tr>
+                          <tr>
+                            <td>prenom <span class="info-tag tag-required">Requis</span></td>
+                            <td>string</td>
+                            <td>Prénom</td>
+                          </tr>
+                          <tr>
+                            <td>email <span class="info-tag tag-required">Requis</span></td>
+                            <td>string</td>
+                            <td>Adresse email (doit être unique)</td>
+                          </tr>
+                          <tr>
+                            <td>password <span class="info-tag tag-required">Requis</span></td>
+                            <td>string</td>
+                            <td>Mot de passe (min. 6 caractères)</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      
+                      <div class="code-block">
+                        <pre><code>{
+  "nom": "Dupont",
+  "prenom": "Jean",
+  "email": "jean.dupont@example.com",
+  "password": "motdepasse123"
+}</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <div class="response-section">
+                      <h4 class="route-section-title">Réponses</h4>
+                      
+                      <div>
+                        <span class="status-tag status-201">201 Created</span>
+                        <div class="code-block">
+                          <pre><code>{
+  "status": 201,
+  "message": "Utilisateur créé avec succès",
+  "data": {
+    "user_id": 1,
+    "nom": "Dupont",
+    "prenom": "Jean",
+    "email": "jean.dupont@example.com",
+    "role": "user",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+  }
+}</code></pre>
+                        </div>
+                      </div>
+                      
+                      <div>
+                        <span class="status-tag status-400">400 Bad Request</span>
+                        <div class="code-block">
+                          <pre><code>{
+  "status": 400,
+  "message": "Validation error",
+  "errors": [
+    {
+      "field": "email",
+      "message": "Email déjà utilisé"
+    }
+  ]
+}</code></pre>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <a href="#" class="btn-test">Tester dans Postman</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Route: Login User -->
+            <div class="route-card">
+              <div class="route-header" onclick="toggleRoute(this)">
+                <div class="route-method method-post">POST</div>
+                <div class="route-path">/api/users/login</div>
+                <div class="route-summary">Connecter un utilisateur</div>
+              </div>
+              <div class="route-body">
+                <div class="route-details">
+                  <div>
+                    <div class="route-section">
+                      <h4 class="route-section-title">Description</h4>
+                      <p>Authentifie un utilisateur et fournit un token JWT pour les requêtes ultérieures.</p>
+                    </div>
+                    
+                    <div class="route-section">
+                      <h4 class="route-section-title">Corps de la Requête</h4>
+                      <table class="params-table">
+                        <thead>
+                          <tr>
+                            <th>Paramètre</th>
+                            <th>Type</th>
+                            <th>Description</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>email <span class="info-tag tag-required">Requis</span></td>
+                            <td>string</td>
+                            <td>Adresse email</td>
+                          </tr>
+                          <tr>
+                            <td>password <span class="info-tag tag-required">Requis</span></td>
+                            <td>string</td>
+                            <td>Mot de passe</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      
+                      <div class="code-block">
+                        <pre><code>{
+  "email": "jean.dupont@example.com",
+  "password": "motdepasse123"
+}</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <div class="response-section">
+                      <h4 class="route-section-title">Réponses</h4>
+                      
+                      <div>
+                        <span class="status-tag status-200">200 OK</span>
+                        <div class="code-block">
+                          <pre><code>{
+  "status": 200,
+  "data": {
+    "user_id": 1,
+    "nom": "Dupont",
+    "prenom": "Jean",
+    "email": "jean.dupont@example.com",
+    "role": "user",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+  }
+}</code></pre>
+                        </div>
+                      </div>
+                      
+                      <div>
+                        <span class="status-tag status-401">401 Unauthorized</span>
+                        <div class="code-block">
+                          <pre><code>{
+  "status": 401,
+  "message": "Email ou mot de passe incorrect"
+}</code></pre>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <a href="#" class="btn-test">Tester dans Postman</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Route: Get All Users -->
+            <div class="route-card">
+              <div class="route-header" onclick="toggleRoute(this)">
+                <div class="route-method method-get">GET</div>
+                <div class="route-path">/api/users</div>
+                <div class="route-summary">Récupérer tous les utilisateurs</div>
+              </div>
+              <div class="route-body">
+                <div class="route-details">
+                  <div>
+                    <div class="route-section">
+                      <h4 class="route-section-title">Description</h4>
+                      <p>Récupère la liste de tous les utilisateurs. Nécessite une authentification.</p>
+                    </div>
+                    
+                    <div class="route-section">
+                      <h4 class="route-section-title">En-têtes</h4>
+                      <table class="params-table">
+                        <thead>
+                          <tr>
+                            <th>Nom</th>
+                            <th>Valeur</th>
+                            <th>Description</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>Authorization <span class="info-tag tag-required">Requis</span></td>
+                            <td>Bearer [token]</td>
+                            <td>Token JWT obtenu lors de la connexion</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <div class="response-section">
+                      <h4 class="route-section-title">Réponses</h4>
+                      
+                      <div>
+                        <span class="status-tag status-200">200 OK</span>
+                        <div class="code-block">
+                          <pre><code>{
+  "status": 200,
+  "data": [
+    {
+      "user_id": 1,
+      "nom": "Dupont",
+      "prenom": "Jean",
+      "email": "jean.dupont@example.com",
+      "role": "user"
+    },
+    {
+      "user_id": 2,
+      "nom": "Martin",
+      "prenom": "Sophie",
+      "email": "sophie.martin@example.com",
+      "role": "provider"
+    }
+  ]
+}</code></pre>
+                        </div>
+                      </div>
+                      
+                      <div>
+                        <span class="status-tag status-401">401 Unauthorized</span>
+                        <div class="code-block">
+                          <pre><code>{
+  "status": 401,
+  "message": "Non autorisé, token invalide"
+}</code></pre>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <a href="#" class="btn-test">Tester dans Postman</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- PLACES -->
+    <section id="places" class="section fade-in">
+      <h2 class="section-title">Lieux</h2>
+      <div class="entity-card">
+        <div class="entity-header" onclick="toggleEntity(this)">
+          <h3 class="entity-title"><i class="fas fa-map-marker-alt"></i> Entité Place</h3>
+          <i class="fas fa-chevron-down toggle-icon"></i>
+        </div>
+        <div class="entity-body">
+          <div class="entity-description">
+            <p>L'entité Place représente les lieux touristiques disponibles dans l'application.</p>
+            
+            <h4 class="entity-attribute-title">Attributs</h4>
+            <table class="attributes-table">
+              <thead>
+                <tr>
+                  <th>Attribut</th>
+                  <th>Type</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>id</td>
+                  <td>number</td>
+                  <td>Identifiant unique</td>
+                </tr>
+                <tr>
+                  <td>name</td>
+                  <td>string</td>
+                  <td>Nom du lieu</td>
+                </tr>
+                <tr>
+                  <td>type</td>
+                  <td>string</td>
+                  <td>Type de lieu (musée, parc, restaurant...)</td>
+                </tr>
+                <tr>
+                  <td>location</td>
+                  <td>object</td>
+                  <td>Coordonnées géographiques</td>
+                </tr>
+                <tr>
+                  <td>description</td>
+                  <td>string</td>
+                  <td>Description détaillée</td>
+                </tr>
+                <tr>
+                  <td>images</td>
+                  <td>array</td>
+                  <td>URLs des images</td>
+                </tr>
+                <tr>
+                  <td>openingHours</td>
+                  <td>object</td>
+                  <td>Horaires d'ouverture</td>
+                </tr>
+                <tr>
+                  <td>entranceFee</td>
+                  <td>object</td>
+                  <td>Tarifs d'entrée</td>
+                </tr>
+                <tr>
+                  <td>provider_id</td>
+                  <td>number</td>
+                  <td>ID du fournisseur</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+          <div class="routes-container">
+            <!-- Route: Get All Places -->
+            <div class="route-card">
+              <div class="route-header" onclick="toggleRoute(this)">
+                <div class="route-method method-get">GET</div>
+                <div class="route-path">/api/places</div>
+                <div class="route-summary">Récupérer tous les lieux</div>
+              </div>
+              <div class="route-body">
+                <div class="route-details">
+                  <div>
+                    <div class="route-section">
+                      <h4 class="route-section-title">Description</h4>
+                      <p>Récupère la liste de tous les lieux touristiques.</p>
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <div class="response-section">
+                      <h4 class="route-section-title">Réponses</h4>
+                      
+                      <div>
+                        <span class="status-tag status-200">200 OK</span>
+                        <div class="code-block">
+                          <pre><code>{
+  "status": 200,
+  "data": [
+    {
+      "id": 1,
+      "name": "Bulla Regia",
+      "type": "Site archéologique",
+      "location": {
+        "latitude": 36.5589,
+        "longitude": 8.7551
+      },
+      "description": "Site archéologique romain..."
+    },
+    {
+      "id": 2,
+      "name": "Ain Soltane",
+      "type": "Source naturelle",
+      "location": {
+        "latitude": 36.5021,
+        "longitude": 8.8123
+      },
+      "description": "Source naturelle dans un cadre verdoyant..."
+    }
+  ]
+}</code></pre>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <a href="#" class="btn-test">Tester dans Postman</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Route: Get Place by ID -->
+            <div class="route-card">
+              <div class="route-header" onclick="toggleRoute(this)">
+                <div class="route-method method-get">GET</div>
+                <div class="route-path">/api/places/:id</div>
+                <div class="route-summary">Récupérer un lieu par ID</div>
+              </div>
+              <div class="route-body">
+                <div class="route-details">
+                  <div>
+                    <div class="route-section">
+                      <h4 class="route-section-title">Description</h4>
+                      <p>Récupère les détails d'un lieu spécifique par son identifiant.</p>
+                    </div>
+                    
+                    <div class="route-section">
+                      <h4 class="route-section-title">Paramètres</h4>
+                      <table class="params-table">
+                        <thead>
+                          <tr>
+                            <th>Paramètre</th>
+                            <th>Type</th>
+                            <th>Description</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>id <span class="info-tag tag-required">Requis</span></td>
+                            <td>number</td>
+                            <td>Identifiant du lieu</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <div class="response-section">
+                      <h4 class="route-section-title">Réponses</h4>
+                      
+                      <div>
+                        <span class="status-tag status-200">200 OK</span>
+                        <div class="code-block">
+                          <pre><code>{
+  "status": 200,
+  "data": {
+    "id": 1,
+    "name": "Bulla Regia",
+    "type": "Site archéologique",
+    "location": {
+      "latitude": 36.5589,
+      "longitude": 8.7551
+    },
+    "description": "Site archéologique romain avec des maisons souterraines bien préservées...",
+    "images": [
+      "https://example.com/bulla_regia1.jpg",
+      "https://example.com/bulla_regia2.jpg"
+    ],
+    "openingHours": {
+      "monday": "9h-17h",
+      "tuesday": "9h-17h",
+      "wednesday": "9h-17h",
+      "thursday": "9h-17h",
+      "friday": "9h-17h",
+      "saturday": "9h-17h",
+      "sunday": "9h-17h"
+    },
+    "entranceFee": {
+      "adult": 10,
+      "child": 5,
+      "student": 7
+    }
+  }
+}</code></pre>
+                        </div>
+                      </div>
+                      
+                      <div>
+                        <span class="status-tag status-404">404 Not Found</span>
+                        <div class="code-block">
+                          <pre><code>{
+  "message": "Place not found"
+}</code></pre>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <a href="#" class="btn-test">Tester dans Postman</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Route: Create Place -->
+            <div class="route-card">
+              <div class="route-header" onclick="toggleRoute(this)">
+                <div class="route-method method-post">POST</div>
+                <div class="route-path">/api/places</div>
+                <div class="route-summary">Créer un nouveau lieu</div>
+              </div>
+              <div class="route-body">
+                <div class="route-details">
+                  <div>
+                    <div class="route-section">
+                      <h4 class="route-section-title">Description</h4>
+                      <p>Crée un nouveau lieu touristique. Nécessite une authentification avec des droits d'administrateur.</p>
+                    </div>
+                    
+                    <div class="route-section">
+                      <h4 class="route-section-title">En-têtes</h4>
+                      <table class="params-table">
+                        <thead>
+                          <tr>
+                            <th>Nom</th>
+                            <th>Valeur</th>
+                            <th>Description</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>Authorization <span class="info-tag tag-required">Requis</span></td>
+                            <td>Bearer [token]</td>
+                            <td>Token JWT obtenu lors de la connexion</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    
+                    <div class="route-section">
+                      <h4 class="route-section-title">Corps de la Requête</h4>
+                      <table class="params-table">
+                        <thead>
+                          <tr>
+                            <th>Paramètre</th>
+                            <th>Type</th>
+                            <th>Description</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>name <span class="info-tag tag-required">Requis</span></td>
+                            <td>string</td>
+                            <td>Nom du lieu</td>
+                          </tr>
+                          <tr>
+                            <td>type <span class="info-tag tag-required">Requis</span></td>
+                            <td>string</td>
+                            <td>Type de lieu</td>
+                          </tr>
+                          <tr>
+                            <td>location <span class="info-tag tag-required">Requis</span></td>
+                            <td>object</td>
+                            <td>Coordonnées géographiques</td>
+                          </tr>
+                          <tr>
+                            <td>description <span class="info-tag tag-required">Requis</span></td>
+                            <td>string</td>
+                            <td>Description détaillée</td>
+                          </tr>
+                          <tr>
+                            <td>images <span class="info-tag tag-optional">Optionnel</span></td>
+                            <td>array</td>
+                            <td>URLs des images</td>
+                          </tr>
+                          <tr>
+                            <td>openingHours <span class="info-tag tag-optional">Optionnel</span></td>
+                            <td>object</td>
+                            <td>Horaires d'ouverture</td>
+                          </tr>
+                          <tr>
+                            <td>entranceFee <span class="info-tag tag-optional">Optionnel</span></td>
+                            <td>object</td>
+                            <td>Tarifs d'entrée</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      
+                      <div class="code-block">
+                        <pre><code>{
+  "name": "Chemtou",
+  "type": "Site archéologique",
+  "location": {
+    "latitude": 36.4902,
+    "longitude": 8.5684
+  },
+  "description": "Site archéologique connu pour ses carrières de marbre...",
+  "images": [
+    "https://example.com/chemtou1.jpg",
+    "https://example.com/chemtou2.jpg"
+  ],
+  "openingHours": {
+    "monday": "9h-17h",
+    "tuesday": "9h-17h",
+    "wednesday": "9h-17h",
+    "thursday": "9h-17h",
+    "friday": "9h-17h",
+    "saturday": "9h-17h",
+    "sunday": "9h-17h"
+  },
+  "entranceFee": {
+    "adult": 8,
+    "child": 4,
+    "student": 6
+  }
+}</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <div class="response-section">
+                      <h4 class="route-section-title">Réponses</h4>
+                      
+                      <div>
+                        <span class="status-tag status-201">201 Created</span>
+                        <div class="code-block">
+                          <pre><code>{
+  "status": 201,
+  "message": "Place created successfully",
+  "data": {
+    "id": 3,
+    "name": "Chemtou",
+    "type": "Site archéologique",
+    "location": {
+      "latitude": 36.4902,
+      "longitude": 8.5684
+    },
+    "description": "Site archéologique connu pour ses carrières de marbre...",
+    "images": [
+      "https://example.com/chemtou1.jpg",
+      "https://example.com/chemtou2.jpg"
+    ],
+    "openingHours": {
+      "monday": "9h-17h",
+      "tuesday": "9h-17h",
+      "wednesday": "9h-17h",
+      "thursday": "9h-17h",
+      "friday": "9h-17h",
+      "saturday": "9h-17h",
+      "sunday": "9h-17h"
+    },
+    "entranceFee": {
+      "adult": 8,
+      "child": 4,
+      "student": 6
+    }
+  }
+}</code></pre>
+                        </div>
+                      </div>
+                      
+                      <div>
+                        <span class="status-tag status-401">401 Unauthorized</span>
+                        <div class="code-block">
+                          <pre><code>{
+  "message": "Non autorisé"
+}</code></pre>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <a href="#" class="btn-test">Tester dans Postman</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- EVENTS -->
+    <section id="events" class="section fade-in">
+      <h2 class="section-title">Événements</h2>
+      <div class="entity-card">
+        <div class="entity-header" onclick="toggleEntity(this)">
+          <h3 class="entity-title"><i class="fas fa-calendar-alt"></i> Entité Event</h3>
+          <i class="fas fa-chevron-down toggle-icon"></i>
+        </div>
+        <div class="entity-body">
+          <div class="entity-description">
+            <p>L'entité Event représente les événements disponibles dans l'application.</p>
+            
+            <h4 class="entity-attribute-title">Attributs</h4>
+            <table class="attributes-table">
+              <thead>
+                <tr>
+                  <th>Attribut</th>
+                  <th>Type</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>id</td>
+                  <td>number</td>
+                  <td>Identifiant unique</td>
+                </tr>
+                <tr>
+                  <td>title</td>
+                  <td>string</td>
+                  <td>Titre de l'événement</td>
+                </tr>
+                <tr>
+                  <td>description</td>
+                  <td>string</td>
+                  <td>Description détaillée</td>
+                </tr>
+                <tr>
+                  <td>date</td>
+                  <td>date</td>
+                  <td>Date de l'événement</td>
+                </tr>
+                <tr>
+                  <td>time</td>
+                  <td>string</td>
+                  <td>Heure de l'événement</td>
+                </tr>
+                <tr>
+                  <td>location</td>
+                  <td>object</td>
+                  <td>Lieu de l'événement</td>
+                </tr>
+                <tr>
+                  <td>imageUrl</td>
+                  <td>string</td>
+                  <td>URL de l'image principale</td>
+                </tr>
+                <tr>
+                  <td>capacity</td>
+                  <td>number</td>
+                  <td>Capacité maximale</td>
+                </tr>
+                <tr>
+                  <td>ticketPrice</td>
+                  <td>number</td>
+                  <td>Prix du billet</td>
+                </tr>
+                <tr>
+                  <td>category</td>
+                  <td>string</td>
+                  <td>Catégorie de l'événement</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+          <div class="routes-container">
+            <!-- Route: Get All Events -->
+            <div class="route-card">
+              <div class="route-header" onclick="toggleRoute(this)">
+                <div class="route-method method-get">GET</div>
+                <div class="route-path">/api/events</div>
+                <div class="route-summary">Récupérer tous les événements</div>
+              </div>
+              <div class="route-body">
+                <div class="route-details">
+                  <div>
+                    <div class="route-section">
+                      <h4 class="route-section-title">Description</h4>
+                      <p>Récupère la liste de tous les événements avec des options de filtrage.</p>
+                    </div>
+                    
+                    <div class="route-section">
+                      <h4 class="route-section-title">Paramètres de Requête</h4>
+                      <table class="params-table">
+                        <thead>
+                          <tr>
+                            <th>Paramètre</th>
+                            <th>Type</th>
+                            <th>Description</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>category <span class="info-tag tag-optional">Optionnel</span></td>
+                            <td>string</td>
+                            <td>Filtrer par catégorie</td>
+                          </tr>
+                          <tr>
+                            <td>date <span class="info-tag tag-optional">Optionnel</span></td>
+                            <td>date</td>
+                            <td>Filtrer par date</td>
+                          </tr>
+                          <tr>
+                            <td>sort <span class="info-tag tag-optional">Optionnel</span></td>
+                            <td>string</td>
+                            <td>Trier par date, titre, etc.</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <div class="response-section">
+                      <h4 class="route-section-title">Réponses</h4>
+                      
+                      <div>
+                        <span class="status-tag status-200">200 OK</span>
+                        <div class="code-block">
+                          <pre><code>{
+  "status": 200,
+  "data": [
+    {
+      "id": 1,
+      "title": "Festival de Dougga",
+      "description": "Festival annuel de musique et de théâtre...",
+      "date": "2023-07-15",
+      "time": "19:00",
+      "location": {
+        "name": "Théâtre de Dougga",
+        "coordinates": {
+          "latitude": 36.4225,
+          "longitude": 9.2193
+        }
+      },
+      "imageUrl": "https://example.com/dougga_festival.jpg",
+      "capacity": 500,
+      "ticketPrice": 25,
+      "category": "Culture"
+    },
+    {
+      "id": 2,
+      "title": "Randonnée Ain Draham",
+      "description": "Exploration des forêts de Kroumirie...",
+      "date": "2023-08-20",
+      "time": "08:00",
+      "location": {
+        "name": "Ain Draham",
+        "coordinates": {
+          "latitude": 36.7797,
+          "longitude": 8.6866
+        }
+      },
+      "imageUrl": "https://example.com/ain_draham_trek.jpg",
+      "capacity": 30,
+      "ticketPrice": 15,
+      "category": "Nature"
+    }
+  ]
+}</code></pre>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <a href="#" class="btn-test">Tester dans Postman</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Route: Get Upcoming Events -->
+            <div class="route-card">
+              <div class="route-header" onclick="toggleRoute(this)">
+                <div class="route-method method-get">GET</div>
+                <div class="route-path">/api/events/upcoming</div>
+                <div class="route-summary">Récupérer les événements à venir</div>
+              </div>
+              <div class="route-body">
+                <div class="route-details">
+                  <div>
+                    <div class="route-section">
+                      <h4 class="route-section-title">Description</h4>
+                      <p>Récupère la liste des événements à venir, triés par date.</p>
+                    </div>
+                    
+                    <div class="route-section">
+                      <h4 class="route-section-title">Paramètres de Requête</h4>
+                      <table class="params-table">
+                        <thead>
+                          <tr>
+                            <th>Paramètre</th>
+                            <th>Type</th>
+                            <th>Description</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>limit <span class="info-tag tag-optional">Optionnel</span></td>
+                            <td>number</td>
+                            <td>Nombre maximum d'événements à retourner</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <div class="response-section">
+                      <h4 class="route-section-title">Réponses</h4>
+                      
+                      <div>
+                        <span class="status-tag status-200">200 OK</span>
+                        <div class="code-block">
+                          <pre><code>{
+  "status": 200,
+  "data": [
+    {
+      "id": 3,
+      "title": "Festival Djaz à Tabarka",
+      "description": "Festival de jazz international...",
+      "date": "2023-09-10",
+      "time": "20:00",
+      "location": {
+        "name": "Théâtre de la Mer, Tabarka",
+        "coordinates": {
+          "latitude": 36.9567,
+          "longitude": 8.7597
+        }
+      },
+      "imageUrl": "https://example.com/tabarka_jazz.jpg",
+      "capacity": 800,
+      "ticketPrice": 40,
+      "category": "Musique"
+    },
+    {
+      "id": 2,
+      "title": "Randonnée Ain Draham",
+      "description": "Exploration des forêts de Kroumirie...",
+      "date": "2023-08-20",
+      "time": "08:00",
+      "location": {
+        "name": "Ain Draham",
+        "coordinates": {
+          "latitude": 36.7797,
+          "longitude": 8.6866
+        }
+      },
+      "imageUrl": "https://example.com/ain_draham_trek.jpg",
+      "capacity": 30,
+      "ticketPrice": 15,
+      "category": "Nature"
+    }
+  ]
+}</code></pre>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <a href="#" class="btn-test">Tester dans Postman</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- RESERVATIONS -->
+    <section id="reservations" class="section fade-in">
+      <h2 class="section-title">Réservations</h2>
+      <div class="entity-card">
+        <div class="entity-header" onclick="toggleEntity(this)">
+          <h3 class="entity-title"><i class="fas fa-ticket-alt"></i> Entité Reservation</h3>
+          <i class="fas fa-chevron-down toggle-icon"></i>
+        </div>
+        <div class="entity-body">
+          <div class="entity-description">
+            <p>L'entité Reservation permet de gérer les réservations pour les événements et les visites de lieux.</p>
+            
+            <h4 class="entity-attribute-title">Attributs</h4>
+            <table class="attributes-table">
+              <thead>
+                <tr>
+                  <th>Attribut</th>
+                  <th>Type</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>id</td>
+                  <td>number</td>
+                  <td>Identifiant unique</td>
+                </tr>
+                <tr>
+                  <td>userId</td>
+                  <td>number</td>
+                  <td>ID de l'utilisateur</td>
+                </tr>
+                <tr>
+                  <td>eventId</td>
+                  <td>number</td>
+                  <td>ID de l'événement (optionnel)</td>
+                </tr>
+                <tr>
+                  <td>placeId</td>
+                  <td>number</td>
+                  <td>ID du lieu (optionnel)</td>
+                </tr>
+                <tr>
+                  <td>numberOfTickets</td>
+                  <td>number</td>
+                  <td>Nombre de billets (pour événements)</td>
+                </tr>
+                <tr>
+                  <td>numberOfPersons</td>
+                  <td>number</td>
+                  <td>Nombre de personnes (pour visites)</td>
+                </tr>
+                <tr>
+                  <td>totalPrice</td>
+                  <td>number</td>
+                  <td>Prix total</td>
+                </tr>
+                <tr>
+                  <td>status</td>
+                  <td>string</td>
+                  <td>Statut (pending, confirmed, cancelled)</td>
+                </tr>
+                <tr>
+                  <td>paymentMethod</td>
+                  <td>string</td>
+                  <td>Méthode de paiement</td>
+                </tr>
+                <tr>
+                  <td>paymentId</td>
+                  <td>string</td>
+                  <td>ID de la transaction de paiement</td>
+                </tr>
+                <tr>
+                  <td>visitDate</td>
+                  <td>date</td>
+                  <td>Date de visite (pour les lieux)</td>
+                </tr>
+                <tr>
+                  <td>createdAt</td>
+                  <td>date</td>
+                  <td>Date de création</td>
+                </tr>
+                <tr>
+                  <td>updatedAt</td>
+                  <td>date</td>
+                  <td>Date de dernière mise à jour</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+          <div class="routes-container">
+            <!-- Route: Get All Reservations -->
+            <div class="route-card">
+              <div class="route-header" onclick="toggleRoute(this)">
+                <div class="route-method method-get">GET</div>
+                <div class="route-path">/api/reservations</div>
+                <div class="route-summary">Récupérer toutes les réservations</div>
+              </div>
+              <div class="route-body">
+                <div class="route-details">
+                  <div>
+                    <div class="route-section">
+                      <h4 class="route-section-title">Description</h4>
+                      <p>Récupère la liste des réservations. Pour les utilisateurs normaux, seules leurs propres réservations sont retournées.</p>
+                    </div>
+                    
+                    <div class="route-section">
+                      <h4 class="route-section-title">En-têtes</h4>
+                      <table class="params-table">
+                        <thead>
+                          <tr>
+                            <th>Nom</th>
+                            <th>Valeur</th>
+                            <th>Description</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>Authorization <span class="info-tag tag-required">Requis</span></td>
+                            <td>Bearer [token]</td>
+                            <td>Token JWT obtenu lors de la connexion</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <div class="response-section">
+                      <h4 class="route-section-title">Réponses</h4>
+                      
+                      <div>
+                        <span class="status-tag status-200">200 OK</span>
+                        <div class="code-block">
+                          <pre><code>{
+  "status": 200,
+  "data": [
+    {
+      "id": 1,
+      "userId": 1,
+      "eventId": 1,
+      "numberOfTickets": 2,
+      "totalPrice": 20,
+      "status": "confirmed",
+      "createdAt": "2023-08-10T11:20:00Z"
+    },
+    {
+      "id": 2,
+      "userId": 2,
+      "placeId": 1,
+      "visitDate": "2023-09-20T10:00:00Z",
+      "numberOfPersons": 3,
+      "totalPrice": 30,
+      "status": "pending",
+      "createdAt": "2023-08-15T09:45:00Z"
+    }
+  ]
+}</code></pre>
+                        </div>
+                      </div>
+                      
+                      <div>
+                        <span class="status-tag status-401">401 Unauthorized</span>
+                        <div class="code-block">
+                          <pre><code>{
+  "message": "Non autorisé"
+}</code></pre>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <a href="#" class="btn-test">Tester dans Postman</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Route: Create Reservation -->
+            <div class="route-card">
+              <div class="route-header" onclick="toggleRoute(this)">
+                <div class="route-method method-post">POST</div>
+                <div class="route-path">/api/reservations</div>
+                <div class="route-summary">Créer une nouvelle réservation</div>
+              </div>
+              <div class="route-body">
+                <div class="route-details">
+                  <div>
+                    <div class="route-section">
+                      <h4 class="route-section-title">Description</h4>
+                      <p>Crée une nouvelle réservation pour un événement ou une visite. Nécessite une authentification.</p>
+                    </div>
+                    
+                    <div class="route-section">
+                      <h4 class="route-section-title">En-têtes</h4>
+                      <table class="params-table">
+                        <thead>
+                          <tr>
+                            <th>Nom</th>
+                            <th>Valeur</th>
+                            <th>Description</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>Authorization <span class="info-tag tag-required">Requis</span></td>
+                            <td>Bearer [token]</td>
+                            <td>Token JWT obtenu lors de la connexion</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    
+                    <div class="route-section">
+                      <h4 class="route-section-title">Corps de la Requête</h4>
+                      <table class="params-table">
+                        <thead>
+                          <tr>
+                            <th>Paramètre</th>
+                            <th>Type</th>
+                            <th>Description</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>eventId <span class="info-tag tag-optional">Optionnel*</span></td>
+                            <td>number</td>
+                            <td>ID de l'événement</td>
+                          </tr>
+                          <tr>
+                            <td>placeId <span class="info-tag tag-optional">Optionnel*</span></td>
+                            <td>number</td>
+                            <td>ID du lieu</td>
+                          </tr>
+                          <tr>
+                            <td>numberOfTickets <span class="info-tag tag-optional">Optionnel</span></td>
+                            <td>number</td>
+                            <td>Nombre de billets (pour événements)</td>
+                          </tr>
+                          <tr>
+                            <td>numberOfPersons <span class="info-tag tag-optional">Optionnel</span></td>
+                            <td>number</td>
+                            <td>Nombre de personnes (pour visites)</td>
+                          </tr>
+                          <tr>
+                            <td>visitDate <span class="info-tag tag-optional">Optionnel</span></td>
+                            <td>date</td>
+                            <td>Date de visite (pour les lieux)</td>
+                          </tr>
+                          <tr>
+                            <td>paymentMethod <span class="info-tag tag-optional">Optionnel</span></td>
+                            <td>string</td>
+                            <td>Méthode de paiement</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <p>* Soit eventId, soit placeId doit être spécifié</p>
+                      
+                      <div class="code-block">
+                        <pre><code>{
+  "eventId": 1,
+  "numberOfTickets": 2,
+  "paymentMethod": "credit card"
+}</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <div class="response-section">
+                      <h4 class="route-section-title">Réponses</h4>
+                      
+                      <div>
+                        <span class="status-tag status-201">201 Created</span>
+                        <div class="code-block">
+                          <pre><code>{
+  "status": 201,
+  "message": "Reservation created successfully",
+  "data": {
+    "id": 3,
+    "userId": 1,
+    "eventId": 1,
+    "numberOfTickets": 2,
+    "totalPrice": 50,
+    "status": "pending",
+    "paymentMethod": "credit card",
+    "createdAt": "2023-08-20T14:30:00Z"
+  }
+}</code></pre>
+                        </div>
+                      </div>
+                      
+                      <div>
+                        <span class="status-tag status-400">400 Bad Request</span>
+                        <div class="code-block">
+                          <pre><code>{
+  "message": "Not enough tickets available"
+}</code></pre>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <a href="#" class="btn-test">Tester dans Postman</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- REVIEWS -->
+    <section id="reviews" class="section fade-in">
+      <h2 class="section-title">Avis</h2>
+      <div class="entity-card">
+        <div class="entity-header" onclick="toggleEntity(this)">
+          <h3 class="entity-title"><i class="fas fa-star"></i> Entité Review</h3>
+          <i class="fas fa-chevron-down toggle-icon"></i>
+        </div>
+        <div class="entity-body">
+          <div class="entity-description">
+            <p>L'entité Review représente les avis laissés par les utilisateurs sur les lieux touristiques.</p>
+            
+            <h4 class="entity-attribute-title">Attributs</h4>
+            <table class="attributes-table">
+              <thead>
+                <tr>
+                  <th>Attribut</th>
+                  <th>Type</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>id</td>
+                  <td>number</td>
+                  <td>Identifiant unique</td>
+                </tr>
+                <tr>
+                  <td>userId</td>
+                  <td>number</td>
+                  <td>ID de l'utilisateur</td>
+                </tr>
+                <tr>
+                  <td>placeId</td>
+                  <td>number</td>
+                  <td>ID du lieu</td>
+                </tr>
+                <tr>
+                  <td>rating</td>
+                  <td>number</td>
+                  <td>Note (1-5)</td>
+                </tr>
+                <tr>
+                  <td>comment</td>
+                  <td>string</td>
+                  <td>Commentaire textuel</td>
+                </tr>
+                <tr>
+                  <td>images</td>
+                  <td>array</td>
+                  <td>URLs des images</td>
+                </tr>
+                <tr>
+                  <td>createdAt</td>
+                  <td>date</td>
+                  <td>Date de création</td>
+                </tr>
+                <tr>
+                  <td>updatedAt</td>
+                  <td>date</td>
+                  <td>Date de dernière mise à jour</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+          <div class="routes-container">
+            <!-- Route: Get All Reviews -->
+            <div class="route-card">
+              <div class="route-header" onclick="toggleRoute(this)">
+                <div class="route-method method-get">GET</div>
+                <div class="route-path">/api/reviews</div>
+                <div class="route-summary">Récupérer tous les avis</div>
+              </div>
+              <div class="route-body">
+                <div class="route-details">
+                  <div>
+                    <div class="route-section">
+                      <h4 class="route-section-title">Description</h4>
+                      <p>Récupère la liste des avis avec des options de filtrage.</p>
+                    </div>
+                    
+                    <div class="route-section">
+                      <h4 class="route-section-title">Paramètres de Requête</h4>
+                      <table class="params-table">
+                        <thead>
+                          <tr>
+                            <th>Paramètre</th>
+                            <th>Type</th>
+                            <th>Description</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>placeId <span class="info-tag tag-optional">Optionnel</span></td>
+                            <td>number</td>
+                            <td>Filtrer par lieu</td>
+                          </tr>
+                          <tr>
+                            <td>userId <span class="info-tag tag-optional">Optionnel</span></td>
+                            <td>number</td>
+                            <td>Filtrer par utilisateur</td>
+                          </tr>
+                          <tr>
+                            <td>rating <span class="info-tag tag-optional">Optionnel</span></td>
+                            <td>number</td>
+                            <td>Filtrer par note minimum</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <div class="response-section">
+                      <h4 class="route-section-title">Réponses</h4>
+                      
+                      <div>
+                        <span class="status-tag status-200">200 OK</span>
+                        <div class="code-block">
+                          <pre><code>{
+  "status": 200,
+  "data": [
+    {
+      "id": 1,
+      "userId": 1,
+      "placeId": 1,
+      "rating": 5,
+      "comment": "Un site magnifique à ne pas manquer !",
+      "images": [
+        "https://example.com/review1_img1.jpg"
+      ],
+      "createdAt": "2023-07-10T09:20:00Z",
+      "user": {
+        "nom": "Dupont",
+        "prenom": "Jean"
+      }
+    },
+    {
+      "id": 2,
+      "userId": 2,
+      "placeId": 1,
+      "rating": 4,
+      "comment": "Très beau site, mais manque d'informations en français.",
+      "images": [],
+      "createdAt": "2023-07-15T14:30:00Z",
+      "user": {
+        "nom": "Martin",
+        "prenom": "Sophie"
+      }
+    }
+  ]
+}</code></pre>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <a href="#" class="btn-test">Tester dans Postman</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Route: Create Review -->
+            <div class="route-card">
+              <div class="route-header" onclick="toggleRoute(this)">
+                <div class="route-method method-post">POST</div>
+                <div class="route-path">/api/reviews</div>
+                <div class="route-summary">Créer un nouvel avis</div>
+              </div>
+              <div class="route-body">
+                <div class="route-details">
+                  <div>
+                    <div class="route-section">
+                      <h4 class="route-section-title">Description</h4>
+                      <p>Crée un nouvel avis pour un lieu. Nécessite une authentification.</p>
+                    </div>
+                    
+                    <div class="route-section">
+                      <h4 class="route-section-title">En-têtes</h4>
+                      <table class="params-table">
+                        <thead>
+                          <tr>
+                            <th>Nom</th>
+                            <th>Valeur</th>
+                            <th>Description</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>Authorization <span class="info-tag tag-required">Requis</span></td>
+                            <td>Bearer [token]</td>
+                            <td>Token JWT obtenu lors de la connexion</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    
+                    <div class="route-section">
+                      <h4 class="route-section-title">Corps de la Requête</h4>
+                      <table class="params-table">
+                        <thead>
+                          <tr>
+                            <th>Paramètre</th>
+                            <th>Type</th>
+                            <th>Description</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>placeId <span class="info-tag tag-required">Requis</span></td>
+                            <td>number</td>
+                            <td>ID du lieu</td>
+                          </tr>
+                          <tr>
+                            <td>rating <span class="info-tag tag-required">Requis</span></td>
+                            <td>number</td>
+                            <td>Note (1-5)</td>
+                          </tr>
+                          <tr>
+                            <td>comment <span class="info-tag tag-required">Requis</span></td>
+                            <td>string</td>
+                            <td>Commentaire textuel</td>
+                          </tr>
+                          <tr>
+                            <td>images <span class="info-tag tag-optional">Optionnel</span></td>
+                            <td>array</td>
+                            <td>URLs des images</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      
+                      <div class="code-block">
+                        <pre><code>{
+  "placeId": 2,
+  "rating": 5,
+  "comment": "Une expérience inoubliable, je recommande vivement !",
+  "images": [
+    "https://example.com/review3_img1.jpg",
+    "https://example.com/review3_img2.jpg"
+  ]
+}</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <div class="response-section">
+                      <h4 class="route-section-title">Réponses</h4>
+                      
+                      <div>
+                        <span class="status-tag status-201">201 Created</span>
+                        <div class="code-block">
+                          <pre><code>{
+  "status": 201,
+  "message": "Review successfully submitted",
+  "data": {
+    "id": 3,
+    "userId": 1,
+    "placeId": 2,
+    "rating": 5,
+    "comment": "Une expérience inoubliable, je recommande vivement !",
+    "images": [
+      "https://example.com/review3_img1.jpg",
+      "https://example.com/review3_img2.jpg"
+    ],
+    "createdAt": "2023-08-20T10:15:00Z"
+  }
+}</code></pre>
+                        </div>
+                      </div>
+                      
+                      <div>
+                        <span class="status-tag status-404">404 Not Found</span>
+                        <div class="code-block">
+                          <pre><code>{
+  "status": 404,
+  "message": "Place not found"
+}</code></pre>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <a href="#" class="btn-test">Tester dans Postman</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- MESSAGERIE -->
+    <section id="messaging" class="section fade-in">
+      <h2 class="section-title">Messagerie</h2>
+      <div class="entity-card">
+        <div class="entity-header" onclick="toggleEntity(this)">
+          <h3 class="entity-title"><i class="fas fa-comments"></i> Entité Messagerie</h3>
+          <i class="fas fa-chevron-down toggle-icon"></i>
+        </div>
+        <div class="entity-body">
+          <div class="entity-description">
+            <p>L'entité Messagerie permet aux utilisateurs d'échanger des messages dans l'application.</p>
+            
+            <h4 class="entity-attribute-title">Attributs Message</h4>
+            <table class="attributes-table">
+              <thead>
+                <tr>
+                  <th>Attribut</th>
+                  <th>Type</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>id</td>
+                  <td>number</td>
+                  <td>Identifiant unique</td>
+                </tr>
+                <tr>
+                  <td>id_expediteur</td>
+                  <td>number</td>
+                  <td>ID de l'expéditeur</td>
+                </tr>
+                <tr>
+                  <td>id_destinataire</td>
+                  <td>number</td>
+                  <td>ID du destinataire</td>
+                </tr>
+                <tr>
+                  <td>texte</td>
+                  <td>string</td>
+                  <td>Contenu du message</td>
+                </tr>
+                <tr>
+                  <td>is_read</td>
+                  <td>boolean</td>
+                  <td>Statut de lecture</td>
+                </tr>
+                <tr>
+                  <td>date_envoi</td>
+                  <td>date</td>
+                  <td>Date d'envoi</td>
+                </tr>
+              </tbody>
+            </table>
+            
+            <h4 class="entity-attribute-title">Attributs Session</h4>
+            <table class="attributes-table">
+              <thead>
+                <tr>
+                  <th>Attribut</th>
+                  <th>Type</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>id</td>
+                  <td>number</td>
+                  <td>Identifiant unique</td>
+                </tr>
+                <tr>
+                  <td>userId1</td>
+                  <td>number</td>
+                  <td>ID du premier utilisateur</td>
+                </tr>
+                <tr>
+                  <td>userId2</td>
+                  <td>number</td>
+                  <td>ID du second utilisateur</td>
+                </tr>
+                <tr>
+                  <td>isActive</td>
+                  <td>boolean</td>
+                  <td>Statut de la session</td>
+                </tr>
+                <tr>
+                  <td>createdAt</td>
+                  <td>date</td>
+                  <td>Date de création</td>
+                </tr>
+                <tr>
+                  <td>updatedAt</td>
+                  <td>date</td>
+                  <td>Date de dernière mise à jour</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+          <div class="routes-container">
+            <!-- Route: Send Message -->
+            <div class="route-card">
+              <div class="route-header" onclick="toggleRoute(this)">
+                <div class="route-method method-post">POST</div>
+                <div class="route-path">/api/messagerie</div>
+                <div class="route-summary">Envoyer un message</div>
+              </div>
+              <div class="route-body">
+                <div class="route-details">
+                  <div>
+                    <div class="route-section">
+                      <h4 class="route-section-title">Description</h4>
+                      <p>Envoie un message à un autre utilisateur. Si aucune session n'existe entre les utilisateurs, une nouvelle session est automatiquement créée.</p>
+                    </div>
+                    
+                    <div class="route-section">
+                      <h4 class="route-section-title">En-têtes</h4>
+                      <table class="params-table">
+                        <thead>
+                          <tr>
+                            <th>Nom</th>
+                            <th>Valeur</th>
+                            <th>Description</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>Authorization <span class="info-tag tag-required">Requis</span></td>
+                            <td>Bearer [token]</td>
+                            <td>Token JWT obtenu lors de la connexion</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    
+                    <div class="route-section">
+                      <h4 class="route-section-title">Corps de la Requête</h4>
+                      <table class="params-table">
+                        <thead>
+                          <tr>
+                            <th>Paramètre</th>
+                            <th>Type</th>
+                            <th>Description</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>id_destinataire <span class="info-tag tag-required">Requis</span></td>
+                            <td>number</td>
+                            <td>ID du destinataire</td>
+                          </tr>
+                          <tr>
+                            <td>texte <span class="info-tag tag-required">Requis</span></td>
+                            <td>string</td>
+                            <td>Contenu du message</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      
+                      <div class="code-block">
+                        <pre><code>{
+  "id_destinataire": 2,
+  "texte": "Bonjour, je souhaite avoir plus d'informations sur l'événement."
+}</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <div class="response-section">
+                      <h4 class="route-section-title">Réponses</h4>
+                      
+                      <div>
+                        <span class="status-tag status-201">201 Created</span>
+                        <div class="code-block">
+                          <pre><code>{
+  "success": true,
+  "message": "Message sent successfully",
+  "data": {
+    "message": {
+      "id": 1,
+      "id_expediteur": 1,
+      "id_destinataire": 2,
+      "texte": "Bonjour, je souhaite avoir plus d'informations sur l'événement.",
+      "is_read": false,
+      "date_envoi": "2023-08-20T15:30:00Z"
+    },
+    "session": {
+      "id": 1,
+      "userId1": 1,
+      "userId2": 2,
+      "isActive": true,
+      "createdAt": "2023-08-20T15:30:00Z"
+    }
+  }
+}</code></pre>
+                        </div>
+                      </div>
+                      
+                      <div>
+                        <span class="status-tag status-404">404 Not Found</span>
+                        <div class="code-block">
+                          <pre><code>{
+  "message": "Recipient not found"
+}</code></pre>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <a href="#" class="btn-test">Tester dans Postman</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Route: Get User Conversations -->
+            <div class="route-card">
+              <div class="route-header" onclick="toggleRoute(this)">
+                <div class="route-method method-get">GET</div>
+                <div class="route-path">/api/messagerie/conversations</div>
+                <div class="route-summary">Récupérer les conversations</div>
+              </div>
+              <div class="route-body">
+                <div class="route-details">
+                  <div>
+                    <div class="route-section">
+                      <h4 class="route-section-title">Description</h4>
+                      <p>Récupère toutes les conversations (sessions) de l'utilisateur connecté.</p>
+                    </div>
+                    
+                    <div class="route-section">
+                      <h4 class="route-section-title">En-têtes</h4>
+                      <table class="params-table">
+                        <thead>
+                          <tr>
+                            <th>Nom</th>
+                            <th>Valeur</th>
+                            <th>Description</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>Authorization <span class="info-tag tag-required">Requis</span></td>
+                            <td>Bearer [token]</td>
+                            <td>Token JWT obtenu lors de la connexion</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <div class="response-section">
+                      <h4 class="route-section-title">Réponses</h4>
+                      
+                      <div>
+                        <span class="status-tag status-200">200 OK</span>
+                        <div class="code-block">
+                          <pre><code>{
+  "success": true,
+  "data": [
+    {
+      "session_id": 1,
+      "other_user_id": 2,
+      "last_message": {
+        "id": 3,
+        "texte": "Merci pour l'information.",
+        "date_envoi": "2023-08-20T16:45:00Z",
+        "is_read": true
+      },
+      "unread_count": 0,
+      "updated_at": "2023-08-20T16:45:00Z",
+      "other_user": {
+        "user_id": 2,
+        "nom": "Martin",
+        "prenom": "Sophie",
+        "profile_image": "https://example.com/sophie.jpg"
+      }
+    },
+    {
+      "session_id": 2,
+      "other_user_id": 3,
+      "last_message": {
+        "id": 5,
+        "texte": "Quelle est l'adresse exacte ?",
+        "date_envoi": "2023-08-19T10:20:00Z",
+        "is_read": false
+      },
+      "unread_count": 2,
+      "updated_at": "2023-08-19T10:20:00Z",
+      "other_user": {
+        "user_id": 3,
+        "nom": "Dubois",
+        "prenom": "Pierre",
+        "profile_image": "https://example.com/pierre.jpg"
+      }
+    }
+  ]
+}</code></pre>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <a href="#" class="btn-test">Tester dans Postman</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Route: Get Conversation -->
+            <div class="route-card">
+              <div class="route-header" onclick="toggleRoute(this)">
+                <div class="route-method method-get">GET</div>
+                <div class="route-path">/api/messagerie/conversations/:userId</div>
+                <div class="route-summary">Récupérer une conversation</div>
+              </div>
+              <div class="route-body">
+                <div class="route-details">
+                  <div>
+                    <div class="route-section">
+                      <h4 class="route-section-title">Description</h4>
+                      <p>Récupère les messages échangés avec un utilisateur spécifique. Les messages non lus sont automatiquement marqués comme lus.</p>
+                    </div>
+                    
+                    <div class="route-section">
+                      <h4 class="route-section-title">En-têtes</h4>
+                      <table class="params-table">
+                        <thead>
+                          <tr>
+                            <th>Nom</th>
+                            <th>Valeur</th>
+                            <th>Description</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>Authorization <span class="info-tag tag-required">Requis</span></td>
+                            <td>Bearer [token]</td>
+                            <td>Token JWT obtenu lors de la connexion</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    
+                    <div class="route-section">
+                      <h4 class="route-section-title">Paramètres</h4>
+                      <table class="params-table">
+                        <thead>
+                          <tr>
+                            <th>Paramètre</th>
+                            <th>Type</th>
+                            <th>Description</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>userId <span class="info-tag tag-required">Requis</span></td>
+                            <td>number</td>
+                            <td>ID de l'autre utilisateur</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    
+                    <div class="route-section">
+                      <h4 class="route-section-title">Paramètres de Requête</h4>
+                      <table class="params-table">
+                        <thead>
+                          <tr>
+                            <th>Paramètre</th>
+                            <th>Type</th>
+                            <th>Description</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>limit <span class="info-tag tag-optional">Optionnel</span></td>
+                            <td>number</td>
+                            <td>Nombre maximum de messages à retourner (défaut: 50)</td>
+                          </tr>
+                          <tr>
+                            <td>offset <span class="info-tag tag-optional">Optionnel</span></td>
+                            <td>number</td>
+                            <td>Décalage pour la pagination (défaut: 0)</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <div class="response-section">
+                      <h4 class="route-section-title">Réponses</h4>
+                      
+                      <div>
+                        <span class="status-tag status-200">200 OK</span>
+                        <div class="code-block">
+                          <pre><code>{
+  "success": true,
+  "data": {
+    "messages": [
+      {
+        "id": 1,
+        "id_expediteur": 1,
+        "id_destinataire": 2,
+        "texte": "Bonjour, je souhaite avoir plus d'informations sur l'événement.",
+        "is_read": true,
+        "date_envoi": "2023-08-20T15:30:00Z"
+      },
+      {
+        "id": 2,
+        "id_expediteur": 2,
+        "id_destinataire": 1,
+        "texte": "Bonjour, bien sûr ! Que souhaitez-vous savoir ?",
+        "is_read": true,
+        "date_envoi": "2023-08-20T15:35:00Z"
+      },
+      {
+        "id": 3,
+        "id_expediteur": 1,
+        "id_destinataire": 2,
+        "texte": "Merci pour l'information.",
+        "is_read": true,
+        "date_envoi": "2023-08-20T16:45:00Z"
+      }
+    ],
+    "otherUser": {
+      "user_id": 2,
+      "nom": "Martin",
+      "prenom": "Sophie",
+      "profile_image": "https://example.com/sophie.jpg"
+    }
+  }
+}</code></pre>
+                        </div>
+                      </div>
+                      
+                      <div>
+                        <span class="status-tag status-404">404 Not Found</span>
+                        <div class="code-block">
+                          <pre><code>{
+  "message": "User not found"
+}</code></pre>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <a href="#" class="btn-test">Tester dans Postman</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <footer>
+    <div class="container footer-container">
+      <p class="footer-text">© 2023 JenCity API Documentation. Tous droits réservés.</p>
+      <ul class="footer-links">
+        <li><a href="#" class="footer-link">Accueil</a></li>
+        <li><a href="#" class="footer-link">Contact</a></li>
+        <li><a href="#" class="footer-link">Conditions d'utilisation</a></li>
+      </ul>
+    </div>
+  </footer>
+  
+  <script>
+    // Toggle entity sections
+    function toggleEntity(element) {
+      const body = element.nextElementSibling;
+      const icon = element.querySelector('.toggle-icon');
+      
+      body.classList.toggle('active');
+      icon.classList.toggle('active');
+    }
+    
+    // Toggle route sections
+    function toggleRoute(element) {
+      const body = element.nextElementSibling;
+      
+      body.classList.toggle('active');
+    }
+    
+    // Search functionality
+    document.getElementById('search').addEventListener('input', function(e) {
+      const searchTerm = e.target.value.toLowerCase();
+      const routeCards = document.querySelectorAll('.route-card');
+      
+      routeCards.forEach(card => {
+        const method = card.querySelector('.route-method').textContent.toLowerCase();
+        const path = card.querySelector('.route-path').textContent.toLowerCase();
+        const summary = card.querySelector('.route-summary').textContent.toLowerCase();
+        
+        if (method.includes(searchTerm) || path.includes(searchTerm) || summary.includes(searchTerm)) {
+          card.style.display = '';
+          // Expand parent entity if match is found
+          const parentEntity = card.closest('.entity-body');
+          if (parentEntity && !parentEntity.classList.contains('active')) {
+            const parentHeader = parentEntity.previousElementSibling;
+            toggleEntity(parentHeader);
+          }
+        } else {
+          card.style.display = 'none';
+        }
+      });
+      
+      // Show/hide entity cards based on whether they have visible routes
+      document.querySelectorAll('.entity-card').forEach(entityCard => {
+        const visibleRoutes = Array.from(entityCard.querySelectorAll('.route-card')).filter(card => card.style.display !== 'none');
+        if (searchTerm && visibleRoutes.length === 0) {
+          entityCard.style.display = 'none';
+        } else {
+          entityCard.style.display = '';
+        }
+      });
+      
+      // Show/hide sections based on whether they have visible entity cards
+      document.querySelectorAll('.section').forEach(section => {
+        const visibleEntities = Array.from(section.querySelectorAll('.entity-card')).filter(card => card.style.display !== 'none');
+        if (searchTerm && visibleEntities.length === 0) {
+          section.style.display = 'none';
+        } else {
+          section.style.display = '';
+        }
+      });
+    });
+    
+    // Navigation links
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href').substring(1);
+        const targetElement = document.getElementById(targetId);
+        
+        // Remove active class from all links
+        document.querySelectorAll('.nav-link').forEach(navLink => {
+          navLink.classList.remove('active');
+        });
+        
+        // Add active class to clicked link
+        this.classList.add('active');
+        
+        // Scroll to target
+        window.scrollTo({
+          top: targetElement.offsetTop - 80,
+          behavior: 'smooth'
+        });
+      });
+    });
+    
+    // On load, expand the first entity in each section
+    document.addEventListener('DOMContentLoaded', function() {
+      const sections = document.querySelectorAll('.section');
+      sections.forEach(section => {
+        const firstEntityHeader = section.querySelector('.entity-header');
+        if (firstEntityHeader) {
+          // Only expand the first entity in the Introduction section
+          if (section.id === 'introduction') {
+            toggleEntity(firstEntityHeader);
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>
