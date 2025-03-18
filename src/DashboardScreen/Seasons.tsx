@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { fetchSeasons, fetchChapters, fetchSousChapters } from '@/api/chapters';
@@ -30,7 +31,7 @@ const Seasons: React.FC = () => {
   const [chapterToDelete, setChapterToDelete] = useState<string | null>(null);
   const [selectedSeason, setSelectedSeason] = useState<Season | null>(null);
   const [selectedChapter, setSelectedChapter] = useState<Chapter | null>(null);
-  const [activeView, setActiveView<'seasons' | 'chapters' | 'souschapters'>('seasons');
+  const [activeView, setActiveView] = useState<'seasons' | 'chapters' | 'souschapters'>('seasons');
   const [seasonToEdit, setSeasonToEdit] = useState<Season | null>(null);
   const [editDialogOpen, setEditDialogOpen] = useState(false);
   const [addSeasonDialogOpen, setAddSeasonDialogOpen] = useState(false);
