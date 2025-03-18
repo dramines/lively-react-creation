@@ -21,6 +21,7 @@ interface EditVideoModalProps {
     created_at: string;
     seasonName?: string;
   };
+  isOpen: boolean;
   onClose: () => void;
   onSuccess: () => void;
 }
@@ -30,7 +31,7 @@ interface FormValues {
   description: string;
 }
 
-export function EditVideoModal({ video, onClose, onSuccess }: EditVideoModalProps) {
+export function EditVideoModal({ video, isOpen, onClose, onSuccess }: EditVideoModalProps) {
   const { toast } = useToast();
   const form = useForm<FormValues>({
     defaultValues: {
@@ -54,6 +55,7 @@ export function EditVideoModal({ video, onClose, onSuccess }: EditVideoModalProp
           description: "Vidéo mise à jour avec succès",
         });
         onSuccess();
+        onClose();
       } else {
         throw new Error(response.data.message);
       }
@@ -67,37 +69,44 @@ export function EditVideoModal({ video, onClose, onSuccess }: EditVideoModalProp
   };
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        <FormField
-          control={form.control}
-          name="title"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Titre</FormLabel>
-              <FormControl>
-                <Input {...field} />
-              </FormControl>
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="description"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Description</FormLabel>
-              <FormControl>
-                <Textarea {...field} />
-              </FormControl>
-            </FormItem>
-          )}
-        />
-        <div className="flex justify-end space-x-2">
-          <Button variant="outline" onClick={onClose}>Annuler</Button>
-          <Button type="submit">Sauvegarder</Button>
-        </div>
-      </form>
-    </Form>
+    <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
+      <DialogContent className="sm:max-w-[425px]">
+        <DialogHeader>
+          <DialogTitle>Modifier la vidéo</DialogTitle>
+        </DialogHeader>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+            <FormField
+              control={form.control}
+              name="title"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Titre</FormLabel>
+                  <FormControl>
+                    <Input {...field} />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="description"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Description</FormLabel>
+                  <FormControl>
+                    <Textarea {...field} />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+            <div className="flex justify-end space-x-2">
+              <Button variant="outline" onClick={onClose} type="button">Annuler</Button>
+              <Button type="submit">Sauvegarder</Button>
+            </div>
+          </form>
+        </Form>
+      </DialogContent>
+    </Dialog>
   );
 }
