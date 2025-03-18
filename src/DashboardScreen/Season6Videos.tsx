@@ -6,7 +6,7 @@ import { deleteVideo } from '@/api/videos';
 import VideoCard from '@/components/video/VideoCard';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import EditVideoModal from '@/components/video/EditVideoModal';
+import { EditVideoModal } from '@/components/video/EditVideoModal';
 import { useToast } from '@/hooks/use-toast';
 import Modal from './Modal';
 import { Video } from '@/types/chapters';

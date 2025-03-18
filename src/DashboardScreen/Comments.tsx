@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { fetchSeasons } from '@/api/chapters';
 import { fetchComments, deleteComment } from '@/api/comments';
@@ -118,7 +118,7 @@ const Comments = () => {
                     <div className="flex justify-between items-start mb-2">
                       <div>
                         <h3 className="font-semibold">{comment.user_name}</h3>
-                        <p className="text-sm text-muted-foreground">{comment.date_comment}</p>
+                        <p className="text-sm text-muted-foreground">{comment.created_at}</p>
                       </div>
                       <Button 
                         variant="destructive" 

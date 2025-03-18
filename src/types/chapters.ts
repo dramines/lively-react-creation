@@ -1,4 +1,3 @@
-
 export interface Season {
   id_saison: string;
   name_saison: string;
@@ -80,15 +79,28 @@ export interface EditChapterFormData {
 
 export interface Comment {
   id_comment: string;
-  id_user: string;
-  id_video: string;
-  comment: string;
+  id_user?: string;
+  id_client?: string;
+  user_name: string;
+  comment_text: string;
+  date_comment?: string;
   created_at: string;
-  username?: string;
-  email?: string;
+  id_saison?: string;
+  id_video?: string;
+  rating?: number;
+  name_saison?: string;
+  photo_saison?: string;
 }
 
 export interface CommentsResponse {
   success: boolean;
   comments: Comment[];
+  saison_info?: {
+    title: string;
+    photo: string;
+  };
+  rating_info?: {
+    average: number;
+    total: number;
+  };
 }

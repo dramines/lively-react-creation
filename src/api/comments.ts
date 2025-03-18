@@ -4,16 +4,13 @@ import { Comment } from '@/types/chapters';
 
 const API_BASE_URL = 'https://plateform.draminesaid.com/app';
 
-export const fetchComments = async (videoId: string, userId: string): Promise<Comment[]> => {
+export const fetchComments = async (seasonId?: string): Promise<{success: boolean, comments: Comment[]}> => {
   try {
     const response = await axios.get(`${API_BASE_URL}/get_comments.php`, {
-      params: {
-        id_video: videoId,
-        id_user: userId
-      }
+      params: seasonId ? { id_saison: seasonId } : {}
     });
     
-    return response.data.comments || [];
+    return response.data;
   } catch (error) {
     console.error('Error fetching comments:', error);
     throw error;

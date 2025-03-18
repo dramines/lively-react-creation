@@ -6,7 +6,7 @@ import { fetchVideosByCategory } from '@/api/videos';
 import { deleteSeason, deleteChapter } from '@/api/seasons';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
-import { BookOpen, ChevronLeft, ChevronRight, Plus, X, PenSquare, Image, Eye, Video } from 'lucide-react';
+import { BookOpen, ChevronLeft, ChevronRight, Plus, X, PenSquare, Image, Eye, Video as VideoIcon } from 'lucide-react';
 import { AddSeasonForm } from '@/components/seasons/AddSeasonForm';
 import { AddChapterForm } from '@/components/seasons/AddChapterForm';
 import { EditSeasonForm } from '@/components/seasons/EditSeasonForm';
@@ -22,7 +22,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Season, Chapter, SousChapter } from '@/types/chapters';
+import { Season, Chapter, SousChapter, Video } from '@/types/chapters';
 import { EditChapterForm } from '@/components/seasons/EditChapterForm';
 
 const Seasons: React.FC = () => {
