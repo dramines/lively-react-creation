@@ -5,7 +5,6 @@ import { fetchVideosByCategory } from '@/api/videos';
 import { deleteVideo } from '@/api/videos';
 import VideoCard from '@/components/video/VideoCard';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { EditVideoModal } from '@/components/video/EditVideoModal';
 import { useToast } from '@/hooks/use-toast';
 import Modal from './Modal';
@@ -128,27 +127,21 @@ const Season6Videos: React.FC = () => {
       )}
 
       {/* Edit Video Modal */}
-      <Dialog open={isEditModalOpen} onOpenChange={setIsEditModalOpen}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Edit Video</DialogTitle>
-          </DialogHeader>
-          {videoToEdit && (
-            <EditVideoModal
-              video={videoToEdit}
-              onClose={() => {
-                setIsEditModalOpen(false);
-                setVideoToEdit(null);
-              }}
-              onSuccess={() => {
-                setIsEditModalOpen(false);
-                setVideoToEdit(null);
-                refetch();
-              }}
-            />
-          )}
-        </DialogContent>
-      </Dialog>
+      {videoToEdit && (
+        <EditVideoModal
+          video={videoToEdit}
+          isOpen={isEditModalOpen}
+          onClose={() => {
+            setIsEditModalOpen(false);
+            setVideoToEdit(null);
+          }}
+          onSuccess={() => {
+            setIsEditModalOpen(false);
+            setVideoToEdit(null);
+            refetch();
+          }}
+        />
+      )}
 
       {/* Delete Video Modal */}
       {videoToDelete && (
