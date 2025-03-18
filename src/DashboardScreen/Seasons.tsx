@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { fetchSeasons, fetchChapters, fetchSousChapters } from '@/api/chapters';
@@ -586,7 +585,7 @@ const Seasons: React.FC = () => {
                       />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center bg-primary/10">
-                        <Video className="h-12 w-12 text-primary" />
+                        <VideoIcon className="h-12 w-12 text-primary" />
                       </div>
                     )}
                   </div>
@@ -601,7 +600,7 @@ const Seasons: React.FC = () => {
             </div>
           ) : (
             <div className="text-center py-12">
-              <Video className="h-16 w-16 mx-auto text-gray-400" />
+              <VideoIcon className="h-16 w-16 mx-auto text-gray-400" />
               <h3 className="mt-4 text-lg font-medium">Aucune vidéo trouvée</h3>
               <p className="mt-2 text-muted-foreground">
                 Il n'y a pas de vidéos disponibles pour cette catégorie.

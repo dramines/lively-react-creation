@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import ReactPlayer from 'react-player';
 import axios from 'axios';
@@ -8,8 +9,10 @@ import VideoCard from '@/components/video/VideoCard';
 import VideoFilter from '@/components/video/VideoFilter';
 import { useQuery } from '@tanstack/react-query';
 import { fetchSeasons } from '@/api/chapters';
+import { Video } from '@/types/chapters';
 
-interface Video {
+// Define an interface for our component's video format which is different from the API's Video type
+interface LocalVideo {
   id: string;
   title: string;
   description: string;
@@ -30,13 +33,13 @@ const MainContent: React.FC<MainContentProps> = ({ user }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedSeason, setSelectedSeason] = useState('all');
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
-  const [videos, setVideos] = useState<Video[]>([]);
+  const [selectedVideo, setSelectedVideo] = useState<LocalVideo | null>(null);
+  const [videos, setVideos] = useState<LocalVideo[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [showModal, setShowModal] = useState(false);
   const [videoToDelete, setVideoToDelete] = useState<string | null>(null);
-  const [videoToEdit, setVideoToEdit] = useState<Video | null>(null);
+  const [videoToEdit, setVideoToEdit] = useState<LocalVideo | null>(null);
   const videosPerPage = 6;
 
   const { data: seasonsData } = useQuery({
@@ -213,7 +216,17 @@ const MainContent: React.FC<MainContentProps> = ({ user }) => {
 
           {videoToEdit && (
             <EditVideoModal
-              video={videoToEdit}
+              video={{
+                id_video: videoToEdit.id,
+                name_video: videoToEdit.title,
+                descri_video: videoToEdit.description,
+                url_video: videoToEdit.videoUrl,
+                url_thumbnail: videoToEdit.thumbnail,
+                saison: videoToEdit.seasonId || '',
+                cat_video: '',
+                created_at: '',
+                seasonName: videoToEdit.seasonName
+              }}
               isOpen={true}
               onClose={() => setVideoToEdit(null)}
               onSuccess={fetchVideos}
