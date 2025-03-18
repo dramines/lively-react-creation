@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { fetchSeasons, fetchChapters, fetchSousChapters } from '@/api/chapters';
+import { fetchVideosByCategory } from '@/api/videos';
 import { deleteSeason, deleteChapter } from '@/api/seasons';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
-import { BookOpen, ChevronLeft, ChevronRight, Plus, X, PenSquare, Image, Eye } from 'lucide-react';
+import { BookOpen, ChevronLeft, ChevronRight, Plus, X, PenSquare, Image, Eye, Video } from 'lucide-react';
 import { AddSeasonForm } from '@/components/seasons/AddSeasonForm';
 import { AddChapterForm } from '@/components/seasons/AddChapterForm';
 import { EditSeasonForm } from '@/components/seasons/EditSeasonForm';
@@ -29,7 +30,7 @@ const Seasons: React.FC = () => {
   const [chapterToDelete, setChapterToDelete] = useState<string | null>(null);
   const [selectedSeason, setSelectedSeason] = useState<Season | null>(null);
   const [selectedChapter, setSelectedChapter] = useState<Chapter | null>(null);
-  const [activeView, setActiveView] = useState<'seasons' | 'chapters' | 'souschapters'>('seasons');
+  const [activeView, setActiveView<'seasons' | 'chapters' | 'souschapters'>('seasons');
   const [seasonToEdit, setSeasonToEdit] = useState<Season | null>(null);
   const [editDialogOpen, setEditDialogOpen] = useState(false);
   const [addSeasonDialogOpen, setAddSeasonDialogOpen] = useState(false);
@@ -37,6 +38,10 @@ const Seasons: React.FC = () => {
   const [addSousChapterDialogOpen, setAddSousChapterDialogOpen] = useState(false);
   const [chapterToEdit, setChapterToEdit] = useState<Chapter | null>(null);
   const [editChapterDialogOpen, setEditChapterDialogOpen] = useState(false);
+  const [specialSeasonSousChapters, setSpecialSeasonSousChapters] = useState<SousChapter[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [categoryVideos, setCategoryVideos] = useState<Video[]>([]);
+  const [isLoadingCategoryVideos, setIsLoadingCategoryVideos] = useState(false);
 
   const { data: seasonsData, isLoading: isLoadingSeasons, refetch: refetchSeasons } = useQuery({
     queryKey: ['seasons'],
@@ -54,6 +59,54 @@ const Seasons: React.FC = () => {
     queryFn: () => fetchSousChapters(selectedChapter?.id_chapter!),
     enabled: !!selectedChapter,
   });
+
+  // Special handler for direct sous-chapter fetching for season 5
+  useEffect(() => {
+    if (selectedSeason?.id_saison === "5") {
+      const fetchDirectSousChapters = async () => {
+        try {
+          // Using the API endpoint for sous-chapters
+          const response = await fetch('https://plateform.draminesaid.com/app/get_souschapters.php');
+          const data = await response.json();
+          setSpecialSeasonSousChapters(data);
+        } catch (error) {
+          console.error('Error fetching direct sous-chapters:', error);
+          toast({
+            title: "Erreur",
+            description: "Impossible de charger les sous-chapitres",
+            variant: "destructive",
+          });
+        }
+      };
+
+      fetchDirectSousChapters();
+    }
+  }, [selectedSeason]);
+
+  // Fetch videos by category when a category is selected
+  useEffect(() => {
+    if (selectedCategory && selectedSeason) {
+      setIsLoadingCategoryVideos(true);
+      
+      const getVideos = async () => {
+        try {
+          const videos = await fetchVideosByCategory(selectedCategory, selectedSeason.id_saison);
+          setCategoryVideos(videos);
+        } catch (error) {
+          console.error('Error fetching videos by category:', error);
+          toast({
+            title: "Erreur",
+            description: "Impossible de charger les vidéos",
+            variant: "destructive",
+          });
+        } finally {
+          setIsLoadingCategoryVideos(false);
+        }
+      };
+      
+      getVideos();
+    }
+  }, [selectedCategory, selectedSeason]);
 
   const filteredChapters = React.useMemo(() => {
     if (!chaptersData?.chapters) return [];
@@ -139,10 +192,27 @@ const Seasons: React.FC = () => {
     }
   };
 
+  const handleCategoryClick = (category: string) => {
+    setSelectedCategory(category);
+    setActiveView('souschapters');
+  };
+
+  const handleBackToSousCategories = () => {
+    setSelectedCategory(null);
+    setActiveView('chapters');
+  };
+
   const handleSeasonClick = (season: Season) => {
     setSelectedSeason(season);
     setSelectedChapter(null);
-    setActiveView('chapters');
+    setSelectedCategory(null);
+    
+    // If it's season 5, switch directly to sous-chapters view
+    if (season.id_saison === "5") {
+      setActiveView('chapters'); // Using 'chapters' view to show sous-chapters for season 5
+    } else {
+      setActiveView('chapters');
+    }
   };
 
   const handleChapterClick = (chapter: Chapter) => {
@@ -274,16 +344,31 @@ const Seasons: React.FC = () => {
               variant="outline" 
               size="sm" 
               className="flex items-center gap-1"
-              onClick={activeView === 'chapters' ? handleBackToSeasons : handleBackToChapters}
+              onClick={
+                activeView === 'chapters' 
+                  ? handleBackToSeasons 
+                  : selectedCategory 
+                    ? handleBackToSousCategories 
+                    : handleBackToChapters
+              }
             >
               <ChevronLeft className="h-4 w-4" />
-              {activeView === 'chapters' ? 'Back to Seasons' : 'Back to Chapters'}
+              {activeView === 'chapters' 
+                ? 'Back to Seasons' 
+                : selectedCategory 
+                  ? 'Back to Categories' 
+                  : 'Back to Chapters'}
             </Button>
           )}
           <h2 className="text-2xl font-bold">
             {activeView === 'seasons' && 'Liste des saisons'}
-            {activeView === 'chapters' && `Chapitres: ${selectedSeason?.name_saison}`}
-            {activeView === 'souschapters' && `Sous-Chapitres: ${selectedChapter?.name_chapter}`}
+            {activeView === 'chapters' && selectedSeason?.id_saison === "5" 
+              ? `Catégories: ${selectedSeason?.name_saison}` 
+              : activeView === 'chapters' 
+                ? `Chapitres: ${selectedSeason?.name_saison}` 
+                : selectedCategory 
+                  ? `Vidéos: ${selectedCategory}` 
+                  : `Sous-Chapitres: ${selectedChapter?.name_chapter}`}
           </h2>
         </div>
         
@@ -292,6 +377,7 @@ const Seasons: React.FC = () => {
         </div>
       </div>
 
+      {/* Seasons View */}
       {activeView === 'seasons' && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {seasonsData?.saisons.map((season) => (
@@ -352,76 +438,180 @@ const Seasons: React.FC = () => {
         </div>
       )}
 
+      {/* Chapters View or Special Sous-Chapters for Season 5 */}
       {activeView === 'chapters' && (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {isLoadingChapters ? (
-            Array(6).fill(null).map((_, index) => (
-              <Skeleton key={`chapter-skeleton-${index}`} className="h-[200px] w-full" />
-            ))
-          ) : filteredChapters.length > 0 ? (
-            filteredChapters.map((chapter, index) => (
-              <Card 
-                key={`chapter-${chapter.id_chapter}`}
-                className="bg-dashboard-card border-border/40 relative hover:shadow-md transition-shadow cursor-pointer"
-                onClick={() => handleChapterClick(chapter)}
-              >
-                <div className="absolute top-2 right-2 flex gap-2 z-10">
-                  <button
-                    onClick={(e) => handleEditChapter(chapter, e)}
-                    className="p-1.5 rounded-full bg-white/90 hover:bg-white shadow transition-colors"
+        <div>
+          {selectedSeason?.id_saison === "5" ? (
+            // Special layout for Season 5 sous-chapters
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {specialSeasonSousChapters.length > 0 ? (
+                specialSeasonSousChapters.map((souschapter) => (
+                  <Card 
+                    key={`souschapter-${souschapter.id_souschapter}`}
+                    className="bg-dashboard-card border-border/40 relative hover:shadow-md transition-shadow cursor-pointer"
+                    onClick={() => handleCategoryClick(souschapter.tovideopage)}
                   >
-                    <PenSquare className="h-4 w-4 text-blue-500" />
-                  </button>
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setChapterToDelete(chapter.id_chapter);
-                    }}
-                    className="p-1.5 rounded-full bg-white/90 hover:bg-white shadow transition-colors"
-                  >
-                    <X className="h-4 w-4 text-red-500" />
-                  </button>
-                </div>
-                <div className="w-full aspect-[16/9] overflow-hidden">
-                  {chapter.photo_chapter ? (
-                    <img
-                      src={getChapterImagePath(chapter)}
-                      alt={`الحصة ${index + 1}`}
-                      className="w-full h-full object-cover"
-                      onError={(e) => {
-                        const target = e.target as HTMLImageElement;
-                        target.src = '/placeholder.svg';
-                      }}
-                    />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center bg-primary/10">
-                      <BookOpen className="h-12 w-12 text-primary" />
+                    <div className="flex items-center p-4">
+                      <div className="flex-shrink-0 w-32 h-24 overflow-hidden rounded-md mr-4">
+                        <img
+                          src={`https://draminesaid.com/videos/saisonsimages/${souschapter.image_url}`}
+                          alt={`Category ${souschapter.tovideopage}`}
+                          className="w-full h-full object-cover"
+                          onError={(e) => {
+                            const target = e.target as HTMLImageElement;
+                            target.src = '/placeholder.svg';
+                          }}
+                        />
+                      </div>
+                      <div className="flex-grow">
+                        <h3 className="text-lg font-semibold mb-1">
+                          {souschapter.name_souschapter || `Catégorie ${souschapter.tovideopage}`}
+                        </h3>
+                        <Button variant="ghost" size="sm" className="gap-1 mt-2">
+                          <Eye className="h-4 w-4" /> Voir les vidéos
+                        </Button>
+                      </div>
                     </div>
-                  )}
+                  </Card>
+                ))
+              ) : (
+                <div className="col-span-full text-center py-12">
+                  <Image className="h-16 w-16 mx-auto text-gray-400" />
+                  <h3 className="mt-4 text-lg font-medium">Aucune catégorie trouvée</h3>
+                  <p className="mt-2 text-muted-foreground">
+                    Il n'y a pas de catégories disponibles pour cette saison.
+                  </p>
                 </div>
-                <CardHeader>
-                  <CardTitle className="text-lg text-center">الحصة {index + 1}</CardTitle>
-                </CardHeader>
-                <CardFooter className="flex justify-center py-2">
-                  <Button variant="ghost" size="sm" className="gap-1">
-                    <Eye className="h-4 w-4" /> Voir les détails
-                  </Button>
-                </CardFooter>
-              </Card>
-            ))
+              )}
+            </div>
           ) : (
-            <div className="col-span-3 text-center py-12">
-              <Image className="h-16 w-16 mx-auto text-gray-400" />
-              <h3 className="mt-4 text-lg font-medium">Aucun chapitre trouvé</h3>
+            // Regular chapters view for other seasons
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {isLoadingChapters ? (
+                Array(6).fill(null).map((_, index) => (
+                  <Skeleton key={`chapter-skeleton-${index}`} className="h-[200px] w-full" />
+                ))
+              ) : filteredChapters.length > 0 ? (
+                filteredChapters.map((chapter, index) => (
+                  <Card 
+                    key={`chapter-${chapter.id_chapter}`}
+                    className="bg-dashboard-card border-border/40 relative hover:shadow-md transition-shadow cursor-pointer"
+                    onClick={() => handleChapterClick(chapter)}
+                  >
+                    <div className="absolute top-2 right-2 flex gap-2 z-10">
+                      <button
+                        onClick={(e) => handleEditChapter(chapter, e)}
+                        className="p-1.5 rounded-full bg-white/90 hover:bg-white shadow transition-colors"
+                      >
+                        <PenSquare className="h-4 w-4 text-blue-500" />
+                      </button>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setChapterToDelete(chapter.id_chapter);
+                        }}
+                        className="p-1.5 rounded-full bg-white/90 hover:bg-white shadow transition-colors"
+                      >
+                        <X className="h-4 w-4 text-red-500" />
+                      </button>
+                    </div>
+                    <div className="w-full aspect-[16/9] overflow-hidden">
+                      {chapter.photo_chapter ? (
+                        <img
+                          src={getChapterImagePath(chapter)}
+                          alt={`الحصة ${index + 1}`}
+                          className="w-full h-full object-cover"
+                          onError={(e) => {
+                            const target = e.target as HTMLImageElement;
+                            target.src = '/placeholder.svg';
+                          }}
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center bg-primary/10">
+                          <BookOpen className="h-12 w-12 text-primary" />
+                        </div>
+                      )}
+                    </div>
+                    <CardHeader>
+                      <CardTitle className="text-lg text-center">الحصة {index + 1}</CardTitle>
+                    </CardHeader>
+                    <CardFooter className="flex justify-center py-2">
+                      <Button variant="ghost" size="sm" className="gap-1">
+                        <Eye className="h-4 w-4" /> Voir les détails
+                      </Button>
+                    </CardFooter>
+                  </Card>
+                ))
+              ) : (
+                <div className="col-span-3 text-center py-12">
+                  <Image className="h-16 w-16 mx-auto text-gray-400" />
+                  <h3 className="mt-4 text-lg font-medium">Aucun chapitre trouvé</h3>
+                  <p className="mt-2 text-muted-foreground">
+                    Il n'y a pas de chapitres disponibles pour cette saison.
+                  </p>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Videos by Category View */}
+      {activeView === 'souschapters' && selectedCategory && (
+        <div className="space-y-6">
+          {isLoadingCategoryVideos ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {Array(6).fill(null).map((_, index) => (
+                <Skeleton key={`video-skeleton-${index}`} className="h-[200px] w-full" />
+              ))}
+            </div>
+          ) : categoryVideos.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {categoryVideos.map((video) => (
+                <Card 
+                  key={`video-${video.id_video}`}
+                  className="bg-dashboard-card border-border/40 relative hover:shadow-md transition-shadow"
+                >
+                  <div className="w-full aspect-[16/9] overflow-hidden">
+                    {video.url_thumbnail ? (
+                      <img
+                        src={`https://draminesaid.com/videos/saisonsimages/${video.url_thumbnail}`}
+                        alt={video.name_video}
+                        className="w-full h-full object-cover"
+                        onError={(e) => {
+                          const target = e.target as HTMLImageElement;
+                          target.src = '/placeholder.svg';
+                        }}
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center bg-primary/10">
+                        <Video className="h-12 w-12 text-primary" />
+                      </div>
+                    )}
+                  </div>
+                  <CardHeader>
+                    <CardTitle className="text-lg">{video.name_video}</CardTitle>
+                    <CardDescription className="line-clamp-2">
+                      {video.descri_video}
+                    </CardDescription>
+                  </CardHeader>
+                </Card>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-12">
+              <Video className="h-16 w-16 mx-auto text-gray-400" />
+              <h3 className="mt-4 text-lg font-medium">Aucune vidéo trouvée</h3>
               <p className="mt-2 text-muted-foreground">
-                Il n'y a pas de chapitres disponibles pour cette saison.
+                Il n'y a pas de vidéos disponibles pour cette catégorie.
               </p>
             </div>
           )}
         </div>
       )}
 
-      {activeView === 'souschapters' && (
+      {/* Regular Sous-Chapters View */}
+      {activeView === 'souschapters' && !selectedCategory && (
         <div className="space-y-6">
           {isLoadingSousChapters ? (
             Array(3).fill(null).map((_, index) => (
