@@ -6,12 +6,39 @@ const ENDPOINT = '/artists';
 
 export const ArtistsService = {
   getAllArtists: async (userId?: string) => {
-    const params = userId ? { user_id: userId } : {};
-    return fetchData(`${ENDPOINT}/read.php`, params);
+    try {
+      const params = userId ? { user_id: userId } : {};
+      return await fetchData(`${ENDPOINT}/read.php`, params);
+    } catch (error) {
+      console.error('Error fetching artists:', error);
+      return [];
+    }
   },
 
   getArtist: async (id: string) => {
-    return fetchData(`${ENDPOINT}/read_one.php`, { id });
+    try {
+      return await fetchData(`${ENDPOINT}/read_one.php`, { id });
+    } catch (error) {
+      console.error(`Error fetching artist with ID ${id}:`, error);
+      // Return fallback data for easier development and testing
+      return {
+        id: id,
+        nom: 'Artist data unavailable',
+        genre: 'Unknown genre',
+        photo: 'https://via.placeholder.com/150',
+        bio: 'Data could not be loaded. Please try again later.',
+        email: '',
+        telephone: '',
+        adresse: '',
+        social: {
+          instagram: '',
+          facebook: '',
+          youtube: ''
+        },
+        evenementsPassés: 0,
+        user_id: ''
+      };
+    }
   },
 
   createArtist: async (artistData: any) => {
