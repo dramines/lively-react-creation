@@ -96,6 +96,9 @@ interface InvoicePDFProps {
     dateFacture: string;
     dateEcheance: string;
     clientName: string;
+    clientAddress?: string;
+    clientPhone?: string;
+    clientTaxNumber?: string;
     items: Array<{
       description: string;
       quantite: number;
@@ -106,6 +109,11 @@ interface InvoicePDFProps {
     montantTVA: number;
     total: number;
     notes?: string;
+    companyName?: string;
+    companyTaxNumber?: string;
+    companyAddress?: string;
+    companyPhone?: string;
+    companyEmail?: string;
   };
 }
 
@@ -115,12 +123,11 @@ const InvoicePDF: React.FC<InvoicePDFProps> = ({ invoice }) => (
       {/* Header */}
       <View style={styles.header}>
         <View style={styles.companyInfo}>
-          <Text>Vilart Production</Text>
-          <Text>1865480/V/A/M/000</Text>
-          <Text>A3, Imm La Coupole, rue Windermere, Lac 1,</Text>
-          <Text>Tunis 1053</Text>
-          <Text>Téléphone: +216 54 754 704</Text>
-          <Text>Email: vilartprod@gmail.com</Text>
+          <Text>{invoice.companyName || 'Vilart Production'}</Text>
+          <Text>{invoice.companyTaxNumber || '1865480/V/A/M/000'}</Text>
+          <Text>{invoice.companyAddress || 'A3, Imm La Coupole, rue Windermere, Lac 1, Tunis 1053'}</Text>
+          <Text>Téléphone: {invoice.companyPhone || '+216 54 754 704'}</Text>
+          <Text>Email: {invoice.companyEmail || 'vilartprod@gmail.com'}</Text>
         </View>
       </View>
 
@@ -145,9 +152,9 @@ const InvoicePDF: React.FC<InvoicePDFProps> = ({ invoice }) => (
       <View style={styles.section}>
         <Text style={{ fontSize: 10, color: '#666666', marginBottom: 5 }}>Facturé à:</Text>
         <Text style={{ fontSize: 12, marginBottom: 3 }}>{invoice.clientName}</Text>
-        <Text style={{ fontSize: 10 }}>18 Rue de l'usine charguia 2</Text>
-        <Text style={{ fontSize: 10 }}>Tel 70 250 000</Text>
-        <Text style={{ fontSize: 10 }}>MF: 70 250 000</Text>
+        <Text style={{ fontSize: 10 }}>{invoice.clientAddress || '18 Rue de l\'usine charguia 2'}</Text>
+        <Text style={{ fontSize: 10 }}>Tel {invoice.clientPhone || '70 250 000'}</Text>
+        <Text style={{ fontSize: 10 }}>MF: {invoice.clientTaxNumber || '70 250 000'}</Text>
       </View>
 
       {/* Items Table */}

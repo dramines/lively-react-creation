@@ -14,6 +14,9 @@ export interface InvoiceDto {
   id?: string;
   numeroFacture: string;
   clientName: string;
+  clientAddress?: string;
+  clientPhone?: string;
+  clientTaxNumber?: string;
   dateFacture: string;
   dateEcheance: string;
   items: InvoiceItem[];
@@ -22,6 +25,11 @@ export interface InvoiceDto {
   total: number;
   notes?: string;
   user_id?: string;
+  companyName?: string;
+  companyTaxNumber?: string;
+  companyAddress?: string;
+  companyPhone?: string;
+  companyEmail?: string;
 }
 
 export const InvoicesService = {
@@ -35,6 +43,9 @@ export const InvoicesService = {
         id: item.id,
         numeroFacture: item.invoice_number,
         clientName: item.client_name,
+        clientAddress: item.client_address,
+        clientPhone: item.client_phone,
+        clientTaxNumber: item.client_tax_number,
         dateFacture: item.issue_date,
         dateEcheance: item.due_date,
         items: Array.isArray(item.items) ? item.items : [],
@@ -42,7 +53,12 @@ export const InvoicesService = {
         montantTVA: parseFloat(item.tax_amount) || 0,
         total: parseFloat(item.total_amount) || 0,
         notes: item.notes,
-        user_id: item.user_id
+        user_id: item.user_id,
+        companyName: item.company_name || 'Vilart Production',
+        companyTaxNumber: item.company_tax_number || '1865480/V/A/M/000',
+        companyAddress: item.company_address || 'A3, Imm La Coupole, rue Windermere, Lac 1, Tunis 1053',
+        companyPhone: item.company_phone || '+216 54 754 704',
+        companyEmail: item.company_email || 'vilartprod@gmail.com'
       }));
     } catch (error) {
       console.error('Error fetching invoices:', error);
@@ -64,6 +80,9 @@ export const InvoicesService = {
         id: data.id,
         numeroFacture: data.invoice_number,
         clientName: data.client_name,
+        clientAddress: data.client_address,
+        clientPhone: data.client_phone,
+        clientTaxNumber: data.client_tax_number,
         dateFacture: data.issue_date,
         dateEcheance: data.due_date,
         items: Array.isArray(data.items) ? data.items : [],
@@ -71,7 +90,12 @@ export const InvoicesService = {
         montantTVA: parseFloat(data.tax_amount) || 0,
         total: parseFloat(data.total_amount) || 0,
         notes: data.notes,
-        user_id: data.user_id
+        user_id: data.user_id,
+        companyName: data.company_name || 'Vilart Production',
+        companyTaxNumber: data.company_tax_number || '1865480/V/A/M/000',
+        companyAddress: data.company_address || 'A3, Imm La Coupole, rue Windermere, Lac 1, Tunis 1053',
+        companyPhone: data.company_phone || '+216 54 754 704',
+        companyEmail: data.company_email || 'vilartprod@gmail.com'
       };
     } catch (error) {
       console.error('Error fetching invoice:', error);

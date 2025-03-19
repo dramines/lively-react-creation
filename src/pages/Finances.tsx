@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import {
   BarChart,
@@ -39,6 +38,14 @@ interface Invoice {
     taxes: number;
   }>;
   notes?: string;
+  clientAddress?: string;
+  clientPhone?: string;
+  clientTaxNumber?: string;
+  companyName?: string;
+  companyTaxNumber?: string;
+  companyAddress?: string;
+  companyPhone?: string;
+  companyEmail?: string;
 }
 
 // Utility function to safely format dates
@@ -134,7 +141,15 @@ const Finances = () => {
         montantTVA: parseFloat(invoice.montantTVA || invoice.tax_amount || 0),
         total: parseFloat(invoice.total || invoice.total_amount || 0),
         items: invoice.items || [],
-        notes: invoice.notes || ''
+        notes: invoice.notes || '',
+        clientAddress: invoice.clientAddress || invoice.client_address,
+        clientPhone: invoice.clientPhone || invoice.client_phone,
+        clientTaxNumber: invoice.clientTaxNumber || invoice.client_tax_number,
+        companyName: invoice.companyName,
+        companyTaxNumber: invoice.companyTaxNumber,
+        companyAddress: invoice.companyAddress,
+        companyPhone: invoice.companyPhone,
+        companyEmail: invoice.companyEmail
       }));
       
       setInvoices(mappedInvoices);
@@ -666,10 +681,15 @@ const Finances = () => {
               <div>
                 <h3 className="text-sm font-medium text-gray-400">Client</h3>
                 <p className="text-white">{selectedInvoice.clientName}</p>
+                <p className="text-gray-300 text-sm">{selectedInvoice.clientAddress || '18 Rue de l\'usine charguia 2'}</p>
+                <p className="text-gray-300 text-sm">Tel: {selectedInvoice.clientPhone || '70 250 000'}</p>
+                <p className="text-gray-300 text-sm">MF: {selectedInvoice.clientTaxNumber || '70 250 000'}</p>
               </div>
               <div>
                 <h3 className="text-sm font-medium text-gray-400">Date</h3>
                 <p className="text-white">{safeFormatDate(selectedInvoice.dateFacture)}</p>
+                <h3 className="text-sm font-medium text-gray-400 mt-2">Échéance</h3>
+                <p className="text-white">{safeFormatDate(selectedInvoice.dateEcheance)}</p>
               </div>
             </div>
 
@@ -705,6 +725,15 @@ const Finances = () => {
                   <span>{selectedInvoice.total.toFixed(2)} TND</span>
                 </div>
               </div>
+            </div>
+
+            <div className="border-t border-gray-700 pt-4">
+              <h3 className="text-sm font-medium text-gray-400 mb-2">Informations de l'entreprise</h3>
+              <p className="text-gray-300 text-sm">{selectedInvoice.companyName || 'Vilart Production'}</p>
+              <p className="text-gray-300 text-sm">MF: {selectedInvoice.companyTaxNumber || '1865480/V/A/M/000'}</p>
+              <p className="text-gray-300 text-sm">{selectedInvoice.companyAddress || 'A3, Imm La Coupole, rue Windermere, Lac 1, Tunis 1053'}</p>
+              <p className="text-gray-300 text-sm">Tel: {selectedInvoice.companyPhone || '+216 54 754 704'}</p>
+              <p className="text-gray-300 text-sm">Email: {selectedInvoice.companyEmail || 'vilartprod@gmail.com'}</p>
             </div>
 
             {selectedInvoice.notes && (

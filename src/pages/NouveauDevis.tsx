@@ -29,7 +29,15 @@ const NouveauDevis = () => {
     dateFacture: format(new Date(), 'yyyy-MM-dd'),
     dateEcheance: format(new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), 'yyyy-MM-dd'),
     clientName: '',
-    notes: ''
+    clientAddress: '18 Rue de l\'usine charguia 2',
+    clientPhone: '70 250 000',
+    clientTaxNumber: '70 250 000',
+    notes: '',
+    companyName: 'Vilart Production',
+    companyTaxNumber: '1865480/V/A/M/000',
+    companyAddress: 'A3, Imm La Coupole, rue Windermere, Lac 1, Tunis 1053',
+    companyPhone: '+216 54 754 704',
+    companyEmail: 'vilartprod@gmail.com'
   });
   const [totals, setTotals] = useState({
     montantHT: 0,
@@ -39,6 +47,7 @@ const NouveauDevis = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [previewMode, setPreviewMode] = useState(false);
+  const [showCompanyInfo, setShowCompanyInfo] = useState(false);
 
   useEffect(() => {
     generateNextInvoiceNumber();
@@ -232,6 +241,123 @@ const NouveauDevis = () => {
               onChange={(e) => setFormData({ ...formData, dateEcheance: e.target.value })}
             />
           </div>
+        </div>
+
+        <div className="mt-6">
+          <div className="flex justify-between items-center">
+            <h2 className="text-xl font-bold">Informations du client</h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-400 mb-1">
+                Adresse
+              </label>
+              <input
+                type="text"
+                className="input"
+                value={formData.clientAddress}
+                onChange={(e) => setFormData({ ...formData, clientAddress: e.target.value })}
+                placeholder="Adresse du client"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-400 mb-1">
+                Téléphone
+              </label>
+              <input
+                type="text"
+                className="input"
+                value={formData.clientPhone}
+                onChange={(e) => setFormData({ ...formData, clientPhone: e.target.value })}
+                placeholder="Numéro de téléphone"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-400 mb-1">
+                Matricule fiscal
+              </label>
+              <input
+                type="text"
+                className="input"
+                value={formData.clientTaxNumber}
+                onChange={(e) => setFormData({ ...formData, clientTaxNumber: e.target.value })}
+                placeholder="Matricule fiscal"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-6">
+          <div className="flex justify-between items-center">
+            <h2 className="text-xl font-bold">Informations de l'entreprise</h2>
+            <button 
+              type="button"
+              className="text-blue-400 hover:text-blue-300 text-sm"
+              onClick={() => setShowCompanyInfo(!showCompanyInfo)}
+            >
+              {showCompanyInfo ? 'Masquer' : 'Modifier'}
+            </button>
+          </div>
+          
+          {showCompanyInfo && (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-400 mb-1">
+                  Nom de l'entreprise
+                </label>
+                <input
+                  type="text"
+                  className="input"
+                  value={formData.companyName}
+                  onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-400 mb-1">
+                  Matricule fiscal
+                </label>
+                <input
+                  type="text"
+                  className="input"
+                  value={formData.companyTaxNumber}
+                  onChange={(e) => setFormData({ ...formData, companyTaxNumber: e.target.value })}
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-400 mb-1">
+                  Adresse
+                </label>
+                <input
+                  type="text"
+                  className="input"
+                  value={formData.companyAddress}
+                  onChange={(e) => setFormData({ ...formData, companyAddress: e.target.value })}
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-400 mb-1">
+                  Téléphone
+                </label>
+                <input
+                  type="text"
+                  className="input"
+                  value={formData.companyPhone}
+                  onChange={(e) => setFormData({ ...formData, companyPhone: e.target.value })}
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-400 mb-1">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  className="input"
+                  value={formData.companyEmail}
+                  onChange={(e) => setFormData({ ...formData, companyEmail: e.target.value })}
+                />
+              </div>
+            </div>
+          )}
         </div>
 
         <div className="mt-8">
