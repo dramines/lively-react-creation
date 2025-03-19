@@ -81,21 +81,9 @@ export const InvoicesService = {
 
   createInvoice: async (invoiceData: InvoiceDto) => {
     try {
-      // Map frontend fields to database fields
-      const apiData = {
-        invoice_number: invoiceData.numeroFacture,
-        client_name: invoiceData.clientName,
-        issue_date: invoiceData.dateFacture,
-        due_date: invoiceData.dateEcheance,
-        items: invoiceData.items,
-        subtotal: invoiceData.montantHT,
-        tax_amount: invoiceData.montantTVA,
-        total_amount: invoiceData.total,
-        notes: invoiceData.notes,
-        user_id: invoiceData.user_id
-      };
-      
-      return await createData(`${ENDPOINT}/create.php`, apiData);
+      // Send the frontend data directly without mapping
+      // Backend will handle the field mapping
+      return await createData(`${ENDPOINT}/create.php`, invoiceData);
     } catch (error) {
       console.error('Error creating invoice:', error);
       throw error;
@@ -104,22 +92,9 @@ export const InvoicesService = {
 
   updateInvoice: async (invoiceData: InvoiceDto) => {
     try {
-      // Map frontend fields to database fields
-      const apiData = {
-        id: invoiceData.id,
-        invoice_number: invoiceData.numeroFacture,
-        client_name: invoiceData.clientName,
-        issue_date: invoiceData.dateFacture,
-        due_date: invoiceData.dateEcheance,
-        items: invoiceData.items,
-        subtotal: invoiceData.montantHT,
-        tax_amount: invoiceData.montantTVA,
-        total_amount: invoiceData.total,
-        notes: invoiceData.notes,
-        user_id: invoiceData.user_id
-      };
-      
-      return await updateData(`${ENDPOINT}/update.php`, apiData);
+      // Send the frontend data directly without mapping
+      // Backend will handle the field mapping
+      return await updateData(`${ENDPOINT}/update.php`, invoiceData);
     } catch (error) {
       console.error('Error updating invoice:', error);
       throw error;

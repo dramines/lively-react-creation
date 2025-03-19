@@ -8,6 +8,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     $data = json_decode(file_get_contents("php://input"));
     
+    // Log received data for debugging
+    error_log("Received data: " . print_r($data, true));
+    
     if (!empty($data->numeroFacture) && !empty($data->clientName) && 
         !empty($data->dateFacture) && !empty($data->dateEcheance)) {
         
@@ -35,8 +38,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $notes = property_exists($data, 'notes') ? $data->notes : '';
             $user_id = property_exists($data, 'user_id') ? $data->user_id : null;
             
-            // Serialize items array to JSON string
-            $items_json = json_encode($data->items);
+            // Ensure items is an array before serializing
+            if (!property_exists($data, 'items') || !is_array($data->items)) {
+                $items_json = json_encode([]);
+                error_log("Warning: Items property is missing or not an array");
+            } else {
+                $items_json = json_encode($data->items);
+            }
             
             $query = "INSERT INTO invoices (id, invoice_number, client_name, issue_date, due_date, 
                                           items, subtotal, tax_amount, total_amount, notes, user_id) 
@@ -65,16 +73,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     "id" => $invoice_id
                 ));
             } else {
+                error_log("SQL Error: " . implode(", ", $stmt->errorInfo()));
                 http_response_code(503);
                 echo json_encode(array("message" => "Unable to create invoice."));
             }
         } catch(PDOException $e) {
+            error_log("PDO Exception: " . $e->getMessage());
             http_response_code(503);
             echo json_encode(array("message" => "Database error: " . $e->getMessage()));
         }
     } else {
+        $missing = [];
+        if (empty($data->numeroFacture)) $missing[] = "numeroFacture";
+        if (empty($data->clientName)) $missing[] = "clientName";
+        if (empty($data->dateFacture)) $missing[] = "dateFacture";
+        if (empty($data->dateEcheance)) $missing[] = "dateEcheance";
+        
         http_response_code(400);
-        echo json_encode(array("message" => "Unable to create invoice. Data is incomplete."));
+        echo json_encode(array(
+            "message" => "Unable to create invoice. Data is incomplete.",
+            "missing_fields" => $missing
+        ));
     }
 } else {
     http_response_code(405);

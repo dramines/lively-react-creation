@@ -1,9 +1,13 @@
+
 import { useState, useEffect } from 'react';
-import { Plus, Minus, Save, ArrowLeft } from 'lucide-react';
+import { Plus, Minus, Save, ArrowLeft, Download } from 'lucide-react';
 import { format } from 'date-fns';
 import { useNavigate } from 'react-router-dom';
+import { PDFDownloadLink } from '@react-pdf/renderer';
+import InvoicePDF from '../components/InvoicePDF';
 import { InvoicesService } from '../services/invoices.service';
 import { AuthService } from '../services/auth.service';
+import { toast } from 'react-hot-toast';
 
 interface InvoiceItem {
   description: string;
@@ -34,6 +38,7 @@ const NouveauDevis = () => {
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [previewMode, setPreviewMode] = useState(false);
 
   useEffect(() => {
     generateNextInvoiceNumber();
@@ -126,14 +131,40 @@ const NouveauDevis = () => {
         user_id: currentUser?.id
       };
       
-      await InvoicesService.createInvoice(invoiceData);
-      navigate('/finances');
+      // Try to save to API
+      try {
+        await InvoicesService.createInvoice(invoiceData);
+        toast.success('Devis enregistré avec succès');
+        navigate('/finances');
+      } catch (err) {
+        console.error('Error saving invoice:', err);
+        // Display error but don't return - allow preview/download anyway
+        setError('Erreur lors de l\'enregistrement du devis. Vous pouvez quand même le prévisualiser et télécharger.');
+        setPreviewMode(true);
+      }
     } catch (err) {
-      console.error('Error saving invoice:', err);
-      setError('Une erreur est survenue lors de l\'enregistrement du devis.');
+      console.error('Error preparing invoice data:', err);
+      setError('Une erreur est survenue lors de la préparation du devis.');
     } finally {
       setLoading(false);
     }
+  };
+
+  // Function to validate if form is ready for PDF generation
+  const isPdfReady = () => {
+    return (
+      formData.numeroFacture.trim() !== '' && 
+      formData.clientName.trim() !== '' && 
+      items.length > 0 && 
+      items.some(item => item.description.trim() !== '')
+    );
+  };
+
+  // Combined invoice data for PDF generation
+  const invoiceData = {
+    ...formData,
+    ...totals,
+    items
   };
 
   return (
@@ -323,6 +354,27 @@ const NouveauDevis = () => {
             >
               Annuler
             </button>
+            
+            {/* PDF Download Link - Always available if form is filled */}
+            {isPdfReady() && (
+              <PDFDownloadLink
+                document={<InvoicePDF invoice={invoiceData} />}
+                fileName={`facture_${formData.numeroFacture}.pdf`}
+                className="btn-secondary flex items-center gap-2"
+              >
+                {({ loading: pdfLoading }) => 
+                  pdfLoading ? (
+                    <span>Génération du PDF...</span>
+                  ) : (
+                    <>
+                      <Download className="h-5 w-5" />
+                      Télécharger
+                    </>
+                  )
+                }
+              </PDFDownloadLink>
+            )}
+            
             <button
               onClick={handleSaveInvoice}
               className="btn-primary flex items-center gap-2"
