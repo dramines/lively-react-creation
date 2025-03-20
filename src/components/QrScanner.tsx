@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useRef } from 'react';
 import { X, QrCode, CameraOff, AlertTriangle, Check } from 'lucide-react';
 import { ReservationsService } from '../services/reservations.service';

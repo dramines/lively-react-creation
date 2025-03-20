@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useRef } from 'react';
 import { ReservationsService, type Reservation, type ReservationsResponse } from '../services/reservations.service';
 import { 
@@ -15,23 +14,6 @@ import {
 } from 'lucide-react';
 import QrScanner from '../components/QrScanner';
 import { useDebounce } from '../hooks/useDebounce';
-
-// Custom hook for debouncing
-const useDebounce = (value: any, delay: number) => {
-  const [debouncedValue, setDebouncedValue] = useState(value);
-
-  useEffect(() => {
-    const handler = setTimeout(() => {
-      setDebouncedValue(value);
-    }, delay);
-
-    return () => {
-      clearTimeout(handler);
-    };
-  }, [value, delay]);
-
-  return debouncedValue;
-};
 
 const Reservations = () => {
   const [reservations, setReservations] = useState<Reservation[]>([]);
@@ -67,7 +49,7 @@ const Reservations = () => {
     const getEventOptions = async () => {
       try {
         const events = await ReservationsService.getDistinctEvents();
-        setDistinctEvents(events);
+        setDistinctEvents(events as string[]);
       } catch (err) {
         console.error('Failed to fetch event options:', err);
       }
