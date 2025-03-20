@@ -29,7 +29,10 @@ export interface ReservationsResponse {
 export class ReservationsService {
   static async getReservations(params = {}) {
     try {
-      return await fetchData('/reservations/read.php', params);
+      console.log('Fetching reservations with params:', params);
+      const response = await fetchData('/reservations/read.php', params);
+      console.log('Reservations response:', response);
+      return response;
     } catch (error) {
       console.error('Error fetching reservations:', error);
       throw error;
@@ -52,11 +55,35 @@ export class ReservationsService {
 
   static async getReservationByOrderId(orderId: string) {
     try {
+      console.log('Fetching reservation with order ID:', orderId);
       const response = await this.getReservations({ order_id: orderId });
+      console.log('Reservation by order ID response:', response);
       return response && response.data && response.data.length > 0 ? response.data[0] : null;
     } catch (error) {
       console.error('Error fetching reservation by order ID:', error);
       return null;
+    }
+  }
+  
+  static async validateReservation(orderId: string) {
+    try {
+      // Here you would implement API call to validate a reservation in your system
+      // For now, we'll just check if it exists
+      const reservation = await this.getReservationByOrderId(orderId);
+      return {
+        success: !!reservation,
+        reservation: reservation,
+        message: reservation 
+          ? `Réservation ${orderId} validée` 
+          : `Aucune réservation trouvée pour ${orderId}`
+      };
+    } catch (error) {
+      console.error('Error validating reservation:', error);
+      return {
+        success: false,
+        reservation: null,
+        message: 'Erreur lors de la validation de la réservation'
+      };
     }
   }
 }
