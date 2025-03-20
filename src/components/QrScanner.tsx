@@ -26,6 +26,7 @@ const QrScanner = ({ onClose, onScan }: QrScannerProps) => {
   // References
   const scannerRef = useRef<Html5Qrcode | null>(null);
   const scannerDivRef = useRef<HTMLDivElement | null>(null);
+  const isScanning = useRef<boolean>(false);
 
   useEffect(() => {
     // Only initialize the scanner when scanning is true
@@ -35,17 +36,21 @@ const QrScanner = ({ onClose, onScan }: QrScannerProps) => {
     
     // Cleanup function
     return () => {
-      if (scannerRef.current) {
+      if (scannerRef.current && isScanning.current) {
         try {
           scannerRef.current.stop()
             .then(() => {
               console.log('Scanner stopped');
+              isScanning.current = false;
             })
             .catch(err => {
-              console.error('Failed to stop scanner:', err);
+              console.error('Failed to stop scanner during cleanup:', err);
             });
         } catch (err) {
-          console.error('Error cleaning up scanner:', err);
+          // Only log the error if it's not the "not running" error
+          if (!err.toString().includes('not running')) {
+            console.error('Error cleaning up scanner:', err);
+          }
         }
       }
     };
@@ -55,8 +60,17 @@ const QrScanner = ({ onClose, onScan }: QrScannerProps) => {
     try {
       setDebugInfo('Initializing QR scanner...');
       
-      if (scannerRef.current) {
-        await scannerRef.current.stop();
+      // Only attempt to stop if currently scanning
+      if (scannerRef.current && isScanning.current) {
+        try {
+          await scannerRef.current.stop();
+          isScanning.current = false;
+        } catch (err) {
+          // Ignore "not running" errors
+          if (!err.toString().includes('not running')) {
+            console.error('Error stopping scanner before reinitialization:', err);
+          }
+        }
       }
       
       if (!scannerDivRef.current) {
@@ -72,10 +86,11 @@ const QrScanner = ({ onClose, onScan }: QrScannerProps) => {
         setDebugInfo(`QR code found: ${decodedText}`);
         
         // Stop scanning
-        if (scannerRef.current) {
+        if (scannerRef.current && isScanning.current) {
           scannerRef.current.stop()
             .then(() => {
               console.log('Scanner stopped after detection');
+              isScanning.current = false;
               setScanning(false);
               checkReservation(decodedText);
             })
@@ -83,8 +98,12 @@ const QrScanner = ({ onClose, onScan }: QrScannerProps) => {
               console.error('Failed to stop scanner:', err);
               // Still check the reservation even if stopping fails
               setScanning(false);
+              isScanning.current = false;
               checkReservation(decodedText);
             });
+        } else {
+          setScanning(false);
+          checkReservation(decodedText);
         }
       };
       
@@ -93,7 +112,10 @@ const QrScanner = ({ onClose, onScan }: QrScannerProps) => {
         qrbox: { width: 250, height: 250 },
         aspectRatio: 1.0,
         disableFlip: false,
-        formatsToSupport: [0] // 0 is for QR Code format
+        formatsToSupport: [0], // 0 is for QR Code format
+        experimentalFeatures: {
+          useBarCodeDetectorIfSupported: true // Use native BarcodeDetector API if available
+        }
       };
       
       // Start scanning
@@ -109,6 +131,7 @@ const QrScanner = ({ onClose, onScan }: QrScannerProps) => {
         }
       )
       .then(() => {
+        isScanning.current = true;
         setDebugInfo('Scanner started, looking for QR codes...');
         console.log("QR Code scanning started");
       })
@@ -127,12 +150,12 @@ const QrScanner = ({ onClose, onScan }: QrScannerProps) => {
     setCheckResult({ status: 'checking', message: 'Vérification de la réservation...' });
     
     try {
-      const reservation = await ReservationsService.getReservationByOrderId(orderId);
+      const result = await ReservationsService.validateReservation(orderId);
       
-      if (reservation) {
+      if (result.success) {
         setCheckResult({ 
           status: 'exists', 
-          message: `Réservation trouvée: ${reservation.first_name} ${reservation.last_name} - ${reservation.event_name}` 
+          message: `Réservation trouvée: ${result.reservation.first_name} ${result.reservation.last_name} - ${result.reservation.event_name}` 
         });
         // Wait a moment to show the success message before calling onScan
         setTimeout(() => {
@@ -141,7 +164,7 @@ const QrScanner = ({ onClose, onScan }: QrScannerProps) => {
       } else {
         setCheckResult({ 
           status: 'not-exists', 
-          message: `Aucune réservation trouvée avec l'ID: ${orderId}` 
+          message: result.message
         });
       }
     } catch (error) {
@@ -160,29 +183,30 @@ const QrScanner = ({ onClose, onScan }: QrScannerProps) => {
     try {
       setCheckResult({ status: 'checking', message: 'Analyse de l\'image...' });
       
-      const imageUrl = URL.createObjectURL(file);
+      if (scannerRef.current && isScanning.current) {
+        try {
+          await scannerRef.current.stop();
+          isScanning.current = false;
+        } catch (err) {
+          // Ignore "not running" errors
+          if (!err.toString().includes('not running')) {
+            console.error("Error stopping scanner for file upload:", err);
+          }
+        }
+      }
       
       if (scannerRef.current) {
-        scannerRef.current.stop().then(() => {
-          if (scannerRef.current) {
-            scannerRef.current.scanFile(file, true)
-              .then((decodedText: string) => {
-                URL.revokeObjectURL(imageUrl);
-                checkReservation(decodedText);
-              })
-              .catch((err: Error) => {
-                URL.revokeObjectURL(imageUrl);
-                console.error("Error scanning file:", err);
-                setCheckResult({ 
-                  status: 'not-exists', 
-                  message: 'Aucun code QR valide détecté dans l\'image.' 
-                });
-              });
-          }
-        })
-        .catch(err => {
-          console.error("Error stopping scanner for file upload:", err);
-        });
+        scannerRef.current.scanFile(file, true)
+          .then((decodedText: string) => {
+            checkReservation(decodedText);
+          })
+          .catch((err: Error) => {
+            console.error("Error scanning file:", err);
+            setCheckResult({ 
+              status: 'not-exists', 
+              message: 'Aucun code QR valide détecté dans l\'image.' 
+            });
+          });
       }
     } catch (err) {
       console.error("Error processing image:", err);

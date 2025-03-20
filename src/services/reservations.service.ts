@@ -58,7 +58,18 @@ export class ReservationsService {
       console.log('Fetching reservation with order ID:', orderId);
       const response = await this.getReservations({ order_id: orderId });
       console.log('Reservation by order ID response:', response);
-      return response && response.data && response.data.length > 0 ? response.data[0] : null;
+
+      // Add retry logic if the first attempt fails
+      if (!response || !response.data || response.data.length === 0) {
+        // Wait a short moment and try again
+        await new Promise(resolve => setTimeout(resolve, 500));
+        const retryResponse = await this.getReservations({ order_id: orderId });
+        return retryResponse && retryResponse.data && retryResponse.data.length > 0 
+          ? retryResponse.data[0] 
+          : null;
+      }
+
+      return response.data[0] || null;
     } catch (error) {
       console.error('Error fetching reservation by order ID:', error);
       return null;
@@ -67,9 +78,9 @@ export class ReservationsService {
   
   static async validateReservation(orderId: string) {
     try {
-      // Here you would implement API call to validate a reservation in your system
-      // For now, we'll just check if it exists
+      console.log('Validating reservation:', orderId);
       const reservation = await this.getReservationByOrderId(orderId);
+      
       return {
         success: !!reservation,
         reservation: reservation,
