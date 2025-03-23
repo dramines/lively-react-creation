@@ -136,7 +136,7 @@ const Certifications = () => {
         transition={{ duration: 0.6, delay: 0.3 }}
         className="container mx-auto px-4 mb-16"
       >
-        <div className="text-center mb-10">
+        <div className="text-center mb-6">
           <h2 className="text-3xl font-playfair text-[#700100] mb-4">
             {t('certifications.bodies_title') || "Organismes de Certification"}
           </h2>
@@ -146,27 +146,27 @@ const Certifications = () => {
           </p>
         </div>
 
-        <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
+        <div className="max-w-3xl mx-auto flex justify-center gap-8">
           {certificationBodies.map((body) => (
             <motion.div
               key={body.id}
               whileHover={{ y: -5, boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)" }}
-              className="bg-white p-8 rounded-xl shadow-md border border-gray-100 flex flex-col items-center transition-all duration-300"
+              className="bg-white p-4 rounded-xl shadow-md border border-gray-100 flex flex-col items-center transition-all duration-300"
             >
-              <div className="h-24 mb-6 flex items-center justify-center">
+              <div className="h-16 mb-4 flex items-center justify-center">
                 <img 
                   src={body.logo} 
                   alt={body.name}
                   className="max-h-full max-w-full object-contain"
                 />
               </div>
-              <h3 className="font-semibold text-xl text-[#700100] mb-3">{body.name}</h3>
               <Button
                 variant="outline"
-                className="mt-4 border-[#96cc39] text-[#700100] hover:bg-[#96cc39] hover:text-white"
+                size="sm"
+                className="border-[#96cc39] text-[#700100] hover:bg-[#96cc39] hover:text-white text-xs"
                 onClick={() => window.open(body.link, '_blank')}
               >
-                {t('certifications.visit_website') || "Visiter le site"} <ExternalLink className="ml-2 h-4 w-4" />
+                {t('certifications.visit_website') || "Visiter le site"} <ExternalLink className="ml-1 h-3 w-3" />
               </Button>
             </motion.div>
           ))}
