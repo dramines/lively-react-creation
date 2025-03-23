@@ -73,7 +73,7 @@ const PartnersSection = ({ onNavigateToRevendeurs }: PartnersSectionProps) => {
           </div>
           <div className="w-24 h-1 bg-gradient-to-r from-[#700100] to-[#96cc39] mx-auto mb-8 rounded-full"></div>
           
-          {/* Partners carousel with enhanced styling */}
+          {/* Partners carousel with enhanced styling - Only logos and "Visiter le site" */}
           <div className="mb-12 overflow-hidden relative group">
             <Carousel
               opts={{
@@ -104,15 +104,13 @@ const PartnersSection = ({ onNavigateToRevendeurs }: PartnersSectionProps) => {
                         />
                       </div>
                       
-                      <div className="relative z-10">
-                        <h3 className="text-[#700100] font-semibold text-lg mb-2">{supplier.name}</h3>
-                        <div className="border-t border-gray-100 mt-3 pt-3 flex justify-between items-center">
-                          <span className="text-xs font-medium text-gray-400 uppercase tracking-wider">{t('resellers.official_partner')}</span>
+                      <div className="relative z-10 mt-auto">
+                        <div className="border-t border-gray-100 mt-3 pt-3 flex justify-center items-center">
                           <a 
                             href="#" 
                             className="text-sm font-medium text-[#96cc39] hover:text-[#700100] flex items-center transition-colors"
                           >
-                            <span>{t('resellers.learn_more')}</span>
+                            <span>{t('resellers.visit_site')}</span>
                             <ExternalLink className="ml-1 w-3 h-3" />
                           </a>
                         </div>

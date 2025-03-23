@@ -21,31 +21,6 @@ export const menuItems: MenuItem[] = [
     subItems: []
   },
   {
-    topText: "Produits",
-    bottomText: "Découvrez notre gamme",
-    path: "/products",
-    subItems: [
-      {
-        title: "Dattes Fraîches",
-        description: "Nos délicieuses dattes Deglet Nour fraîches et naturelles",
-        path: "/products/dattes-fraiches",
-        image: "/produits/dattes-fraiches.jpg"
-      },
-      {
-        title: "Dérivés de Dattes",
-        description: "Des produits transformés à base de dattes de qualité supérieure",
-        path: "/products/produits-derives",
-        image: "/produits/derives-dattes.jpg"
-      },
-      {
-        title: "Figues Séchées",
-        description: "Nos figues séchées selon la tradition tunisienne",
-        path: "/products/figues-sechees",
-        image: "/produits/figues-sechees.jpg"
-      }
-    ]
-  },
-  {
     topText: "À Propos",
     bottomText: "Notre histoire",
     path: "/about",

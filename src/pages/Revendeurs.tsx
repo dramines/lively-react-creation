@@ -146,7 +146,6 @@ const Revendeurs = () => {
                           return supplier && (
                             <div key={supplierId} className="flex flex-col items-center">
                               <div className="w-3 h-3 rounded-full" style={{ backgroundColor: getMarkerColor(supplierId) }}></div>
-                              <span className="text-xs text-gray-500 mt-1">{supplier.name}</span>
                             </div>
                           );
                         })}
@@ -174,7 +173,7 @@ const Revendeurs = () => {
           </div>
         </motion.div>
 
-        {/* Enhanced Auto-scrolling Carousel of Suppliers */}
+        {/* Enhanced Auto-scrolling Carousel of Suppliers - Without Names */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -190,7 +189,7 @@ const Revendeurs = () => {
             <div className="absolute top-0 right-0 w-20 h-full bg-gradient-to-l from-white to-transparent z-10 pointer-events-none"></div>
             
             <div className="flex animate-carousel">
-              {/* First set of suppliers for continuous loop effect */}
+              {/* First set of suppliers for continuous loop effect - Without Names */}
               {suppliers.map((supplier) => (
                 <motion.div
                   key={`first-${supplier.id}`}
@@ -215,14 +214,11 @@ const Revendeurs = () => {
                         className="h-14 w-auto object-contain"
                       />
                     </div>
-                    <span className="mt-2 text-xs font-medium text-gray-600 truncate max-w-full">
-                      {supplier.name}
-                    </span>
                   </div>
                 </motion.div>
               ))}
               
-              {/* Duplicate set for continuous loop */}
+              {/* Duplicate set for continuous loop - Without Names */}
               {suppliers.map((supplier) => (
                 <motion.div
                   key={`second-${supplier.id}`}
@@ -247,9 +243,6 @@ const Revendeurs = () => {
                         className="h-14 w-auto object-contain"
                       />
                     </div>
-                    <span className="mt-2 text-xs font-medium text-gray-600 truncate max-w-full">
-                      {supplier.name}
-                    </span>
                   </div>
                 </motion.div>
               ))}
