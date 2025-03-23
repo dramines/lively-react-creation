@@ -1,3 +1,4 @@
+
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Award, Shield, FileCheck, ExternalLink } from 'lucide-react';
 import { Helmet } from 'react-helmet';
@@ -27,6 +28,22 @@ const Certifications = () => {
       description: t('certifications.bio.description'),
       year: "2023",
       issuer: t('certifications.bio.issuer')
+    }
+  ];
+
+  // Certification bodies logos
+  const certificationBodies = [
+    {
+      id: 1,
+      name: "Bureau Veritas Certification",
+      logo: "https://i.ibb.co/ycH2nmtk/Bureau-Veritas-Certification.jpg",
+      link: "https://www.bureauveritas.fr/certification"
+    },
+    {
+      id: 2,
+      name: "UKAS",
+      logo: "https://i.ibb.co/Gvy21TSL/OIP.jpg",
+      link: "https://www.ukas.com/"
     }
   ];
 
@@ -109,6 +126,50 @@ const Certifications = () => {
               {t('certifications.verify_button')} <ExternalLink className="ml-2 h-4 w-4" />
             </Button>
           </div>
+        </div>
+      </motion.div>
+
+      {/* Certification Bodies Section */}
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.3 }}
+        className="container mx-auto px-4 mb-16"
+      >
+        <div className="text-center mb-10">
+          <h2 className="text-3xl font-playfair text-[#700100] mb-4">
+            {t('certifications.bodies_title') || "Organismes de Certification"}
+          </h2>
+          <div className="w-24 h-1 bg-[#96cc39] mx-auto mb-6"></div>
+          <p className="text-gray-600 max-w-2xl mx-auto">
+            {t('certifications.bodies_subtitle') || "Nos certifications sont délivrées par des organismes internationaux reconnus."}
+          </p>
+        </div>
+
+        <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
+          {certificationBodies.map((body) => (
+            <motion.div
+              key={body.id}
+              whileHover={{ y: -5, boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)" }}
+              className="bg-white p-8 rounded-xl shadow-md border border-gray-100 flex flex-col items-center transition-all duration-300"
+            >
+              <div className="h-24 mb-6 flex items-center justify-center">
+                <img 
+                  src={body.logo} 
+                  alt={body.name}
+                  className="max-h-full max-w-full object-contain"
+                />
+              </div>
+              <h3 className="font-semibold text-xl text-[#700100] mb-3">{body.name}</h3>
+              <Button
+                variant="outline"
+                className="mt-4 border-[#96cc39] text-[#700100] hover:bg-[#96cc39] hover:text-white"
+                onClick={() => window.open(body.link, '_blank')}
+              >
+                {t('certifications.visit_website') || "Visiter le site"} <ExternalLink className="ml-2 h-4 w-4" />
+              </Button>
+            </motion.div>
+          ))}
         </div>
       </motion.div>
 
