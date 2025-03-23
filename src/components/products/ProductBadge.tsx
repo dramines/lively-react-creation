@@ -19,14 +19,10 @@ const ProductBadge: React.FC<ProductBadgeProps> = ({ product, productId }) => {
     return null;
   }
 
-  // Check if this is one of the specific fig products that need higher positioning
-  const isSpecialFig = 
-    product.title === 'Figues djebaa 200g' || 
-    product.title === 'Figues ZIDI 200g' || 
-    product.title === 'Figues Toujane 200g';
+  // Remove the special fig products check that was used for FD badge
+  // since we're removing this badge entirely
 
   // Animation variants for the badge - positioned for better responsiveness
-  // with special positioning for the specified fig products
   const badgeVariants = {
     hidden: { 
       opacity: 0, 
@@ -64,17 +60,12 @@ const ProductBadge: React.FC<ProductBadgeProps> = ({ product, productId }) => {
   }
 
   // Adjust position and size based on mobile or desktop
-  // Mobile: Smaller size (90px vs 110px), positioned higher (65-70% vs 80-81%) and more to the left (12-15% vs 20%)
   return (
     <motion.div
       className={`absolute ${
         isMobile
-          ? isSpecialFig 
-              ? 'top-[65%] right-[12%]' 
-              : 'top-[82%] right-[30%]'
-          : isSpecialFig 
-              ? 'top-[80%] right-[20%]' 
-              : 'top-[81%] right-[20%]'
+          ? 'top-[82%] right-[30%]'
+          : 'top-[81%] right-[20%]'
       } z-10 ${
         isMobile
           ? 'w-[90px] sm:w-[100px]' 
