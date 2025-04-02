@@ -1,0 +1,485 @@
+{
+  "navbar": {
+    "home": "Home",
+    "about": "About Us",
+    "quality": "Quality",
+    "resellers": "Our Resellers",
+    "contact": "Contact",
+    "consumer_service": "Consumer Service",
+    "products": "Products",
+    "dates": "Dates",
+    "gift_box": "Date Box",
+    "packages": "Date Package",
+    "bulk_dates": "Bulk Dates",
+    "dried_figs": "Dried Figs",
+    "wooden_boxes": "Wooden Boxes",
+    "figs_olive_oil": "Dried Figs with Olive Oil",
+    "bulk_figs": "Bulk Dried Figs",
+    "fruit_syrups": "Date Syrup",
+    "date_syrup": "Date Syrup",
+    "fig_syrup": "Dried Fig Syrup",
+    "date_sugar": "Date Sugar",
+    "date_coffee": "Date Coffee",
+    "trays": "Date Trays",
+    "toujane_figs": "Toujane Figs",
+    "zidi_figs": "Zidi Figs",
+    "djebaa_figs": "Djebaa Figs"
+  },
+  "products": {
+    "all_products": "All Products",
+    "discover_range": "Discover our extensive range of high-quality Tunisian products",
+    "display": "Display",
+    "sort_by": "Sort by",
+    "sort_default": "Default",
+    "sort_name_asc": "Name (A-Z)",
+    "sort_name_desc": "Name (Z-A)",
+    "organic": "Organic",
+    "fair_trade": "Fair Trade",
+    "filters": "Filters",
+    "certifications": "Certifications",
+    "view_details": "View Details",
+    "showing": "Showing",
+    "products": "products",
+    "for": "for",
+    "weight": "Weight",
+    "no_products_found": "No products found matching your filters",
+    "clear_filters": "Clear all filters",
+    "search_placeholder": "Search products...",
+    "categories": "Product Categories",
+    "select_category": "Select category",
+    "apply_filters": "Apply Filters",
+    "product_type": "Product Type",
+    "all_categories": "All Categories",
+    "back_to_products": "Back to products",
+    "description": "Description",
+    "ingredients": "Ingredients",
+    "nutritional_values": "Nutritional Values",
+    "per_portion": "per portion",
+    "dates_description_premium": "These premium dates are carefully grown in Tunisian palm groves, where the exceptional climate and terroir give our dates their unique qualities. Each fruit is hand-selected to ensure a product of impeccable quality.",
+    "figs_description_premium": "These figs are delicately dried according to traditional Tunisian methods, preserving their natural flavors and nutritional benefits. Harvested at maturity, they retain all their taste qualities.",
+    "date_coffee_description": "This date kernel coffee is a natural caffeine-free alternative to traditional coffee, offering soft and slightly caramelized notes. A Tunisian specialty with recognized digestive virtues.",
+    "date_sugar_description": "Our date sugar is obtained by careful dehydration and grinding of premium quality dates. It retains the minerals, vitamins and fibers naturally present in the fruits.",
+    "date_syrup_description": "This syrup is a natural concentrate of flavors obtained by careful extraction of the juices from selected dates. An amber nectar, slightly viscous and intensely fragrant.",
+    "dates_ingredient_note": "No additives, preservatives or colorings added. Our dates are packaged in a controlled environment to preserve their quality and freshness.",
+    "general_ingredient_note": "100% natural product, without additives or preservatives. Packaged in a controlled environment to preserve its quality and benefits.",
+    "nutrition_note": "*Nutritional values are given per 100g of product",
+    "packaging_info": "Packaging Information",
+    "packaging_designation": "Designation",
+    "packaging_packs_carton": "Packs/Carton",
+    "packaging_cartons_pallet": "Cartons/Pallet",
+    "packaging_net_weight": "Net Weight Pal",
+    "packaging_gross_weight": "Gross Weight Pal",
+    "packaging_height": "Height Pal",
+    "packaging_pal_sr": "Pal./SR",
+    "packaging_pal_container": "Pal./container 20'",
+    "technical_specs": "Technical Specifications",
+    "technical_sheet": "Technical Sheet"
+  },
+  "products_hero": {
+    "our_selection": "Our Selection",
+    "description": "Discover our range of premium dates and derived products, carefully selected for their exceptional quality."
+  },
+  "contact_info": {
+    "phone": "+216 71 385 385",
+    "email": "contact@tazart.tn",
+    "address": "9 rue de mercure, Ben Arous 2013"
+  },
+  "client_types": {
+    "b2c": "B2C",
+    "b2b": "B2B"
+  },
+  "about": {
+    "our_story": "About Us",
+    "tradition_excellence": "For many years, a tradition of excellence in Tunisian date production",
+    "our_mission": "Our Mission",
+    "mission_text_1": "Tazart is a social enterprise specializing in drying and packaging fruits, particularly dates and dried figs. Our products are grown in the best conditions in Tunisia to ensure superior taste and quality.",
+    "mission_text_2": "We reimagine our local products to offer consumers a culinary experience that is both authentic and exceptional.",
+    "our_values": "Our Values",
+    "respect_title": "Respect for Others",
+    "respect_description": "Our team is united by strong values of mutual respect and collaboration.",
+    "excellence_title": "Excellence",
+    "excellence_description": "We are committed to maintaining the highest quality standards in all our products.",
+    "sustainability_title": "Sustainable Commitment",
+    "sustainability_description": "Our commitment to the environment and local communities guides each of our actions.",
+    "production_title": "Responsible Production",
+    "production_description": "We prioritize environmentally friendly production methods.",
+    "our_heritage": "Our Heritage",
+    "heritage_subtitle": "Exploring our roots and traditions in Tunisian date production",
+    "heritage_text_1_title": "Origin",
+    "heritage_text_1": "The fig is an integral part of Berber culture and is called Tazart throughout the Berber-speaking world, which is where our company name comes from.",
+    "heritage_text_2_title": "Brand",
+    "heritage_text_2": "The TAZART brand was created at the heart of traditional and authentic Tunisian production, offering consumers an exceptional culinary experience based on dates and dried figs.",
+    "heritage_text_3_title": "Production",
+    "heritage_text_3": "For figs, the harvest is dried using modern techniques adapted to current hygiene standards, then moves to the packaging stage, like our natural 'Deglet Nour' dates, to be marketed in various forms through a network of more than 500 distributors.",
+    "our_story_title": "Our History",
+    "excellence_of_products": "The Excellence of Tazart products",
+    "history_text_1": "For many years, we have been committed to providing the best dates from Tunisia to the four corners of the world. Our passion for quality and our expertise in selecting the best varieties have allowed us to become a leader in the export of premium dates.",
+    "history_text_2": "Each date we select tells a story of tradition, quality, and excellence. Our commitment to sustainability and innovation enables us to maintain the highest quality standards.",
+    "discover": "Discover",
+    "affiliated_producers": "Affiliated Producers",
+    "heritage_footer": "Building on our heritage to create an exceptional future",
+    "resellers": "Resellers"
+  },
+  "contact": {
+    "contact_us": "Contact Us",
+    "consumer_service": "Consumer Service",
+    "intro_b2b": "Our team is ready to answer all your questions. Don't hesitate to contact us, we'll respond as soon as possible.",
+    "intro_b2c": "Our consumer service is at your disposal for any questions or complaints about our products.",
+    "phone_section": "Phone",
+    "phone_subtitle": "Customer service available",
+    "email_section": "Email",
+    "email_subtitle": "Response within 48h",
+    "address_section": "Address",
+    "address_subtitle": "",
+    "form_title": "Send us a message",
+    "form_title_b2c": "Send your complaint",
+    "first_name": "First Name",
+    "last_name": "Last Name",
+    "email": "Email",
+    "phone": "Phone",
+    "subject": "Subject",
+    "message": "Message",
+    "complaint": "Complaint",
+    "first_name_placeholder": "Your first name",
+    "last_name_placeholder": "Your last name",
+    "email_placeholder": "your@email.com",
+    "phone_placeholder": "+216 XX XXX XXX",
+    "subject_placeholder": "The subject of your message",
+    "message_placeholder": "Your message...",
+    "complaint_placeholder": "Detail your complaint...",
+    "send_message": "Send message",
+    "send_complaint": "Send complaint",
+    "sending": "Sending...",
+    "thank_you_title": "Thank You!",
+    "thank_you_b2b": "Your message has been successfully sent. We'll get back to you as soon as possible.",
+    "thank_you_b2c": "Your complaint has been successfully sent. Our consumer service will contact you within 48 hours.",
+    "field_required": "This field is required",
+    "invalid_email": "Invalid email",
+    "invalid_phone": "Invalid phone number",
+    "our_location": "Our location",
+    "business_hours": "Business Hours",
+    "monday_friday": "Monday - Friday",
+    "saturday": "Saturday",
+    "sunday": "Sunday",
+    "hours_1": "8am - 4:30pm",
+    "hours_2": "8am - 2:30pm",
+    "closed": "Closed"
+  },
+  "footer": {
+    "quick_links": "Quick Links",
+    "made_with": "Made with",
+    "by": "by",
+    "company_description": "TAZART is your trusted source for dates of the highest quality. For many years, we have been selecting the best varieties to offer you an exceptional taste experience."
+  },
+  "resellers": {
+    "title": "Our Resellers",
+    "subtitle": "Discover where to find our products throughout Tunisia. Our network of official resellers guarantees quality and service.",
+    "all_resellers": "All resellers",
+    "our_distributors": "Our Distributors",
+    "find_products": "Find our products near you",
+    "discover_network": "Discover our network of official resellers where you can buy our quality products throughout Tunisia.",
+    "discover_points_of_sale": "Discover our points of sale",
+    "our_distribution_partners": "Our Distribution Partners",
+    "distribution_description": "Find our products at the best points of sale throughout Tunisia. Our partners have been carefully selected to ensure optimal availability.",
+    "official_partner": "Official Partner",
+    "learn_more": "Learn more",
+    "see_products": "See products",
+    "and_many_more": "... and more than 500 other resellers across Tunisia",
+    "supplier_descriptions": {
+      "benyaghlen": "A premium department store chain offering high-quality Tunisian products, including our complete range of dates and fig products.",
+      "carrefour": "International hypermarket chain where you can find our selection of dates and fig products in the specialty food section.",
+      "geant": "Major retailer with locations across Tunisia, featuring our products in their gourmet food department.",
+      "monoprix": "Upscale supermarket chain offering a curated selection of our premium dates and fig products."
+    }
+  },
+  "made_in_tunisia": {
+    "title": "100% Made in Tunisia",
+    "description": "Our dates are lovingly grown in Tunisian oases, where the unique climate and traditional know-how combine to produce fruits of exceptional quality. Each date is carefully selected and packaged to preserve its freshness and authentic taste.",
+    "tag_grown": "Grown in Tunisia",
+    "tag_premium": "Premium Quality",
+    "tag_traditional": "Traditional Know-how",
+    "region_title": "Douz Region",
+    "region_description": "Located in southern Tunisia, Douz is known as 'the gateway to the desert' and produces the finest dates in the world thanks to its unique arid climate and ancestral expertise.",
+    "region_tag_1": "Optimal climate",
+    "region_tag_2": "Age-old tradition",
+    "region_tag_3": "Deglet Nour Dates",
+    "region_footer": "Famous for its date palms that produce fruits of incomparable sweetness and quality."
+  },
+  "dates_benefits": {
+    "title": "Why choose our dates?",
+    "subtitle": "Discover the exceptional benefits of our premium dates, carefully selected to offer you the best of nature.",
+    "click_info": "Click on the circles for more details about each benefit",
+    "quote": "Regular consumption of dates as part of a balanced diet contributes to better overall health.",
+    "quote_source": "Mediterranean Nutrition Institute",
+    "benefits": {
+      "nutrition": {
+        "title": "Exceptional Nutritional Richness",
+        "description": "Our dates contain a remarkable concentration of essential nutrients that support your overall health."
+      },
+      "energy": {
+        "title": "Natural Energy Source",
+        "description": "Thanks to their natural carbohydrate content, our dates provide you with sustainable energy throughout the day."
+      },
+      "digestive": {
+        "title": "Digestive Support",
+        "description": "The dietary fibers present in our dates promote healthy digestion and regular intestinal transit."
+      },
+      "antioxidant": {
+        "title": "Antioxidant Properties",
+        "description": "Rich in antioxidants, our dates fight free radicals and contribute to cellular protection."
+      },
+      "mineral": {
+        "title": "Mineral Balance",
+        "description": "The potassium and other minerals contained in our dates support cardiovascular and muscular health."
+      }
+    },
+    "detail_benefits": {
+      "fiber": {
+        "title": "Rich in fiber",
+        "content": "<p>Dates are exceptionally rich in dietary fiber, with about 7 grams of fiber per 100 grams of dates. These fibers are essential for:</p><ul><li>Digestive health and intestinal transit</li><li>Blood sugar control</li><li>The feeling of satiety</li><li>Cholesterol reduction</li></ul><p>The soluble and insoluble fibers present in dates help maintain a healthy digestive system and prevent various digestive diseases.</p>"
+      },
+      "potassium": {
+        "title": "Potassium source",
+        "content": "<p>Dates are an excellent source of potassium, containing about 696 mg per 100 grams. Potassium is crucial for:</p><ul><li>Blood pressure regulation</li><li>Muscle function</li><li>Nerve transmission</li><li>The body's water balance</li></ul><p>A diet rich in potassium helps maintain good cardiovascular health and prevent hypertension.</p>"
+      },
+      "energy": {
+        "title": "Energy booster",
+        "content": "<p>Dates are an excellent natural energy booster thanks to:</p><ul><li>Their high content of natural carbohydrates</li><li>Their moderate glycemic index</li><li>Their richness in B vitamins</li><li>Their content of essential minerals</li></ul><p>Ideal for athletes and active people, dates provide sustainable energy without significant glycemic spikes.</p>"
+      },
+      "superfood": {
+        "title": "Superfood",
+        "content": "<p>Dates are considered a superfood due to their exceptional nutritional profile:</p><ul><li>Rich in antioxidants</li><li>Source of essential minerals</li><li>Contain anti-inflammatory compounds</li><li>Provide fibers and vitamins</li></ul><p>Their regular consumption contributes to a balanced and healthy diet.</p>"
+      },
+      "antioxidants": {
+        "title": "Antioxidants",
+        "content": "<p>Dates are rich in antioxidants, including:</p><ul><li>Flavonoids</li><li>Carotenoids</li><li>Phenolic compounds</li><li>Vitamin E</li></ul><p>These antioxidants help fight oxidative stress and free radicals, thus contributing to the prevention of many chronic diseases.</p>"
+      },
+      "vitamins": {
+        "title": "Vitamins B1, B2, B3",
+        "content": "<p>Dates are an important source of B vitamins:</p><ul><li>B1 (Thiamine): essential for energy metabolism</li><li>B2 (Riboflavin): important for cellular energy production</li><li>B3 (Niacin): crucial for nervous system health</li></ul><p>These vitamins are essential for the proper functioning of metabolism and the nervous system.</p>"
+      }
+    }
+  },
+  "certifications": {
+    "meta": {
+      "title": "Our Certifications | Tazart - Certified Quality",
+      "description": "Discover Tazart's quality certifications, guaranteeing the excellence of our traditional Tunisian products."
+    },
+    "title": "Our Certifications",
+    "subtitle": "Discover our certifications that demonstrate our commitment to excellence and quality.",
+    "issued_by": "Issued by",
+    "validity": "Validity",
+    "year": "Year",
+    "verify_button": "Verify certification",
+    "fssc_22000": {
+      "title": "Certification Excellence",
+      "alt": "FSSC 22000 Certification",
+      "issuer": "Bureau Veritas Certification",
+      "validity": "04-02-2027",
+      "description": "Our FSSC 22000 certification demonstrates our commitment to food safety and the highest quality standards. This certification ensures that our food safety management system meets the most stringent international requirements for packaging whole dates and sun-dried figs.",
+      "tag1": "FSSC 22000",
+      "tag2": "ISO 22000:2018",
+      "tag3": "Food Safety"
+    },
+    "iso_22000": {
+      "title": "ISO 22000 Certification",
+      "description": "Our ISO 22000 certification demonstrates our commitment to food safety and product quality. This international standard ensures that we follow best practices in food safety throughout our production chain.",
+      "issuer": "International Organization for Standardization (ISO)"
+    },
+    "bio": {
+      "title": "Organic Agriculture",
+      "description": "Our Organic certification guarantees 100% natural products, grown with respect for the environment. We are committed to maintaining sustainable and nature-friendly agricultural practices to offer products of the highest quality.",
+      "issuer": "Ecocert"
+    },
+    "quality_statement": {
+      "title": "Excellence at the Heart of Our Tradition",
+      "paragraph1": "At Tazart, quality is not just a promise, it's our daily commitment. Our certifications demonstrate our dedication to excellence and customer satisfaction.",
+      "paragraph2": "Our production process is regularly audited and certified by independent organizations, ensuring the exceptional quality of our products."
+    }
+  },
+  "recipes": {
+    "moelleux_dattes": {
+      "title": "Date Soft Cake",
+      "description": "A delicious soft date cake, perfect for snack time or dessert. A traditional recipe revisited with our premium dates.",
+      "category": "Desserts",
+      "difficulty": "Easy",
+      "ingredients": [
+        "250g pitted dates",
+        "200g flour",
+        "150g butter",
+        "150g sugar",
+        "3 eggs",
+        "1 packet of baking powder",
+        "1 pinch of salt",
+        "1 teaspoon vanilla"
+      ],
+      "instructions": [
+        "Preheat oven to 180°C",
+        "Cut dates into small pieces",
+        "Mix softened butter and sugar",
+        "Add eggs one by one",
+        "Incorporate flour, baking powder and salt",
+        "Add dates and vanilla",
+        "Pour into a buttered mold",
+        "Bake for 35-40 minutes"
+      ]
+    },
+    "smoothie_dattes": {
+      "title": "Energetic Date Smoothie",
+      "description": "A healthy and energizing smoothie, prepared with our premium dates, almond milk and a touch of cinnamon.",
+      "category": "Drinks",
+      "difficulty": "Easy",
+      "ingredients": [
+        "4 premium dates",
+        "250ml almond milk",
+        "1 banana",
+        "1 teaspoon cinnamon",
+        "1 tablespoon honey",
+        "Ice cubes"
+      ],
+      "instructions": [
+        "Pit the dates",
+        "Blend all ingredients together",
+        "Add ice cubes",
+        "Serve immediately"
+      ]
+    },
+    "barres_energetiques": {
+      "title": "Homemade Energy Bars",
+      "description": "Healthy and natural energy bars, perfect for athletes and food lovers looking for energy.",
+      "category": "Snacks",
+      "difficulty": "Medium",
+      "ingredients": [
+        "200g premium dates",
+        "100g almonds",
+        "100g cashew nuts",
+        "50g chia seeds",
+        "2 tablespoons honey",
+        "1 pinch of salt"
+      ],
+      "instructions": [
+        "Mix the dried fruits",
+        "Add honey and salt",
+        "Mix until you get a paste",
+        "Spread in a mold",
+        "Refrigerate for 2 hours",
+        "Cut into bars"
+      ]
+    },
+    "time": "Time",
+    "servings": "Servings",
+    "difficulty": "Difficulty",
+    "preparation": "Preparation",
+    "ingredients": "Ingredients",
+    "instructions": "Instructions",
+    "back_to_recipes": "Back to recipes",
+    "culinary_delights": "Culinary Delights",
+    "our": "Our",
+    "recipes": "Recipes",
+    "gourmet": "Gourmet",
+    "discover_our_selection": "Discover our exclusive selection of recipes showcasing the richness and versatility of our premium dates."
+  },
+  "cookies": {
+    "preferences": "Cookie Preferences",
+    "description": "We use cookies to enhance your experience and remember your preferences. By accepting, you allow the use of cookies for a better browsing experience.",
+    "accept_all": "Accept All",
+    "decline": "Decline"
+  },
+  "why_choose_us": {
+    "title": "Why Choose Us",
+    "subtitle": "Discover the reasons that make Tazart the ideal partner for your business",
+    "quality_title": "Superior Quality",
+    "quality_description": "We are committed to offering high-quality products that meet consumer expectations.",
+    "expertise_title": "Expertise",
+    "expertise_description": "We have a qualified and experienced team.",
+    "service_title": "Quality Customer Service",
+    "service_description": "We are always available to support our customers and respond quickly to their requests."
+  },
+  "video_section": {
+    "thumbnail_alt": "Tazart date harvesting process",
+    "title": "From palm tree to your table",
+    "subtitle": "Discover our traditional harvesting process",
+    "quality_title": "Quality above all",
+    "quality_description": "Discover our passion for quality and excellence. Each date is harvested by hand in our Tunisian oases, following traditional methods that respect the environment and enhance our heritage. Our video takes you to the heart of our palm groves to show you the unique process that has built Tazart's reputation in the international market.",
+    "tag_1": "Artisanal harvesting",
+    "tag_2": "Rigorous quality control",
+    "tag_3": "Family passion"
+  },
+  "testimonials": {
+    "what_clients_say": "What Our Clients Say",
+    "client_satisfied": "Satisfied Client",
+    "testimonial_1": "Dates of exceptional quality, you can really feel the difference from those in the supermarket. The taste is incomparable and the customer service is impeccable.",
+    "testimonial_2": "I've been ordering these dates for months and the quality never wavers. They're perfect for both daily consumption and special occasions.",
+    "testimonial_3": "The freshness and natural sweetness of these dates are remarkable. A true delicacy that brings the authentic taste of Tunisia right to your table."
+  },
+  "product_names": {
+    "dates_package_1kg": "Dates Package 1kg",
+    "dates_package_500g": "Dates Package 1kg",
+    "dates_gift_box_1kg": "Dates  Box 1kg",
+    "dates_gift_box_500g": "Dates  Box 500g",
+    "dates_gift_box_blue_1kg": "Date Blue Box 1kg",
+    "dates_gift_box_green_500g": "Date Green  Box 1kg",
+    "pitted_dates_tray_500g": "Pitted Dates Tray 500g",
+    "pitted_dates_tray_200g": "Pitted Dates Tray 200g",
+    "standard_pitted_dates": "Standard Pitted Dates 5kg/10kg",
+    "dried_figs_200g": "Zidi Figs 200g",
+    "bulk_dried_figs": "Bulk Dried Figs",
+    "toujane_figs_200g": "Toujane Figs 200g",
+    "djebaa_figs_200g": "Djebaa Figs 200g",
+    "date_kernel_coffee_200g": "Date Kernel Coffee 200g",
+    "date_powder_sugar_300g": "Date Powder (Sugar) 300g",
+    "date_syrup_340ml": "Date Syrup 340ml"
+  },
+  "product_details": {
+    "technical_specs": "Technical Specifications",
+    "technical_sheet": "Technical Sheet",
+    "description_title": "Product Description",
+    "ingredients_title": "Ingredients",
+    "nutrition_title": "Nutritional Information",
+    "origin": "Origin",
+    "weight": "Weight",
+    "packaging": "Packaging",
+    "tunisia": "Tunisia",
+    "storage": "Storage",
+    "storage_instruction": "Store in a cool, dry place away from direct sunlight",
+    "shelf_life": "Shelf Life",
+    "shelf_life_value": "12 months from production date"
+  },
+  "product_descriptions": {
+    "dates_package_1kg": "Our 1kg package of Deglet Nour dates offers fleshy and sweet fruits, carefully selected from Tunisian palm groves. Harvested at optimal maturity, these premium dates are naturally rich in minerals and carbohydrates, ideal for daily consumption or to enrich your culinary preparations.",
+    "dates_package_500g": "Practical 500g format of our Deglet Nour dates, ideal for small families or moderate consumption. These top-quality Tunisian dates are distinguished by their soft texture and natural caramelized flavor. Perfect as a nutritious snack or to complement your pastries and sweet-savory dishes.",
+    "dates_gift_box_1kg": "Our premium blue box contains 1kg of exceptional Deglet Nour dates, carefully selected for their size, shine, and incomparable flavor. Presented in an elegant case, these dates make the perfect gift for special occasions. Each fruit is fleshy, with a honeyed texture and subtle notes of natural caramel.",
+    "dates_gift_box_500g": "Elegant green box containing 500g of our most exquisite Deglet Nour dates. This refined format is designed for connoisseurs of authentic flavors and special occasions. Each date is selected for its perfect texture, balanced taste, and generous flesh, making this box a gustatory and visual pleasure perfect for gifting.",
+    "pitted_dates_tray_500g": "Practical tray of 500g of pitted Deglet Nour dates, ideal for direct consumption or for your culinary preparations. These carefully prepared dates retain all their flavor and softness, while offering you considerable time savings. Perfect for your smoothies, pastries, or as an energetic snack.",
+    "pitted_dates_tray_200g": "Compact format of 200g pitted dates in a tray, perfect for individual consumption or to precisely measure your recipes. These Deglet Nour dates without pits are ready to use for your culinary creations or as a naturally sweet snack. Their melting texture and authentic taste are preserved thanks to our careful pitting process.",
+    "standard_pitted_dates": "Professional packaging of pitted dates available in 5kg or 10kg formats, specially designed for restaurants, pastry shops, and food professionals. These standard quality Deglet Nour dates are carefully pitted and prepared for efficient use in catering. Ideal for preparing traditional desserts, pastries, or innovative culinary creations on a large scale.",
+    "dried_figs_200g": "Our 200g dried figs are a treasure of Mediterranean flavors, delicately sun-dried according to traditional Tunisian methods. Naturally sweet and fleshy, these figs retain all their nutrients and authentic taste. Rich in fiber and minerals, they make a healthy snack or a perfect ingredient for your salads, desserts, and slow-cooked dishes.",
+    "bulk_dried_figs": "Our bulk dried figs are ideal for professionals and cooking enthusiasts. These figs, naturally dried in the Tunisian sun, offer exceptional taste quality and nutritional richness. Available in large formats, they are perfect for bakeries, restaurants, or for your homemade preparations requiring significant quantities.",
+    "toujane_figs_200g": "Toujane figs are a Tunisian specialty, dried according to ancestral methods from the mountainous region of Toujane. These 200g figs have a unique dense texture and a particularly intense sweetness. Their honeyed flavor and nutritional richness make them an exceptional product for gourmets and healthy eating enthusiasts.",
+    "djebaa_figs_200g": "Djebaa figs are harvested in the Djebaa region of northern Tunisia, known for its exceptional terroir. These 200g figs are characterized by their generous size and unique sweetness. Sun-dried according to traditional methods, they preserve all their flavors and nutritional benefits while offering a deliciously caramelized taste.",
+    "date_kernel_coffee_200g": "Our 200g date kernel coffee is a natural innovation, offering a caffeine-free alternative with subtle notes of caramel and toasted nuts. This traditional Tunisian product is obtained by carefully roasting and grinding date kernels. Perfect for those looking for a hot drink with digestive benefits and a unique taste experience.",
+    "date_powder_sugar_300g": "Our 300g date sugar is a healthy and natural alternative to refined sugar. Made by dehydrating and grinding premium dates, this powder retains all the nutritional benefits of the original fruit while providing a subtle sweetness. Ideal for baking, hot drinks, or as a topping for your breakfast dishes.",
+    "date_syrup_340ml": "Our 340ml date syrup is a natural concentrate of sweetness and nutrients. Made from the finest Tunisian dates, this amber-colored nectar offers a complex caramelized flavor. Use it to sweeten your pancakes, yogurts, desserts, or even in marinades for a subtle sweet-savory balance."
+  },
+  "product_ingredients": {
+    "dates": "100% natural Deglet Nour dates from Tunisia",
+    "dates_no_additives": "No additives or preservatives",
+    "dates_no_treatment": "Not treated after harvest",
+    "dates_controlled_env": "Packaged in a controlled environment",
+    "dates_premium": "Premium quality Deglet Nour dates from Tunisia superior selection",
+    "dates_handmade": "Hand-conditioned",
+    "dates_ripe": "Harvested at full maturity and individually sorted",
+    "dates_pitted": "Pitted Deglet Nour dates from Tunisia",
+    "dates_hygienic": "Prepared in optimal hygiene conditions",
+    "dates_atmosphere": "Packaged in a protective atmosphere to preserve freshness",
+    "dates_hermetic": "Hermetic packaging for maximum freshness",
+    "dates_standard_quality": "Standard quality pitted Deglet Nour dates from Tunisia",
+    "dates_no_artificial": "No artificial preservatives",
+    "dates_professional": "Prepared according to professional hygiene standards",
+    "dates_pro_packaging": "Special packaging for professional use",
+    "dried_figs_sun": "Sun-dried figs from Tunisia",
+    "dried_figs_no_additives": "No additives or preservatives",
+    "dried_figs_no_sugar": "No added sugar",
+    "dried_figs_traditional": "Dried using environmentally friendly traditional methods"
+  }
+}

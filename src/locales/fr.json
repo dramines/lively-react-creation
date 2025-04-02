@@ -1,0 +1,492 @@
+{
+  "navbar": {
+    "home": "Accueil",
+    "about": "À propos",
+    "quality": "Qualité",
+    "resellers": "Nos Revendeurs",
+    "contact": "Contact",
+    "consumer_service": "Service Consommateur",
+    "products": "Produits",
+    "dates": "Dattes",
+    "gift_box": "Coffret de Dattes",
+    "packages": "Paquets de Dattes",
+    "bulk_dates": "Dattes en Vrac",
+    "dried_figs": "Figues Séchées",
+    "wooden_boxes": "Coffrets en Bois",
+    "figs_olive_oil": "Figues Séchées à l'Huile d'Olive",
+    "bulk_figs": "Figues Séchées en Vrac",
+    "fruit_syrups": "Sirop de Dattes",
+    "date_syrup": "Sirop de Dattes",
+    "fig_syrup": "Sirop de Figues Séchées",
+    "date_sugar": "Sucre de Dattes",
+    "date_coffee": "Café de Dattes",
+    "coffret_cadeaux": "Coffret Cadeaux",
+    "paquets": "Paquets",
+    "dattes_en_vrac": "Dattes en Vrac",
+    "coffrets_en_bois": "Coffrets en Bois",
+    "figues_sechees_huile_olive": "Figues Séchées à l'Huile d'Olive",
+    "figues_sechees_en_vrac": "Figues Séchées en Vrac",
+    "sirop_dattes": "Sirop de Dattes",
+    "sirop_figues": "Sirop de Figues",
+    "sucre_dattes": "Sucre de Dattes",
+    "figues_sechées": "Figues Séchées",
+    "sirops": "Sirops de Fruits",
+    "tous": "Tous les Produits",
+    "trays": "Barquettes de Dattes",
+    "toujane_figs": "Figues Séchées Toujane",
+    "zidi_figs": "Figues Séchées Zidi",
+    "djebaa_figs": "Figues Séchées djebaa",
+    "bulk_dried_figs": "Figues Séchées en Vrac"
+  },
+  "products": {
+    "all_products": "Tous les Produits",
+    "discover_range": "Découvrez notre gamme complète de produits tunisiens de haute qualité",
+    "display": "Affichage",
+    "sort_by": "Trier par",
+    "sort_default": "Par défaut",
+    "sort_name_asc": "Nom (A-Z)",
+    "sort_name_desc": "Nom (Z-A)",
+    "organic": "Bio",
+    "fair_trade": "Commerce équitable",
+    "filters": "Filtres",
+    "certifications": "Certifications",
+    "categories": "Catégories de produits",
+    "view_details": "Voir détails",
+    "showing": "Affichage de",
+    "products": "produits",
+    "for": "pour",
+    "no_products_found": "Aucun produit trouvé correspondant à vos filtres",
+    "clear_filters": "Effacer tous les filtres",
+    "search_placeholder": "Rechercher des produits...",
+    "select_category": "Sélectionner une catégorie",
+    "apply_filters": "Appliquer les filtres",
+    "product_type": "Type de produit",
+    "all_categories": "Toutes les catégories",
+    "back_to_products": "Retour aux produits",
+    "description": "Description",
+    "ingredients": "Ingrédients",
+    "nutritional_values": "Valeurs Nutritionnelles",
+    "per_portion": "par portion",
+    "dates_description_premium": "Ces dattes premium sont soigneusement cultivées dans les palmeraies tunisiennes, où le climat et le terroir exceptionnels confèrent à nos dattes leurs qualités uniques. Chaque fruit est sélectionné à la main pour garantir un produit d'une qualité irréprochable.",
+    "figs_description_premium": "Ces figues sont délicatement séchées selon des méthodes traditionnelles tunisiennes, préservant leurs saveurs naturelles et leurs bienfaits nutritionnels. Récoltées à maturité, elles conservent toutes leurs qualités gustatives.",
+    "date_coffee_description": "Ce café de noyaux de dattes est une alternative naturelle sans caféine au café traditionnel, offrant des notes douces et légèrement caramélisées. Une spécialité tunisienne aux vertus digestives reconnues.",
+    "date_sugar_description": "Notre sucre de dattes est obtenu par déshydratation et broyage minutieux de dattes de première qualité. Il conserve les minéraux, vitamines et fibres naturellement présents dans les fruits.",
+    "date_syrup_description": "Ce sirop est un concentré naturel de saveurs obtenu par extraction soigneuse des jus de dattes sélectionnées. Un nectar ambré, légèrement visqueux et intensément parfumé.",
+    "dates_ingredient_note": "Aucun additif, conservateur ou colorant ajouté. Nos dattes sont conditionnées dans un environnement contrôlé pour préserver leur qualité et leur fraîcheur.",
+    "general_ingredient_note": "Produit 100% naturel, sans additifs ni conservateurs. Conditionné dans un environnement contrôlé pour préserver sa qualité et ses bienfaits.",
+    "nutrition_note": "*Les valeurs nutritionnelles sont données pour 100g de produit",
+    "packaging_info": "Informations de Conditionnement",
+    "packaging_designation": "Désignation",
+    "packaging_packs_carton": "Paquets/Carton",
+    "packaging_cartons_pallet": "Cartons/Palette",
+    "packaging_net_weight": "Poids Net Pal",
+    "packaging_gross_weight": "Poids Brut Pal",
+    "packaging_height": "Hteur Pal",
+    "packaging_pal_sr": "Pal./SR",
+    "packaging_pal_container": "Pal./conteneur 20'",
+    "technical_specs": "Spécifications Techniques",
+    "technical_sheet": "Fiche technique"
+  },
+  "products_hero": {
+    "our_selection": "Notre Sélection",
+    "description": "Découvrez notre gamme de dattes premium et produits dérivés, soigneusement sélectionnés pour leur qualité exceptionnelle."
+  },
+  "contact_info": {
+    "phone": "+216 71 385 385",
+    "email": "contact@tazart.tn",
+    "address": "9 rue de mercure, Ben Arous 2013"
+  },
+  "client_types": {
+    "b2c": "B2C",
+    "b2b": "B2B"
+  },
+  "about": {
+    "our_story": "À propos de nous",
+    "tradition_excellence": "Depuis des années, une tradition d'excellence dans la production de dattes tunisiennes",
+    "our_mission": "Notre Mission",
+    "mission_text_1": "Tazart est une entreprise sociale de séchage et de conditionnement de fruits, spécialisée dans les dattes et les figues séchées. Nos produits sont cultivés dans les meilleures conditions en Tunisie pour garantir un goût et une qualité supérieurs.",
+    "mission_text_2": "Nous revisitons nos produits locaux pour offrir à nos consommateurs une expérience culinaire à la fois authentique et exceptionnelle.",
+    "our_values": "Nos Valeurs",
+    "respect_title": "Respect de l'autre",
+    "respect_description": "Notre équipe est unie par des valeurs fortes de respect mutuel et de collaboration.",
+    "excellence_title": "Excellence",
+    "excellence_description": "Nous nous engageons à maintenir les plus hauts standards de qualité dans tous nos produits.",
+    "sustainability_title": "Engagement durable",
+    "sustainability_description": "Notre engagement envers l'environnement et les communautés locales guide chacune de nos actions.",
+    "production_title": "Production responsable",
+    "production_description": "Nous privilégions des méthodes de production respectueuses de l'environnement.",
+    "our_heritage": "Notre Héritage",
+    "heritage_subtitle": "Exploration de nos racines et traditions dans la production de dattes tunisiennes",
+    "heritage_text_1_title": "Origine",
+    "heritage_text_1": "La figue fait partie intégrante de la culture berbère et est appelée dans tout l'ensemble berbérophone Tazart, d'où vient le nom de notre entreprise.",
+    "heritage_text_2_title": "Marque",
+    "heritage_text_2": "C'est au cœur de la production traditionnelle et authentique Tunisienne que la marque TAZART a été créée, offrant au consommateur une expérience culinaire exceptionnelle à base de dattes et de figues séchées.",
+    "heritage_text_3_title": "Production",
+    "heritage_text_3": "Pour les figues, la récolte passe au séchage via des techniques modernes et adaptées aux normes d'hygiène en vigueur pour passer par la suite à l'étape du conditionnement à l'instar de nos dattes naturelles 'Deglet Nour', en vue d'être commercialisées sur plusieurs formes dans un réseau de plus de 500 distributeurs.",
+    "our_story_title": "Notre Histoire",
+    "excellence_of_products": "L'Excellence des produits Tazart",
+    "history_text_1": "Depuis des années, nous nous engageons à fournir les meilleures dattes de Tunisie aux quatre coins du monde. Notre passion pour la qualité et notre expertise dans la sélection des meilleures variétés nous ont permis de devenir un leader dans l'exportation de dattes premium.",
+    "history_text_2": "Chaque datte que nous sélectionnons raconte une histoire de tradition, de qualité et d'excellence. Notre engagement envers la durabilité et l'innovation nous permet de maintenir les plus hauts standards de qualité.",
+    "discover": "Découvrir",
+    "affiliated_producers": "Producteurs Affiliés",
+    "heritage_footer": "Bâtir sur notre héritage pour créer un avenir exceptionnel",
+    "resellers": "Revendeurs"
+  },
+  "contact": {
+    "contact_us": "Contactez-nous",
+    "consumer_service": "Service Consommateur",
+    "intro_b2b": "Notre équipe est à votre écoute pour répondre à toutes vos questions. N'hésitez pas à nous contacter, nous vous répondrons dans les plus brefs délais.",
+    "intro_b2c": "Notre service consommateur est à votre disposition pour toutes vos questions ou réclamations concernant nos produits.",
+    "phone_section": "Téléphone",
+    "phone_subtitle": "Service client disponible",
+    "email_section": "Email",
+    "email_subtitle": "Réponse sous 48h",
+    "address_section": "Adresse",
+    "address_subtitle": "",
+    "form_title": "Envoyez-nous un message",
+    "form_title_b2c": "Envoyez votre réclamation",
+    "first_name": "Prénom",
+    "last_name": "Nom",
+    "email": "Email",
+    "phone": "Téléphone",
+    "subject": "Sujet",
+    "message": "Message",
+    "complaint": "Réclamation",
+    "first_name_placeholder": "Votre prénom",
+    "last_name_placeholder": "Votre nom",
+    "email_placeholder": "votre@email.com",
+    "phone_placeholder": "+216 XX XXX XXX",
+    "subject_placeholder": "Le sujet de votre message",
+    "message_placeholder": "Votre message...",
+    "complaint_placeholder": "Détaillez votre réclamation...",
+    "send_message": "Envoyer le message",
+    "send_complaint": "Envoyer la réclamation",
+    "sending": "Envoi en cours...",
+    "thank_you_title": "Merci Beaucoup !",
+    "thank_you_b2b": "Votre message a été envoyé avec succès. Nous vous répondrons dans les plus brefs délais.",
+    "thank_you_b2c": "Votre réclamation a été envoyée avec succès. Notre service consommateur vous contactera sous 48 heures.",
+    "field_required": "Ce champ est requis",
+    "invalid_email": "Email invalide",
+    "invalid_phone": "Numéro de téléphone invalide",
+    "our_location": "Notre localisation",
+    "business_hours": "Heures d'ouverture",
+    "monday_friday": "Lundi - Vendredi",
+    "saturday": "Samedi",
+    "sunday": "Dimanche",
+    "hours_1": "8h00 - 16h30",
+    "hours_2": "8h00 - 14h30",
+    "closed": "Fermé"
+  },
+  "footer": {
+    "quick_links": "Liens Rapides",
+    "made_with": "Fait avec",
+    "by": "par",
+    "company_description": "TAZART est votre source de confiance pour des dattes de la plus haute qualité. Depuis des années, nous sélectionnons les meilleures variétés pour vous offrir une expérience gustative exceptionnelle."
+  },
+  "resellers": {
+    "title": "Nos Revendeurs",
+    "subtitle": "Découvrez où trouver nos produits dans toute la Tunisie. Notre réseau de revendeurs officiels vous garantit qualité et service.",
+    "all_resellers": "Tous les revendeurs",
+    "our_distributors": "Nos Distributeurs",
+    "find_products": "Trouvez nos produits près de chez vous",
+    "discover_network": "Découvrez notre réseau de revendeurs officiels où vous pouvez acheter nos produits de qualité dans tout le territoire tunisien.",
+    "discover_points_of_sale": "Découvrir nos points de vente",
+    "our_distribution_partners": "Nos Partenaires de Distribution",
+    "distribution_description": "Retrouvez nos produits dans les meilleurs points de vente à travers la Tunisie. Nos partenaires ont été soigneusement sélectionnés pour vous garantir une disponibilité optimale.",
+    "official_partner": "Partenaire Officiel",
+    "learn_more": "En savoir plus",
+    "see_products": "Voir produits",
+    "and_many_more": "... et plus de 500 autres revendeurs à travers la Tunisie"
+  },
+  "made_in_tunisia": {
+    "title": "100% Made in Tunisia",
+    "description": "Nos dattes sont cultivées avec amour dans les oasis tunisiennes, où le climat unique et le savoir-faire traditionnel se combinent pour produire des fruits d'une qualité exceptionnelle. Chaque datte est soigneusement sélectionnée et conditionnée pour préserver sa fraîcheur et son goût authentique.",
+    "tag_grown": "Cultivé en Tunisie",
+    "tag_premium": "Qualité Premium",
+    "tag_traditional": "Savoir-faire Traditionnel",
+    "region_title": "Région de Douz",
+    "region_description": "Située dans le sud de la Tunisie, Douz est connue comme \"la porte du désert\" et produit les meilleures dattes au monde grâce à son climat aride unique et son savoir-faire ancestral.",
+    "region_tag_1": "Climat optimal",
+    "region_tag_2": "Tradition séculaire",
+    "region_tag_3": "Dattes Deglet Nour",
+    "region_footer": "Célèbre pour ses palmiers dattiers qui produisent des fruits d'une douceur et qualité incomparables."
+  },
+  "dates_benefits": {
+    "title": "Pourquoi choisir nos dattes ?",
+    "subtitle": "Découvrez les bienfaits exceptionnels de nos dattes premium, soigneusement sélectionnées pour vous offrir le meilleur de la nature.",
+    "click_info": "Cliquez sur les cercles pour plus de détails sur chaque bienfait",
+    "quote": "La consommation régulière de dattes dans le cadre d'une alimentation équilibrée contribue à une meilleure santé globale.",
+    "quote_source": "Institut de Nutrition Méditerranéenne",
+    "benefits": {
+      "nutrition": {
+        "title": "Richesse Nutritionnelle Exceptionnelle",
+        "description": "Nos dattes contiennent une concentration remarquable de nutriments essentiels qui soutiennent votre santé globale."
+      },
+      "energy": {
+        "title": "Source Naturelle d'Énergie",
+        "description": "Grâce à leur teneur en glucides naturels, nos dattes vous fournissent une énergie durable tout au long de la journée."
+      },
+      "digestive": {
+        "title": "Soutien Digestif",
+        "description": "Les fibres alimentaires présentes dans nos dattes favorisent une digestion saine et un transit intestinal régulier."
+      },
+      "antioxidant": {
+        "title": "Propriétés Antioxydantes",
+        "description": "Riches en antioxydants, nos dattes combattent les radicaux libres et contribuent à la protection cellulaire."
+      },
+      "mineral": {
+        "title": "Équilibre Minéral",
+        "description": "Le potassium et autres minéraux contenus dans nos dattes soutiennent la santé cardiovasculaire et musculaire."
+      }
+    },
+    "detail_benefits": {
+      "fiber": {
+        "title": "Riche en fibre",
+        "content": "<p>Les dattes sont exceptionnellement riches en fibres alimentaires, avec environ 7 grammes de fibres pour 100 grammes de dattes. Ces fibres sont essentielles pour :</p><ul><li>La santé digestive et le transit intestinal</li><li>Le contrôle de la glycémie</li><li>La sensation de satiété</li><li>La réduction du cholestérol</li></ul><p>Les fibres solubles et insolubles présentes dans les dattes contribuent à maintenir un système digestif sain et à prévenir diverses maladies digestives.</p>"
+      },
+      "potassium": {
+        "title": "Source de potassium",
+        "content": "<p>Les dattes sont une excellente source de potassium, contenant environ 696 mg pour 100 grammes. Le potassium est crucial pour :</p><ul><li>La régulation de la pression artérielle</li><li>Le fonctionnement musculaire</li><li>La transmission nerveuse</li><li>L'équilibre hydrique du corps</li></ul><p>Une alimentation riche en potassium aide à maintenir une bonne santé cardiovasculaire et à prévenir l'hypertension.</p>"
+      },
+      "energy": {
+        "title": "Boosteur d'énergie",
+        "content": "<p>Les dattes sont un excellent boosteur d'énergie naturel grâce à :</p><ul><li>Leur teneur élevée en glucides naturels</li><li>Leur index glycémique modéré</li><li>Leur richesse en vitamines B</li><li>Leur contenu en minéraux essentiels</li></ul><p>Idéales pour les sportifs et les personnes actives, les dattes fournissent une énergie durable sans pic glycémique important.</p>"
+      },
+      "superfood": {
+        "title": "Super aliment",
+        "content": "<p>Les dattes sont considérées comme un super aliment en raison de leur profil nutritionnel exceptionnel :</p><ul><li>Riches en antioxydants</li><li>Source de minéraux essentiels</li><li>Contiennent des composés anti-inflammatoires</li><li>Apportent des fibres et des vitamines</li></ul><p>Leur consommation régulière contribue à une alimentation équilibrée et saine.</p>"
+      },
+      "antioxidants": {
+        "title": "Anti-oxydants",
+        "content": "<p>Les dattes sont riches en antioxydants, notamment :</p><ul><li>Les flavonoïdes</li><li>Les caroténoïdes</li><li>Les composés phénoliques</li><li>La vitamine E</li></ul><p>Ces antioxydants aident à lutter contre le stress oxydatif et les radicaux libres, contribuant ainsi à la prévention de nombreuses maladies chroniques.</p>"
+      },
+      "vitamins": {
+        "title": "Vitamines B1, B2, B3",
+        "content": "<p>Les dattes sont une source importante de vitamines B :</p><ul><li>B1 (Thiamine) : essentielle pour le métabolisme énergétique</li><li>B2 (Riboflavine) : importante pour la production d'énergie cellulaire</li><li>B3 (Niacine) : cruciale pour la santé du syst��me nerveux</li></ul><p>Ces vitamines sont essentielles pour le bon fonctionnement du métabolisme et du système nerveux.</p>"
+      }
+    }
+  },
+  "certifications": {
+    "meta": {
+      "title": "Nos Certifications | Tazart - Qualité Certifiée",
+      "description": "Découvrez les certifications de qualité de Tazart, garantissant l'excellence de nos produits traditionnels tunisiens."
+    },
+    "title": "Nos Certifications",
+    "subtitle": "Découvrez nos certifications qui témoignent de notre engagement envers l'excellence et la qualité.",
+    "issued_by": "Délivré par",
+    "validity": "Validité",
+    "year": "Année",
+    "verify_button": "Vérifier la certification",
+    "fssc_22000": {
+      "title": "Certification Excellence",
+      "alt": "Certification FSSC 22000",
+      "issuer": "Bureau Veritas Certification",
+      "validity": "04-02-2027",
+      "description": "Notre certification FSSC 22000 témoigne de notre engagement envers la sécurité alimentaire et les normes de qualité les plus élevées. Cette certification garantit que notre système de gestion de la sécurité alimentaire répond aux exigences internationales les plus strictes pour l'emballage des dattes entières et des figues séchées au soleil.",
+      "tag1": "FSSC 22000",
+      "tag2": "ISO 22000:2018",
+      "tag3": "Sécurité Alimentaire"
+    },
+    "iso_22000": {
+      "title": "Certification ISO 22000",
+      "description": "Notre certification ISO 22000 témoigne de notre engagement envers la sécurité alimentaire et la qualité de nos produits. Cette norme internationale garantit que nous suivons les meilleures pratiques en matière de sécurité alimentaire tout au long de notre chaîne de production.",
+      "issuer": "Organisation internationale de normalisation (ISO)"
+    },
+    "bio": {
+      "title": "Agriculture Biologique",
+      "description": "Notre certification Bio garantit des produits 100% naturels, cultivés dans le respect de l'environnement. Nous nous engageons à maintenir des pratiques agricoles durables et respectueuses de la nature pour offrir des produits de la plus haute qualité.",
+      "issuer": "Ecocert"
+    },
+    "quality_statement": {
+      "title": "L'Excellence au Cœur de Notre Tradition",
+      "paragraph1": "Chez Tazart, la qualité n'est pas simplement une promesse, c'est notre engagement quotidien. Nos certifications témoignent de notre dévouement à l'excellence et à la satisfaction de nos clients.",
+      "paragraph2": "Notre processus de production est régulièrement audité et certifié par des organismes indépendants, garantissant ainsi la qualité exceptionnelle de nos produits."
+    }
+  },
+  "recipes": {
+    "moelleux_dattes": {
+      "title": "Gâteau Moelleux aux Dattes",
+      "description": "Un délicieux gâteau moelleux aux dattes, parfait pour le goûter ou le dessert. Une recette traditionnelle revisitée avec nos dattes premium.",
+      "category": "Desserts",
+      "difficulty": "Facile",
+      "ingredients": [
+        "250g de dattes dénoyautées",
+        "200g de farine",
+        "150g de beurre",
+        "150g de sucre",
+        "3 œufs",
+        "1 sachet de levure chimique",
+        "1 pincée de sel",
+        "1 cuillère à café de vanille"
+      ],
+      "instructions": [
+        "Préchauffer le four à 180°C",
+        "Couper les dattes en petits morceaux",
+        "Mélanger le beurre ramolli et le sucre",
+        "Ajouter les œufs un à un",
+        "Incorporer la farine, la levure et le sel",
+        "Ajouter les dattes et la vanille",
+        "Verser dans un moule beurré",
+        "Cuire 35-40 minutes"
+      ]
+    },
+    "smoothie_dattes": {
+      "title": "Smoothie Énergétique aux Dattes",
+      "description": "Un smoothie sain et énergisant, préparé avec nos dattes premium, du lait d'amande et une touche de cannelle.",
+      "category": "Boissons",
+      "difficulty": "Facile",
+      "ingredients": [
+        "4 dattes premium",
+        "250ml de lait d'amande",
+        "1 banane",
+        "1 cuillère à café de cannelle",
+        "1 cuillère à soupe de miel",
+        "Glaçons"
+      ],
+      "instructions": [
+        "Dénoyauter les dattes",
+        "Mixer tous les ingrédients",
+        "Ajouter les glaçons",
+        "Servir immédiatement"
+      ]
+    },
+    "barres_energetiques": {
+      "title": "Barres Énergétiques Maison",
+      "description": "Des barres énergétiques saines et naturelles, parfaites pour les sportifs et les gourmands en quête d'énergie.",
+      "category": "Snacks",
+      "difficulty": "Moyen",
+      "ingredients": [
+        "200g de dattes premium",
+        "100g d'amandes",
+        "100g de noix de cajou",
+        "50g de graines de chia",
+        "2 cuillères à soupe de miel",
+        "1 pincée de sel"
+      ],
+      "instructions": [
+        "Mixer les fruits secs",
+        "Ajouter le miel et le sel",
+        "Mélanger jusqu'à obtenir une pâte",
+        "Étaler dans un moule",
+        "Réfrigérer 2 heures",
+        "Couper en barres"
+      ]
+    },
+    "time": "Temps",
+    "servings": "Portions",
+    "difficulty": "Difficulté",
+    "preparation": "Préparation",
+    "ingredients": "Ingrédients",
+    "instructions": "Instructions",
+    "back_to_recipes": "Retour aux recettes",
+    "culinary_delights": "Délices Culinaires",
+    "our": "Nos",
+    "recipes": "Recettes",
+    "gourmet": "Gourmandes",
+    "discover_our_selection": "Découvrez notre sélection de recettes exclusives mettant en valeur la richesse et la versatilité de nos dattes premium."
+  },
+  "cookies": {
+    "preferences": "Préférences des Cookies",
+    "description": "Nous utilisons des cookies pour améliorer votre expérience et mémoriser vos préférences. En acceptant, vous permettez l'utilisation des cookies pour une meilleure expérience de navigation.",
+    "accept_all": "Accepter tout",
+    "decline": "Refuser"
+  },
+  "why_choose_us": {
+    "title": "Pourquoi nous choisir",
+    "subtitle": "Découvrez les raisons qui font de Tazart le partenaire idéal pour votre entreprise",
+    "quality_title": "Qualité supérieure",
+    "quality_description": "Nous engageons à offrir des produits de haute qualité conformes aux attentes des consommateurs.",
+    "expertise_title": "Savoir-Faire",
+    "expertise_description": "Nous possédons une équipe qualifiée et expérimentée.",
+    "service_title": "Service client de qualité",
+    "service_description": "Nous sommes toujours disponibles pour accompagner nos clients et répondre rapidement à leurs demandes."
+  },
+  "video_section": {
+    "thumbnail_alt": "Processus de récolte des dattes Tazart",
+    "title": "Du palmier à votre table",
+    "subtitle": "Découvrez notre processus de récolte traditionnel",
+    "quality_title": "La qualité avant tout",
+    "quality_description": "Découvrez notre passion pour la qualité et l'excellence. Chaque datte est récoltée à la main dans nos oasis tunisiennes, suivant des méthodes traditionnelles qui respectent l'environnement et valorisent notre patrimoine. Notre vidéo vous emmène au cœur de nos palmeraies pour vous faire découvrir le processus unique qui fait la réputation de Tazart sur le marché international.",
+    "tag_1": "Récolte artisanale",
+    "tag_2": "Contrôle qualité rigoureux",
+    "tag_3": "Passion familiale"
+  },
+  "testimonials": {
+    "what_clients_say": "Ce que nos clients disent",
+    "client_satisfied": "Client satisfait",
+    "testimonial_1": "Des dattes d'une qualité exceptionnelle, on sent vraiment la différence avec celles du supermarché. Le goût est incomparable et le service client est impeccable.",
+    "testimonial_2": "Je commande ces dattes depuis des mois et la qualité ne faiblit jamais. Elles sont parfaites tant pour la consommation quotidienne que pour les occasions spéciales.",
+    "testimonial_3": "La fraîcheur et la douceur naturelle de ces dattes sont remarquables. Une véritable délicatesse qui apporte le goût authentique de la Tunisie directement à votre table."
+  },
+  "product_names": {
+    "dates_package_1kg": "Paquet de Dattes 1kg",
+    "dates_package_500g": "Paquet de Dattes 500g",
+    "dates_gift_box_1kg": "Coffret de Dattes 1kg",
+    "dates_gift_box_500g": "Coffret de Dattes 1kg",
+    "dates_gift_box_blue_1kg": "Coffret de Dattes 1kg",
+    "dates_gift_box_green_500g": "Coffret de Dattes 1kg",
+    "pitted_dates_tray_500g": "Barquette de Dattes Dénoyautées 500g",
+    "pitted_dates_tray_200g": "Barquette de Dattes Dénoyautées 200g",
+    "standard_pitted_dates": "Dattes Standard Dénoyautées 5kg/10kg",
+    "dried_figs_200g": "Figues Séchées Zidi 200g",
+    "bulk_dried_figs": "Figues Séchées en Vrac",
+    "toujane_figs_200g": "Figues Séchées Toujane 200g",
+    "djebaa_figs_200g": "Figues Séchées djebaa 200g",
+    "date_kernel_coffee_200g": "Café de Noyaux de Dattes 200g",
+    "date_powder_sugar_300g": "Poudre (Sucre) de Dattes 300g",
+    "date_syrup_340ml": "Sirop de Dattes 340ml"
+  },
+  "product_details": {
+    "technical_specs": "Spécifications Techniques",
+    "technical_sheet": "Fiche Technique",
+    "description_title": "Description du Produit",
+    "ingredients_title": "Ingrédients",
+    "nutrition_title": "Informations Nutritionnelles",
+    "origin": "Origine",
+    "weight": "Poids",
+    "packaging": "Conditionnement",
+    "tunisia": "Tunisie",
+    "storage": "Conservation",
+    "storage_instruction": "Conserver dans un endroit frais et sec, à l'abri de la lumière directe",
+    "shelf_life": "Durée de Conservation",
+    "shelf_life_value": "12 mois à partir de la date de production"
+  },
+  "product_descriptions": {
+    "dates_package_1kg": "Notre paquet de dattes Deglet Nour de 1kg offre des fruits charnus et sucrés, soigneusement sélectionnés dans les palmeraies tunisiennes. Récoltées à maturité optimale, ces dattes premium sont naturellement riches en minéraux et glucides, idéales pour une consommation quotidienne ou pour enrichir vos préparations culinaires.",
+    "dates_package_500g": "Format pratique de 500g de nos dattes Deglet Nour, idéal pour les petites familles ou une consommation modérée. Ces dattes tunisiennes de première qualité se distinguent par leur texture moelleuse et leur saveur caramélisée naturelle. Parfait comme en-cas nutritif ou pour agrémenter vos pâtisseries et plats salés-sucrés.",
+    "dates_gift_box_1kg": "Notre coffret premium bleu contient 1kg de dattes Deglet Nour d'exception, soigneusement sélectionnées pour leur taille, leur brillance et leur saveur incomparable. Présentées dans un écrin élégant, ces dattes sont le cadeau parfait pour les occasions spéciales. Chaque fruit est charnu, avec une texture mielleuse et des notes subtiles de caramel naturel.",
+    "dates_gift_box_500g": "Élégant coffret vert renfermant 500g de nos dattes Deglet Nour les plus exquises. Ce format raffiné est conçu pour les amateurs de saveurs authentiques et les occasions spéciales. Chaque datte est sélectionnée pour sa texture parfaite, son goût équilibré et sa chair généreuse, faisant de ce coffret un plaisir gustatif et visuel parfait à offrir.",
+    "pitted_dates_tray_500g": "Barquette pratique de 500g de dattes Deglet Nour dénoyautées, idéale pour une consommation directe ou pour vos préparations culinaires. Ces dattes soigneusement préparées conservent toute leur saveur et leur moelleux, tout en vous offrant un gain de temps considérable. Parfaites pour vos smoothies, pâtisseries ou comme en-cas énergétique.",
+    "pitted_dates_tray_200g": "Format compact de 200g de dattes dénoyautées en barquette, parfait pour une consommation individuelle ou pour précisément doser vos recettes. Ces dattes Deglet Nour sans noyau sont prêtes à l'emploi pour vos créations culinaires ou comme collation naturellement sucrée. Leur texture fondante et leur goût authentique sont préservés grâce à notre processus de dénoyautage soigneux.",
+    "standard_pitted_dates": "Conditionnement professionnel de dattes dénoyautées disponible en formats 5kg ou 10kg, spécialement conçu pour les restaurants, les pâtisseries et les professionnels de l'alimentation. Ces dattes Deglet Nour de qualité standard sont soigneusement dénoyautées et préparées pour une utilisation efficace en restauration. Idéales pour la préparation de desserts traditionnels, pâtisseries ou créations culinaires innovantes à grande échelle.",
+    "dried_figs_200g": "Nos figues séchées de 200g sont un trésor de saveurs méditerranéennes, délicatement séchées au soleil selon des méthodes traditionnelles tunisiennes. Naturellement sucrées et charnues, ces figues conservent tous leurs nutriments et leur goût authentique. Riches en fibres et minéraux, elles constituent un en-cas sain ou un ingrédient parfait pour vos salades, desserts et plats mijotés.",
+    "bulk_dried_figs": "Nos figues séchées en vrac sont idéales pour les professionnels et les amateurs de cuisine. Ces figues, séchées naturellement au soleil tunisien, offrent une qualité gustative et une richesse nutritionnelle exceptionnelles. Disponibles en grands formats, elles sont parfaites pour les boulangeries, restaurants, ou pour vos préparations maison nécessitant des quantités importantes.",
+    "toujane_figs_200g": "Les figues Toujane sont une spécialité tunisienne, séchées selon des méthodes ancestrales de la région montagneuse de Toujane. Ces figues de 200g présentent une texture dense unique et une douceur particulièrement intense. Leur saveur miellée et leur richesse nutritionnelle en font un produit d'exception pour les gourmets et les amateurs d'alimentation saine.",
+    "djebaa_figs_200g": "Les figues djebaa sont récoltées dans la région de Djebaa au nord de la Tunisie, connue pour son terroir exceptionnel. Ces figues de 200g se caractérisent par leur taille généreuse et leur douceur unique. Séchées au soleil selon des méthodes traditionnelles, elles conservent toutes leurs saveurs et bienfaits nutritionnels tout en offrant un goût délicieusement caramélisé.",
+    "date_kernel_coffee_200g": "Notre café de noyaux de dattes de 200g est une innovation naturelle, offrant une alternative sans caféine aux notes subtiles de caramel et de fruits à coque torréfiés. Ce produit traditionnel tunisien est obtenu par torréfaction et mouture soigneuse des noyaux de dattes. Parfait pour ceux qui recherchent une boisson chaude aux vertus digestives et à l'expérience gustative unique.",
+    "date_powder_sugar_300g": "Notre sucre de dattes de 300g est une alternative saine et naturelle au sucre raffiné. Fabriqué par déshydratation et broyage de dattes premium, cette poudre conserve tous les bienfaits nutritionnels du fruit d'origine tout en apportant une douceur subtile. Idéal pour la pâtisserie, les boissons chaudes, ou comme garniture pour vos plats de petit-déjeuner.",
+    "date_syrup_340ml": "Notre sirop de dattes de 340ml est un concentré naturel de douceur et de nutriments. Fabriqué à partir des meilleures dattes tunisiennes, ce nectar couleur ambrée offre une saveur caramélisée complexe. Utilisez-le pour sucrer vos crêpes, yaourts, desserts, ou même dans les marinades pour un subtil équilibre sucré-salé."
+  },
+  "product_ingredients": {
+    "dates": "Dattes Deglet Nour de Tunisie 100% naturelles",
+    "dates_no_additives": "Sans additifs ni conservateurs",
+    "dates_no_treatment": "Non traitées après récolte",
+    "dates_controlled_env": "Conditionnées dans un environnement contrôlé",
+    "dates_premium": "Dattes Deglet Nour premium de Tunisie sélection supérieure",
+    "dates_handmade": "Conditionnées à la main",
+    "dates_ripe": "Récoltées à pleine maturité et triées individuellement",
+    "dates_pitted": "Dattes Deglet Nour de Tunisie dénoyautées",
+    "dates_hygienic": "Préparées dans des conditions d'hygiène optimales",
+    "dates_atmosphere": "Emballées sous atmosphère protectrice pour préserver leur fraîcheur",
+    "dates_hermetic": "Conditionnement hermétique pour une fraîcheur maximale",
+    "dates_standard_quality": "Dattes Deglet Nour de Tunisie dénoyautées qualité standard",
+    "dates_no_artificial": "Sans conservateurs artificiels",
+    "dates_professional": "Préparées selon les normes d'hygiène professionnelles",
+    "dates_pro_packaging": "Conditionnement spécial pour usage professionnel",
+    "dried_figs_sun": "Figues de Tunisie séchées au soleil",
+    "dried_figs_no_additives": "Sans additifs ni conservateurs",
+    "dried_figs_no_sugar": "Sans sucre ajouté",
+    "dried_figs_traditional": "Séchées selon des méthodes traditionnelles respectueuses de l'environnement"
+  }
+}
+
