@@ -1,4 +1,3 @@
-
 import { motion } from 'framer-motion';
 import { Building2, ExternalLink } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
@@ -73,7 +72,7 @@ const PartnersSection = ({ onNavigateToRevendeurs }: PartnersSectionProps) => {
           </div>
           <div className="w-24 h-1 bg-gradient-to-r from-[#700100] to-[#96cc39] mx-auto mb-8 rounded-full"></div>
           
-          {/* Partners carousel with enhanced styling - Only logos and "Visiter le site" */}
+          {/* Partners carousel with enhanced styling - Only logos and names */}
           <div className="mb-12 overflow-hidden relative group">
             <Carousel
               opts={{
@@ -96,26 +95,20 @@ const PartnersSection = ({ onNavigateToRevendeurs }: PartnersSectionProps) => {
                       <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-[#96cc39]/10 to-[#700100]/5 rounded-bl-full -z-0"></div>
                       <div className="absolute bottom-0 left-0 w-16 h-16 bg-gradient-to-tr from-[#700100]/5 to-[#96cc39]/10 rounded-tr-full -z-0"></div>
                       
-                      <div className="h-16 flex items-center justify-center mb-4 relative z-10">
+                      <div className="h-20 flex items-center justify-center mb-2 relative z-10">
                         <img
                           src={partner.logo}
                           alt={partner.name}
-                          className="h-12 w-auto object-contain transition-all duration-300 group-hover:scale-105"
+                          className={`${
+                            partner.id === 'carrefour' || partner.id === 'geant' 
+                              ? 'h-16 w-auto' 
+                              : 'h-12 w-auto'
+                          } object-contain transition-all duration-300 group-hover:scale-105`}
                         />
                       </div>
                       
-                      <div className="relative z-10 mt-auto">
-                        <div className="border-t border-gray-100 mt-3 pt-3 flex justify-center items-center">
-                          <a 
-                            href={partner.website} 
-                            target="_blank" 
-                            rel="noopener noreferrer"
-                            className="text-sm font-medium text-[#96cc39] hover:text-[#700100] flex items-center transition-colors"
-                          >
-                            <span>{t('partners.visit_website')}</span>
-                            <ExternalLink className="ml-1 w-3 h-3" />
-                          </a>
-                        </div>
+                      <div className="text-center mt-2">
+                        <p className="text-sm font-medium text-[#700100]">{partner.name}</p>
                       </div>
                     </motion.div>
                   </CarouselItem>

@@ -1,7 +1,7 @@
 
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Building2, ExternalLink } from 'lucide-react';
+import { Building2 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { partners } from '../config/partners';
 
@@ -46,33 +46,28 @@ const Partners = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: index * 0.1 }}
-                className="glass-card p-8 rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+                className="glass-card p-8 rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:shadow-xl hover:-translate-y-1 flex flex-col justify-center items-center"
               >
-                <div className={`${partner.id === 'monoprix' ? 'h-28' : 'h-40'} flex items-center justify-center mb-8 relative overflow-hidden`}>
+                <div className="h-48 flex items-center justify-center mb-4 relative overflow-hidden w-full">
                   <div className="absolute inset-0 bg-gradient-to-br from-white/90 to-white/30 opacity-80 rounded-lg"></div>
                   <img 
                     src={partner.logo} 
                     alt={partner.name}
-                    className={`${partner.id === 'monoprix' ? 'h-20' : 'h-32'} object-contain relative z-10 transition-transform duration-300 hover:scale-105`}
+                    className={`${
+                      partner.id === 'carrefour' || partner.id === 'geant' 
+                        ? 'h-40 w-auto' 
+                        : partner.id === 'monoprix' 
+                          ? 'h-24' 
+                          : 'h-32'
+                    } object-contain relative z-10 transition-transform duration-300 hover:scale-105`}
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
                       target.src = '/images/placeholder-logo.png';
                     }}
                   />
                 </div>
-
-
-                {partner.website && (
-                  <a 
-                    href={partner.website} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center text-md font-medium text-[#96cc39] hover:text-[#700100] transition-colors"
-                  >
-                    <span>{t('partners.visit_website')}</span>
-                    <ExternalLink className="ml-1.5 w-4 h-4" />
-                  </a>
-                )}
+                <h3 className="text-lg font-medium text-[#700100] text-center">{partner.name}</h3>
+                <p className="text-gray-600 text-sm text-center mt-2">{partner.description}</p>
               </motion.div>
             ))}
           </div>
@@ -86,32 +81,28 @@ const Partners = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.4, delay: index * 0.1 }}
-                  className="glass-card p-8 rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+                  className="glass-card p-8 rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:shadow-xl hover:-translate-y-1 flex flex-col justify-center items-center"
                 >
-                  <div className={`${partner.id === 'monoprix' ? 'h-28' : 'h-40'} flex items-center justify-center mb-8 relative overflow-hidden`}>
+                  <div className="h-48 flex items-center justify-center mb-4 relative overflow-hidden w-full">
                     <div className="absolute inset-0 bg-gradient-to-br from-white/90 to-white/30 opacity-80 rounded-lg"></div>
                     <img 
                       src={partner.logo} 
                       alt={partner.name}
-                      className={`${partner.id === 'monoprix' ? 'h-20' : 'h-32'} object-contain relative z-10 transition-transform duration-300 hover:scale-105`}
+                      className={`${
+                        partner.id === 'carrefour' || partner.id === 'geant' 
+                          ? 'h-40 w-auto' 
+                          : partner.id === 'monoprix' 
+                            ? 'h-24' 
+                            : 'h-32'
+                      } object-contain relative z-10 transition-transform duration-300 hover:scale-105`}
                       onError={(e) => {
                         const target = e.target as HTMLImageElement;
                         target.src = '/images/placeholder-logo.png';
                       }}
                     />
                   </div>
-
-                  {partner.website && (
-                    <a 
-                      href={partner.website} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center text-md font-medium text-[#96cc39] hover:text-[#700100] transition-colors"
-                    >
-                      <span>{t('partners.visit_website')}</span>
-                      <ExternalLink className="ml-1.5 w-4 h-4" />
-                    </a>
-                  )}
+                  <h3 className="text-lg font-medium text-[#700100] text-center">{partner.name}</h3>
+                  <p className="text-gray-600 text-sm text-center mt-2">{partner.description}</p>
                 </motion.div>
               ))}
             </div>
