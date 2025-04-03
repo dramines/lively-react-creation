@@ -127,6 +127,7 @@
     "intro_b2c": "Our consumer service is at your disposal for any questions or complaints about our products.",
     "phone_section": "Phone",
     "phone_subtitle": "Customer service available",
+    "according_to_hours": "according to business hours",
     "email_section": "Email",
     "email_subtitle": "Response within 48h",
     "address_section": "Address",
@@ -481,5 +482,32 @@
     "dried_figs_no_additives": "No additives or preservatives",
     "dried_figs_no_sugar": "No added sugar",
     "dried_figs_traditional": "Dried using environmentally friendly traditional methods"
+  },
+  "why_choose_us": {
+    "title": "Why Choose Us",
+    "subtitle": "Discover the reasons that make Tazart the ideal partner for your business",
+    "quality_title": "Superior Quality",
+    "quality_description": "We are committed to offering high-quality products that meet consumer expectations.",
+    "expertise_title": "Expertise",
+    "expertise_description": "We have a qualified and experienced team.",
+    "service_title": "Quality Customer Service",
+    "service_description": "We are always available to support our customers and respond quickly to their requests."
+  },
+  "video_section": {
+    "thumbnail_alt": "Tazart date harvesting process",
+    "title": "From palm tree to your table",
+    "subtitle": "Discover our traditional harvesting process",
+    "quality_title": "Quality above all",
+    "quality_description": "Discover our passion for quality and excellence. Each date is harvested by hand in our Tunisian oases, following traditional methods that respect the environment and enhance our heritage. Our video takes you to the heart of our palm groves to show you the unique process that has built Tazart's reputation in the international market.",
+    "tag_1": "Artisanal harvesting",
+    "tag_2": "Rigorous quality control",
+    "tag_3": "Family passion"
+  },
+  "testimonials": {
+    "what_clients_say": "What Our Clients Say",
+    "client_satisfied": "Satisfied Client",
+    "testimonial_1": "Dates of exceptional quality, you can really feel the difference from those in the supermarket. The taste is incomparable and the customer service is impeccable.",
+    "testimonial_2": "I've been ordering these dates for months and the quality never wavers. They're perfect for both daily consumption and special occasions.",
+    "testimonial_3": "The freshness and natural sweetness of these dates are remarkable. A true delicacy that brings the authentic taste of Tunisia right to your table."
   }
 }

@@ -139,6 +139,7 @@
     "intro_b2c": "Notre service consommateur est à votre disposition pour toutes vos questions ou réclamations concernant nos produits.",
     "phone_section": "Téléphone",
     "phone_subtitle": "Service client disponible",
+    "according_to_hours": "selon les heures d'ouverture",
     "email_section": "Email",
     "email_subtitle": "Réponse sous 48h",
     "address_section": "Adresse",
@@ -262,7 +263,7 @@
       },
       "vitamins": {
         "title": "Vitamines B1, B2, B3",
-        "content": "<p>Les dattes sont une source importante de vitamines B :</p><ul><li>B1 (Thiamine) : essentielle pour le métabolisme énergétique</li><li>B2 (Riboflavine) : importante pour la production d'énergie cellulaire</li><li>B3 (Niacine) : cruciale pour la santé du syst��me nerveux</li></ul><p>Ces vitamines sont essentielles pour le bon fonctionnement du métabolisme et du système nerveux.</p>"
+        "content": "<p>Les dattes sont une source importante de vitamines B :</p><ul><li>B1 (Thiamine) : essentielle pour le métabolisme énergétique</li><li>B2 (Riboflavine) : importante pour la production d'énergie cellulaire</li><li>B3 (Niacine) : cruciale pour la santé du systme nerveux</li></ul><p>Ces vitamines sont essentielles pour le bon fonctionnement du métabolisme et du système nerveux.</p>"
       }
     }
   },
@@ -459,34 +460,3 @@
     "pitted_dates_tray_500g": "Barquette pratique de 500g de dattes Deglet Nour dénoyautées, idéale pour une consommation directe ou pour vos préparations culinaires. Ces dattes soigneusement préparées conservent toute leur saveur et leur moelleux, tout en vous offrant un gain de temps considérable. Parfaites pour vos smoothies, pâtisseries ou comme en-cas énergétique.",
     "pitted_dates_tray_200g": "Format compact de 200g de dattes dénoyautées en barquette, parfait pour une consommation individuelle ou pour précisément doser vos recettes. Ces dattes Deglet Nour sans noyau sont prêtes à l'emploi pour vos créations culinaires ou comme collation naturellement sucrée. Leur texture fondante et leur goût authentique sont préservés grâce à notre processus de dénoyautage soigneux.",
     "standard_pitted_dates": "Conditionnement professionnel de dattes dénoyautées disponible en formats 5kg ou 10kg, spécialement conçu pour les restaurants, les pâtisseries et les professionnels de l'alimentation. Ces dattes Deglet Nour de qualité standard sont soigneusement dénoyautées et préparées pour une utilisation efficace en restauration. Idéales pour la préparation de desserts traditionnels, pâtisseries ou créations culinaires innovantes à grande échelle.",
-    "dried_figs_200g": "Nos figues séchées de 200g sont un trésor de saveurs méditerranéennes, délicatement séchées au soleil selon des méthodes traditionnelles tunisiennes. Naturellement sucrées et charnues, ces figues conservent tous leurs nutriments et leur goût authentique. Riches en fibres et minéraux, elles constituent un en-cas sain ou un ingrédient parfait pour vos salades, desserts et plats mijotés.",
-    "bulk_dried_figs": "Nos figues séchées en vrac sont idéales pour les professionnels et les amateurs de cuisine. Ces figues, séchées naturellement au soleil tunisien, offrent une qualité gustative et une richesse nutritionnelle exceptionnelles. Disponibles en grands formats, elles sont parfaites pour les boulangeries, restaurants, ou pour vos préparations maison nécessitant des quantités importantes.",
-    "toujane_figs_200g": "Les figues Toujane sont une spécialité tunisienne, séchées selon des méthodes ancestrales de la région montagneuse de Toujane. Ces figues de 200g présentent une texture dense unique et une douceur particulièrement intense. Leur saveur miellée et leur richesse nutritionnelle en font un produit d'exception pour les gourmets et les amateurs d'alimentation saine.",
-    "djebaa_figs_200g": "Les figues djebaa sont récoltées dans la région de Djebaa au nord de la Tunisie, connue pour son terroir exceptionnel. Ces figues de 200g se caractérisent par leur taille généreuse et leur douceur unique. Séchées au soleil selon des méthodes traditionnelles, elles conservent toutes leurs saveurs et bienfaits nutritionnels tout en offrant un goût délicieusement caramélisé.",
-    "date_kernel_coffee_200g": "Notre café de noyaux de dattes de 200g est une innovation naturelle, offrant une alternative sans caféine aux notes subtiles de caramel et de fruits à coque torréfiés. Ce produit traditionnel tunisien est obtenu par torréfaction et mouture soigneuse des noyaux de dattes. Parfait pour ceux qui recherchent une boisson chaude aux vertus digestives et à l'expérience gustative unique.",
-    "date_powder_sugar_300g": "Notre sucre de dattes de 300g est une alternative saine et naturelle au sucre raffiné. Fabriqué par déshydratation et broyage de dattes premium, cette poudre conserve tous les bienfaits nutritionnels du fruit d'origine tout en apportant une douceur subtile. Idéal pour la pâtisserie, les boissons chaudes, ou comme garniture pour vos plats de petit-déjeuner.",
-    "date_syrup_340ml": "Notre sirop de dattes de 340ml est un concentré naturel de douceur et de nutriments. Fabriqué à partir des meilleures dattes tunisiennes, ce nectar couleur ambrée offre une saveur caramélisée complexe. Utilisez-le pour sucrer vos crêpes, yaourts, desserts, ou même dans les marinades pour un subtil équilibre sucré-salé."
-  },
-  "product_ingredients": {
-    "dates": "Dattes Deglet Nour de Tunisie 100% naturelles",
-    "dates_no_additives": "Sans additifs ni conservateurs",
-    "dates_no_treatment": "Non traitées après récolte",
-    "dates_controlled_env": "Conditionnées dans un environnement contrôlé",
-    "dates_premium": "Dattes Deglet Nour premium de Tunisie sélection supérieure",
-    "dates_handmade": "Conditionnées à la main",
-    "dates_ripe": "Récoltées à pleine maturité et triées individuellement",
-    "dates_pitted": "Dattes Deglet Nour de Tunisie dénoyautées",
-    "dates_hygienic": "Préparées dans des conditions d'hygiène optimales",
-    "dates_atmosphere": "Emballées sous atmosphère protectrice pour préserver leur fraîcheur",
-    "dates_hermetic": "Conditionnement hermétique pour une fraîcheur maximale",
-    "dates_standard_quality": "Dattes Deglet Nour de Tunisie dénoyautées qualité standard",
-    "dates_no_artificial": "Sans conservateurs artificiels",
-    "dates_professional": "Préparées selon les normes d'hygiène professionnelles",
-    "dates_pro_packaging": "Conditionnement spécial pour usage professionnel",
-    "dried_figs_sun": "Figues de Tunisie séchées au soleil",
-    "dried_figs_no_additives": "Sans additifs ni conservateurs",
-    "dried_figs_no_sugar": "Sans sucre ajouté",
-    "dried_figs_traditional": "Séchées selon des méthodes traditionnelles respectueuses de l'environnement"
-  }
-}
-

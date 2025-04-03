@@ -143,7 +143,7 @@ export const Contact = () => {
               {
                 icon: Phone,
                 title: t('contact.phone_section'),
-                subtitle: t('contact.phone_subtitle'),
+                subtitle: isB2B ? t('contact.phone_subtitle') : t('contact.phone_subtitle') + " " + t('contact.according_to_hours'),
                 info: t('contact_info.phone'),
                 link: 'tel:+21671385385',
                 color: '#96cc39',
