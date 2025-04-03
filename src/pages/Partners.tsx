@@ -48,17 +48,17 @@ const Partners = () => {
                 transition={{ duration: 0.4, delay: index * 0.1 }}
                 className="glass-card p-8 rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:shadow-xl hover:-translate-y-1 flex flex-col justify-center items-center"
               >
-                <div className="h-48 flex items-center justify-center mb-4 relative overflow-hidden w-full">
+                <div className="h-64 flex items-center justify-center relative overflow-hidden w-full">
                   <div className="absolute inset-0 bg-gradient-to-br from-white/90 to-white/30 opacity-80 rounded-lg"></div>
                   <img 
                     src={partner.logo} 
                     alt={partner.name}
                     className={`${
                       partner.id === 'carrefour' || partner.id === 'geant' 
-                        ? 'h-40 w-auto' 
+                        ? 'h-48 w-auto' 
                         : partner.id === 'monoprix' 
-                          ? 'h-24' 
-                          : 'h-32'
+                          ? 'h-32' 
+                          : 'h-36'
                     } object-contain relative z-10 transition-transform duration-300 hover:scale-105`}
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
@@ -66,8 +66,6 @@ const Partners = () => {
                     }}
                   />
                 </div>
-                <h3 className="text-lg font-medium text-[#700100] text-center">{partner.name}</h3>
-                <p className="text-gray-600 text-sm text-center mt-2">{partner.description}</p>
               </motion.div>
             ))}
           </div>
@@ -83,17 +81,17 @@ const Partners = () => {
                   transition={{ duration: 0.4, delay: index * 0.1 }}
                   className="glass-card p-8 rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:shadow-xl hover:-translate-y-1 flex flex-col justify-center items-center"
                 >
-                  <div className="h-48 flex items-center justify-center mb-4 relative overflow-hidden w-full">
+                  <div className="h-64 flex items-center justify-center relative overflow-hidden w-full">
                     <div className="absolute inset-0 bg-gradient-to-br from-white/90 to-white/30 opacity-80 rounded-lg"></div>
                     <img 
                       src={partner.logo} 
                       alt={partner.name}
                       className={`${
                         partner.id === 'carrefour' || partner.id === 'geant' 
-                          ? 'h-40 w-auto' 
+                          ? 'h-48 w-auto' 
                           : partner.id === 'monoprix' 
-                            ? 'h-24' 
-                            : 'h-32'
+                            ? 'h-32' 
+                            : 'h-36'
                       } object-contain relative z-10 transition-transform duration-300 hover:scale-105`}
                       onError={(e) => {
                         const target = e.target as HTMLImageElement;
@@ -101,8 +99,6 @@ const Partners = () => {
                       }}
                     />
                   </div>
-                  <h3 className="text-lg font-medium text-[#700100] text-center">{partner.name}</h3>
-                  <p className="text-gray-600 text-sm text-center mt-2">{partner.description}</p>
                 </motion.div>
               ))}
             </div>
