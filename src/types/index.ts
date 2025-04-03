@@ -8,7 +8,7 @@ export type NavItem = {
 
 export type Language = 'en' | 'fr';
 
-export type ProductCategory = 'tous' | 'dattes-fraiches' | 'dattes-transformees' | 'produits-derives';
+export type ProductCategory = 'tous' | 'dattes-fraiches' | 'dattes-transformees' | 'produits-derives' | 'dattes-farcies';
 
 export interface Product {
   id: string;

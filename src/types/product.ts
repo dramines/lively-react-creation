@@ -3,6 +3,7 @@ export type ProductCategory =
   | 'dattes-fraiches'
   | 'dattes-transformees'
   | 'dattes-en-vrac'
+  | 'dattes-farcies'
   | 'produits-derives'
   | 'figues-sechees'
   | 'figues-sechees-toujane'

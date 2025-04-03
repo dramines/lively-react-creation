@@ -1,18 +1,20 @@
-
 import type { Product, ProductCategory } from '../types/product';
 
 export const PRODUCT_CATEGORIES: Record<ProductCategory, string> = {
   'dattes-fraiches': 'Dattes Fraîches',
   'dattes-transformees': 'Dattes Transformées',
   'produits-derives': 'Produits Dérivés',
+  'dattes-farcies': 'Dattes Farcies',
   'figues-sechees': 'Figues Séchées',
   'figues-sechees-toujane': 'Figues Séchées Toujane', 
   'figues-sechees-zidi': 'Figues Séchées Toujane', 
-   'figues-sechees-vrac': 'Figues Séchées Vrac',
+  'figues-sechees-vrac': 'Figues Séchées Vrac',
   'figues-sechees-djebaa': 'Figues Séchées Djebaa',
   'cafe-dattes': 'Café de Dattes',
   'sucre-dattes': 'Sucre de Dattes',
   'sirop-dattes': 'Sirop de Dattes',
+  'coffret-cadeaux': 'Coffrets Cadeaux',
+  'dattes-en-vrac': 'Dattes en Vrac',
   'tous': 'Tous les Produits'
 };
 
@@ -21,7 +23,8 @@ export const NAVIGATION_STRUCTURE = [
     type: 'dattes',
     items: [
       { category: 'dattes-fraiches', image: '/produits/PaquetDattes.png' },
-      { category: 'dattes-transformees', image: '/produits/braquette500gram.png' }
+      { category: 'dattes-transformees', image: '/produits/braquette500gram.png' },
+      { category: 'dattes-farcies', image: '/produits/PaquetDattes.png' }
     ]
   },
   {
@@ -967,101 +970,4 @@ export const PRODUCTS: Product[] = [
         dailyValue: '32%' 
       },
       { 
-        name: 'Protéines / Protein', 
-        value: '2.5', 
-        unit: 'g',
-        dailyValue: '5%' 
-      },
-      { 
-        name: 'Matières grasses / Fat', 
-        value: '0.5', 
-        unit: 'g',
-        dailyValue: '0.71%' 
-      },
-      { 
-        name: 'dont Acides gras saturés / Saturated fatty acids', 
-        value: '0.1', 
-        unit: 'g',
-        dailyValue: '0.5%' 
-      },
-      { 
-        name: 'Sel / Salt', 
-        value: '0', 
-        unit: 'g',
-        dailyValue: '—' 
-      }
-    ]
-  },
-  {
-    id: '13',
-    title: 'Sirop de Dattes 340ml',
-    description: '',
-    image: '/produits/sirop-dattes.png',
-    isOrganic: true,
-    isFairTrade: true,
-    category: 'sirop-dattes',
-    certifications: ['Bio', 'Fair Trade'],
-    volume: '340ml',
-    calories: {
-      value: 290,
-      unit: 'kcal/1213kJ',
-      per: '100g'
-    },
-    ingredients: [
-      'Pulpe de dattes Deglet Nour de Tunisie (100%)',
-      'Sans additifs ni conservateurs',
-      'Sans sucres ajoutés',
-      'Extrait à froid pour préserver nutriments et saveurs'
-    ],
-    nutritionFacts: [
-      { 
-        name: 'Énergie / Energie', 
-        value: '290', 
-        unit: 'kcal/1213kJ',
-        dailyValue: '14.5%' 
-      },
-      { 
-        name: 'Glucides / Carbohydrates', 
-        value: '72', 
-        unit: 'g',
-        dailyValue: '27.7%' 
-      },
-      { 
-        name: 'dont Sucres / Of which sugars', 
-        value: '72', 
-        unit: 'g',
-        dailyValue: '80%' 
-      },
-      { 
-        name: 'Fibres / Fiber', 
-        value: '0', 
-        unit: 'g',
-        dailyValue: '0%' 
-      },
-      { 
-        name: 'Protéines / Protein', 
-        value: '0.7', 
-        unit: 'g',
-        dailyValue: '1.4%' 
-      },
-      { 
-        name: 'Matières grasses / Fat', 
-        value: '0.1', 
-        unit: 'g',
-        dailyValue: '0.14%' 
-      },
-      { 
-        name: 'dont Acides gras saturés / Saturated fatty acids', 
-        value: '0', 
-        unit: 'g',
-        dailyValue: '0%' 
-      },
-      { 
-        name: 'Sel / Salt', 
-        value: '0', 
-        unit: 'g',
-        dailyValue: '—' 
-      }
-    ]
-  }
-];
+        name: 'Protéines / Protein',

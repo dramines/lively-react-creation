@@ -40,12 +40,13 @@ const MENU_ITEMS: MenuItem[] = [
     translationKey: "navbar.dates",
     directLink: {
       href: "products",
-      category: "dattes-fraiches,dattes-transformees"
+      category: "dattes-fraiches,dattes-transformees,dattes-farcies"
     },
     items: [
       { label: "Coffret de Dattes", href: "products", category: "dattes-fraiches", subcategory: "coffret-cadeaux", translationKey: "navbar.gift_box" },
       { label: "Paquet de Dattes", href: "products", category: "dattes-fraiches", subcategory: "paquet", translationKey: "navbar.packages" },
-      { label: "Barquette de Dattes", href: "products", category: "dattes-transformees", subcategory: "barquette", translationKey: "navbar.trays" }
+      { label: "Barquette de Dattes", href: "products", category: "dattes-transformees", subcategory: "barquette", translationKey: "navbar.trays" },
+      { label: "Dattes Farcies", href: "products", category: "dattes-farcies", translationKey: "navbar.stuffed_dates" }
     ]
   },
   {

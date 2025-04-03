@@ -1,3 +1,4 @@
+
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
@@ -16,7 +17,8 @@ const enhancedEnTranslation = {
     ...enTranslation.navbar,
     partners: "Our Partners",
     technical_products: "Technical Products",
-    technical_products_subtitle: "Industrial solutions"
+    technical_products_subtitle: "Industrial solutions",
+    stuffed_dates: "Stuffed Dates"
   },
   partners: {
     title: "Our Trusted Partners",
@@ -39,7 +41,18 @@ const enhancedEnTranslation = {
     dried_figs_200g: "Our 200g dried figs are a Mediterranean flavor treasure, delicately sun-dried using traditional Tunisian methods. Naturally sweet and plump, these figs retain all their nutrients and authentic taste. Rich in fiber and minerals, they make a healthy snack or a perfect ingredient for your salads, desserts, and slow-cooked dishes.",
     bulk_dried_figs: "Our bulk dried figs offer the authentic taste of Mediterranean tradition in a larger format, perfect for frequent consumption or cooking. These plump, sweet figs are carefully selected and sun-dried to preserve their exceptional nutritional qualities and distinctive flavor. Use them to enhance your breakfast cereals, create sophisticated appetizers, or enrich your baking creations.",
     toujane_figs_200g: "Our Toujane figs, originating from the mountainous region of southern Tunisia, are renowned for their unique sweetness and distinctive texture. These carefully selected and traditionally dried figs offer an authentic taste experience with their honey notes and delicate seeds. Perfect for gourmet snacking or elevating your culinary creations.",
-    djebaa_figs_200g: "Our Djebaa figs, sourced from the fertile northern regions of Tunisia, are prized for their generous size and exceptional sweetness. These premium figs are sun-dried according to ancestral methods to preserve their unique aromatic profile with subtle flowery notes. Enjoy them as a nutritious snack or incorporate them into both sweet and savory recipes."
+    djebaa_figs_200g: "Our Djebaa figs, sourced from the fertile northern regions of Tunisia, are prized for their generous size and exceptional sweetness. These premium figs are sun-dried according to ancestral methods to preserve their unique aromatic profile with subtle flowery notes. Enjoy them as a nutritious snack or incorporate them into both sweet and savory recipes.",
+    stuffed_dates_description: "Our stuffed dates are filled with premium ingredients like almonds, walnuts, or almond paste for a luxurious treat. Each date is carefully pitted and filled by hand to ensure the perfect balance of flavors.",
+    all_products_short: "See all our products",
+    technical_products_short: "Our solutions for professionals",
+    dates_intro: "Discover our selection of premium Deglet Nour dates",
+    figs_intro: "Our range of traditional Tunisian dried figs",
+    date_syrup_short: "Our 100% natural date syrup",
+    date_sugar_short: "Our powdered date sugar",
+    date_coffee_short: "Our roasted date pit coffee",
+    gift_box_description: "Our premium date gift boxes, perfect for special occasions",
+    packages_description: "Our premium quality Deglet Nour date packages",
+    trays_description: "Our pitted date trays, ready to eat"
   },
   product_ingredients: {
     date_powder_natural: "100% natural date powder",
@@ -70,7 +83,8 @@ const enhancedFrTranslation = {
     ...frTranslation.navbar,
     partners: "Nos Partenaires",
     technical_products: "Produits Techniques",
-    technical_products_subtitle: "Solutions industrielles"
+    technical_products_subtitle: "Solutions industrielles",
+    stuffed_dates: "Dattes Farcies"
   },
   partners: {
     title: "Nos Partenaires de Confiance",
@@ -93,7 +107,18 @@ const enhancedFrTranslation = {
     dried_figs_200g: "Nos figues séchées de 200g sont un trésor de saveurs méditerranéennes, délicatement séchées au soleil selon des méthodes traditionnelles tunisiennes. Naturellement sucrées et charnues, ces figues conservent tous leurs nutriments et leur goût authentique. Riches en fibres et minéraux, elles constituent un en-cas sain ou un ingrédient parfait pour vos salades, desserts et plats mijotés.",
     bulk_dried_figs: "Nos figues séchées en vrac offrent le goût authentique de la tradition méditerranéenne dans un format plus large, parfait pour une consommation fréquente ou la cuisine. Ces figues charnues et sucrées sont soigneusement sélectionnées et séchées au soleil pour préserver leurs qualités nutritionnelles exceptionnelles et leur saveur distinctive. Utilisez-les pour enrichir vos céréales de petit-déjeuner, créer des apéritifs sophistiqués ou enrichir vos créations de pâtisserie.",
     toujane_figs_200g: "Nos figues Toujane, originaires de la région montagneuse du sud tunisien, sont réputées pour leur douceur unique et leur texture distinctive. Ces figues soigneusement sélectionnées et séchées traditionnellement offrent une expérience gustative authentique avec leurs notes de miel et leurs délicates graines. Parfaites pour une collation gourmande ou pour élever vos créations culinaires.",
-    djebaa_figs_200g: "Nos figues Djebaa, issues des régions fertiles du nord de la Tunisie, sont prisées pour leur taille généreuse et leur douceur exceptionnelle. Ces figues premium sont séchées au soleil selon des méthodes ancestrales pour préserver leur profil aromatique unique aux notes florales subtiles. Dégustez-les comme collation nutritive ou incorporez-les dans des recettes aussi bien sucrées que salées."
+    djebaa_figs_200g: "Nos figues Djebaa, issues des régions fertiles du nord de la Tunisie, sont prisées pour leur taille généreuse et leur douceur exceptionnelle. Ces figues premium sont séchées au soleil selon des méthodes ancestrales pour préserver leur profil aromatique unique aux notes florales subtiles. Dégustez-les comme collation nutritive ou incorporez-les dans des recettes aussi bien sucrées que salées.",
+    stuffed_dates_description: "Nos dattes farcies sont garnies d'ingrédients premium comme des amandes, des noix ou de la pâte d'amande pour une gourmandise de luxe. Chaque datte est soigneusement dénoyautée et garnie à la main pour assurer un équilibre parfait des saveurs.",
+    all_products_short: "Voir tous nos produits",
+    technical_products_short: "Nos solutions pour professionnels",
+    dates_intro: "Découvrez notre sélection de dattes Deglet Nour de qualité supérieure",
+    figs_intro: "Notre gamme de figues séchées traditionnelles tunisiennes",
+    date_syrup_short: "Notre sirop de dattes 100% naturel",
+    date_sugar_short: "Notre sucre de dattes en poudre",
+    date_coffee_short: "Notre café de noyaux de dattes torréfiés",
+    gift_box_description: "Nos coffrets de dattes premium, parfaits pour les occasions spéciales",
+    packages_description: "Nos paquets de dattes Deglet Nour de qualité supérieure",
+    trays_description: "Nos barquettes de dattes dénoyautées, prêtes à consommer"
   },
   product_ingredients: {
     date_powder_natural: "Poudre de dattes 100% naturelle",

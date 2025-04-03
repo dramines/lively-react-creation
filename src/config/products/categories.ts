@@ -5,6 +5,7 @@ export const PRODUCT_CATEGORIES: Record<ProductCategory, string> = {
   'dattes-fraiches': 'Dattes Fraîches',
   'dattes-transformees': 'Dattes Transformées',
   'produits-derives': 'Produits Dérivés',
+  'dattes-farcies': 'Dattes Farcies',
   'figues-sechees': 'Figues Séchées',
   'figues-sechees-toujane': 'Figues Séchées Toujane', 
   'figues-sechees-zidi': 'Figues Séchées Toujane', 
@@ -23,7 +24,8 @@ export const NAVIGATION_STRUCTURE = [
     type: 'dattes',
     items: [
       { category: 'dattes-fraiches', image: '/produits/PaquetDattes.png' },
-      { category: 'dattes-transformees', image: '/produits/braquette500gram.png' }
+      { category: 'dattes-transformees', image: '/produits/braquette500gram.png' },
+      { category: 'dattes-farcies', image: '/produits/PaquetDattes.png' }
     ]
   },
   {
