@@ -53,13 +53,12 @@ const Partners = () => {
                   <img 
                     src={partner.logo} 
                     alt={partner.name}
-                    className={`${
-                      partner.id === 'carrefour' || partner.id === 'geant' 
-                        ? 'h-48 w-auto' 
-                        : partner.id === 'monoprix' 
-                          ? 'h-32' 
-                          : 'h-36'
-                    } object-contain relative z-10 transition-transform duration-300 hover:scale-105`}
+                    className="object-contain relative z-10 transition-transform duration-300 hover:scale-105"
+                    style={{
+                      height: partner.id === 'carrefour' || partner.id === 'geant' ? '55%' : '41%', 
+                      width: 'auto',
+                      transform: 'scale(1.15)' // 15% larger
+                    }}
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
                       target.src = '/images/placeholder-logo.png';
@@ -86,13 +85,12 @@ const Partners = () => {
                     <img 
                       src={partner.logo} 
                       alt={partner.name}
-                      className={`${
-                        partner.id === 'carrefour' || partner.id === 'geant' 
-                          ? 'h-48 w-auto' 
-                          : partner.id === 'monoprix' 
-                            ? 'h-32' 
-                            : 'h-36'
-                      } object-contain relative z-10 transition-transform duration-300 hover:scale-105`}
+                      className="object-contain relative z-10 transition-transform duration-300 hover:scale-105"
+                      style={{
+                        height: partner.id === 'carrefour' || partner.id === 'geant' ? '55%' : '41%',
+                        width: 'auto',
+                        transform: 'scale(1.15)' // 15% larger
+                      }}
                       onError={(e) => {
                         const target = e.target as HTMLImageElement;
                         target.src = '/images/placeholder-logo.png';
