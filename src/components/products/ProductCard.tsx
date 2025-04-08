@@ -17,6 +17,7 @@ const ProductCard = ({ product, onSelect }: ProductCardProps) => {
   
   // Function to handle click on the entire card
   const handleCardClick = () => {
+    console.log("Card clicked, product ID:", product.id);
     onSelect(product.id);
   };
 

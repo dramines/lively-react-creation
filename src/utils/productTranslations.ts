@@ -90,8 +90,14 @@ export const getProductIngredientKeys = (product: any): string[] => {
       ingredientKeys.push('dates_handmade');
       ingredientKeys.push('dates_ripe');
     } else if (product.title.includes('Paquet')) {
-      ingredientKeys.push('dates_no_treatment');
-      ingredientKeys.push('dates_controlled_env');
+      if (product.title.includes('Paquet de 3')) {
+        ingredientKeys.push('date_pack_3_premium');
+        ingredientKeys.push('dates_no_additives');
+        ingredientKeys.push('dates_no_treatment');
+      } else {
+        ingredientKeys.push('dates_no_treatment');
+        ingredientKeys.push('dates_controlled_env');
+      }
     } else if (product.title.includes('Barquette')) {
       ingredientKeys.push('dates_pitted');
       ingredientKeys.push('dates_hygienic');
