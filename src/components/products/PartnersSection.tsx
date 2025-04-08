@@ -90,13 +90,9 @@ const PartnersSection = ({ onNavigateToRevendeurs }: PartnersSectionProps) => {
                       initial={{ opacity: 0, scale: 0.9 }}
                       animate={{ opacity: 1, scale: 1 }}
                       whileHover={{ y: -8, boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.06)" }}
-                      className="bg-white p-6 rounded-xl shadow-md transform transition-all duration-300 relative overflow-hidden border border-gray-100 hover:shadow-lg hover:border-[#96cc39]/30 h-full mx-2"
-                    >
-                      {/* Enhanced decorative elements */}
-                      <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-[#96cc39]/10 to-[#700100]/5 rounded-bl-full -z-0"></div>
-                      <div className="absolute bottom-0 left-0 w-16 h-16 bg-gradient-to-tr from-[#700100]/5 to-[#96cc39]/10 rounded-tr-full -z-0"></div>
-                      
-                      <div className="h-20 flex items-center justify-center mb-2 relative z-10">
+                      className="bg-white p-6 rounded-xl shadow-md transform transition-all duration-300 relative overflow-hidden border border-gray-100 hover:shadow-lg hover:border-[#96cc39]/30 h-full mx-2 flex items-center justify-center"
+                    >                      
+                      <div className="flex items-center justify-center relative z-10">
                         <img
                           src={partner.logo}
                           alt={partner.name}
@@ -118,27 +114,6 @@ const PartnersSection = ({ onNavigateToRevendeurs }: PartnersSectionProps) => {
               <CarouselNext className="absolute -right-4 top-1/2 -translate-y-1/2 z-20 cursor-pointer bg-white text-gray-800 opacity-0 group-hover:opacity-100 transition-opacity shadow-lg hover:bg-gray-100 hover:text-gray-800" />
             </Carousel>
           </div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
-            className="relative z-10"
-          >
-            <motion.div 
-              className="absolute -z-10 w-[300px] h-[300px] rounded-full bg-gradient-to-r from-[#96cc39]/10 to-[#700100]/5 blur-3xl"
-              style={{ bottom: '-150px', left: 'calc(50% - 150px)' }}
-              animate={{
-                scale: [1, 1.2, 1],
-                opacity: [0.3, 0.5, 0.3],
-              }}
-              transition={{
-                duration: 8,
-                repeat: Infinity,
-                repeatType: "mirror",
-              }}
-            />
-          </motion.div>
         </motion.div>
       </div>
     </div>

@@ -46,14 +46,13 @@ const Partners = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: index * 0.1 }}
-                className="glass-card p-8 rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:shadow-xl hover:-translate-y-1 flex flex-col justify-center items-center"
+                className="bg-white p-8 rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:shadow-xl hover:-translate-y-1 flex flex-col justify-center items-center"
               >
                 <div className="h-64 flex items-center justify-center relative overflow-hidden w-full">
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/90 to-white/30 opacity-80 rounded-lg"></div>
                   <img 
                     src={partner.logo} 
                     alt={partner.name}
-                    className="object-contain relative z-10 transition-transform duration-300 hover:scale-105"
+                    className="object-contain transition-transform duration-300 hover:scale-105"
                     style={{
                       height: partner.id === 'carrefour' || partner.id === 'geant' ? '55%' : '41%', 
                       width: 'auto',
@@ -78,14 +77,13 @@ const Partners = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.4, delay: index * 0.1 }}
-                  className="glass-card p-8 rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:shadow-xl hover:-translate-y-1 flex flex-col justify-center items-center"
+                  className="bg-white p-8 rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:shadow-xl hover:-translate-y-1 flex flex-col justify-center items-center"
                 >
                   <div className="h-64 flex items-center justify-center relative overflow-hidden w-full">
-                    <div className="absolute inset-0 bg-gradient-to-br from-white/90 to-white/30 opacity-80 rounded-lg"></div>
                     <img 
                       src={partner.logo} 
                       alt={partner.name}
-                      className="object-contain relative z-10 transition-transform duration-300 hover:scale-105"
+                      className="object-contain transition-transform duration-300 hover:scale-105"
                       style={{
                         height: partner.id === 'carrefour' || partner.id === 'geant' ? '55%' : '41%',
                         width: 'auto',
