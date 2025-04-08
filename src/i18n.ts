@@ -34,6 +34,10 @@ const enhancedEnTranslation = {
       sigale: "Distributor specialized in fine grocery products and local products"
     }
   },
+  product_names: {
+    date_pack_3: "Pack of 3 Dates",
+    date_platter: "Date Platter"
+  },
   product_descriptions: {
     date_powder_sugar_300g: "Our date powder is a natural sweetener obtained by simply dehydrating and grinding premium Deglet Nour dates. This substitute for refined sugar retains all the nutrients and minerals of dates, with a lower glycemic index than white sugar. Its subtly caramelized taste brings a unique flavor dimension to your sweet preparations, hot drinks, yogurts, or pastries.",
     date_syrup_340ml: "Our date syrup is a 100% natural concentrate obtained by slowly simmering premium dates. With its thick consistency and rich caramel notes, this traditional syrup is an excellent alternative to refined sugar, honey, or maple syrup. Rich in minerals and antioxidants, it's perfect for sweetening drinks, desserts, breakfast cereals, or as a topping for pancakes and waffles.",
@@ -43,6 +47,8 @@ const enhancedEnTranslation = {
     toujane_figs_200g: "Our Toujane figs, originating from the mountainous region of southern Tunisia, are renowned for their unique sweetness and distinctive texture. These carefully selected and traditionally dried figs offer an authentic taste experience with their honey notes and delicate seeds. Perfect for gourmet snacking or elevating your culinary creations.",
     djebaa_figs_200g: "Our Djebaa figs, sourced from the fertile northern regions of Tunisia, are prized for their generous size and exceptional sweetness. These premium figs are sun-dried according to ancestral methods to preserve their unique aromatic profile with subtle flowery notes. Enjoy them as a nutritious snack or incorporate them into both sweet and savory recipes.",
     stuffed_dates_description: "Our stuffed dates are filled with premium ingredients like almonds, walnuts, or almond paste for a luxurious treat. Each date is carefully pitted and filled by hand to ensure the perfect balance of flavors.",
+    date_pack_3: "A special pack containing 3 premium quality Deglet Nour dates, carefully selected and packaged to preserve their texture and taste. Perfect for a quick healthy snack on the go.",
+    date_platter: "Our date platter features an elegant arrangement of premium Deglet Nour dates, artfully presented and ready to serve. Ideal for special occasions or as a sophisticated gift option.",
     all_products_short: "See all our products",
     technical_products_short: "Our solutions for professionals",
     dates_intro: "Discover our selection of premium Deglet Nour dates",
@@ -73,7 +79,10 @@ const enhancedEnTranslation = {
     dried_figs_zidi_type: "Premium Zidi variety figs",
     dried_figs_toujane_type: "Selected figs from the Toujane region",
     dried_figs_djebaa_type: "Premium Djebaa variety from Northern Tunisia",
-    dried_figs_bulk_quality: "Selected for consistent quality and size"
+    dried_figs_bulk_quality: "Selected for consistent quality and size",
+    
+    date_platter_selection: "Carefully selected premium dates",
+    date_pack_3_premium: "Premium quality selected dates"
   }
 };
 
@@ -100,6 +109,10 @@ const enhancedFrTranslation = {
       sigale: "Distributeur spécialisé en produits d'épicerie fine et produits locaux"
     }
   },
+  product_names: {
+    date_pack_3: "Paquet de 3 dattes",
+    date_platter: "Plateau de datte"
+  },
   product_descriptions: {
     date_powder_sugar_300g: "Notre poudre de dattes est un édulcorant naturel obtenu par simple déshydratation et broyage de dattes Deglet Nour premium. Ce substitut au sucre raffiné conserve tous les nutriments et minéraux des dattes, avec un index glycémique plus bas que le sucre blanc. Son goût subtilement caramélisé apporte une dimension gustative unique à vos préparations sucrées, boissons chaudes, yaourts ou pâtisseries.",
     date_syrup_340ml: "Notre sirop de dattes est un concentré 100% naturel obtenu par mijotage lent de dattes de premier choix. Avec sa consistance épaisse et ses notes riches de caramel, ce sirop traditionnel est une excellente alternative au sucre raffiné, au miel ou au sirop d'érable. Riche en minéraux et antioxydants, il est parfait pour sucrer boissons, desserts, céréales de petit-déjeuner, ou comme nappage pour crêpes et gaufres.",
@@ -109,6 +122,8 @@ const enhancedFrTranslation = {
     toujane_figs_200g: "Nos figues Toujane, originaires de la région montagneuse du sud tunisien, sont réputées pour leur douceur unique et leur texture distinctive. Ces figues soigneusement sélectionnées et séchées traditionnellement offrent une expérience gustative authentique avec leurs notes de miel et leurs délicates graines. Parfaites pour une collation gourmande ou pour élever vos créations culinaires.",
     djebaa_figs_200g: "Nos figues Djebaa, issues des régions fertiles du nord de la Tunisie, sont prisées pour leur taille généreuse et leur douceur exceptionnelle. Ces figues premium sont séchées au soleil selon des méthodes ancestrales pour préserver leur profil aromatique unique aux notes florales subtiles. Dégustez-les comme collation nutritive ou incorporez-les dans des recettes aussi bien sucrées que salées.",
     stuffed_dates_description: "Nos dattes farcies sont garnies d'ingrédients premium comme des amandes, des noix ou de la pâte d'amande pour une gourmandise de luxe. Chaque datte est soigneusement dénoyautée et garnie à la main pour assurer un équilibre parfait des saveurs.",
+    date_pack_3: "Un emballage spécial contenant 3 dattes Deglet Nour de qualité supérieure, soigneusement sélectionnées et conditionnées pour préserver leur texture et leur goût. Parfait pour une collation saine et rapide.",
+    date_platter: "Notre plateau de dattes présente un arrangement élégant de dattes Deglet Nour premium, artistiquement présentées et prêtes à servir. Idéal pour les occasions spéciales ou comme option cadeau sophistiquée.",
     all_products_short: "Voir tous nos produits",
     technical_products_short: "Nos solutions pour professionnels",
     dates_intro: "Découvrez notre sélection de dattes Deglet Nour de qualité supérieure",
@@ -139,7 +154,10 @@ const enhancedFrTranslation = {
     dried_figs_zidi_type: "Figues premium de variété Zidi",
     dried_figs_toujane_type: "Figues sélectionnées de la région de Toujane",
     dried_figs_djebaa_type: "Figues premium de variété Djebaa du Nord tunisien",
-    dried_figs_bulk_quality: "Sélectionnées pour une qualité et taille constantes"
+    dried_figs_bulk_quality: "Sélectionnées pour une qualité et taille constantes",
+    
+    date_platter_selection: "Dattes premium soigneusement sélectionnées",
+    date_pack_3_premium: "Dattes sélectionnées de qualité supérieure"
   }
 };
 

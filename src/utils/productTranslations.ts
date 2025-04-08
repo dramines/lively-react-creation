@@ -22,6 +22,8 @@ export const getProductTranslationKey = (title: string): string => {
     'Café de Noyaux de Dattes 200g': 'date_kernel_coffee_200g',
     'Poudre (Sucre) de Dattes 300g': 'date_powder_sugar_300g',
     'Sirop de Dattes 340ml': 'date_syrup_340ml',
+    'Paquet de 3 dattes': 'date_pack_3',
+    'Plateau de datte': 'date_platter',
     // For backward compatibility with old titles
     'Paquet Dattes 1kg': 'dates_package_1kg',
     'Paquet Dattes 500g': 'dates_package_500g',
@@ -114,6 +116,14 @@ export const getProductIngredientKeys = (product: any): string[] => {
       ingredientKeys.push('date_coffee_roasted');
       ingredientKeys.push('date_coffee_ground');
       ingredientKeys.push('date_coffee_natural');
+    } else if (product.title.includes('Plateau')) {
+      ingredientKeys.push('date_platter_selection');
+      ingredientKeys.push('dates_premium');
+      ingredientKeys.push('dates_handmade');
+    } else if (product.title.includes('Paquet de 3')) {
+      ingredientKeys.push('date_pack_3_premium');
+      ingredientKeys.push('dates_no_additives');
+      ingredientKeys.push('dates_no_treatment');
     }
   } else if (product.title.includes('Figues')) {
     ingredientKeys.push('dried_figs_sun');
