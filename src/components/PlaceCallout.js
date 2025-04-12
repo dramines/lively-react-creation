@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { COLORS } from '../theme/colors';
@@ -6,40 +7,56 @@ import { FONT_SIZE, FONT_WEIGHT } from '../theme/typography';
 import { MapPin, Star, ArrowRight } from 'lucide-react-native';
 import TextToSpeech from './TextToSpeech';
 
-const PlaceCallout = ({ place, onDetailsPress }) => {
+const PlaceCallout = ({ place = {}, onDetailsPress }) => {
+  // Safety checks to prevent undefined errors
+  if (!place) {
+    console.warn('PlaceCallout received no place data');
+    return null;
+  }
+  
+  // Ensure place has required properties with defaults
+  const name = place.name || 'Unknown Place';
+  const type = place.type || 'location';
+  const description = place.description || '';
+  const location = place.location || {};
+  const city = location.city || '';
+  
   return (
-    <TouchableOpacity style={styles.calloutContainer} onPress={onDetailsPress}>
+    <TouchableOpacity 
+      style={styles.calloutContainer} 
+      onPress={() => place.id && onDetailsPress ? onDetailsPress() : null}
+    >
       <View style={styles.calloutContent}>
         <View style={styles.titleContainer}>
-          <Text style={styles.title}>{place.name}</Text>
-          <TextToSpeech text={place.name} autoPlay={false} />
+          <Text style={styles.title}>{name}</Text>
+          <TextToSpeech text={name} autoPlay={false} />
         </View>
         
         <View style={styles.categoryContainer}>
           <Text style={styles.categoryText}>
-            {place.type.charAt(0).toUpperCase() + place.type.slice(1)}
+            {type.charAt(0).toUpperCase() + type.slice(1)}
           </Text>
         </View>
         
-        {place.description && (
+        {description && (
           <View style={styles.descriptionContainer}>
             <Text style={styles.description} numberOfLines={2}>
-              {place.description}
+              {description}
             </Text>
-            <TextToSpeech text={place.description} autoPlay={false} />
+            <TextToSpeech text={description} autoPlay={false} />
           </View>
         )}
         
-        {place.location && place.location.city && (
+        {city && (
           <View style={styles.locationContainer}>
             <MapPin size={14} color={COLORS.primary} />
-            <Text style={styles.locationText}>{place.location.city}</Text>
+            <Text style={styles.locationText}>{city}</Text>
           </View>
         )}
         
         <TouchableOpacity 
           style={styles.detailsButton}
-          onPress={onDetailsPress}
+          onPress={() => place.id && onDetailsPress ? onDetailsPress() : null}
         >
           <Text style={styles.detailsButtonText}>Voir détails</Text>
           <ArrowRight size={14} color={COLORS.white} />

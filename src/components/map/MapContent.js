@@ -20,15 +20,35 @@ const MapContent = ({
   const { t } = useTranslation();
   const [mapError, setMapError] = useState(false);
 
+  // Safety check for inputs
+  const safeInitialRegion = useMemo(() => {
+    return initialRegion && typeof initialRegion === 'object' && 
+           !isNaN(initialRegion.latitude) && !isNaN(initialRegion.longitude) ? 
+           initialRegion : {
+             latitude: 36.7755,
+             longitude: 8.7834,
+             latitudeDelta: 0.0922,
+             longitudeDelta: 0.0421,
+           };
+  }, [initialRegion]);
+  
   // Display either search results or filtered places
   const displayPlaces = useMemo(() => {
-    return (searchResults?.length > 0) ? searchResults : filteredPlaces;
+    const searchArray = Array.isArray(searchResults) ? searchResults : [];
+    const filteredArray = Array.isArray(filteredPlaces) ? filteredPlaces : [];
+    return (searchArray.length > 0) ? searchArray : filteredArray;
   }, [searchResults, filteredPlaces]);
 
   // Fallback to initialRegion if userLocation is unavailable
   const safeUserLocation = useMemo(() => {
-    return userLocation || initialRegion;
-  }, [userLocation, initialRegion]);
+    if (userLocation && 
+        typeof userLocation === 'object' && 
+        !isNaN(parseFloat(userLocation.latitude)) && 
+        !isNaN(parseFloat(userLocation.longitude))) {
+      return userLocation;
+    }
+    return safeInitialRegion;
+  }, [userLocation, safeInitialRegion]);
 
   // Animate map to user location
   useEffect(() => {
@@ -48,12 +68,14 @@ const MapContent = ({
 
   // Focus map on search results
   useEffect(() => {
-    if (mapRef?.current && searchResults?.length > 0 && !mapError) {
+    if (mapRef?.current && Array.isArray(searchResults) && searchResults.length > 0 && !mapError) {
       try {
         if (searchResults.length === 1) {
-          const { location } = searchResults[0] || {};
-          const latitude = parseFloat(location?.latitude);
-          const longitude = parseFloat(location?.longitude);
+          const place = searchResults[0] || {};
+          const location = place.location || {};
+          const latitude = parseFloat(location.latitude);
+          const longitude = parseFloat(location.longitude);
+          
           if (!isNaN(latitude) && !isNaN(longitude)) {
             mapRef.current.animateToRegion({
               latitude,
@@ -63,11 +85,15 @@ const MapContent = ({
             }, 1000);
           }
         } else {
-          const coordinates = searchResults.map(place => {
-            const lat = parseFloat(place?.location?.latitude);
-            const lng = parseFloat(place?.location?.longitude);
-            return (!isNaN(lat) && !isNaN(lng)) ? { latitude: lat, longitude: lng } : null;
-          }).filter(Boolean);
+          const coordinates = searchResults
+            .filter(place => place && place.location)
+            .map(place => {
+              const lat = parseFloat(place.location.latitude);
+              const lng = parseFloat(place.location.longitude);
+              return (!isNaN(lat) && !isNaN(lng)) ? { latitude: lat, longitude: lng } : null;
+            })
+            .filter(Boolean);
+            
           if (coordinates.length > 0) {
             mapRef.current.fitToCoordinates(coordinates, {
               edgePadding: { top: 100, right: 50, bottom: 100, left: 50 },
@@ -82,35 +108,48 @@ const MapContent = ({
   }, [searchResults, mapError]);
 
   const handlePlacePress = (place) => {
-    if (place?.id) {
+    if (place && place.id) {
       navigation.navigate(ROUTES.PLACE_DETAILS, { placeId: place.id });
+    } else {
+      console.warn('Cannot navigate: invalid place or missing ID');
     }
   };
 
-  // Render markers
+  // Render markers with extensive null checking
   const placeMarkers = useMemo(() => {
-    if (mapError) return [];
+    if (mapError || !Array.isArray(displayPlaces)) return [];
     
     return displayPlaces
-      .filter(place => place && place.location)
-      .map((place) => {
-        if (!place?.location?.latitude || !place?.location?.longitude) {
-          console.warn('Place missing valid coordinates:', place?.id || 'unknown');
-          return null;
+      .filter(place => {
+        if (!place || typeof place !== 'object') {
+          console.warn('Invalid place object found');
+          return false;
         }
-
+        
+        if (!place.location || typeof place.location !== 'object') {
+          console.warn('Place missing location data:', place.id || 'unknown');
+          return false;
+        }
+        
+        const lat = parseFloat(place.location.latitude);
+        const lng = parseFloat(place.location.longitude);
+        
+        if (isNaN(lat) || isNaN(lng)) {
+          console.warn('Invalid coordinates for place:', place.id || 'unknown');
+          return false;
+        }
+        
+        return true;
+      })
+      .map((place) => {
         const latitude = parseFloat(place.location.latitude);
         const longitude = parseFloat(place.location.longitude);
-
-        if (isNaN(latitude) || isNaN(longitude)) {
-          console.warn('Invalid coordinates for place:', place?.id || 'unknown');
-          return null;
-        }
-
+        const placeId = place.id || `place-${Math.random().toString(36).substr(2, 9)}`;
+        
         return (
           <Marker
-            key={`place-${place.id || Math.random().toString()}`}
-            identifier={`marker-${place.id || Math.random().toString()}`}
+            key={`place-${placeId}`}
+            identifier={`marker-${placeId}`}
             coordinate={{ latitude, longitude }}
             pinColor={COLORS.primary}
             onPress={() => handlePlacePress(place)}
@@ -123,8 +162,7 @@ const MapContent = ({
             </Callout>
           </Marker>
         );
-      })
-      .filter(Boolean); // Remove null entries
+      });
   }, [displayPlaces, mapError]);
 
   if (mapError) {
@@ -144,7 +182,7 @@ const MapContent = ({
         ref={mapRef}
         style={styles.map}
         provider={null}
-        initialRegion={initialRegion}
+        initialRegion={safeInitialRegion}
         showsUserLocation
         showsMyLocationButton
         showsCompass
