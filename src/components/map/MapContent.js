@@ -19,7 +19,7 @@ const MapContent = ({
   const navigation = useNavigation();
   const { t } = useTranslation();
   const [mapError, setMapError] = useState(false);
-  const [markerKey, setMarkerKey] = useState(Date.now()); // Add key to force re-render markers
+  const [markerKey, setMarkerKey] = useState(Date.now());
 
   // Debug logs
   console.log('MapContent render with:', { 
@@ -128,7 +128,7 @@ const MapContent = ({
   useEffect(() => {
     console.log(`Processed ${displayPlaces.length} valid places for display`);
     if (displayPlaces.length > 0) {
-      console.log('Sample place:', displayPlaces[0]);
+      console.log('Sample place:', JSON.stringify(displayPlaces[0]));
     }
   }, [displayPlaces]);
 
@@ -243,7 +243,7 @@ const MapContent = ({
     }
     
     try {
-      return displayPlaces.map((place) => {
+      return displayPlaces.map((place, index) => {
         if (!place || !place.location) {
           console.warn('Invalid place skipped in marker rendering');
           return null;
@@ -257,11 +257,12 @@ const MapContent = ({
           return null;
         }
         
-        const placeId = place.id || `place-${Math.random().toString(36).substring(2, 9)}`;
+        const placeId = place.id || `place-${index}-${Math.random().toString(36).substring(2, 9)}`;
+        console.log(`Rendering marker ${index} with id ${placeId} at ${latitude},${longitude}`);
         
         return (
           <Marker
-            key={`place-${placeId}-${markerKey}`}
+            key={`place-${placeId}-${markerKey}-${index}`}
             identifier={`marker-${placeId}`}
             coordinate={{
               latitude: latitude,
@@ -269,6 +270,7 @@ const MapContent = ({
             }}
             pinColor={COLORS.primary}
             onPress={() => handlePlacePress(place)}
+            tracksViewChanges={false}
           >
             <Callout tooltip onPress={() => handlePlacePress(place)}>
               <PlaceCallout

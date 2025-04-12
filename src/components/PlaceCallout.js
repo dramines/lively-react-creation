@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { COLORS } from '../theme/colors';
@@ -29,10 +28,10 @@ const PlaceCallout = ({ place = {}, onDetailsPress }) => {
   // Safe handler for onDetailsPress
   const handleDetailsPress = () => {
     try {
-      if (place.id && onDetailsPress && typeof onDetailsPress === 'function') {
+      if (onDetailsPress && typeof onDetailsPress === 'function') {
         onDetailsPress();
       } else {
-        console.warn('Cannot navigate: invalid place ID or missing onDetailsPress handler');
+        console.warn('Missing onDetailsPress handler');
       }
     } catch (error) {
       console.error('Error in handleDetailsPress:', error);
@@ -43,6 +42,7 @@ const PlaceCallout = ({ place = {}, onDetailsPress }) => {
     <TouchableOpacity 
       style={styles.calloutContainer} 
       onPress={handleDetailsPress}
+      activeOpacity={0.9}
     >
       <View style={styles.calloutContent}>
         <View style={styles.titleContainer}>
