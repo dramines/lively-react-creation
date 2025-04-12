@@ -8,6 +8,9 @@ import { MapPin, ArrowRight } from 'lucide-react-native';
 import TextToSpeech from './TextToSpeech';
 
 const PlaceCallout = ({ place = {}, onDetailsPress }) => {
+  // Debug log to track data
+  console.log('PlaceCallout received place:', JSON.stringify(place));
+  
   // Comprehensive safety checks to prevent undefined errors
   if (!place || typeof place !== 'object') {
     console.warn('PlaceCallout received invalid place data:', place);
@@ -18,15 +21,21 @@ const PlaceCallout = ({ place = {}, onDetailsPress }) => {
   const name = place.name || 'Unknown Place';
   const type = (place.type && typeof place.type === 'string') ? place.type : 'location';
   const description = (place.description && typeof place.description === 'string') ? place.description : '';
+  
+  // Handle potentially missing location data
   const location = (place.location && typeof place.location === 'object') ? place.location : {};
   const city = (location.city && typeof location.city === 'string') ? location.city : '';
   
   // Safe handler for onDetailsPress
   const handleDetailsPress = () => {
-    if (place.id && onDetailsPress && typeof onDetailsPress === 'function') {
-      onDetailsPress();
-    } else {
-      console.warn('Cannot navigate: invalid place ID or missing onDetailsPress handler');
+    try {
+      if (place.id && onDetailsPress && typeof onDetailsPress === 'function') {
+        onDetailsPress();
+      } else {
+        console.warn('Cannot navigate: invalid place ID or missing onDetailsPress handler');
+      }
+    } catch (error) {
+      console.error('Error in handleDetailsPress:', error);
     }
   };
   
@@ -37,7 +46,7 @@ const PlaceCallout = ({ place = {}, onDetailsPress }) => {
     >
       <View style={styles.calloutContent}>
         <View style={styles.titleContainer}>
-          <Text style={styles.title}>{name}</Text>
+          <Text style={styles.title} numberOfLines={2}>{name}</Text>
           <TextToSpeech text={name} autoPlay={false} />
         </View>
         

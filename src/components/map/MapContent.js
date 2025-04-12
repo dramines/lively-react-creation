@@ -19,6 +19,16 @@ const MapContent = ({
   const navigation = useNavigation();
   const { t } = useTranslation();
   const [mapError, setMapError] = useState(false);
+  const [markerKey, setMarkerKey] = useState(Date.now()); // Add key to force re-render markers
+
+  // Debug logs
+  console.log('MapContent render with:', { 
+    hasMapRef: !!mapRef, 
+    initialRegion, 
+    userLocation,
+    filteredPlacesCount: filteredPlaces?.length,
+    searchResultsCount: searchResults?.length
+  });
 
   // Safety check for inputs with detailed logging
   const safeInitialRegion = useMemo(() => {
@@ -57,51 +67,99 @@ const MapContent = ({
   
   // Display either search results or filtered places with safety checks
   const displayPlaces = useMemo(() => {
-    // Validate inputs are arrays
-    const searchArray = Array.isArray(searchResults) ? searchResults : [];
-    const filteredArray = Array.isArray(filteredPlaces) ? filteredPlaces : [];
-    
-    const result = (searchArray.length > 0) ? searchArray : filteredArray;
-    
-    // Validate that each place has the required properties
-    return result.filter(place => {
-      if (!place || typeof place !== 'object') {
-        console.warn('Invalid place object filtered out');
-        return false;
-      }
+    try {
+      // Validate inputs are arrays
+      const searchArray = Array.isArray(searchResults) ? searchResults : [];
+      const filteredArray = Array.isArray(filteredPlaces) ? filteredPlaces : [];
       
-      if (!place.location || typeof place.location !== 'object') {
-        console.warn('Place missing location data filtered out:', place.id || 'unknown');
-        return false;
-      }
+      const result = (searchArray.length > 0) ? searchArray : filteredArray;
       
-      return true;
-    });
+      if (!result || result.length === 0) {
+        console.log('No places to display');
+        return [];
+      }
+
+      // Validate that each place has the required properties
+      return result
+        .filter(place => {
+          if (!place || typeof place !== 'object') {
+            console.warn('Invalid place object filtered out');
+            return false;
+          }
+          
+          if (!place.location || typeof place.location !== 'object') {
+            console.warn('Place missing location data filtered out:', place.id || 'unknown');
+            return false;
+          }
+
+          const lat = parseFloat(place.location.latitude);
+          const lng = parseFloat(place.location.longitude);
+          
+          if (isNaN(lat) || isNaN(lng)) {
+            console.warn('Place has invalid coordinates filtered out:', place.id || 'unknown', {lat, lng});
+            return false;
+          }
+          
+          return true;
+        })
+        .map(place => {
+          // Ensure each place has all required fields with safe defaults
+          return {
+            ...place,
+            id: place.id || `place-${Math.random().toString(36).substring(2, 9)}`,
+            name: place.name || 'Unnamed Place',
+            description: place.description || '',
+            type: place.type || 'location',
+            location: {
+              latitude: parseFloat(place.location.latitude),
+              longitude: parseFloat(place.location.longitude),
+              city: place.location.city || '',
+              address: place.location.address || '',
+            }
+          };
+        });
+    } catch (error) {
+      console.error('Error processing places:', error);
+      return [];
+    }
   }, [searchResults, filteredPlaces]);
+
+  // Log processed places for debugging
+  useEffect(() => {
+    console.log(`Processed ${displayPlaces.length} valid places for display`);
+    if (displayPlaces.length > 0) {
+      console.log('Sample place:', displayPlaces[0]);
+    }
+  }, [displayPlaces]);
 
   // Fallback to initialRegion if userLocation is unavailable
   const safeUserLocation = useMemo(() => {
-    // Check if userLocation is valid
-    if (userLocation && 
-        typeof userLocation === 'object' && 
-        userLocation.latitude !== undefined && 
-        userLocation.longitude !== undefined &&
-        !isNaN(Number(userLocation.latitude)) && 
-        !isNaN(Number(userLocation.longitude))) {
-      return {
-        latitude: Number(userLocation.latitude),
-        longitude: Number(userLocation.longitude),
-        latitudeDelta: 0.01,
-        longitudeDelta: 0.01,
-      };
+    try {
+      // Check if userLocation is valid
+      if (userLocation && 
+          typeof userLocation === 'object' && 
+          userLocation.latitude !== undefined && 
+          userLocation.longitude !== undefined &&
+          !isNaN(Number(userLocation.latitude)) && 
+          !isNaN(Number(userLocation.longitude))) {
+        return {
+          latitude: Number(userLocation.latitude),
+          longitude: Number(userLocation.longitude),
+          latitudeDelta: 0.01,
+          longitudeDelta: 0.01,
+        };
+      }
+      
+      // Log warning and fall back to safe initial region
+      if (userLocation) {
+        console.warn('Invalid userLocation provided:', userLocation);
+      }
+      
+      return safeInitialRegion;
+    } catch (error) {
+      console.error('Error processing user location:', error);
+      return safeInitialRegion;
     }
-    
-    // Log warning and fall back to safe initial region
-    if (userLocation) {
-      console.warn('Invalid userLocation provided:', userLocation);
-    }
-    
-    return safeInitialRegion;
   }, [userLocation, safeInitialRegion]);
 
   // Animate map to user location
@@ -161,49 +219,54 @@ const MapContent = ({
   }, [searchResults, mapError]);
 
   const handlePlacePress = (place) => {
-    if (place && place.id) {
-      navigation.navigate(ROUTES.PLACE_DETAILS, { placeId: place.id });
-    } else {
-      console.warn('Cannot navigate: invalid place or missing ID');
+    try {
+      if (place && place.id) {
+        navigation.navigate(ROUTES.PLACE_DETAILS, { placeId: place.id });
+      } else {
+        console.warn('Cannot navigate: invalid place or missing ID');
+      }
+    } catch (error) {
+      console.error('Error navigating to place details:', error);
     }
   };
 
+  // Force re-render markers when displayPlaces changes
+  useEffect(() => {
+    setMarkerKey(Date.now());
+  }, [displayPlaces]);
+
   // Render markers with extensive null checking
   const placeMarkers = useMemo(() => {
-    if (mapError || !Array.isArray(displayPlaces)) return [];
+    if (mapError || !Array.isArray(displayPlaces) || displayPlaces.length === 0) {
+      console.log('No markers to render: mapError or empty displayPlaces');
+      return [];
+    }
     
-    return displayPlaces
-      .filter(place => {
-        if (!place || typeof place !== 'object') {
-          console.warn('Invalid place object found');
-          return false;
+    try {
+      return displayPlaces.map((place) => {
+        if (!place || !place.location) {
+          console.warn('Invalid place skipped in marker rendering');
+          return null;
         }
         
-        if (!place.location || typeof place.location !== 'object') {
-          console.warn('Place missing location data:', place.id || 'unknown');
-          return false;
-        }
-        
-        const lat = parseFloat(place.location.latitude);
-        const lng = parseFloat(place.location.longitude);
-        
-        if (isNaN(lat) || isNaN(lng)) {
-          console.warn('Invalid coordinates for place:', place.id || 'unknown', 'lat:', lat, 'lng:', lng);
-          return false;
-        }
-        
-        return true;
-      })
-      .map((place) => {
         const latitude = parseFloat(place.location.latitude);
         const longitude = parseFloat(place.location.longitude);
-        const placeId = place.id || `place-${Math.random().toString(36).substr(2, 9)}`;
+        
+        if (isNaN(latitude) || isNaN(longitude)) {
+          console.warn('Invalid coordinates skipped in marker:', place.id, {latitude, longitude});
+          return null;
+        }
+        
+        const placeId = place.id || `place-${Math.random().toString(36).substring(2, 9)}`;
         
         return (
           <Marker
-            key={`place-${placeId}`}
+            key={`place-${placeId}-${markerKey}`}
             identifier={`marker-${placeId}`}
-            coordinate={{ latitude, longitude }}
+            coordinate={{
+              latitude: latitude,
+              longitude: longitude
+            }}
             pinColor={COLORS.primary}
             onPress={() => handlePlacePress(place)}
           >
@@ -215,8 +278,12 @@ const MapContent = ({
             </Callout>
           </Marker>
         );
-      });
-  }, [displayPlaces, mapError, navigation]);
+      }).filter(Boolean); // Filter out null markers
+    } catch (error) {
+      console.error('Error rendering markers:', error);
+      return [];
+    }
+  }, [displayPlaces, mapError, navigation, markerKey]);
 
   if (mapError) {
     return (
