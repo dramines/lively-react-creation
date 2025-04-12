@@ -20,33 +20,87 @@ const MapContent = ({
   const { t } = useTranslation();
   const [mapError, setMapError] = useState(false);
 
-  // Safety check for inputs
+  // Safety check for inputs with detailed logging
   const safeInitialRegion = useMemo(() => {
-    return initialRegion && typeof initialRegion === 'object' && 
-           !isNaN(initialRegion.latitude) && !isNaN(initialRegion.longitude) ? 
-           initialRegion : {
-             latitude: 36.7755,
-             longitude: 8.7834,
-             latitudeDelta: 0.0922,
-             longitudeDelta: 0.0421,
-           };
+    // Validate initialRegion
+    if (!initialRegion || typeof initialRegion !== 'object') {
+      console.warn('MapContent: Invalid initialRegion provided:', initialRegion);
+      return {
+        latitude: 36.7755,
+        longitude: 8.7834,
+        latitudeDelta: 0.0922,
+        longitudeDelta: 0.0421,
+      };
+    }
+    
+    const { latitude, longitude, latitudeDelta, longitudeDelta } = initialRegion;
+    
+    // Check if all required properties are valid numbers
+    if (isNaN(Number(latitude)) || isNaN(Number(longitude)) ||
+        isNaN(Number(latitudeDelta)) || isNaN(Number(longitudeDelta))) {
+      console.warn('MapContent: initialRegion contains invalid coordinates:', initialRegion);
+      return {
+        latitude: 36.7755,
+        longitude: 8.7834,
+        latitudeDelta: 0.0922,
+        longitudeDelta: 0.0421,
+      };
+    }
+    
+    return {
+      latitude: Number(latitude),
+      longitude: Number(longitude),
+      latitudeDelta: Number(latitudeDelta),
+      longitudeDelta: Number(longitudeDelta),
+    };
   }, [initialRegion]);
   
-  // Display either search results or filtered places
+  // Display either search results or filtered places with safety checks
   const displayPlaces = useMemo(() => {
+    // Validate inputs are arrays
     const searchArray = Array.isArray(searchResults) ? searchResults : [];
     const filteredArray = Array.isArray(filteredPlaces) ? filteredPlaces : [];
-    return (searchArray.length > 0) ? searchArray : filteredArray;
+    
+    const result = (searchArray.length > 0) ? searchArray : filteredArray;
+    
+    // Validate that each place has the required properties
+    return result.filter(place => {
+      if (!place || typeof place !== 'object') {
+        console.warn('Invalid place object filtered out');
+        return false;
+      }
+      
+      if (!place.location || typeof place.location !== 'object') {
+        console.warn('Place missing location data filtered out:', place.id || 'unknown');
+        return false;
+      }
+      
+      return true;
+    });
   }, [searchResults, filteredPlaces]);
 
   // Fallback to initialRegion if userLocation is unavailable
   const safeUserLocation = useMemo(() => {
+    // Check if userLocation is valid
     if (userLocation && 
         typeof userLocation === 'object' && 
-        !isNaN(parseFloat(userLocation.latitude)) && 
-        !isNaN(parseFloat(userLocation.longitude))) {
-      return userLocation;
+        userLocation.latitude !== undefined && 
+        userLocation.longitude !== undefined &&
+        !isNaN(Number(userLocation.latitude)) && 
+        !isNaN(Number(userLocation.longitude))) {
+      return {
+        latitude: Number(userLocation.latitude),
+        longitude: Number(userLocation.longitude),
+        latitudeDelta: 0.01,
+        longitudeDelta: 0.01,
+      };
     }
+    
+    // Log warning and fall back to safe initial region
+    if (userLocation) {
+      console.warn('Invalid userLocation provided:', userLocation);
+    }
+    
     return safeInitialRegion;
   }, [userLocation, safeInitialRegion]);
 
@@ -54,56 +108,55 @@ const MapContent = ({
   useEffect(() => {
     if (mapRef?.current && safeUserLocation && !mapError) {
       try {
-        mapRef.current.animateToRegion({
-          latitude: safeUserLocation.latitude,
-          longitude: safeUserLocation.longitude,
-          latitudeDelta: 0.01,
-          longitudeDelta: 0.01,
-        }, 1000);
+        mapRef.current.animateToRegion(safeUserLocation, 1000);
       } catch (error) {
-        console.error('Error animating map:', error);
+        console.error('Error animating map to user location:', error);
+        setMapError(true);
       }
     }
   }, [safeUserLocation, mapError]);
 
   // Focus map on search results
   useEffect(() => {
-    if (mapRef?.current && Array.isArray(searchResults) && searchResults.length > 0 && !mapError) {
-      try {
-        if (searchResults.length === 1) {
-          const place = searchResults[0] || {};
-          const location = place.location || {};
-          const latitude = parseFloat(location.latitude);
-          const longitude = parseFloat(location.longitude);
-          
-          if (!isNaN(latitude) && !isNaN(longitude)) {
-            mapRef.current.animateToRegion({
-              latitude,
-              longitude,
-              latitudeDelta: 0.01,
-              longitudeDelta: 0.01,
-            }, 1000);
-          }
-        } else {
-          const coordinates = searchResults
-            .filter(place => place && place.location)
-            .map(place => {
-              const lat = parseFloat(place.location.latitude);
-              const lng = parseFloat(place.location.longitude);
-              return (!isNaN(lat) && !isNaN(lng)) ? { latitude: lat, longitude: lng } : null;
-            })
-            .filter(Boolean);
-            
-          if (coordinates.length > 0) {
-            mapRef.current.fitToCoordinates(coordinates, {
-              edgePadding: { top: 100, right: 50, bottom: 100, left: 50 },
-              animated: true,
-            });
-          }
+    if (!mapRef?.current || !Array.isArray(searchResults) || searchResults.length === 0 || mapError) {
+      return;
+    }
+    
+    try {
+      if (searchResults.length === 1) {
+        const place = searchResults[0] || {};
+        const location = place.location || {};
+        const latitude = parseFloat(location.latitude);
+        const longitude = parseFloat(location.longitude);
+        
+        if (!isNaN(latitude) && !isNaN(longitude)) {
+          mapRef.current.animateToRegion({
+            latitude,
+            longitude,
+            latitudeDelta: 0.01,
+            longitudeDelta: 0.01,
+          }, 1000);
         }
-      } catch (error) {
-        console.error('Error focusing on search results:', error);
+      } else {
+        const coordinates = searchResults
+          .filter(place => place && place.location)
+          .map(place => {
+            const lat = parseFloat(place.location.latitude);
+            const lng = parseFloat(place.location.longitude);
+            return (!isNaN(lat) && !isNaN(lng)) ? { latitude: lat, longitude: lng } : null;
+          })
+          .filter(Boolean);
+          
+        if (coordinates.length > 0) {
+          mapRef.current.fitToCoordinates(coordinates, {
+            edgePadding: { top: 100, right: 50, bottom: 100, left: 50 },
+            animated: true,
+          });
+        }
       }
+    } catch (error) {
+      console.error('Error focusing map on search results:', error);
+      setMapError(true);
     }
   }, [searchResults, mapError]);
 
@@ -135,7 +188,7 @@ const MapContent = ({
         const lng = parseFloat(place.location.longitude);
         
         if (isNaN(lat) || isNaN(lng)) {
-          console.warn('Invalid coordinates for place:', place.id || 'unknown');
+          console.warn('Invalid coordinates for place:', place.id || 'unknown', 'lat:', lat, 'lng:', lng);
           return false;
         }
         
@@ -163,7 +216,7 @@ const MapContent = ({
           </Marker>
         );
       });
-  }, [displayPlaces, mapError]);
+  }, [displayPlaces, mapError, navigation]);
 
   if (mapError) {
     return (

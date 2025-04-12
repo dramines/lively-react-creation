@@ -4,27 +4,36 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { COLORS } from '../theme/colors';
 import { SPACING } from '../theme/spacing';
 import { FONT_SIZE, FONT_WEIGHT } from '../theme/typography';
-import { MapPin, Star, ArrowRight } from 'lucide-react-native';
+import { MapPin, ArrowRight } from 'lucide-react-native';
 import TextToSpeech from './TextToSpeech';
 
 const PlaceCallout = ({ place = {}, onDetailsPress }) => {
-  // Safety checks to prevent undefined errors
-  if (!place) {
-    console.warn('PlaceCallout received no place data');
+  // Comprehensive safety checks to prevent undefined errors
+  if (!place || typeof place !== 'object') {
+    console.warn('PlaceCallout received invalid place data:', place);
     return null;
   }
   
   // Ensure place has required properties with defaults
   const name = place.name || 'Unknown Place';
-  const type = place.type || 'location';
-  const description = place.description || '';
-  const location = place.location || {};
-  const city = location.city || '';
+  const type = (place.type && typeof place.type === 'string') ? place.type : 'location';
+  const description = (place.description && typeof place.description === 'string') ? place.description : '';
+  const location = (place.location && typeof place.location === 'object') ? place.location : {};
+  const city = (location.city && typeof location.city === 'string') ? location.city : '';
+  
+  // Safe handler for onDetailsPress
+  const handleDetailsPress = () => {
+    if (place.id && onDetailsPress && typeof onDetailsPress === 'function') {
+      onDetailsPress();
+    } else {
+      console.warn('Cannot navigate: invalid place ID or missing onDetailsPress handler');
+    }
+  };
   
   return (
     <TouchableOpacity 
       style={styles.calloutContainer} 
-      onPress={() => place.id && onDetailsPress ? onDetailsPress() : null}
+      onPress={handleDetailsPress}
     >
       <View style={styles.calloutContent}>
         <View style={styles.titleContainer}>
@@ -38,25 +47,25 @@ const PlaceCallout = ({ place = {}, onDetailsPress }) => {
           </Text>
         </View>
         
-        {description && (
+        {description ? (
           <View style={styles.descriptionContainer}>
             <Text style={styles.description} numberOfLines={2}>
               {description}
             </Text>
             <TextToSpeech text={description} autoPlay={false} />
           </View>
-        )}
+        ) : null}
         
-        {city && (
+        {city ? (
           <View style={styles.locationContainer}>
             <MapPin size={14} color={COLORS.primary} />
             <Text style={styles.locationText}>{city}</Text>
           </View>
-        )}
+        ) : null}
         
         <TouchableOpacity 
           style={styles.detailsButton}
-          onPress={() => place.id && onDetailsPress ? onDetailsPress() : null}
+          onPress={handleDetailsPress}
         >
           <Text style={styles.detailsButtonText}>Voir détails</Text>
           <ArrowRight size={14} color={COLORS.white} />
