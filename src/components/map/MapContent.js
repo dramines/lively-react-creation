@@ -1,3 +1,4 @@
+
 import React, { useMemo, useEffect, useState } from 'react';
 import { View, StyleSheet, Platform, TouchableOpacity, Text } from 'react-native';
 import MapView, { Marker, Callout } from 'react-native-maps';
@@ -89,38 +90,41 @@ const MapContent = ({
   // Render markers
   const placeMarkers = useMemo(() => {
     if (mapError) return [];
+    
+    return displayPlaces
+      .filter(place => place && place.location)
+      .map((place) => {
+        if (!place?.location?.latitude || !place?.location?.longitude) {
+          console.warn('Place missing valid coordinates:', place?.id || 'unknown');
+          return null;
+        }
 
-    return displayPlaces.map((place) => {
-      if (!place?.location?.latitude || !place?.location?.longitude) {
-        console.warn('Place missing or invalid coordinates:', place?.id);
-        return null;
-      }
+        const latitude = parseFloat(place.location.latitude);
+        const longitude = parseFloat(place.location.longitude);
 
-      const latitude = parseFloat(place.location.latitude);
-      const longitude = parseFloat(place.location.longitude);
+        if (isNaN(latitude) || isNaN(longitude)) {
+          console.warn('Invalid coordinates for place:', place?.id || 'unknown');
+          return null;
+        }
 
-      if (isNaN(latitude) || isNaN(longitude)) {
-        console.warn('Invalid coordinates:', place?.id);
-        return null;
-      }
-
-      return (
-        <Marker
-          key={`place-${place.id}`}
-          identifier={`marker-${place.id}`}
-          coordinate={{ latitude, longitude }}
-          pinColor={COLORS.primary}
-          onPress={() => handlePlacePress(place)}
-        >
-          <Callout tooltip onPress={() => handlePlacePress(place)}>
-            <PlaceCallout
-              place={place}
-              onDetailsPress={() => handlePlacePress(place)}
-            />
-          </Callout>
-        </Marker>
-      );
-    }).filter(Boolean); // Remove null entries
+        return (
+          <Marker
+            key={`place-${place.id || Math.random().toString()}`}
+            identifier={`marker-${place.id || Math.random().toString()}`}
+            coordinate={{ latitude, longitude }}
+            pinColor={COLORS.primary}
+            onPress={() => handlePlacePress(place)}
+          >
+            <Callout tooltip onPress={() => handlePlacePress(place)}>
+              <PlaceCallout
+                place={place}
+                onDetailsPress={() => handlePlacePress(place)}
+              />
+            </Callout>
+          </Marker>
+        );
+      })
+      .filter(Boolean); // Remove null entries
   }, [displayPlaces, mapError]);
 
   if (mapError) {

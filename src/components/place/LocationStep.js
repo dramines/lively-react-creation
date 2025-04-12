@@ -19,14 +19,18 @@ const LocationStep = ({ formData, setFormData }) => {
 
   useEffect(() => {
     // Initialize from existing formData or user location
-    if (formData.location && formData.location.latitude && formData.location.longitude) {
+    if (formData.location && 
+        formData.location.latitude && 
+        formData.location.longitude && 
+        !isNaN(parseFloat(formData.location.latitude)) && 
+        !isNaN(parseFloat(formData.location.longitude))) {
       setMapRegion({
-        latitude: formData.location.latitude,
-        longitude: formData.location.longitude,
+        latitude: parseFloat(formData.location.latitude),
+        longitude: parseFloat(formData.location.longitude),
         latitudeDelta: 0.0922,
         longitudeDelta: 0.0421,
       });
-    } else if (userLocation) {
+    } else if (userLocation && userLocation.latitude && userLocation.longitude) {
       setMapRegion(userLocation);
       // Update formData with user location
       setFormData({
@@ -68,6 +72,24 @@ const LocationStep = ({ formData, setFormData }) => {
     });
   };
 
+  // Ensure location values are available for the marker
+  const markerCoordinate = React.useMemo(() => {
+    if (formData.location?.latitude && formData.location?.longitude) {
+      const lat = parseFloat(formData.location.latitude);
+      const lng = parseFloat(formData.location.longitude);
+      if (!isNaN(lat) && !isNaN(lng)) {
+        return { latitude: lat, longitude: lng };
+      }
+    }
+    if (mapRegion) {
+      return { 
+        latitude: mapRegion.latitude, 
+        longitude: mapRegion.longitude 
+      };
+    }
+    return null;
+  }, [formData.location, mapRegion]);
+
   return (
     <View style={styles.container}>
       <Text style={styles.stepTitle}>Emplacement</Text>
@@ -79,18 +101,17 @@ const LocationStep = ({ formData, setFormData }) => {
             region={mapRegion}
             onPress={handleMapPress}
           >
-            <Marker
-              coordinate={{
-                latitude: formData.location?.latitude || mapRegion.latitude,
-                longitude: formData.location?.longitude || mapRegion.longitude,
-              }}
-              draggable
-              onDragEnd={(e) => {
-                const { coordinate } = e.nativeEvent;
-                handleLocationChange('latitude', coordinate.latitude);
-                handleLocationChange('longitude', coordinate.longitude);
-              }}
-            />
+            {markerCoordinate && (
+              <Marker
+                coordinate={markerCoordinate}
+                draggable
+                onDragEnd={(e) => {
+                  const { coordinate } = e.nativeEvent;
+                  handleLocationChange('latitude', coordinate.latitude);
+                  handleLocationChange('longitude', coordinate.longitude);
+                }}
+              />
+            )}
           </MapView>
           <Text style={styles.mapHint}>Appuyez sur la carte pour placer le marqueur ou faites-le glisser</Text>
         </View>
@@ -103,7 +124,7 @@ const LocationStep = ({ formData, setFormData }) => {
             style={styles.input}
             placeholder="Latitude"
             keyboardType="numeric"
-            value={formData.location?.latitude?.toString()}
+            value={formData.location?.latitude?.toString() || ''}
             onChangeText={(text) => handleLocationChange('latitude', parseFloat(text) || 0)}
           />
         </View>
@@ -114,7 +135,7 @@ const LocationStep = ({ formData, setFormData }) => {
             style={styles.input}
             placeholder="Longitude"
             keyboardType="numeric"
-            value={formData.location?.longitude?.toString()}
+            value={formData.location?.longitude?.toString() || ''}
             onChangeText={(text) => handleLocationChange('longitude', parseFloat(text) || 0)}
           />
         </View>
@@ -125,7 +146,7 @@ const LocationStep = ({ formData, setFormData }) => {
         <TextInput
           style={styles.input}
           placeholder="123 Rue principale"
-          value={formData.location?.address}
+          value={formData.location?.address || ''}
           onChangeText={(text) => handleLocationChange('address', text)}
         />
       </View>
@@ -136,7 +157,7 @@ const LocationStep = ({ formData, setFormData }) => {
           <TextInput
             style={styles.input}
             placeholder="Ville"
-            value={formData.location?.city}
+            value={formData.location?.city || ''}
             onChangeText={(text) => handleLocationChange('city', text)}
           />
         </View>
@@ -146,7 +167,7 @@ const LocationStep = ({ formData, setFormData }) => {
           <TextInput
             style={styles.input}
             placeholder="Région"
-            value={formData.location?.region}
+            value={formData.location?.region || ''}
             onChangeText={(text) => handleLocationChange('region', text)}
           />
         </View>
