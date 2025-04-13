@@ -20,7 +20,9 @@ import {
   Table as TableIcon,
   Loader2,
   X,
-  Image as ImageIcon
+  Image as ImageIcon,
+  Flag,
+  MapPin
 } from 'lucide-react';
 import { Layout } from '@/components/Layout';
 import { OfficePropertyCard, OfficePropertyData } from '@/components/OfficePropertyCard';
@@ -33,6 +35,8 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
+  SelectGroup,
+  SelectLabel,
 } from '@/components/ui/select';
 import { 
   Dialog,
@@ -51,6 +55,7 @@ import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
 import PropertyModal from '@/components/PropertyModal';
 import { Textarea } from '@/components/ui/textarea';
+import { countries, getRegionsByCountryId } from '@/data/locationData';
 
 /**
  * Composant principal de la page des espaces professionnels
@@ -75,6 +80,9 @@ const Properties = () => {
   const isMounted = useRef(true);
   const hasLoadedData = useRef(false);
   
+  const [selectedCountry, setSelectedCountry] = useState<string>('fr');
+  const [availableRegions, setAvailableRegions] = useState(getRegionsByCountryId('fr'));
+  
   const [newProperty, setNewProperty] = useState<Partial<PropertyCreate>>({
     title: '',
     address: '',
@@ -95,7 +103,9 @@ const Properties = () => {
     accessible: false,
     printers: false,
     kitchen: false,
-    flexible_hours: false
+    flexible_hours: false,
+    country: 'fr',
+    region: ''
   });
   
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -117,6 +127,19 @@ const Properties = () => {
       setSelectedPropertyId(null);
     }
   }, [id]);
+
+  // Add effect to update available regions when country changes
+  useEffect(() => {
+    setAvailableRegions(getRegionsByCountryId(selectedCountry));
+    // Reset region when country changes
+    if (newProperty.country !== selectedCountry) {
+      setNewProperty(prev => ({
+        ...prev,
+        country: selectedCountry,
+        region: ''
+      }));
+    }
+  }, [selectedCountry]);
 
   const fetchProperties = useCallback(async () => {
     if (!isMounted.current || (loading && hasLoadedData.current)) {
@@ -259,8 +282,12 @@ const Properties = () => {
       accessible: false,
       printers: false,
       kitchen: false,
-      flexible_hours: false
+      flexible_hours: false,
+      country: 'fr',
+      region: ''
     });
+    setSelectedCountry('fr');
+    setAvailableRegions(getRegionsByCountryId('fr'));
     setSelectedFile(null);
     setPreviewUrl(null);
     if (fileInputRef.current) {
@@ -304,6 +331,15 @@ const Properties = () => {
       return;
     }
     
+    if (!newProperty.country || !newProperty.region) {
+      toast({
+        title: "Localisation incomplète",
+        description: "Veuillez sélectionner un pays et une région.",
+        variant: "destructive",
+      });
+      return;
+    }
+    
     const validationErrors = validateNumericFields();
     if (validationErrors.length > 0) {
       toast({
@@ -335,7 +371,9 @@ const Properties = () => {
         accessible: Boolean(newProperty.accessible),
         printers: Boolean(newProperty.printers),
         kitchen: Boolean(newProperty.kitchen),
-        flexible_hours: Boolean(newProperty.flexible_hours)
+        flexible_hours: Boolean(newProperty.flexible_hours),
+        country: newProperty.country || 'fr',
+        region: newProperty.region || ''
       };
       
       console.log("Submitting property with data:", propertyData);
@@ -360,6 +398,10 @@ const Properties = () => {
         variant: "destructive",
       });
     }
+  };
+
+  const handleCountryChange = (value: string) => {
+    setSelectedCountry(value);
   };
 
   const isOwner = user?.role === 'owner';
@@ -400,6 +442,56 @@ const Properties = () => {
                       required
                     />
                   </div>
+                  
+                  {/* Country and Region selection */}
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="grid gap-2">
+                      <Label htmlFor="country" className="text-sm font-medium">Pays *</Label>
+                      <Select 
+                        value={selectedCountry} 
+                        onValueChange={handleCountryChange}
+                      >
+                        <SelectTrigger>
+                          <SelectValue placeholder="Sélectionner un pays" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {countries.map(country => (
+                            <SelectItem 
+                              key={country.id} 
+                              value={country.id}
+                              leftIcon={<Flag className="h-4 w-4" />}
+                            >
+                              {country.name}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div className="grid gap-2">
+                      <Label htmlFor="region" className="text-sm font-medium">Région *</Label>
+                      <Select 
+                        value={newProperty.region || ''} 
+                        onValueChange={(value) => setNewProperty(prev => ({ ...prev, region: value }))}
+                        disabled={availableRegions.length === 0}
+                      >
+                        <SelectTrigger>
+                          <SelectValue placeholder="Sélectionner une région" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {availableRegions.map(region => (
+                            <SelectItem 
+                              key={region.id} 
+                              value={region.id}
+                              leftIcon={<MapPin className="h-4 w-4" />}
+                            >
+                              {region.name}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </div>
+                  
                   <div className="grid grid-cols-2 gap-4">
                     <div className="grid gap-2">
                       <Label htmlFor="type" className="text-sm font-medium">Type d'Espace *</Label>
@@ -420,7 +512,7 @@ const Properties = () => {
                       </Select>
                     </div>
                     <div className="grid gap-2">
-                      <Label htmlFor="price" className="text-sm font-medium">Prix par Jour ( TND) *</Label>
+                      <Label htmlFor="price" className="text-sm font-medium">Prix par Jour (TND) *</Label>
                       <Input 
                         id="price" 
                         type="number" 
@@ -433,6 +525,7 @@ const Properties = () => {
                       />
                     </div>
                   </div>
+                  
                   <div className="grid gap-2">
                     <Label htmlFor="address" className="text-sm font-medium">Adresse *</Label>
                     <Input 

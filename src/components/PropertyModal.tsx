@@ -6,7 +6,7 @@
  * Il permet également aux propriétaires de modifier les informations de la propriété.
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { 
   Dialog, 
@@ -23,6 +23,13 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Textarea } from '@/components/ui/textarea';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/context/AuthContext';
 import { propertyApi, Property } from '@/services/api';
@@ -41,8 +48,9 @@ import {
   Monitor, Users, Wifi, ParkingCircle, 
   Coffee, CalendarClock, UtensilsCrossed, 
   Printer, BadgeCheck, Accessibility, ShieldCheck,
-  FileText
+  FileText, Flag, Globe
 } from 'lucide-react';
+import { countries, getRegionsByCountryId, getCountryAndRegionNames } from '@/data/locationData';
 
 interface PropertyModalProps {
   isOpen: boolean;
@@ -61,6 +69,23 @@ const PropertyModal = ({ isOpen, onClose, propertyId }: PropertyModalProps) => {
   const [updatedProperty, setUpdatedProperty] = useState<Partial<Property>>({});
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [isUpdateDialogOpen, setIsUpdateDialogOpen] = useState(false);
+  const [selectedCountry, setSelectedCountry] = useState<string>('fr');
+  const [availableRegions, setAvailableRegions] = useState(getRegionsByCountryId('fr'));
+
+  // Effect to update regions when country changes
+  useEffect(() => {
+    if (selectedCountry) {
+      setAvailableRegions(getRegionsByCountryId(selectedCountry));
+      // Reset region when country changes if we're editing
+      if (isEditing && updatedProperty.country !== selectedCountry) {
+        setUpdatedProperty(prev => ({
+          ...prev,
+          country: selectedCountry,
+          region: ''
+        }));
+      }
+    }
+  }, [selectedCountry, isEditing]);
 
   React.useEffect(() => {
     const fetchPropertyDetails = async () => {
@@ -70,6 +95,13 @@ const PropertyModal = ({ isOpen, onClose, propertyId }: PropertyModalProps) => {
         setLoading(true);
         const propertyData = await propertyApi.getPropertyById(propertyId);
         setProperty(propertyData);
+        
+        // Set selected country from property data
+        if (propertyData.country) {
+          setSelectedCountry(propertyData.country);
+          setAvailableRegions(getRegionsByCountryId(propertyData.country));
+        }
+        
         // Initialize all properties, including all equipment states and description
         setUpdatedProperty({
           title: propertyData.title,
@@ -77,6 +109,8 @@ const PropertyModal = ({ isOpen, onClose, propertyId }: PropertyModalProps) => {
           price: propertyData.price,
           status: propertyData.status,
           description: propertyData.description || '',
+          country: propertyData.country || 'fr',
+          region: propertyData.region || '',
           // Initialize all boolean amenities correctly with their actual state
           wifi: propertyData.wifi || false,
           parking: propertyData.parking || false,
@@ -158,6 +192,8 @@ const PropertyModal = ({ isOpen, onClose, propertyId }: PropertyModalProps) => {
         printers: updatedProperty.printers !== undefined ? updatedProperty.printers : property.printers,
         kitchen: updatedProperty.kitchen !== undefined ? updatedProperty.kitchen : property.kitchen,
         flexible_hours: updatedProperty.flexible_hours !== undefined ? updatedProperty.flexible_hours : property.flexible_hours,
+        country: updatedProperty.country || property.country || 'fr',
+        region: updatedProperty.region || property.region || '',
       };
       
       // Send the complete update with ALL amenity states
@@ -188,6 +224,10 @@ const PropertyModal = ({ isOpen, onClose, propertyId }: PropertyModalProps) => {
     }
   };
 
+  const handleCountryChange = (value: string) => {
+    setSelectedCountry(value);
+  };
+
   if (!isOpen) return null;
 
   // Configuration des styles de couleur pour les différents statuts
@@ -203,6 +243,11 @@ const PropertyModal = ({ isOpen, onClose, propertyId }: PropertyModalProps) => {
 
   const isOfficeProperty = property?.property_type === 'office';
   const isOwner = user?.role === 'owner';
+  
+  // Get country and region names
+  const locationNames = property ? 
+    getCountryAndRegionNames(property.country, property.region) : 
+    { countryName: "", regionName: "" };
 
   if (loading) {
     return (
@@ -268,6 +313,53 @@ const PropertyModal = ({ isOpen, onClose, propertyId }: PropertyModalProps) => {
                   value={updatedProperty.title || ''} 
                   onChange={e => setUpdatedProperty({...updatedProperty, title: e.target.value})}
                 />
+              </div>
+              
+              {/* Country and region fields */}
+              <div className="grid grid-cols-2 gap-4">
+                <div className="grid gap-2">
+                  <Label htmlFor="country">Pays</Label>
+                  <Select 
+                    value={selectedCountry} 
+                    onValueChange={handleCountryChange}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Sélectionner un pays" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {countries.map(country => (
+                        <SelectItem 
+                          key={country.id} 
+                          value={country.id}
+                        >
+                          {country.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="region">Région</Label>
+                  <Select 
+                    value={updatedProperty.region || ''} 
+                    onValueChange={(value) => setUpdatedProperty({...updatedProperty, region: value})}
+                    disabled={availableRegions.length === 0}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Sélectionner une région" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {availableRegions.map(region => (
+                        <SelectItem 
+                          key={region.id} 
+                          value={region.id}
+                        >
+                          {region.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
               </div>
               
               <div className="grid gap-2">
@@ -431,9 +523,18 @@ const PropertyModal = ({ isOpen, onClose, propertyId }: PropertyModalProps) => {
                 />
               </div>
               
-              <div className="flex items-center text-muted-foreground mt-2">
-                <MapPin className="h-4 w-4 mr-1.5" />
-                <span>{property?.address}</span>
+              <div className="flex flex-col space-y-2 mt-2">
+                <div className="flex items-center text-muted-foreground">
+                  <MapPin className="h-4 w-4 mr-1.5" />
+                  <span>{property?.address}</span>
+                </div>
+                
+                {property?.country && property?.region && (
+                  <div className="flex items-center text-muted-foreground">
+                    <Flag className="h-4 w-4 mr-1.5" />
+                    <span>{locationNames.regionName}, {locationNames.countryName}</span>
+                  </div>
+                )}
               </div>
               
               {/* Display description if available */}
@@ -465,6 +566,14 @@ const PropertyModal = ({ isOpen, onClose, propertyId }: PropertyModalProps) => {
                     <div className="flex items-center">
                       <Star className="h-4 w-4 mr-1 fill-amber-400 text-amber-400" />
                       <span className="font-medium">{property.rating}</span>
+                    </div>
+                  </div>
+                  <Separator />
+                  <div className="flex justify-between items-center">
+                    <span className="text-muted-foreground">Localisation</span>
+                    <div className="flex items-center">
+                      <Globe className="h-4 w-4 mr-1" />
+                      <span className="font-medium">{locationNames.countryName}</span>
                     </div>
                   </div>
                   <Separator />

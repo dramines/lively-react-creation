@@ -1,4 +1,3 @@
-
 // Fix the headers issue in the API service
 import axios, { AxiosError, AxiosRequestConfig, AxiosHeaders } from 'axios';
 
@@ -191,6 +190,8 @@ export interface Property {
   accessible?: boolean;
   printers?: boolean;
   flexible_hours?: boolean;
+  country?: string;
+  region?: string;
 }
 
 export interface PropertyCreate extends Omit<Property, 'id'> {}
@@ -239,7 +240,10 @@ export const propertyApi = {
           secured: prop.secured === 1 || prop.secured === true,
           accessible: prop.accessible === 1 || prop.accessible === true,
           printers: prop.printers === 1 || prop.printers === true,
-          flexible_hours: prop.flexible_hours === 1 || prop.flexible_hours === true
+          flexible_hours: prop.flexible_hours === 1 || prop.flexible_hours === true,
+          // Include country and region
+          country: prop.country || 'fr',
+          region: prop.region || ''
         }));
       } else if (Array.isArray(response)) {
         // If the API directly returns an array
@@ -256,7 +260,10 @@ export const propertyApi = {
           secured: prop.secured === 1 || prop.secured === true,
           accessible: prop.accessible === 1 || prop.accessible === true,
           printers: prop.printers === 1 || prop.printers === true,
-          flexible_hours: prop.flexible_hours === 1 || prop.flexible_hours === true
+          flexible_hours: prop.flexible_hours === 1 || prop.flexible_hours === true,
+          // Include country and region
+          country: prop.country || 'fr',
+          region: prop.region || ''
         }));
       } else {
         console.warn('API response format unexpected:', response);
@@ -305,7 +312,10 @@ export const propertyApi = {
           secured: prop.secured === 1 || prop.secured === true,
           accessible: prop.accessible === 1 || prop.accessible === true,
           printers: prop.printers === 1 || prop.printers === true,
-          flexible_hours: prop.flexible_hours === 1 || prop.flexible_hours === true
+          flexible_hours: prop.flexible_hours === 1 || prop.flexible_hours === true,
+          // Include country and region
+          country: prop.country || 'fr',
+          region: prop.region || ''
         };
       } else {
         property = response;
@@ -425,7 +435,9 @@ export const propertyApi = {
       wifi: property.wifi || false,
       parking: property.parking || false,
       flexibleHours: property.flexible_hours || false,
-      amenities
+      amenities,
+      country: property.country,
+      region: property.region
     };
   }
 };
