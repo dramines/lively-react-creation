@@ -49,7 +49,7 @@ import {
 } from '@/components/ui/dialog';
 import { useToast } from '@/hooks/use-toast';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { propertyApi, PropertyCreate, Property } from '@/services/api';
+import { propertyApi, PropertyCreate, Property, mapApiPropertyToOfficePropertyData } from '@/services/api';
 import { useAuth } from '@/context/AuthContext';
 import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -149,13 +149,13 @@ const Properties = () => {
     try {
       setLoading(true);
       console.log("Fetching properties...");
-      const apiProperties = await propertyApi.getAllProperties();
+      const apiProperties = await propertyApi.getProperties();
       
       if (isMounted.current) {
         if (Array.isArray(apiProperties)) {
           const officeProperties = apiProperties
             .filter(prop => prop.property_type === 'office')
-            .map(prop => propertyApi.mapApiPropertyToOfficePropertyData(prop));
+            .map(prop => mapApiPropertyToOfficePropertyData(prop));
           
           setProperties(officeProperties);
           hasLoadedData.current = true;
@@ -169,22 +169,23 @@ const Properties = () => {
           });
         }
       }
-    } catch (error) {
-      if (isMounted.current) {
-        console.error('Error fetching properties:', error);
-        toast({
-          title: 'Erreur',
-          description: 'Impossible de récupérer les propriétés',
-          variant: 'destructive',
-        });
-        setProperties([]);
-      }
-    } finally {
-      if (isMounted.current) {
-        setLoading(false);
-      }
     }
-  }, [toast, loading]);
+  } catch (error) {
+    if (isMounted.current) {
+      console.error('Error fetching properties:', error);
+      toast({
+        title: 'Erreur',
+        description: 'Impossible de récupérer les propriétés',
+        variant: 'destructive',
+      });
+      setProperties([]);
+    }
+  } finally {
+    if (isMounted.current) {
+      setLoading(false);
+    }
+  }
+}, [toast, loading]);
 
   useEffect(() => {
     if (!hasLoadedData.current) {

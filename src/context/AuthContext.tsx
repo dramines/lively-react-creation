@@ -1,4 +1,3 @@
-
 /**
  * AuthContext.tsx
  * 
@@ -14,7 +13,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from '@/hooks/use-toast';
-import { userApi, User, ApiError } from '@/services/api';
+import { userApi, ApiError } from '@/services/api';
 
 interface AuthUser {
   user_id: number;
