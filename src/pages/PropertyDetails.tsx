@@ -34,9 +34,7 @@ import {
   BookmarkPlus,
   Phone,
   Edit,
-  Save,
-  Flag,
-  Globe
+  Save
 } from 'lucide-react';
 import { Layout } from '@/components/Layout';
 import { Button } from '@/components/ui/button';
@@ -71,14 +69,6 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { countries, getRegionsByCountryId, getCountryAndRegionNames } from '@/data/locationData';
 
 const PropertyDetails = () => {
   const { id } = useParams<{ id: string }>();
@@ -92,24 +82,7 @@ const PropertyDetails = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState<PropertyUpdate>({});
   const [imageFile, setImageFile] = useState<File | null>(null);
-  const [dataFetched, setDataFetched] = useState(false);
-  const [selectedCountry, setSelectedCountry] = useState<string>('fr');
-  const [availableRegions, setAvailableRegions] = useState(getRegionsByCountryId('fr'));
-
-  // Effect to update regions when country changes
-  useEffect(() => {
-    if (selectedCountry) {
-      setAvailableRegions(getRegionsByCountryId(selectedCountry));
-      // Reset region when country changes
-      if (isEditing && formData.country !== selectedCountry) {
-        setFormData(prev => ({
-          ...prev,
-          country: selectedCountry,
-          region: ''
-        }));
-      }
-    }
-  }, [selectedCountry, isEditing]);
+  const [dataFetched, setDataFetched] = useState(false); // New state to prevent multiple fetches
 
   // Optimized fetchProperty function to only fetch once
   const fetchProperty = useCallback(async () => {
@@ -120,13 +93,6 @@ const PropertyDetails = () => {
       console.log("Fetching property with ID:", id);
       const propertyData = await propertyApi.getPropertyById(id);
       console.log("Fetched property:", propertyData);
-      
-      // Set selected country from property data if available
-      if (propertyData.country) {
-        setSelectedCountry(propertyData.country);
-        setAvailableRegions(getRegionsByCountryId(propertyData.country));
-      }
-      
       setProperty(propertyData);
       setFormData({
         title: propertyData.title,
@@ -144,8 +110,6 @@ const PropertyDetails = () => {
         printers: propertyData.printers,
         kitchen: propertyData.kitchen,
         flexible_hours: propertyData.flexible_hours,
-        country: propertyData.country || 'fr',
-        region: propertyData.region || '',
       });
       setDataFetched(true); // Mark data as fetched
     } catch (error) {
@@ -259,11 +223,6 @@ const PropertyDetails = () => {
     maintenance: { bg: 'bg-amber-100', text: 'text-amber-700', label: 'Maintenance' }
   };
 
-  // Get country and region names
-  const locationNames = property ? 
-    getCountryAndRegionNames(property.country, property.region) : 
-    { countryName: "", regionName: "" };
-
   if (loading) {
     return (
       <Layout>
@@ -351,47 +310,6 @@ const PropertyDetails = () => {
                       onChange={handleFormChange} 
                       required 
                     />
-                  </div>
-                </div>
-
-                {/* Country and Region selectors */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="country">Pays</Label>
-                    <Select 
-                      value={selectedCountry} 
-                      onValueChange={(value) => setSelectedCountry(value)}
-                    >
-                      <SelectTrigger id="country">
-                        <SelectValue placeholder="Sélectionner un pays" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {countries.map(country => (
-                          <SelectItem key={country.id} value={country.id}>
-                            {country.name}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="region">Région</Label>
-                    <Select 
-                      value={formData.region || ''} 
-                      onValueChange={(value) => setFormData({...formData, region: value})}
-                      disabled={availableRegions.length === 0}
-                    >
-                      <SelectTrigger id="region">
-                        <SelectValue placeholder="Sélectionner une région" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {availableRegions.map(region => (
-                          <SelectItem key={region.id} value={region.id}>
-                            {region.name}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
                   </div>
                 </div>
 
@@ -582,12 +500,6 @@ const PropertyDetails = () => {
                 <MapPin className="h-4 w-4 mr-1.5 flex-shrink-0" />
                 <span className="text-sm md:text-base">{property.address}</span>
               </div>
-              {property.country && property.region && (
-                <div className="flex items-center mt-1 text-muted-foreground">
-                  <Flag className="h-4 w-4 mr-1.5 flex-shrink-0" />
-                  <span className="text-sm md:text-base">{locationNames.regionName}, {locationNames.countryName}</span>
-                </div>
-              )}
             </div>
           </div>
           <div className="flex items-center space-x-2 md:space-x-4 self-start md:self-auto">
@@ -693,23 +605,6 @@ const PropertyDetails = () => {
                   <span className="font-medium">{property.rating}</span>
                 </div>
               </div>
-              <Separator />
-              <div className="flex justify-between items-center">
-                <span className="text-muted-foreground">Localisation</span>
-                <div className="flex items-center">
-                  <Globe className="h-4 w-4 mr-1" />
-                  <span className="font-medium">{locationNames.countryName}</span>
-                </div>
-              </div>
-              {locationNames.regionName && (
-                <>
-                  <Separator />
-                  <div className="flex justify-between items-center">
-                    <span className="text-muted-foreground">Région</span>
-                    <span className="font-medium">{locationNames.regionName}</span>
-                  </div>
-                </>
-              )}
               <Separator />
               <div className="flex justify-between items-center">
                 <span className="text-muted-foreground">Surface</span>
