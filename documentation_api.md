@@ -231,6 +231,8 @@ Cette documentation décrit toutes les API disponibles dans l'application DARIAP
   {
     "title": "Villa Moderne",
     "address": "123 Rue de la Plage, Nice",
+    "country": "France",
+    "region": "Provence-Alpes-Côte d'Azur",
     "price": 280,
     "type": "Villa",
     "bedrooms": 3,
@@ -246,6 +248,8 @@ Cette documentation décrit toutes les API disponibles dans l'application DARIAP
   {
     "title": "Espace de Coworking Premium",
     "address": "56 Avenue des Affaires, Paris",
+    "country": "France",
+    "region": "Île-de-France",
     "price": 45,
     "type": "Coworking",
     "workstations": 15,
@@ -283,6 +287,8 @@ Cette documentation décrit toutes les API disponibles dans l'application DARIAP
   ```json
   {
     "title": "Villa Moderne (Mise à jour)",
+    "country": "France",
+    "region": "Normandie",
     "price": 300,
     "status": "maintenance"
   }

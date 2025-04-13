@@ -28,6 +28,20 @@ exports.propertyValidation = [
     .isLength({ max: 255 })
     .withMessage("L'adresse ne peut pas dépasser 255 caractères"),
   
+  body("country")
+    .optional()
+    .isString()
+    .withMessage("Le pays doit être une chaîne de caractères")
+    .isLength({ max: 100 })
+    .withMessage("Le pays ne peut pas dépasser 100 caractères"),
+  
+  body("region")
+    .optional()
+    .isString()
+    .withMessage("La région doit être une chaîne de caractères")
+    .isLength({ max: 100 })
+    .withMessage("La région ne peut pas dépasser 100 caractères"),
+  
   body("price")
     .notEmpty()
     .withMessage("Le prix est obligatoire")
@@ -117,6 +131,20 @@ exports.propertyUpdateValidation = [
     .optional()
     .isLength({ max: 255 })
     .withMessage("L'adresse ne peut pas dépasser 255 caractères"),
+  
+  body("country")
+    .optional()
+    .isString()
+    .withMessage("Le pays doit être une chaîne de caractères")
+    .isLength({ max: 100 })
+    .withMessage("Le pays ne peut pas dépasser 100 caractères"),
+  
+  body("region")
+    .optional()
+    .isString()
+    .withMessage("La région doit être une chaîne de caractères")
+    .isLength({ max: 100 })
+    .withMessage("La région ne peut pas dépasser 100 caractères"),
   
   body("price")
     .optional()
