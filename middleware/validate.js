@@ -33,8 +33,8 @@ exports.registerValidation = [
   
   body("role")
     .optional()
-    .isIn(["admin", "user"])
-    .withMessage("Le rôle doit être 'admin' ou 'user'"),
+    .isIn(["admin", "user", "owner"])  // Added "owner" to the list of valid roles
+    .withMessage("Le rôle doit être 'admin', 'user' ou 'owner'"),
 ];
 
 /**
