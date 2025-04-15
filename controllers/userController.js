@@ -1,4 +1,3 @@
-
 const User = require("../models/userModel");
 const bcrypt = require("bcryptjs");
 const { validationResult } = require("express-validator");
@@ -89,7 +88,9 @@ exports.login = async (req, res) => {
       req.session.userId = user.user_id;
       req.session.role = user.role;
 
+      // Return standardized response
       res.json({
+        success: true,
         user: {
           id: user.user_id,
           nom: user.nom,
@@ -99,10 +100,17 @@ exports.login = async (req, res) => {
         },
       });
     } else {
-      res.status(401).json({ message: "Identifiants invalides" });
+      res.status(401).json({ 
+        success: false,
+        message: "Identifiants invalides" 
+      });
     }
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error("Erreur de connexion:", error);
+    res.status(500).json({ 
+      success: false,
+      message: error.message 
+    });
   }
 };
 
