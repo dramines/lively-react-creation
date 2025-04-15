@@ -19,7 +19,6 @@ const {
   registerValidation,
   loginValidation,
 } = require("../middleware/validate");
-const { protect, admin, checkAuth } = require("../middleware/auth");
 
 /**
  * Routes utilisateurs
@@ -27,25 +26,18 @@ const { protect, admin, checkAuth } = require("../middleware/auth");
  */
 
 /**
- * @route GET /api/users/check-auth
- * @desc Vérifier si l'utilisateur est authentifié
- * @access Public - Aucune authentification requise
- */
-router.get("/check-auth", checkAuth);
-
-/**
  * @route GET /api/users
  * @desc Récupérer tous les utilisateurs
- * @access Private - Réservé aux administrateurs
+ * @access Public - Aucune authentification requise
  */
-router.get("/", admin, getAllUsers); // http://localhost:3000/api/users
+router.get("/", getAllUsers); // http://localhost:3000/api/users
 
 /**
  * @route GET /api/users/:id
  * @desc Récupérer un utilisateur spécifique par son ID
- * @access Private - Authentification requise
+ * @access Public - Aucune authentification requise
  */
-router.get("/:id", protect, getUserById); //http://localhost:3000/api/users/1
+router.get("/:id", getUserById); //http://localhost:3000/api/users/1
 
 /**
  * @route POST /api/users/register
@@ -71,22 +63,22 @@ router.post("/logout", logout);
 /**
  * @route GET /api/users/me
  * @desc Récupérer les informations de l'utilisateur connecté
- * @access Private - Authentification requise
+ * @access Public - Aucune authentification requise (vérifie seulement la session)
  */
-router.get("/me", protect, getMe);
+router.get("/me", getMe);
 
 /**
  * @route PUT /api/users/:id
  * @desc Mettre à jour les informations d'un utilisateur
- * @access Private - Authentification requise et vérification d'identité
+ * @access Public - Aucune authentification requise
  */
-router.put("/:id", protect, updateUser);
+router.put("/:id", updateUser);
 
 /**
  * @route DELETE /api/users/:id
  * @desc Supprimer un utilisateur
- * @access Private - Réservé aux administrateurs
+ * @access Public - Aucune authentification requise
  */
-router.delete("/:id", admin, deleteUser);
+router.delete("/:id", deleteUser);
 
 module.exports = router;
