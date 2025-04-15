@@ -1,4 +1,3 @@
-
 const express = require("express");
 const router = express.Router();
 const propertyController = require("../controllers/propertyController");
@@ -59,5 +58,12 @@ router.delete(
   idValidation, 
   propertyController.deleteProperty
 );
+
+/**
+ * @route GET /api/properties/owner/:ownerId
+ * @desc Get all properties for a specific owner
+ * @access Public
+ */
+router.get("/owner/:ownerId", propertyController.getPropertiesByOwner);
 
 module.exports = router;

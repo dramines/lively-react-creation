@@ -295,3 +295,36 @@ exports.deleteProperty = async (req, res) => {
     });
   }
 };
+
+/**
+ * Get all properties for a specific owner
+ * @param {Object} req - Express request object with owner ID parameter
+ * @param {Object} res - Express response object
+ * @returns {Object} JSON response with owner's properties
+ */
+exports.getPropertiesByOwner = async (req, res) => {
+  try {
+    const ownerId = req.params.ownerId;
+    const properties = await Property.getAllByOwner(ownerId);
+    
+    // Transform image URLs to be complete
+    const propertiesWithFullImageUrls = properties.map(property => {
+      if (property.image_url && !property.image_url.startsWith('http')) {
+        property.image_url = `${req.protocol}://${req.get('host')}/${property.image_url}`;
+      }
+      return property;
+    });
+    
+    res.json({ 
+      success: true, 
+      data: propertiesWithFullImageUrls 
+    });
+  } catch (error) {
+    console.error("Error in getPropertiesByOwner:", error);
+    res.status(500).json({ 
+      success: false, 
+      message: "Error retrieving owner properties",
+      error: error.message
+    });
+  }
+};

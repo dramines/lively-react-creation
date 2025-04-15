@@ -1,4 +1,3 @@
-
 const db = require("../config/db");
 
 class Property {
@@ -349,6 +348,31 @@ class Property {
     } catch (error) {
       console.error(`Erreur lors de la suppression de la propriété ${id}:`, error);
       throw new Error("Impossible de supprimer la propriété");
+    }
+  }
+
+  /**
+   * Get all properties for a specific owner
+   * @param {string} ownerId - The ID of the owner
+   * @returns {Promise<Array>} Promise resolving to array of properties
+   */
+  static async getAllByOwner(ownerId) {
+    try {
+      const [properties] = await db.query(
+        `SELECT p.*, 
+              pa.wifi, pa.parking, pa.coffee, pa.reception, 
+              pa.secured, pa.\`accessible\`, pa.printers, 
+              pa.kitchen, pa.flexible_hours
+       FROM properties p
+       LEFT JOIN property_amenities pa ON p.id = pa.property_id
+       WHERE p.owner_id = ?
+       ORDER BY p.created_at DESC`,
+        [ownerId]
+      );
+      return properties;
+    } catch (error) {
+      console.error("Error getting properties by owner:", error);
+      throw new Error("Unable to retrieve owner properties");
     }
   }
 }
