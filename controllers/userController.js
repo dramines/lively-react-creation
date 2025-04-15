@@ -123,10 +123,10 @@ exports.login = async (req, res) => {
 exports.logout = (req, res) => {
   req.session.destroy((err) => {
     if (err) {
-      return res.status(500).json({ message: "Échec de la déconnexion" });
+      return res.status(500).json({ success: false, message: "Échec de la déconnexion" });
     }
     res.clearCookie("connect.sid");
-    res.json({ message: "Déconnecté avec succès" });
+    res.json({ success: true, message: "Déconnecté avec succès" });
   });
 };
 
@@ -140,11 +140,21 @@ exports.getMe = async (req, res) => {
   try {
     const user = await User.findById(req.session.userId);
     if (!user) {
-      return res.status(404).json({ message: "Utilisateur non trouvé" });
+      return res.status(404).json({ success: false, message: "Utilisateur non trouvé" });
     }
-    res.json(user);
+    res.json({ 
+      success: true,
+      user: {
+        id: user.user_id,
+        nom: user.nom,
+        prenom: user.prenom,
+        email: user.email,
+        role: user.role
+      }
+    });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error("Erreur lors de la récupération du profil:", error);
+    res.status(500).json({ success: false, message: error.message });
   }
 };
 
