@@ -1,11 +1,12 @@
+/**
+ * Contrôleur pour la gestion des utilisateurs
+ * Gère toutes les opérations liées aux utilisateurs : inscription, connexion,
+ * modification de profil, suppression de compte, etc.
+ * Assure la logique métier entre les routes et le modèle de données
+ */
 const User = require("../models/userModel");
 const bcrypt = require("bcryptjs");
 const { validationResult } = require("express-validator");
-
-/**
- * Contrôleur pour la gestion des utilisateurs
- * Ce fichier contient toutes les fonctions pour gérer les opérations CRUD sur les utilisateurs
- */
 
 /**
  * Récupérer tous les utilisateurs

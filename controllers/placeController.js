@@ -1,17 +1,16 @@
-
-const Place = require("../models/placeModel");
-const { validationResult } = require("express-validator");
-
 /**
  * Contrôleur pour la gestion des lieux
- * Ce fichier contient toutes les fonctions pour gérer les opérations CRUD sur les lieux
+ * Gère toutes les opérations CRUD sur les lieux touristiques et points d'intérêt
+ * Assure la logique métier entre les routes et le modèle de données
  */
+const Place = require("../models/placeModel");
+const { validationResult } = require("express-validator");
 
 /**
  * Récupérer tous les lieux
  * @param {Object} req - Objet requête Express
  * @param {Object} res - Objet réponse Express
- * @returns {Object} Liste de tous les lieux
+ * @returns {Object} Liste de tous les lieux avec leurs détails
  */
 exports.getAllPlaces = async (req, res) => {
   try {

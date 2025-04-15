@@ -1,15 +1,16 @@
+/**
+ * Contrôleur pour la gestion des propriétés
+ * Gère toutes les opérations CRUD sur les propriétés immobilières
+ * Inclut la gestion des images et des équipements associés
+ */
 const Property = require("../models/propertyModel");
 const { validationResult } = require("express-validator");
 const fs = require('fs');
 const path = require('path');
 
 /**
- * Contrôleur pour la gestion des propriétés
- * Contient toutes les méthodes pour interagir avec les propriétés dans l'API
- */
-
-/**
  * Récupère toutes les propriétés
+ * Transforme les URLs des images pour qu'elles soient complètes
  * @param {Object} req - Objet requête Express
  * @param {Object} res - Objet réponse Express
  * @returns {Object} Réponse JSON avec toutes les propriétés

@@ -1,18 +1,18 @@
-
 /**
  * Module de gestion des lieux dans la base de données
- * Ce fichier contient toutes les fonctions pour interagir avec la table 'places'
+ * Gère toutes les opérations CRUD pour les lieux touristiques et points d'intérêt
+ * Assure la persistance et la récupération des données liées aux lieux
  */
 const db = require("../config/db");
 
 /**
- * Classe Place qui gère toutes les opérations CRUD sur les lieux
- * Cette classe fait le lien entre l'API et la base de données pour les lieux
+ * Classe Place qui gère toutes les opérations sur les lieux
+ * Fournit une interface entre l'API et la base de données
  */
 class Place {
   /**
-   * Récupère tous les lieux de la base de données
-   * @returns {Promise<Array>} Liste de tous les lieux
+   * Récupère tous les lieux enregistrés
+   * @returns {Promise<Array>} Liste complète des lieux avec leurs détails
    */
   static async getAll() {
     const [rows] = await db.query("SELECT * FROM places");

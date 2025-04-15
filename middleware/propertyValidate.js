@@ -1,16 +1,16 @@
-
+/**
+ * Middleware de validation pour les propriétés
+ * Définit toutes les règles de validation pour les opérations CRUD sur les propriétés
+ * Assure la cohérence et la validité des données entrantes
+ */
 const { body, param } = require("express-validator");
 
 /**
- * Middleware de validation pour les propriétés
- * Définit les règles de validation pour les différentes opérations sur les propriétés
- */
-
-/**
  * Validation pour la création et la mise à jour des propriétés
+ * Vérifie tous les champs obligatoires et optionnels selon le type de propriété
  */
 exports.propertyValidation = [
-  // Validation des champs obligatoires
+  // Validation des champs obligatoires pour toutes les propriétés
   body("title")
     .notEmpty()
     .withMessage("Le titre est obligatoire")

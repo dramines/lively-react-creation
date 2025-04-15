@@ -1,22 +1,40 @@
-
 /**
  * Middleware de validation des données
- * Ce fichier contient les fonctions de validation pour les différentes routes de l'API
+ * Ce fichier contient les fonctions de validation pour toutes les routes de l'API
+ * Utilise express-validator pour vérifier et valider les données entrantes
  */
 const { body, validationResult, param } = require("express-validator");
 
 /**
  * Validation des données pour l'inscription d'un utilisateur
- * Vérifie que les champs obligatoires sont présents et valides
+ * Vérifie que tous les champs requis sont présents et valides selon les règles définies
  */
 exports.registerValidation = [
-  body("nom").notEmpty().withMessage("Le nom est obligatoire"),
-  body("prenom").notEmpty().withMessage("Le prénom est obligatoire"),
-  body("email").isEmail().withMessage("L'email est invalide"),
+  body("nom")
+    .notEmpty()
+    .withMessage("Le nom est obligatoire")
+    .trim()
+    .escape(),
+  
+  body("prenom")
+    .notEmpty()
+    .withMessage("Le prénom est obligatoire")
+    .trim()
+    .escape(),
+  
+  body("email")
+    .isEmail()
+    .withMessage("L'email est invalide")
+    .normalizeEmail(),
+  
   body("password")
-    .isLength({ min: 6 })  // Modifié de 8 à 6 pour correspondre à la validation frontend
+    .isLength({ min: 6 })
     .withMessage("Le mot de passe doit contenir au moins 6 caractères"),
-  body("role").optional().isIn(["admin", "user"]).withMessage("Le rôle doit être 'admin' ou 'user'"),
+  
+  body("role")
+    .optional()
+    .isIn(["admin", "user"])
+    .withMessage("Le rôle doit être 'admin' ou 'user'"),
 ];
 
 /**

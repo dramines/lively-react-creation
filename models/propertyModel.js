@@ -1,9 +1,15 @@
+/**
+ * Modèle de données pour les propriétés
+ * Gère toutes les interactions avec la base de données pour les propriétés
+ * Inclut les opérations CRUD et les requêtes spécialisées
+ */
 const db = require("../config/db");
 
 class Property {
   /**
    * Récupère toutes les propriétés de la base de données
-   * @returns {Promise<Array>} Une promesse avec un tableau de propriétés
+   * Inclut les équipements associés pour chaque propriété
+   * @returns {Promise<Array>} Une promesse contenant un tableau de toutes les propriétés
    */
   static async getAll() {
     try {
@@ -25,9 +31,10 @@ class Property {
   }
 
   /**
-   * Récupère une propriété par son identifiant
-   * @param {string} id - L'identifiant de la propriété
-   * @returns {Promise<Object>} Une promesse avec les données de la propriété
+   * Récupère une propriété spécifique par son identifiant
+   * Inclut tous les équipements associés à la propriété
+   * @param {string} id - Identifiant unique de la propriété
+   * @returns {Promise<Object>} Une promesse contenant les détails de la propriété
    */
   static async getById(id) {
     try {
