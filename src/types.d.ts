@@ -173,4 +173,5 @@ export interface Property {
   property_type?: string;
   type?: string;
   rating?: number;
+  reviews?: number;
 }

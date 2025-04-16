@@ -1,23 +1,14 @@
 
-/**
- * HomeScreen.tsx
- * 
- * Cette page affiche la page d'accueil pour les utilisateurs standard après la connexion
- * This page displays the home screen for standard users after login
- * 
- * @author Lovable AI
- * @version 1.0
- */
-
 import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity, Dimensions, TextInput, ActivityIndicator } from 'react-native';
 import { useRouter } from 'expo-router';
 import { MapPin, Star, Search, Filter, Wifi, Car, Building, Briefcase } from 'lucide-react-native';
 import { useEffect, useState } from 'react';
-import { getAllProperties } from '../services/propertyService';
 import { Property } from '../types';
 
-// Villes populaires pour les bureaux professionnels
-// Popular business cities
+/**
+ * Villes populaires pour les bureaux professionnels
+ * Popular cities for professional offices
+ */
 const FEATURED_LOCATIONS = [
   {
     id: '1',
@@ -43,7 +34,7 @@ const { width } = Dimensions.get('window');
 
 /**
  * Fonction pour afficher les icônes d'équipement appropriées
- * Function to display appropriate amenity icons
+ * Function to display the appropriate equipment icons
  */
 const getAmenityIcon = (amenity: string) => {
   switch (amenity) {
@@ -63,7 +54,7 @@ const getAmenityIcon = (amenity: string) => {
 };
 
 /**
- * Écran d'accueil pour les utilisateurs standard
+ * Écran d'accueil pour utilisateurs standard
  * Home screen for standard users
  */
 export default function HomeScreen() {
@@ -78,18 +69,27 @@ export default function HomeScreen() {
 
   /**
    * Récupère les propriétés depuis l'API
-   * Fetches properties from the API
+   * Fetch properties from the API
    */
   const fetchProperties = async () => {
     try {
       setLoading(true);
       setError(null);
       
-      // Utiliser notre service pour récupérer les propriétés
-      // Use our service to fetch properties
-      const propertiesData = await getAllProperties();
-      setProperties(propertiesData);
-    } catch (err: any) {
+      // Using the computer's IP address instead of localhost
+      const response = await fetch('http://192.168.1.6:3000/api/properties');
+      
+      if (!response.ok) {
+        throw new Error(`Erreur HTTP: ${response.status}`);
+      }
+      
+      const result = await response.json();
+      if (result.data) {
+        setProperties(result.data);
+      } else {
+        throw new Error('Format de réponse invalide');
+      }
+    } catch (err) {
       console.error('Erreur lors de la récupération des propriétés:', err);
       setError('Impossible de charger les propriétés. Veuillez réessayer plus tard.');
     } finally {
@@ -99,7 +99,7 @@ export default function HomeScreen() {
 
   /**
    * Récupère les équipements d'une propriété
-   * Gets amenities from property data
+   * Get amenities from property data
    */
   const getPropertyAmenities = (property: Property): string[] => {
     const amenities: string[] = [];
@@ -188,7 +188,7 @@ export default function HomeScreen() {
         ) : (
           properties.map((property) => {
             const amenities = getPropertyAmenities(property);
-            const location = property.address || property.region || 'Emplacement non spécifié';
+            const location = property.address || property.location || 'Emplacement non spécifié';
             
             return (
               <TouchableOpacity
@@ -206,7 +206,7 @@ export default function HomeScreen() {
                   <Text numberOfLines={2} style={styles.propertyDescription}>{property.description}</Text>
                   <View style={styles.ratingContainer}>
                     <Star size={16} color="#0066FF" fill="#0066FF" />
-                    <Text style={styles.rating}>{property.rating || "4.5"}</Text>
+                    <Text style={styles.rating}>{property.rating}</Text>
                     <Text style={styles.reviews}>({property.reviews || 0} avis)</Text>
                   </View>
                   <View style={styles.amenitiesContainer}>
@@ -218,7 +218,7 @@ export default function HomeScreen() {
                     ))}
                   </View>
                   <View style={styles.priceContainer}>
-                    <Text style={styles.price}>{property.price} €</Text>
+                    <Text style={styles.price}>{property.price} TND</Text>
                     <Text style={styles.perNight}>/ mois</Text>
                   </View>
                 </View>
@@ -231,10 +231,6 @@ export default function HomeScreen() {
   );
 }
 
-/**
- * Styles pour l'écran d'accueil
- * Styles for the home screen
- */
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -455,8 +451,6 @@ const styles = StyleSheet.create({
     color: '#666',
     marginLeft: 4,
   },
-  // Nouveaux styles pour les états de chargement, d'erreur et vide
-  // New styles for loading, error, and empty states
   loadingStateContainer: {
     padding: 40,
     alignItems: 'center',
