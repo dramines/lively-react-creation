@@ -56,7 +56,7 @@ export default function HomeTab() {
     return <OwnerDashboard />;
   }
 
-  // Show the new HomeScreen for standard users instead of the Dashboard
+  // Show the HomeScreen for standard users (explicitly check for non-owner roles)
   console.log('Affichage de la page d\'accueil pour utilisateur standard');
   return <HomeScreen />;
 }

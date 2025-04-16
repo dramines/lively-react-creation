@@ -76,7 +76,7 @@ export default function HomeScreen() {
       setLoading(true);
       setError(null);
       
-      // Using the computer's IP address instead of localhost
+      // Using the server IP address
       const response = await fetch('http://192.168.1.6:3000/api/properties');
       
       if (!response.ok) {
@@ -104,14 +104,14 @@ export default function HomeScreen() {
   const getPropertyAmenities = (property: Property): string[] => {
     const amenities: string[] = [];
     
-    if (property.wifi) amenities.push('Wifi haut débit');
-    if (property.parking) amenities.push('Parking sécurisé');
+    if (property.wifi === 1 || property.wifi === true) amenities.push('Wifi haut débit');
+    if (property.parking === 1 || property.parking === true) amenities.push('Parking sécurisé');
     if (property.meeting_rooms && property.meeting_rooms > 0) amenities.push('Salles de réunion');
-    if (property.kitchen) amenities.push('Cuisine équipée');
-    if (property.coffee) amenities.push('Café/Thé');
-    if (property.reception) amenities.push('Réception');
-    if (property.secured) amenities.push('Sécurisé');
-    if (property.printers) amenities.push('Imprimantes');
+    if (property.kitchen === 1 || property.kitchen === true) amenities.push('Cuisine équipée');
+    if (property.coffee === 1 || property.coffee === true) amenities.push('Café/Thé');
+    if (property.reception === 1 || property.reception === true) amenities.push('Réception');
+    if (property.secured === 1 || property.secured === true) amenities.push('Sécurisé');
+    if (property.printers === 1 || property.printers === true) amenities.push('Imprimantes');
     
     return amenities;
   };
@@ -188,7 +188,7 @@ export default function HomeScreen() {
         ) : (
           properties.map((property) => {
             const amenities = getPropertyAmenities(property);
-            const location = property.address || property.location || 'Emplacement non spécifié';
+            const propertyLocation = property.address || property.location || 'Emplacement non spécifié';
             
             return (
               <TouchableOpacity
@@ -200,7 +200,7 @@ export default function HomeScreen() {
                 <View style={styles.propertyInfo}>
                   <View style={styles.locationContainer}>
                     <MapPin size={16} color="#0066FF" />
-                    <Text style={styles.location}>{location}</Text>
+                    <Text style={styles.location}>{propertyLocation}</Text>
                   </View>
                   <Text style={styles.propertyTitle}>{property.title}</Text>
                   <Text numberOfLines={2} style={styles.propertyDescription}>{property.description}</Text>

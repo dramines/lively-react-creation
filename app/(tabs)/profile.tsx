@@ -1,14 +1,13 @@
 
 import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity, TextInput, Modal, ActivityIndicator, Alert } from 'react-native';
 import { useRouter } from 'expo-router';
-import { User, Shield, CircleHelp as HelpCircle, LogOut, Mail, Phone, MapPin, ChevronDown, Lock, Trash2 } from 'lucide-react-native';
+import { User, Shield, CircleHelp, LogOut, Mail, Phone, MapPin, ChevronDown, Lock, Trash2 } from 'lucide-react-native';
 import React, { useState } from 'react';
 import { useAuth } from '../../src/contexts/AuthContext';
 import { EditableField } from '../../src/types';
 
 /**
  * Questions fréquemment posées
- * Frequently asked questions
  */
 const FAQ_ITEMS = [
   {
@@ -25,10 +24,6 @@ const FAQ_ITEMS = [
   }
 ];
 
-/**
- * Écran de profil utilisateur
- * User profile screen
- */
 export default function ProfileScreen() {
   const router = useRouter();
   const { user, updateUserInfo, logout, deleteUserAccount } = useAuth();
@@ -44,7 +39,7 @@ export default function ProfileScreen() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   
-  // État pour la modale de confirmation / State for confirmation modal
+  // État pour la modale de confirmation
   const [modalVisible, setModalVisible] = useState(false);
   const [modalType, setModalType] = useState<'update' | 'delete' | null>(null);
   const [fieldToUpdate, setFieldToUpdate] = useState<EditableField | null>(null);
@@ -52,7 +47,6 @@ export default function ProfileScreen() {
 
   /**
    * Demande confirmation avant de sauvegarder les modifications
-   * Request confirmation before saving changes
    */
   const confirmSave = (field: EditableField) => {
     setFieldToUpdate(field);
@@ -62,7 +56,6 @@ export default function ProfileScreen() {
 
   /**
    * Demande confirmation avant de supprimer le compte
-   * Request confirmation before deleting account
    */
   const confirmDelete = () => {
     setModalType('delete');
@@ -71,7 +64,6 @@ export default function ProfileScreen() {
 
   /**
    * Sauvegarde les modifications après confirmation
-   * Save changes after confirmation
    */
   const handleSave = async () => {
     if (!user || !fieldToUpdate) return;
@@ -120,7 +112,6 @@ export default function ProfileScreen() {
 
   /**
    * Supprime le compte utilisateur après confirmation
-   * Delete user account after confirmation
    */
   const handleDeleteAccount = async () => {
     if (!user) return;
@@ -144,8 +135,7 @@ export default function ProfileScreen() {
   };
 
   /**
-   * Déconnexion de l'utilisateur
-   * User logout
+   * Déconnexion de l'utilisateur - simplified to just clear local storage and navigate
    */
   const handleLogout = async () => {
     try {
@@ -162,7 +152,6 @@ export default function ProfileScreen() {
 
   /**
    * Rendu d'un champ modifiable avec dropdown
-   * Render an editable field with dropdown
    */
   const renderDropdownItem = (
     icon: React.ReactNode,
@@ -254,7 +243,6 @@ export default function ProfileScreen() {
 
   /**
    * Rendu de la modale de confirmation
-   * Render confirmation modal
    */
   const renderConfirmationModal = () => (
     <Modal
@@ -398,7 +386,7 @@ export default function ProfileScreen() {
               style={styles.faqItem}
             >
               <View style={styles.faqHeader}>
-                <HelpCircle size={20} color="#0066FF" style={styles.itemIcon} />
+                <CircleHelp size={20} color="#0066FF" style={styles.itemIcon} />
                 <Text style={styles.faqQuestion}>{item.question}</Text>
               </View>
               <Text style={styles.faqAnswer}>{item.answer}</Text>
@@ -589,9 +577,6 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 16,
   },
-  saveButtonDisabled: {
-    backgroundColor: '#0066FF80',
-  },
   faqItem: {
     marginBottom: 16,
     backgroundColor: '#F8F8F8',
@@ -653,6 +638,9 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#FF3B30',
     marginBottom: 12,
+  },
+  saveButtonDisabled: {
+    backgroundColor: '#0066FF80',
   },
   modalOverlay: {
     flex: 1,
