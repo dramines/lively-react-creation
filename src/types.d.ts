@@ -143,6 +143,33 @@ export interface OnboardingSlide {
  * Types pour les propriétés
  * Types for properties
  */
+
+// Données pour la création/édition de propriété / Data for property creation/edition
+export interface PropertyData {
+  title: string;
+  address: string;
+  price: number | string;
+  type: string;
+  status: string;
+  property_type: string;
+  description: string;
+  workstations?: number;
+  meeting_rooms?: number;
+  area?: number | string;
+  region?: string;
+  country?: string;
+  image_url?: string;
+  wifi?: boolean | number;
+  parking?: boolean | number;
+  coffee?: boolean | number;
+  reception?: boolean | number;
+  kitchen?: boolean | number;
+  secured?: boolean | number;
+  accessible?: boolean | number;
+  printers?: boolean | number;
+  flexible_hours?: boolean | number;
+}
+
 // Propriété / Property
 export interface Property {
   id: string;
@@ -175,4 +202,29 @@ export interface Property {
   type?: string;
   rating?: number | string;
   reviews?: number;
+}
+
+// For EditPropertyScreen - importing @react-native-community/slider
+declare module '@react-native-community/slider' {
+  import { Component } from 'react';
+  import { ViewStyle } from 'react-native';
+  
+  interface SliderProps {
+    value?: number;
+    disabled?: boolean;
+    minimumValue?: number;
+    maximumValue?: number;
+    step?: number;
+    minimumTrackTintColor?: string;
+    maximumTrackTintColor?: string;
+    thumbTintColor?: string;
+    thumbImage?: ImageSource;
+    onValueChange?: (value: number) => void;
+    onSlidingComplete?: (value: number) => void;
+    style?: ViewStyle;
+    inverted?: boolean;
+    vertical?: boolean;
+  }
+
+  export default class Slider extends Component<SliderProps> {}
 }

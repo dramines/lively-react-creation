@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { User, LoginCredentials, RegisterData } from '../types';
 import authService from '../services/authService';
@@ -82,7 +81,12 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       
       if (response && response.success && response.user) {
         console.log('Connexion réussie, utilisateur:', response.user);
+        
+        // Save user to secure storage first, then set state
+        await SecureStore.setItemAsync(USER_STORAGE_KEY, JSON.stringify(response.user));
         setUser(response.user);
+        
+        return response.user;
       } else {
         throw new Error('Réponse de connexion invalide');
       }

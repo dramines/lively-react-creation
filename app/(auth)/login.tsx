@@ -15,17 +15,9 @@ export default function LoginScreen() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [redirectAttempted, setRedirectAttempted] = useState(false);
+  const [loginSuccess, setLoginSuccess] = useState(false);
 
-  // Only redirect if user is already logged in and we haven't attempted yet
-  useEffect(() => {
-    if (user && !loading && !redirectAttempted) {
-      console.log("User already logged in, redirecting...", user);
-      setRedirectAttempted(true);
-      redirectBasedOnRole(user.role);
-    }
-  }, [user, loading]);
-
+  // Handle registration success message
   useEffect(() => {
     if (params.registered === 'true') {
       Alert.alert(
@@ -36,11 +28,15 @@ export default function LoginScreen() {
     }
   }, [params.registered]);
 
-  const redirectBasedOnRole = (role: string) => {
-    console.log(`Redirecting based on role: ${role}`);
-    // Force immediate redirection to tabs and let the tabs layout handle the role-specific UI
-    router.replace('/(tabs)');
-  };
+  // Monitor authentication state changes
+  useEffect(() => {
+    // If user is logged in and we just had a successful login
+    if (user && loginSuccess) {
+      console.log("Login successful, redirecting user based on role:", user.role);
+      setLoginSuccess(false); // Reset flag
+      router.replace('/(tabs)');
+    }
+  }, [user, loginSuccess]);
 
   const handleLogin = async () => {
     if (!email || !password) {
@@ -52,9 +48,8 @@ export default function LoginScreen() {
     try {
       console.log('Tentative de connexion avec:', { email, password });
       await login({ email, password });
-      console.log('Connexion réussie, redirection...');
-      setRedirectAttempted(true);
-      // Redirection will happen in the useEffect when user state updates
+      console.log('Connexion réussie, marquée pour redirection...');
+      setLoginSuccess(true); // Set flag for successful login
     } catch (err: any) {
       console.error('Erreur de connexion:', err);
       setError(authError || 'Erreur de connexion. Veuillez réessayer.');
@@ -72,6 +67,14 @@ export default function LoginScreen() {
     setError('');
     clearError();
   };
+
+  // If already logged in, redirect
+  useEffect(() => {
+    if (user && !isLoading && !loginSuccess) {
+      console.log("User already authenticated, redirecting...", user);
+      router.replace('/(tabs)');
+    }
+  }, [user, isLoading]);
 
   return (
     <SafeAreaView style={styles.container}>

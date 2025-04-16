@@ -1,10 +1,38 @@
+
 import { Redirect } from 'expo-router';
 import { useAuth } from '../src/contexts/AuthContext';
+import { View, ActivityIndicator, Text, StyleSheet } from 'react-native';
+import { useEffect } from 'react';
 
 export default function Home() {
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
+  
+  // Show loading indicator while checking auth state
+  if (loading) {
+    return (
+      <View style={styles.loading}>
+        <ActivityIndicator size="large" color="#0066FF" />
+        <Text style={styles.loadingText}>Chargement...</Text>
+      </View>
+    );
+  }
 
-  // If user is logged in, redirect to the tabs
-  // Otherwise redirect to login
+  // Once loaded, redirect based on auth state
+  console.log("Root index redirecting based on user:", user ? `${user.role} (${user.id})` : "not logged in");
   return user ? <Redirect href="/(tabs)" /> : <Redirect href="/(auth)/login" />;
 }
+
+const styles = StyleSheet.create({
+  loading: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+  },
+  loadingText: {
+    marginTop: 16,
+    fontFamily: 'Inter-Regular',
+    fontSize: 16,
+    color: '#666',
+  }
+});
