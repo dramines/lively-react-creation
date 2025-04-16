@@ -1,9 +1,8 @@
-
 import { View, Text, StyleSheet, TouchableOpacity, Image, TextInput, KeyboardAvoidingView, Platform, ScrollView, Alert } from 'react-native';
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import { Mail, Lock, Eye, EyeOff } from 'lucide-react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useAuth } from '../../src/contexts/AuthContext';
 
 export default function LoginScreen() {
@@ -15,8 +14,8 @@ export default function LoginScreen() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [loginSuccess, setLoginSuccess] = useState(false);
-
+  const redirectedRef = useRef(false);
+  
   // Handle registration success message
   useEffect(() => {
     if (params.registered === 'true') {
@@ -28,15 +27,16 @@ export default function LoginScreen() {
     }
   }, [params.registered]);
 
-  // Monitor authentication state changes
+  // Only redirect once when user is loaded
   useEffect(() => {
-    // If user is logged in and we just had a successful login
-    if (user && loginSuccess) {
-      console.log("Login successful, redirecting user based on role:", user.role);
-      setLoginSuccess(false); // Reset flag
-      router.replace('/(tabs)');
+    if (user && !redirectedRef.current && !isLoading) {
+      console.log("User detected in login screen, redirecting to tabs");
+      redirectedRef.current = true;
+      setTimeout(() => {
+        router.replace('/(tabs)');
+      }, 100);
     }
-  }, [user, loginSuccess]);
+  }, [user, isLoading]);
 
   const handleLogin = async () => {
     if (!email || !password) {
@@ -46,10 +46,9 @@ export default function LoginScreen() {
 
     setIsLoading(true);
     try {
-      console.log('Tentative de connexion avec:', { email, password });
+      console.log('Tentative de connexion avec:', { email });
       await login({ email, password });
-      console.log('Connexion réussie, marquée pour redirection...');
-      setLoginSuccess(true); // Set flag for successful login
+      console.log('Connexion réussie, attente de redirection...');
     } catch (err: any) {
       console.error('Erreur de connexion:', err);
       setError(authError || 'Erreur de connexion. Veuillez réessayer.');
@@ -67,14 +66,6 @@ export default function LoginScreen() {
     setError('');
     clearError();
   };
-
-  // If already logged in, redirect
-  useEffect(() => {
-    if (user && !isLoading && !loginSuccess) {
-      console.log("User already authenticated, redirecting...", user);
-      router.replace('/(tabs)');
-    }
-  }, [user, isLoading]);
 
   return (
     <SafeAreaView style={styles.container}>

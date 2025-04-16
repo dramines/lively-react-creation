@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, ReactNode, useCallback } from 'react';
 import { User, LoginCredentials, RegisterData } from '../types';
 import authService from '../services/authService';
 import * as SecureStore from 'expo-secure-store';
@@ -71,22 +71,20 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
    * Connexion d'un utilisateur
    * @param credentials - Les identifiants de connexion
    */
-  const login = async (credentials: LoginCredentials) => {
+  const login = useCallback(async (credentials: LoginCredentials): Promise<void> => {
     setLoading(true);
     setError(null);
     try {
       console.log('Tentative de connexion...');
       const response = await authService.login(credentials);
-      console.log('Réponse de connexion:', response);
       
       if (response && response.success && response.user) {
         console.log('Connexion réussie, utilisateur:', response.user);
         
-        // Save user to secure storage first, then set state
+        // Save user to secure storage first
         await SecureStore.setItemAsync(USER_STORAGE_KEY, JSON.stringify(response.user));
+        // Then update the state
         setUser(response.user);
-        
-        return response.user;
       } else {
         throw new Error('Réponse de connexion invalide');
       }
@@ -97,7 +95,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   /**
    * Inscription d'un nouvel utilisateur

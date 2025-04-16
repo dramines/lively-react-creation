@@ -19,7 +19,15 @@ export default function Home() {
 
   // Once loaded, redirect based on auth state
   console.log("Root index redirecting based on user:", user ? `${user.role} (${user.id})` : "not logged in");
-  return user ? <Redirect href="/(tabs)" /> : <Redirect href="/(auth)/login" />;
+  
+  // Wait until loading is complete before redirecting
+  if (user) {
+    // User is authenticated, redirect to tabs
+    return <Redirect href="/(tabs)" />;
+  } else {
+    // User is not authenticated, redirect to login
+    return <Redirect href="/(auth)/login" />;
+  }
 }
 
 const styles = StyleSheet.create({

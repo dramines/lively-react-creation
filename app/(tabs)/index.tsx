@@ -24,19 +24,19 @@ export default function HomeTab() {
   const router = useRouter();
 
   useEffect(() => {
-    // Only redirect if we've completed the initial auth check and user is null
     if (!loading && !user) {
-      console.log('Aucun utilisateur, redirection vers login');
+      console.log('No user in tabs, redirecting to login');
       router.replace('/(auth)/login');
     } else if (user) {
-      console.log(`Utilisateur connecté: ${user.prenom} ${user.nom} (${user.role})`);
+      console.log(`User authenticated in tabs: ${user.prenom} ${user.nom} (${user.role})`);
     }
-  }, [user, router, loading]);
+  }, [user, loading]);
 
   if (loading) {
     return (
       <View style={styles.loading}>
         <ActivityIndicator size="large" color="#0066FF" />
+        <Text style={styles.loadingText}>Chargement...</Text>
       </View>
     );
   }
@@ -52,12 +52,12 @@ export default function HomeTab() {
 
   // Show the owner dashboard for owner users
   if (user.role === 'owner') {
-    console.log('Affichage du dashboard propriétaire');
+    console.log('Showing owner dashboard');
     return <OwnerDashboard />;
   }
 
   // Show the HomeScreen for standard users (explicitly check for non-owner roles)
-  console.log('Affichage de la page d\'accueil pour utilisateur standard');
+  console.log('Showing standard user home screen');
   return <HomeScreen />;
 }
 
@@ -66,5 +66,12 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#fff',
   },
+  loadingText: {
+    marginTop: 16,
+    fontFamily: 'Inter-Regular',
+    fontSize: 16,
+    color: '#666',
+  }
 });

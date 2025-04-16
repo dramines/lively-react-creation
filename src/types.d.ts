@@ -168,6 +168,8 @@ export interface PropertyData {
   accessible?: boolean | number;
   printers?: boolean | number;
   flexible_hours?: boolean | number;
+  location?: string;
+  owner_id?: string;
 }
 
 // Propriété / Property
@@ -218,7 +220,7 @@ declare module '@react-native-community/slider' {
     minimumTrackTintColor?: string;
     maximumTrackTintColor?: string;
     thumbTintColor?: string;
-    thumbImage?: ImageSource;
+    thumbImage?: any;
     onValueChange?: (value: number) => void;
     onSlidingComplete?: (value: number) => void;
     style?: ViewStyle;
