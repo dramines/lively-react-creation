@@ -1,10 +1,23 @@
 
+/**
+ * Tab principal - Écran d'accueil
+ * Main tab - Home screen
+ * 
+ * Ce fichier gère la redirection selon le rôle de l'utilisateur:
+ * - Propriétaire: OwnerDashboard
+ * - Utilisateur standard: HomeScreen
+ * 
+ * This file manages redirection based on user role:
+ * - Owner: OwnerDashboard
+ * - Standard user: HomeScreen
+ */
+
 import React, { useEffect } from 'react';
 import { useRouter } from 'expo-router';
 import { View, ActivityIndicator, StyleSheet, Text } from 'react-native';
 import { useAuth } from '../../src/contexts/AuthContext';
 import OwnerDashboard from '../../src/pages/owner/OwnerDashboard';
-import Dashboard from '../../src/pages/Dashboard';
+import HomeScreen from '../../src/pages/HomeScreen';
 
 export default function HomeTab() {
   const { user, loading } = useAuth();
@@ -43,9 +56,9 @@ export default function HomeTab() {
     return <OwnerDashboard />;
   }
 
-  // Show the regular dashboard for other users
-  console.log('Affichage du dashboard utilisateur');
-  return <Dashboard />;
+  // Show the new HomeScreen for standard users instead of the Dashboard
+  console.log('Affichage de la page d\'accueil pour utilisateur standard');
+  return <HomeScreen />;
 }
 
 const styles = StyleSheet.create({
