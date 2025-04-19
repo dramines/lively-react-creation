@@ -12,20 +12,24 @@ const db = require("../config/db");
 class Event {
   /**
    * Get all events with optional filters
-   * 
-   * @param {Object} filters - Optional filters for query
-   * @param {string} filters.location - Filter by location (partial match)
-   * @param {string} filters.organizer - Filter by organizer
-   * @param {Date} filters.startDate - Filter by events after this date
-   * @param {Date} filters.endDate - Filter by events before this date
-   * @param {number} filters.place_id - Filter by place ID
-   * @param {number} filters.limit - Maximum number of results to return
-   * @param {string} filters.sortBy - Field to sort by (default: startDate)
-   * @param {string} filters.sortOrder - Sort order ('ASC' or 'DESC')
-   * @returns {Promise<Array>} - Promise resolving to array of events
    */
   static async getAll(filters = {}) {
-    let query = "SELECT * FROM events WHERE 1=1";
+    let query = `
+      SELECT e.*, 
+        JSON_OBJECT(
+          'id', p.id,
+          'name', p.name,
+          'type', p.type,
+          'location', p.location,
+          'images', p.images,
+          'openingHours', p.openingHours,
+          'entranceFee', p.entranceFee,
+          'average_rating', p.average_rating
+        ) as place
+      FROM events e
+      LEFT JOIN places p ON e.place_id = p.id
+      WHERE 1=1
+    `;
     const params = [];
 
     // Filter by location
@@ -79,13 +83,26 @@ class Event {
 
   /**
    * Get an event by its ID
-   * 
-   * @param {number} id - Event ID
-   * @returns {Promise<Object|null>} - Promise resolving to event or null if not found
    */
   static async getById(id) {
     try {
-      const [rows] = await db.query("SELECT * FROM events WHERE id = ?", [id]);
+      const [rows] = await db.query(`
+        SELECT e.*, 
+          JSON_OBJECT(
+            'id', p.id,
+            'name', p.name,
+            'type', p.type,
+            'location', p.location,
+            'images', p.images,
+            'openingHours', p.openingHours,
+            'entranceFee', p.entranceFee,
+            'average_rating', p.average_rating
+          ) as place
+        FROM events e
+        LEFT JOIN places p ON e.place_id = p.id
+        WHERE e.id = ?
+      `, [id]);
+      
       if (rows.length === 0) return null;
       return formatEventData(rows[0]);
     } catch (error) {
@@ -304,9 +321,6 @@ class Event {
 
 /**
  * Format event data for consistency
- * 
- * @param {Object} event - Raw event data from database
- * @returns {Object} - Formatted event data
  */
 function formatEventData(event) {
   if (!event) return null;
@@ -320,7 +334,33 @@ function formatEventData(event) {
     }
   }
 
+  // Parse place data if it exists
+  if (event.place && typeof event.place === 'string') {
+    try {
+      const place = JSON.parse(event.place);
+      
+      // Parse nested JSON strings in place object
+      if (typeof place.location === 'string') {
+        place.location = JSON.parse(place.location);
+      }
+      if (typeof place.images === 'string') {
+        place.images = JSON.parse(place.images);
+      }
+      if (typeof place.openingHours === 'string') {
+        place.openingHours = JSON.parse(place.openingHours);
+      }
+      if (typeof place.entranceFee === 'string') {
+        place.entranceFee = JSON.parse(place.entranceFee);
+      }
+      
+      event.place = place;
+    } catch (e) {
+      event.place = null;
+    }
+  }
+
   return event;
 }
 
 module.exports = Event;
+
