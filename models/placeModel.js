@@ -1,10 +1,22 @@
-
 const db = require("../config/db");
 
 class Place {
-  // Obtenir tous les lieux actifs
+  // Obtenir tous les lieux actifs avec les informations du prestataire
   static async getAll() {
-    const [rows] = await db.query("SELECT * FROM places WHERE isActive = 1 ORDER BY createdAt DESC");
+    const [rows] = await db.query(`
+      SELECT p.*, 
+        JSON_OBJECT(
+          'id', u.id,
+          'firstName', u.firstName,
+          'lastName', u.lastName,
+          'email', u.email,
+          'phone', u.phone
+        ) as provider
+      FROM places p
+      LEFT JOIN users u ON p.provider_id = u.id
+      WHERE p.isActive = 1 
+      ORDER BY p.createdAt DESC
+    `);
     return rows;
   }
 
@@ -30,9 +42,21 @@ class Place {
     return result.affectedRows > 0;
   }
 
-  // Obtenir un lieu par son ID
+  // Obtenir un lieu par son ID avec les informations du prestataire
   static async getById(id) {
-    const [rows] = await db.query("SELECT * FROM places WHERE id = ?", [id]);
+    const [rows] = await db.query(`
+      SELECT p.*, 
+        JSON_OBJECT(
+          'id', u.id,
+          'firstName', u.firstName,
+          'lastName', u.lastName,
+          'email', u.email,
+          'phone', u.phone
+        ) as provider
+      FROM places p
+      LEFT JOIN users u ON p.provider_id = u.id
+      WHERE p.id = ?
+    `, [id]);
     return rows[0];
   }
 

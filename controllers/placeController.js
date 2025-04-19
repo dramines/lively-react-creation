@@ -14,7 +14,7 @@ exports.getAllPlaces = async (req, res) => {
       images: typeof place.images === 'string' ? JSON.parse(place.images || '[]') : place.images,
       openingHours: typeof place.openingHours === 'string' ? JSON.parse(place.openingHours || '{}') : place.openingHours,
       entranceFee: typeof place.entranceFee === 'string' ? JSON.parse(place.entranceFee || '{}') : place.entranceFee,
-      provider_id: place.provider_id,
+      provider: typeof place.provider === 'string' ? JSON.parse(place.provider || '{}') : place.provider,
       average_rating: place.average_rating,
       createdAt: place.createdAt,
       updatedAt: place.updatedAt
@@ -57,7 +57,8 @@ exports.getPlaceById = async (req, res) => {
       location: typeof place.location === 'string' ? JSON.parse(place.location || '{}') : place.location,
       images: typeof place.images === 'string' ? JSON.parse(place.images || '[]') : place.images,
       openingHours: typeof place.openingHours === 'string' ? JSON.parse(place.openingHours || '{}') : place.openingHours,
-      entranceFee: typeof place.entranceFee === 'string' ? JSON.parse(place.entranceFee || '{}') : place.entranceFee
+      entranceFee: typeof place.entranceFee === 'string' ? JSON.parse(place.entranceFee || '{}') : place.entranceFee,
+      provider: typeof place.provider === 'string' ? JSON.parse(place.provider || '{}') : place.provider
     };
     
     res.status(200).json({
