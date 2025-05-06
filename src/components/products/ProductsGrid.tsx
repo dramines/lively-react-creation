@@ -16,8 +16,10 @@ const ProductsGrid: React.FC<ProductsGridProps> = ({ products, onSelectProduct, 
   const { t } = useTranslation();
   const isMobile = useIsMobile();
   
-  // Ensure we're showing all products even on mobile
+  // This should display the products that were already filtered in Products.tsx
   const filteredProducts = products;
+  
+  console.log(`ProductsGrid rendering ${filteredProducts.length} products with subcategory: ${subcategory || 'none'}`);
   
   return (
     <div className="py-8">

@@ -46,14 +46,18 @@ const Products = ({ selectedCategory, selectedSubcategory, selectedProductId }: 
   }
   // Otherwise, filter by category/subcategory
   else if (selectedCategory && selectedCategory !== 'tous') {
+    console.log('Filtering by category:', selectedCategory, 'subcategory:', selectedSubcategory);
+    
     // Handle comma-separated categories
     if (selectedCategory.includes(',')) {
       const categoryArray = selectedCategory.split(',');
+      
       // If subcategory is specified, filter products within the categories that also match the subcategory
       if (selectedSubcategory) {
         filteredProducts = products.filter(product => 
           categoryArray.includes(product.category) && product.subcategory === selectedSubcategory
         );
+        console.log('Filtered products by subcategory:', filteredProducts.length);
       } else {
         // Use the order of categories in the array to sort the products
         const orderedProducts: Product[] = [];
@@ -72,9 +76,11 @@ const Products = ({ selectedCategory, selectedSubcategory, selectedProductId }: 
 
       // Further filter by subcategory if provided
       if (selectedSubcategory) {
+        const beforeFilter = filteredProducts.length;
         filteredProducts = filteredProducts.filter(product => 
           product.subcategory === selectedSubcategory
         );
+        console.log(`Filtered from ${beforeFilter} to ${filteredProducts.length} products by subcategory: ${selectedSubcategory}`);
       }
     }
   }
@@ -86,7 +92,12 @@ const Products = ({ selectedCategory, selectedSubcategory, selectedProductId }: 
     selectedProductId,
     filteredCount: filteredProducts.length,
     isMobile,
-    allProducts: products.length
+    allProducts: products.length,
+    firstProduct: filteredProducts.length > 0 ? {
+      id: filteredProducts[0].id,
+      category: filteredProducts[0].category,
+      subcategory: filteredProducts[0].subcategory
+    } : 'none'
   });
 
   // Handle navigation to the Revendeurs page
