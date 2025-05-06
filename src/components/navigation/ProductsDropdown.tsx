@@ -1,3 +1,4 @@
+
 import { useState, useRef, useEffect } from "react";
 import { ChevronDown, ChevronRight } from "lucide-react";
 import { useTranslation } from "react-i18next";
@@ -108,7 +109,7 @@ const ProductsDropdown = ({ onPageChange }: ProductsDropdownProps) => {
 
   const handleClick = (href: string, category: string, subcategory?: string, productId?: string, e?: React.MouseEvent) => {
     if (e) e.preventDefault();
-    console.log(`Navigating to: ${href}, category: ${category}`);
+    console.log(`Navigating to: ${href}, category: ${category}, subcategory: ${subcategory || 'none'}, productId: ${productId || 'none'}`);
     // Always pass the productId parameter to ensure proper filtering
     onPageChange(href, category, subcategory, productId);
     setIsOpen(false);

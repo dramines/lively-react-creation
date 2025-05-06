@@ -21,6 +21,18 @@ const ProductsGrid: React.FC<ProductsGridProps> = ({ products, onSelectProduct, 
   
   console.log(`ProductsGrid rendering ${filteredProducts.length} products with subcategory: ${subcategory || 'none'}`);
   
+  // Print out details of the first few products to help debug
+  if (filteredProducts.length > 0) {
+    filteredProducts.slice(0, 3).forEach((product, i) => {
+      console.log(`Product ${i+1}:`, { 
+        id: product.id, 
+        title: product.title,
+        category: product.category, 
+        subcategory: product.subcategory 
+      });
+    });
+  }
+  
   return (
     <div className="py-8">
       {filteredProducts.length === 0 ? (
