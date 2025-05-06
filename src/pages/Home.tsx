@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useRef } from 'react';
 import { Clock, Users, ChefHat, Award, Globe, Factory } from 'lucide-react';
 import { STATISTICS, FEATURED_RECIPES } from '../config/data';
@@ -210,7 +211,7 @@ const Home = ({ clientType }: HomeProps) => {
               <img
                 src={isMobile ? item.mobile : item.desktop}
                 alt={`Slider image ${index + 1}`}
-                className={`w-full h-full ${isMobile ? 'object-cover' : 'object-contain mt-[5%]'}`}
+                className="w-full h-full object-cover"
                 loading={index === 0 ? 'eager' : 'lazy'}
               />
               <div className="absolute inset-0 " />
