@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import ProductDetail from './ProductDetail';
 import {
@@ -48,25 +49,33 @@ const Products = ({ selectedCategory, selectedSubcategory, selectedProductId }: 
     // Handle comma-separated categories
     if (selectedCategory.includes(',')) {
       const categoryArray = selectedCategory.split(',');
-      // Use the order of categories in the array to sort the products
-      const orderedProducts: Product[] = [];
-      
-      categoryArray.forEach(category => {
-        const productsInCategory = products.filter(product => product.category === category);
-        orderedProducts.push(...productsInCategory);
-      });
-      
-      // Set the filtered products to our ordered list
-      filteredProducts = orderedProducts;
+      // If subcategory is specified, filter products within the categories that also match the subcategory
+      if (selectedSubcategory) {
+        filteredProducts = products.filter(product => 
+          categoryArray.includes(product.category) && product.subcategory === selectedSubcategory
+        );
+      } else {
+        // Use the order of categories in the array to sort the products
+        const orderedProducts: Product[] = [];
+        
+        categoryArray.forEach(category => {
+          const productsInCategory = products.filter(product => product.category === category);
+          orderedProducts.push(...productsInCategory);
+        });
+        
+        // Set the filtered products to our ordered list
+        filteredProducts = orderedProducts;
+      }
     } else {
+      // Single category
       filteredProducts = products.filter(product => product.category === selectedCategory);
-    }
 
-    // Further filter by subcategory if provided
-    if (selectedSubcategory) {
-      filteredProducts = filteredProducts.filter(product => 
-        product.subcategory === selectedSubcategory
-      );
+      // Further filter by subcategory if provided
+      if (selectedSubcategory) {
+        filteredProducts = filteredProducts.filter(product => 
+          product.subcategory === selectedSubcategory
+        );
+      }
     }
   }
 

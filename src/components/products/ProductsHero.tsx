@@ -17,7 +17,7 @@ const ProductsHero = () => {
           <OptimizedImage
             src="/AboutImage.png"
             alt={t('products.hero_alt', 'Premium products')}
-            className={`w-full h-full ${isMobile ? 'object-cover object-center' : 'object-cover'}`}
+            className="w-full h-full object-cover object-center"
             priority={true}
             loading="eager"
           />
