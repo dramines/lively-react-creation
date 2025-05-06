@@ -210,7 +210,7 @@ const Home = ({ clientType }: HomeProps) => {
               <img
                 src={isMobile ? item.mobile : item.desktop}
                 alt={`Slider image ${index + 1}`}
-                className={`w-full h-full ${isMobile ? 'object-cover' : 'object-contain mt-[5%]'}`}
+                className={`w-full h-full ${isMobile ? 'object-cover object-center' : 'object-contain mt-[5%]'}`}
                 loading={index === 0 ? 'eager' : 'lazy'}
               />
               <div className="absolute inset-0 " />

@@ -2,10 +2,12 @@
 import { motion } from 'framer-motion';
 import OptimizedImage from '../ui/OptimizedImage';
 import { useTranslation } from 'react-i18next';
+import { useIsMobile } from '../../hooks/use-mobile';
 
 const ProductsHero = () => {
   const { t, i18n } = useTranslation();
   const isEnglish = i18n.language === 'en';
+  const isMobile = useIsMobile();
   
   return (
     <>
@@ -15,7 +17,7 @@ const ProductsHero = () => {
           <OptimizedImage
             src="/AboutImage.png"
             alt={t('products.hero_alt', 'Premium products')}
-            className="w-full h-full object-cover"
+            className={`w-full h-full ${isMobile ? 'object-cover object-center' : 'object-cover'}`}
             priority={true}
             loading="eager"
           />
