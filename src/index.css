@@ -101,6 +101,32 @@
   body {
     @apply bg-background text-foreground;
     font-family: 'Baloo 2', cursive !important;
+    /* Custom scrollbar for body */
+    scrollbar-width: thin;
+    scrollbar-color: rgb(203 213 225) transparent;
+  }
+
+  /* Webkit scrollbar styles for better browser support */
+  body::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  body::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  body::-webkit-scrollbar-thumb {
+    background: rgb(203 213 225);
+    border-radius: 4px;
+    transition: background 0.2s ease;
+  }
+
+  body::-webkit-scrollbar-thumb:hover {
+    background: rgb(148 163 184);
+  }
+
+  body::-webkit-scrollbar-corner {
+    background: transparent;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -109,5 +135,28 @@
 
   p, span, div, button, input, textarea {
     font-family: 'Baloo 2', cursive !important;
+  }
+}
+
+/* Custom scrollbar utilities */
+@layer utilities {
+  .scrollbar-thin {
+    scrollbar-width: thin;
+  }
+  
+  .scrollbar-track-transparent {
+    scrollbar-color: rgb(203 213 225) transparent;
+  }
+  
+  .scrollbar-thumb-slate-300 {
+    scrollbar-color: rgb(203 213 225) transparent;
+  }
+  
+  .hover\:scrollbar-thumb-slate-400:hover {
+    scrollbar-color: rgb(148 163 184) transparent;
+  }
+  
+  .scrollbar-corner-transparent {
+    scrollbar-color: rgb(203 213 225) transparent;
   }
 }
