@@ -21,26 +21,28 @@ const CustomScrollbar = React.forwardRef<HTMLDivElement, CustomScrollbarProps>(
         }}
         {...props}
       >
-        <style jsx>{`
-          div::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-          }
-          div::-webkit-scrollbar-track {
-            background: transparent;
-          }
-          div::-webkit-scrollbar-thumb {
-            background: rgb(203 213 225);
-            border-radius: 4px;
-            transition: background 0.2s ease;
-          }
-          div::-webkit-scrollbar-thumb:hover {
-            background: rgb(148 163 184);
-          }
-          div::-webkit-scrollbar-corner {
-            background: transparent;
-          }
-        `}</style>
+        <style dangerouslySetInnerHTML={{
+          __html: `
+            div::-webkit-scrollbar {
+              width: 8px;
+              height: 8px;
+            }
+            div::-webkit-scrollbar-track {
+              background: transparent;
+            }
+            div::-webkit-scrollbar-thumb {
+              background: rgb(203 213 225);
+              border-radius: 4px;
+              transition: background 0.2s ease;
+            }
+            div::-webkit-scrollbar-thumb:hover {
+              background: rgb(148 163 184);
+            }
+            div::-webkit-scrollbar-corner {
+              background: transparent;
+            }
+          `
+        }} />
         {children}
       </div>
     )

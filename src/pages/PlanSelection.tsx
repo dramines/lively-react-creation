@@ -136,7 +136,7 @@ const PlanSelection = () => {
                       w-full max-w-xs px-6 py-3 rounded-xl font-semibold transition-all duration-300
                       ${selectedPlan === 'subscription' 
                         ? 'bg-gradient-to-r from-orange-500 to-pink-500 text-white shadow-lg' 
-                        : 'border-2 border-orange-300 text-orange-600 hover:bg-orange-50'
+                        : 'bg-white border-2 border-orange-300 text-orange-600 hover:bg-orange-50'
                       }
                     `}
                   >
@@ -184,7 +184,7 @@ const PlanSelection = () => {
                       w-full max-w-xs px-6 py-3 rounded-xl font-semibold transition-all duration-300
                       ${selectedPlan === 'onetime' 
                         ? 'bg-gradient-to-r from-orange-500 to-pink-500 text-white shadow-lg' 
-                        : 'border-2 border-orange-300 text-orange-600 hover:bg-orange-50'
+                        : 'bg-white border-2 border-orange-300 text-orange-600 hover:bg-orange-50'
                       }
                     `}
                   >
