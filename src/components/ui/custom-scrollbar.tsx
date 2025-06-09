@@ -6,18 +6,19 @@ interface CustomScrollbarProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode
 }
 
-const CustomScrollbar = React.forwardRef<HTMLDivElement, CustomScrollbarProps>(
+const CustomScrollbar = React.memo(React.forwardRef<HTMLDivElement, CustomScrollbarProps>(
   ({ className, children, ...props }, ref) => {
     return (
       <div
         ref={ref}
         className={cn(
-          "overflow-auto scrollbar-thin scrollbar-track-transparent scrollbar-thumb-slate-300 hover:scrollbar-thumb-slate-400 scrollbar-corner-transparent",
+          "overflow-auto scrollbar-thin scrollbar-track-transparent scrollbar-thumb-slate-300 hover:scrollbar-thumb-slate-400 scrollbar-corner-transparent will-change-scroll",
           className
         )}
         style={{
           scrollbarWidth: 'thin',
-          scrollbarColor: 'rgb(203 213 225) transparent'
+          scrollbarColor: 'rgb(203 213 225) transparent',
+          WebkitOverflowScrolling: 'touch' // Better mobile scrolling
         }}
         {...props}
       >
@@ -47,7 +48,8 @@ const CustomScrollbar = React.forwardRef<HTMLDivElement, CustomScrollbarProps>(
       </div>
     )
   }
-)
+));
+
 CustomScrollbar.displayName = "CustomScrollbar"
 
 export { CustomScrollbar }

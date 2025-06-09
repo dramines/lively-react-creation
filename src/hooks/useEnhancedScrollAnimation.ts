@@ -1,5 +1,5 @@
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 
 interface UseEnhancedScrollAnimationOptions {
   threshold?: number;
@@ -13,41 +13,46 @@ export const useEnhancedScrollAnimation = (options: UseEnhancedScrollAnimationOp
   const [isVisible, setIsVisible] = useState(false);
   const [hasTriggered, setHasTriggered] = useState(false);
   const ref = useRef<HTMLElement>(null);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const handleIntersection = useCallback(([entry]: IntersectionObserverEntry[]) => {
+    if (entry.isIntersecting && !hasTriggered) {
+      // Clear any existing timeout
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+      
+      timeoutRef.current = setTimeout(() => {
+        setIsVisible(true);
+        if (triggerOnce) {
+          setHasTriggered(true);
+        }
+      }, delay + staggerDelay);
+    } else if (!triggerOnce && !entry.isIntersecting) {
+      setIsVisible(false);
+    }
+  }, [hasTriggered, triggerOnce, delay, staggerDelay]);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !hasTriggered) {
-          setTimeout(() => {
-            setIsVisible(true);
-            if (triggerOnce) {
-              setHasTriggered(true);
-            }
-          }, delay + staggerDelay);
-          
-          if (triggerOnce && ref.current) {
-            observer.unobserve(ref.current);
-          }
-        } else if (!triggerOnce && !entry.isIntersecting) {
-          setIsVisible(false);
-        }
-      },
-      { 
-        threshold,
-        rootMargin: '50px 0px -50px 0px'
-      }
-    );
+    const observer = new IntersectionObserver(handleIntersection, { 
+      threshold,
+      rootMargin: '50px 0px -50px 0px'
+    });
 
-    if (ref.current) {
-      observer.observe(ref.current);
+    const currentRef = ref.current;
+    if (currentRef) {
+      observer.observe(currentRef);
     }
 
     return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current);
+      if (currentRef) {
+        observer.unobserve(currentRef);
+      }
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
       }
     };
-  }, [threshold, triggerOnce, delay, staggerDelay, hasTriggered]);
+  }, [threshold, handleIntersection]);
 
   return { ref, isVisible };
 };
