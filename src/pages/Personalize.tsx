@@ -13,6 +13,7 @@ const Personalize = () => {
   const location = useLocation();
   const childCount = location.state?.childCount || 1;
   
+  const [currentStep, setCurrentStep] = useState(0);
   const [children, setChildren] = useState(
     Array.from({ length: childCount }, () => ({
       name: '',
@@ -42,17 +43,72 @@ const Personalize = () => {
     }
   };
 
-  const isFormValid = children.every(child => 
-    child.name.trim() !== '' && 
-    child.age.trim() !== '' &&
-    child.message.trim() !== '' &&
-    child.objective &&
-    child.photo
-  );
+  const isCurrentChildValid = () => {
+    const child = children[currentStep];
+    return child.name.trim() !== '' && 
+           child.age.trim() !== '' &&
+           child.message.trim() !== '' &&
+           child.objective &&
+           child.photo;
+  };
 
-  const handleContinue = () => {
-    // Navigate to plan selection instead of checkout
-    navigate('/plan-selection', { state: { children } });
+  const handleNext = () => {
+    if (currentStep < childCount - 1) {
+      setCurrentStep(currentStep + 1);
+    } else {
+      // All children completed, navigate to plan selection
+      navigate('/plan-selection', { state: { children } });
+    }
+  };
+
+  const handleBack = () => {
+    if (currentStep > 0) {
+      setCurrentStep(currentStep - 1);
+    } else {
+      navigate('/children');
+    }
+  };
+
+  const renderChildrenProgress = () => {
+    return (
+      <div className="flex justify-center mb-6 md:mb-8">
+        <div className="flex items-center space-x-2 md:space-x-3">
+          {children.map((_, index) => {
+            const isCompleted = children[index].name && children[index].age && 
+                               children[index].message && children[index].objective && 
+                               children[index].photo;
+            const isCurrent = index === currentStep;
+            
+            return (
+              <div key={index} className="flex items-center">
+                <div 
+                  className={`
+                    w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center shadow-md transition-all duration-300
+                    ${isCompleted 
+                      ? 'bg-sweet-mint' 
+                      : isCurrent 
+                        ? 'bg-light-coral' 
+                        : 'bg-gray-300'
+                    }
+                  `}
+                >
+                  {isCompleted ? (
+                    <Check className="w-3 h-3 md:w-4 md:h-4 text-slate-700" />
+                  ) : (
+                    <span className={`text-xs md:text-sm font-bold ${isCurrent ? 'text-slate-700' : 'text-gray-600'}`}>
+                      {index + 1}
+                    </span>
+                  )}
+                </div>
+                {index < children.length - 1 && (
+                  <div className={`w-4 md:w-6 h-1 mx-1 md:mx-2 ${isCompleted ? 'bg-sweet-mint' : 'bg-gray-300'}`}></div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    );
   };
 
   return (
@@ -68,83 +124,87 @@ const Personalize = () => {
       <div className="container mx-auto px-3 md:px-4 py-4 md:py-8 relative z-10 pt-20 md:pt-24">
         {/* Header */}
         <div className="text-center mb-6 md:mb-8">
-         <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold mb-6 leading-tight">
-              <span className="text-slate-800">
-            Personnalisez votre histoire✨</span>
-              <br />
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6 leading-tight">
+            <span className="text-slate-800">
+              Personnalisez votre histoire✨
+            </span>
           </h1>
           <p className="text-sm md:text-lg text-slate-600">
-            Chaque détail compte pour créer l'aventure parfaite
+            {childCount > 1 
+              ? `Enfant ${currentStep + 1} sur ${childCount} - Chaque détail compte`
+              : 'Chaque détail compte pour créer l\'aventure parfaite'
+            }
           </p>
         </div>
 
-        {/* Progress steps */}
-        <div className="flex justify-center mb-8 md:mb-12">
+        {/* Progress steps for the main flow */}
+        <div className="flex justify-center mb-6 md:mb-8">
           <div className="flex items-center space-x-2 md:space-x-4">
-            <div className="w-8 h-8 bg-sweet-mint rounded-full flex items-center justify-center shadow-md">
-              <Check className="w-4 h-4 text-slate-700" />
+            <div className="w-6 h-6 md:w-8 md:h-8 bg-sweet-mint rounded-full flex items-center justify-center shadow-md">
+              <Check className="w-3 h-3 md:w-4 md:h-4 text-slate-700" />
             </div>
-            <div className="w-6 md:w-8 h-1 bg-sweet-mint"></div>
-            <div className="w-8 h-8 bg-light-coral rounded-full flex items-center justify-center shadow-md">
-              <span className="text-slate-700 text-sm font-bold">2</span>
+            <div className="w-4 md:w-8 h-1 bg-sweet-mint"></div>
+            <div className="w-6 h-6 md:w-8 md:h-8 bg-light-coral rounded-full flex items-center justify-center shadow-md">
+              <span className="text-slate-700 text-xs md:text-sm font-bold">2</span>
             </div>
-            <div className="w-6 md:w-8 h-1 bg-gray-300"></div>
-            <div className="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">
-              <span className="text-gray-600 text-sm font-bold">3</span>
+            <div className="w-4 md:w-8 h-1 bg-gray-300"></div>
+            <div className="w-6 h-6 md:w-8 md:h-8 bg-gray-300 rounded-full flex items-center justify-center">
+              <span className="text-gray-600 text-xs md:text-sm font-bold">3</span>
             </div>
-            <div className="w-6 md:w-8 h-1 bg-gray-300"></div>
-            <div className="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">
-              <span className="text-gray-600 text-sm font-bold">4</span>
+            <div className="w-4 md:w-8 h-1 bg-gray-300"></div>
+            <div className="w-6 h-6 md:w-8 md:h-8 bg-gray-300 rounded-full flex items-center justify-center">
+              <span className="text-gray-600 text-xs md:text-sm font-bold">4</span>
             </div>
           </div>
         </div>
 
-        <div className="max-w-4xl mx-auto">
-          {children.map((child, index) => (
-            <div key={index} className="mb-6 md:mb-8">
-              <h2 className="text-xl md:text-2xl font-bold text-slate-700 mb-4 md:mb-6">
-                {childCount > 1 ? `Enfant ${index + 1}` : 'Votre enfant'}
-              </h2>
-              <ChildForm
-                child={child}
-                childNumber={index + 1}
-                totalChildren={childCount}
-                onUpdate={(field, value) => updateChild(index, field, value)}
-                onPhotoUpload={(file) => handlePhotoUpload(index, file)}
-              />
-            </div>
-          ))}
+        {/* Children progress indicator for multiple children */}
+        {childCount > 1 && renderChildrenProgress()}
+
+        <div className="max-w-3xl mx-auto">
+          <div className="mb-6 md:mb-8">
+            <h2 className="text-xl md:text-2xl font-bold text-slate-700 mb-4 md:mb-6 text-center">
+              {childCount > 1 ? `Enfant ${currentStep + 1}` : 'Votre enfant'}
+            </h2>
+            <ChildForm
+              child={children[currentStep]}
+              childNumber={currentStep + 1}
+              totalChildren={childCount}
+              onUpdate={(field, value) => updateChild(currentStep, field, value)}
+              onPhotoUpload={(file) => handlePhotoUpload(currentStep, file)}
+            />
+          </div>
         </div>
 
         {/* Navigation */}
-        <div className="flex flex-col md:flex-row justify-between items-center max-w-4xl mx-auto gap-4">
+        <div className="flex flex-col md:flex-row justify-between items-center max-w-3xl mx-auto gap-4">
           <Button
-            onClick={() => navigate('/children')}
+            onClick={handleBack}
             variant="outline"
-            className="w-full md:w-auto flex items-center gap-2 px-4 md:px-6 py-3 md:py-3 rounded-full border-2 border-slate-300 hover:border-orange-300 transition-colors text-sm md:text-base"
+            className="w-full md:w-auto flex items-center gap-2 px-4 md:px-6 py-3 rounded-full border-2 border-slate-300 hover:border-orange-300 transition-colors text-sm md:text-base"
           >
             <ArrowLeft className="w-4 h-4" />
-            Retour
+            {currentStep > 0 ? 'Enfant précédent' : 'Retour'}
           </Button>
           
           <Button
-            onClick={handleContinue}
-            disabled={!isFormValid}
+            onClick={handleNext}
+            disabled={!isCurrentChildValid()}
             className={`
-              w-full md:w-auto flex items-center gap-2 px-6 md:px-8 py-3 md:py-3 rounded-full font-semibold transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 text-sm md:text-base
-              ${isFormValid 
+              w-full md:w-auto flex items-center gap-2 px-6 md:px-8 py-3 rounded-full font-semibold transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 text-sm md:text-base
+              ${isCurrentChildValid() 
                 ? 'bg-gradient-to-r from-orange-500 to-pink-500 hover:from-orange-600 hover:to-pink-600 text-white' 
                 : 'bg-gray-300 text-gray-500 cursor-not-allowed'
               }
             `}
           >
-            Continuer vers la sélection
+            {currentStep < childCount - 1 ? 'Enfant suivant' : 'Continuer vers la sélection'}
             <ArrowRight className="w-4 h-4" />
           </Button>
         </div>
       </div>
-      <TestimonialsCarousel />
 
+      <TestimonialsCarousel />
     </div>
   );
 };
