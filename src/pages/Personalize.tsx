@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -68,48 +69,6 @@ const Personalize = () => {
     }
   };
 
-  const renderChildrenProgress = () => {
-    return (
-      <div className="flex justify-center mb-6 md:mb-8">
-        <div className="flex items-center space-x-2 md:space-x-3">
-          {children.map((_, index) => {
-            const isCompleted = children[index].name && children[index].age && 
-                               children[index].message && children[index].objective && 
-                               children[index].photo;
-            const isCurrent = index === currentStep;
-            
-            return (
-              <div key={index} className="flex items-center">
-                <div 
-                  className={`
-                    w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center shadow-md transition-all duration-300
-                    ${isCompleted 
-                      ? 'bg-sweet-mint' 
-                      : isCurrent 
-                        ? 'bg-light-coral' 
-                        : 'bg-gray-300'
-                    }
-                  `}
-                >
-                  {isCompleted ? (
-                    <Check className="w-3 h-3 md:w-4 md:h-4 text-slate-700" />
-                  ) : (
-                    <span className={`text-xs md:text-sm font-bold ${isCurrent ? 'text-slate-700' : 'text-gray-600'}`}>
-                      {index + 1}
-                    </span>
-                  )}
-                </div>
-                {index < children.length - 1 && (
-                  <div className={`w-4 md:w-6 h-1 mx-1 md:mx-2 ${isCompleted ? 'bg-sweet-mint' : 'bg-gray-300'}`}></div>
-                )}
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    );
-  };
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-pink-50 relative overflow-hidden font-baloo">
       <Header />
@@ -128,16 +87,10 @@ const Personalize = () => {
               Personnalisez votre histoire✨
             </span>
           </h1>
-          <p className="text-sm md:text-lg text-slate-600">
-            {childCount > 1 
-              ? `Enfant ${currentStep + 1} sur ${childCount} - Chaque détail compte`
-              : 'Chaque détail compte pour créer l\'aventure parfaite'
-            }
-          </p>
         </div>
 
         {/* Progress steps for the main flow */}
-        <div className="flex justify-center mb-6 md:mb-8">
+        <div className="flex justify-center mb-4 md:mb-6">
           <div className="flex items-center space-x-2 md:space-x-4">
             <div className="w-6 h-6 md:w-8 md:h-8 bg-sweet-mint rounded-full flex items-center justify-center shadow-md">
               <Check className="w-3 h-3 md:w-4 md:h-4 text-slate-700" />
@@ -157,8 +110,15 @@ const Personalize = () => {
           </div>
         </div>
 
-        {/* Children progress indicator for multiple children */}
-        {childCount > 1 && renderChildrenProgress()}
+        {/* Child count text moved here */}
+        <div className="text-center mb-6 md:mb-8">
+          <p className="text-sm md:text-lg text-slate-600">
+            {childCount > 1 
+              ? `Enfant ${currentStep + 1} sur ${childCount} - Chaque détail compte`
+              : 'Chaque détail compte pour créer l\'aventure parfaite'
+            }
+          </p>
+        </div>
 
         <div className="max-w-3xl mx-auto">
           <div className="mb-6 md:mb-8">
