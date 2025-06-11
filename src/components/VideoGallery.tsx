@@ -38,7 +38,7 @@ const VideoGallery = () => {
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
-        {/* Enhanced Title with decorative line */}
+        {/* Title with decorative line */}
         <div className="text-center mb-12 md:mb-16">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-700 mb-4 font-baloo">
             Faites vivre l'aventure à votre Héros
