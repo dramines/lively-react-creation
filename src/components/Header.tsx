@@ -1,4 +1,6 @@
+
 import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import Logo from '@/components/ui/Logo';
 import AccountMenu from './Header/AccountMenu';
 import LoginModal from './auth/LoginModal';
@@ -6,11 +8,16 @@ import SignupModal from './auth/SignupModal';
 import AccountModal from './auth/AccountModal';
 
 const Header = () => {
+  const location = useLocation();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userEmail, setUserEmail] = useState('');
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showSignupModal, setShowSignupModal] = useState(false);
   const [showAccountModal, setShowAccountModal] = useState(false);
+
+  // Hide header on specific pages
+  const hiddenRoutes = ['/checkout', '/children', '/personalize'];
+  const shouldHideHeader = hiddenRoutes.includes(location.pathname);
 
   const handleLogin = async (email: string, password: string) => {
     console.log('Login attempt:', { email, password });
@@ -28,6 +35,38 @@ const Header = () => {
     setIsLoggedIn(false);
     setUserEmail('');
   };
+
+  if (shouldHideHeader) {
+    return (
+      <>
+        <LoginModal
+          isOpen={showLoginModal}
+          onClose={() => setShowLoginModal(false)}
+          onLogin={handleLogin}
+          onSwitchToSignup={() => {
+            setShowLoginModal(false);
+            setShowSignupModal(true);
+          }}
+        />
+
+        <SignupModal
+          isOpen={showSignupModal}
+          onClose={() => setShowSignupModal(false)}
+          onSignup={handleSignup}
+          onSwitchToLogin={() => {
+            setShowSignupModal(false);
+            setShowLoginModal(true);
+          }}
+        />
+
+        <AccountModal
+          isOpen={showAccountModal}
+          onClose={() => setShowAccountModal(false)}
+          userEmail={userEmail}
+        />
+      </>
+    );
+  }
 
   return (
     <>

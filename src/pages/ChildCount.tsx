@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Check } from 'lucide-react';
@@ -28,7 +27,7 @@ const ChildCount = () => {
     <div className="min-h-screen flex flex-col">
       <Header />
       
-      <div className="bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 pt-20 md:pt-24 relative overflow-hidden">
+      <div className="bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 py-8 md:py-12 relative overflow-hidden">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute top-20 left-1/4 w-16 h-16 bg-yellow-200 rounded-full opacity-60 animate-float"></div>
           <div className="absolute top-32 right-1/4 w-12 h-12 bg-pink-200 rounded-full opacity-50 animate-float-delayed"></div>
@@ -72,6 +71,7 @@ const ChildCount = () => {
             </div>
           </div>
 
+          
           <div className="max-w-3xl mx-auto space-y-4 md:space-y-6 mb-8 md:mb-12 px-4">
             {childOptions.map((option) => (
               <div
