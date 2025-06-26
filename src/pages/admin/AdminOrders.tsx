@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -317,53 +318,53 @@ const AdminOrders = () => {
         <div className="p-6 space-y-8">
           {/* Stats Cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <Card className="border-0 shadow-lg bg-gradient-to-br from-blue-50 to-blue-100">
+            <Card className="border-0 shadow-lg" style={{ backgroundColor: '#212937' }}>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium text-blue-900">Total Commandes</CardTitle>
-                <Package className="h-5 w-5 text-blue-600" />
+                <CardTitle className="text-sm font-medium text-white">Total Commandes</CardTitle>
+                <Package className="h-5 w-5 text-white" />
               </CardHeader>
               <CardContent>
-                <div className="text-3xl font-bold text-blue-900">{totalOrders}</div>
-                <p className="text-xs text-blue-700 flex items-center mt-1">
+                <div className="text-3xl font-bold text-white">{totalOrders}</div>
+                <p className="text-xs text-gray-300 flex items-center mt-1">
                   <TrendingUp className="h-3 w-3 mr-1" />
                   Commandes filtrées
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="border-0 shadow-lg bg-gradient-to-br from-green-50 to-green-100">
+            <Card className="border-0 shadow-lg" style={{ backgroundColor: '#212937' }}>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium text-green-900">Chiffre d'Affaires</CardTitle>
-                <Euro className="h-5 w-5 text-green-600" />
+                <CardTitle className="text-sm font-medium text-white">Chiffre d'Affaires</CardTitle>
+                <Euro className="h-5 w-5 text-white" />
               </CardHeader>
               <CardContent>
-                <div className="text-3xl font-bold text-green-900">€{safeToFixed(totalRevenue)}</div>
-                <p className="text-xs text-green-700 flex items-center mt-1">
+                <div className="text-3xl font-bold text-white">€{safeToFixed(totalRevenue)}</div>
+                <p className="text-xs text-gray-300 flex items-center mt-1">
                   <TrendingUp className="h-3 w-3 mr-1" />
                   Revenus filtrés
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="border-0 shadow-lg bg-gradient-to-br from-yellow-50 to-yellow-100">
+            <Card className="border-0 shadow-lg" style={{ backgroundColor: '#212937' }}>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium text-yellow-900">En Attente</CardTitle>
-                <Calendar className="h-5 w-5 text-yellow-600" />
+                <CardTitle className="text-sm font-medium text-white">En Attente</CardTitle>
+                <Calendar className="h-5 w-5 text-white" />
               </CardHeader>
               <CardContent>
-                <div className="text-3xl font-bold text-yellow-900">{pendingOrders}</div>
-                <p className="text-xs text-yellow-700">Commandes à traiter</p>
+                <div className="text-3xl font-bold text-white">{pendingOrders}</div>
+                <p className="text-xs text-gray-300">Commandes à traiter</p>
               </CardContent>
             </Card>
 
-            <Card className="border-0 shadow-lg bg-gradient-to-br from-purple-50 to-purple-100">
+            <Card className="border-0 shadow-lg" style={{ backgroundColor: '#212937' }}>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium text-purple-900">Livrées</CardTitle>
-                <Package className="h-5 w-5 text-purple-600" />
+                <CardTitle className="text-sm font-medium text-white">Livrées</CardTitle>
+                <Package className="h-5 w-5 text-white" />
               </CardHeader>
               <CardContent>
-                <div className="text-3xl font-bold text-purple-900">{completedOrders}</div>
-                <p className="text-xs text-purple-700">Commandes terminées</p>
+                <div className="text-3xl font-bold text-white">{completedOrders}</div>
+                <p className="text-xs text-gray-300">Commandes terminées</p>
               </CardContent>
             </Card>
           </div>
@@ -497,22 +498,22 @@ const AdminOrders = () => {
           <Dialog open={isDetailsOpen} onOpenChange={setIsDetailsOpen}>
             <DialogContent className="max-w-6xl max-h-[90vh] overflow-y-auto bg-white">
               <DialogHeader>
-                <DialogTitle className="text-2xl font-bold flex items-center text-white">
+                <DialogTitle className="text-2xl font-bold flex items-center" style={{ color: '#212937' }}>
                   <Package className="mr-3 h-6 w-6" />
                   Commande {selectedOrder?.numero_commande}
                 </DialogTitle>
-                <DialogDescription className="text-gray-300">
+                <DialogDescription className="text-gray-600">
                   Informations détaillées et complètes de la commande
                 </DialogDescription>
               </DialogHeader>
               {selectedOrder && (
-                <div className="space-y-6" style={{ backgroundColor: '#212937' }}>
+                <div className="space-y-6 bg-white">
                   {/* Customer and Order Info Grid */}
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 p-6">
                     {/* Customer Info */}
-                    <Card className="border border-gray-600" style={{ backgroundColor: '#212937' }}>
+                    <Card className="border border-gray-200 bg-white">
                       <CardHeader className="pb-3">
-                        <CardTitle className="text-lg flex items-center text-white">
+                        <CardTitle className="text-lg flex items-center" style={{ color: '#212937' }}>
                           <User className="mr-2 h-5 w-5" />
                           Informations Client
                         </CardTitle>
@@ -520,34 +521,34 @@ const AdminOrders = () => {
                       <CardContent className="space-y-3">
                         <div className="grid grid-cols-2 gap-3">
                           <div>
-                            <p className="text-sm font-medium text-gray-300">Nom complet</p>
-                            <p className="font-semibold text-white">{selectedOrder.customer?.prenom || 'N/A'} {selectedOrder.customer?.nom || 'N/A'}</p>
+                            <p className="text-sm font-medium text-gray-600">Nom complet</p>
+                            <p className="font-semibold" style={{ color: '#212937' }}>{selectedOrder.customer?.prenom || 'N/A'} {selectedOrder.customer?.nom || 'N/A'}</p>
                           </div>
                           <div>
-                            <p className="text-sm font-medium text-gray-300">Email</p>
-                            <p className="font-semibold text-blue-400">{selectedOrder.customer?.email || 'N/A'}</p>
+                            <p className="text-sm font-medium text-gray-600">Email</p>
+                            <p className="font-semibold text-blue-600">{selectedOrder.customer?.email || 'N/A'}</p>
                           </div>
                           <div>
-                            <p className="text-sm font-medium text-gray-300">Téléphone</p>
-                            <p className="font-semibold text-white">{selectedOrder.customer?.telephone || 'N/A'}</p>
+                            <p className="text-sm font-medium text-gray-600">Téléphone</p>
+                            <p className="font-semibold" style={{ color: '#212937' }}>{selectedOrder.customer?.telephone || 'N/A'}</p>
                           </div>
                           <div>
-                            <p className="text-sm font-medium text-gray-300">Pays</p>
-                            <p className="font-semibold text-white">{selectedOrder.customer?.pays || 'N/A'}</p>
+                            <p className="text-sm font-medium text-gray-600">Pays</p>
+                            <p className="font-semibold" style={{ color: '#212937' }}>{selectedOrder.customer?.pays || 'N/A'}</p>
                           </div>
                         </div>
                         <div>
-                          <p className="text-sm font-medium text-gray-300">Adresse complète</p>
-                          <p className="font-semibold text-white">{selectedOrder.customer?.adresse || 'N/A'}</p>
-                          <p className="text-sm text-gray-400">{selectedOrder.customer?.ville || ''} {selectedOrder.customer?.code_postal || ''}</p>
+                          <p className="text-sm font-medium text-gray-600">Adresse complète</p>
+                          <p className="font-semibold" style={{ color: '#212937' }}>{selectedOrder.customer?.adresse || 'N/A'}</p>
+                          <p className="text-sm text-gray-500">{selectedOrder.customer?.ville || ''} {selectedOrder.customer?.code_postal || ''}</p>
                         </div>
                       </CardContent>
                     </Card>
                     
                     {/* Order Details */}
-                    <Card className="border border-gray-600" style={{ backgroundColor: '#212937' }}>
+                    <Card className="border border-gray-200 bg-white">
                       <CardHeader className="pb-3">
-                        <CardTitle className="text-lg flex items-center text-white">
+                        <CardTitle className="text-lg flex items-center" style={{ color: '#212937' }}>
                           <ShoppingBag className="mr-2 h-5 w-5" />
                           Détails Commande
                         </CardTitle>
@@ -555,28 +556,28 @@ const AdminOrders = () => {
                       <CardContent className="space-y-3">
                         <div className="grid grid-cols-2 gap-3">
                           <div>
-                            <p className="text-sm font-medium text-gray-300">N° Commande</p>
-                            <p className="font-bold text-lg text-white">{selectedOrder.numero_commande || 'N/A'}</p>
+                            <p className="text-sm font-medium text-gray-600">N° Commande</p>
+                            <p className="font-bold text-lg" style={{ color: '#212937' }}>{selectedOrder.numero_commande || 'N/A'}</p>
                           </div>
                           <div>
-                            <p className="text-sm font-medium text-gray-300">Statut</p>
+                            <p className="text-sm font-medium text-gray-600">Statut</p>
                             <div className="mt-1">{getStatusBadge(selectedOrder.status_order || 'unknown')}</div>
                           </div>
                           <div>
-                            <p className="text-sm font-medium text-gray-300">Date de commande</p>
-                            <p className="font-semibold text-white">{selectedOrder.date_creation_order ? new Date(selectedOrder.date_creation_order).toLocaleString('fr-FR') : 'N/A'}</p>
+                            <p className="text-sm font-medium text-gray-600">Date de commande</p>
+                            <p className="font-semibold" style={{ color: '#212937' }}>{selectedOrder.date_creation_order ? new Date(selectedOrder.date_creation_order).toLocaleString('fr-FR') : 'N/A'}</p>
                           </div>
                           <div>
-                            <p className="text-sm font-medium text-gray-300">Mode de paiement</p>
-                            <p className="font-semibold flex items-center text-white">
+                            <p className="text-sm font-medium text-gray-600">Mode de paiement</p>
+                            <p className="font-semibold flex items-center" style={{ color: '#212937' }}>
                               <CreditCard className="mr-1 h-4 w-4" />
                               {selectedOrder.payment_method || 'N/A'}
                             </p>
                           </div>
                         </div>
                         <div>
-                          <p className="text-sm font-medium text-gray-300">Date de livraison souhaitée</p>
-                          <p className="font-semibold text-white">{
+                          <p className="text-sm font-medium text-gray-600">Date de livraison souhaitée</p>
+                          <p className="font-semibold" style={{ color: '#212937' }}>{
                             selectedOrder.date_livraison_souhaitee ? 
                             new Date(selectedOrder.date_livraison_souhaitee).toLocaleDateString('fr-FR') : 
                             'Non spécifiée'
@@ -584,8 +585,8 @@ const AdminOrders = () => {
                         </div>
                         {selectedOrder.notes_order && (
                           <div>
-                            <p className="text-sm font-medium text-gray-300">Notes</p>
-                            <p className="font-semibold bg-gray-700 text-white p-2 rounded">{selectedOrder.notes_order}</p>
+                            <p className="text-sm font-medium text-gray-600">Notes</p>
+                            <p className="font-semibold bg-gray-100 p-2 rounded" style={{ color: '#212937' }}>{selectedOrder.notes_order}</p>
                           </div>
                         )}
                       </CardContent>
@@ -595,9 +596,9 @@ const AdminOrders = () => {
                   {/* Delivery Address */}
                   {selectedOrder.delivery_address && (
                     <div className="px-6">
-                      <Card className="border border-gray-600" style={{ backgroundColor: '#212937' }}>
+                      <Card className="border border-gray-200 bg-white">
                         <CardHeader className="pb-3">
-                          <CardTitle className="text-lg flex items-center text-white">
+                          <CardTitle className="text-lg flex items-center" style={{ color: '#212937' }}>
                             <MapPin className="mr-2 h-5 w-5" />
                             Adresse de Livraison
                           </CardTitle>
@@ -605,22 +606,22 @@ const AdminOrders = () => {
                         <CardContent>
                           <div className="grid grid-cols-2 gap-4">
                             <div>
-                              <p className="text-sm font-medium text-gray-300">Destinataire</p>
-                              <p className="font-semibold text-white">{selectedOrder.delivery_address.prenom_destinataire} {selectedOrder.delivery_address.nom_destinataire}</p>
+                              <p className="text-sm font-medium text-gray-600">Destinataire</p>
+                              <p className="font-semibold" style={{ color: '#212937' }}>{selectedOrder.delivery_address.prenom_destinataire} {selectedOrder.delivery_address.nom_destinataire}</p>
                             </div>
                             <div>
-                              <p className="text-sm font-medium text-gray-300">Téléphone</p>
-                              <p className="font-semibold text-white">{selectedOrder.delivery_address.telephone_destinataire}</p>
+                              <p className="text-sm font-medium text-gray-600">Téléphone</p>
+                              <p className="font-semibold" style={{ color: '#212937' }}>{selectedOrder.delivery_address.telephone_destinataire}</p>
                             </div>
                             <div className="col-span-2">
-                              <p className="text-sm font-medium text-gray-300">Adresse complète</p>
-                              <p className="font-semibold text-white">{selectedOrder.delivery_address.adresse_livraison}</p>
-                              <p className="text-sm text-gray-400">{selectedOrder.delivery_address.ville_livraison} {selectedOrder.delivery_address.code_postal_livraison}, {selectedOrder.delivery_address.pays_livraison}</p>
+                              <p className="text-sm font-medium text-gray-600">Adresse complète</p>
+                              <p className="font-semibold" style={{ color: '#212937' }}>{selectedOrder.delivery_address.adresse_livraison}</p>
+                              <p className="text-sm text-gray-500">{selectedOrder.delivery_address.ville_livraison} {selectedOrder.delivery_address.code_postal_livraison}, {selectedOrder.delivery_address.pays_livraison}</p>
                             </div>
                             {selectedOrder.delivery_address.instructions_livraison && (
                               <div className="col-span-2">
-                                <p className="text-sm font-medium text-gray-300">Instructions de livraison</p>
-                                <p className="font-semibold bg-gray-700 text-white p-2 rounded">{selectedOrder.delivery_address.instructions_livraison}</p>
+                                <p className="text-sm font-medium text-gray-600">Instructions de livraison</p>
+                                <p className="font-semibold bg-gray-100 p-2 rounded" style={{ color: '#212937' }}>{selectedOrder.delivery_address.instructions_livraison}</p>
                               </div>
                             )}
                           </div>
@@ -631,9 +632,9 @@ const AdminOrders = () => {
 
                   {/* Order Items */}
                   <div className="px-6">
-                    <Card className="border border-gray-600" style={{ backgroundColor: '#212937' }}>
+                    <Card className="border border-gray-200 bg-white">
                       <CardHeader className="pb-3">
-                        <CardTitle className="text-lg flex items-center text-white">
+                        <CardTitle className="text-lg flex items-center" style={{ color: '#212937' }}>
                           <Package className="mr-2 h-5 w-5" />
                           Articles Commandés ({selectedOrder.items?.length || 0} articles)
                         </CardTitle>
@@ -641,41 +642,41 @@ const AdminOrders = () => {
                       <CardContent>
                         <div className="space-y-4">
                           {(selectedOrder.items || []).map((item, index) => (
-                            <div key={index} className="flex items-center space-x-4 p-4 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors">
+                            <div key={index} className="flex items-center space-x-4 p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
                               <div className="flex-shrink-0">
                                 <img
                                   src={getProductImage(item.img_product || '', item.reference_product_snapshot)}
                                   alt={item.nom_product_snapshot}
-                                  className="w-16 h-16 object-cover rounded-md border border-gray-500 shadow-sm"
+                                  className="w-16 h-16 object-cover rounded-md border border-gray-200 shadow-sm"
                                   onError={(e) => {
                                     e.currentTarget.src = '/lovable-uploads/1e127b10-9a18-47a3-b8df-ff0d939224ba.png';
                                   }}
                                 />
                               </div>
                               <div className="flex-grow">
-                                <h4 className="font-semibold text-lg text-white">{item.nom_product_snapshot || 'N/A'}</h4>
+                                <h4 className="font-semibold text-lg" style={{ color: '#212937' }}>{item.nom_product_snapshot || 'N/A'}</h4>
                                 <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mt-2 text-sm">
                                   <div>
-                                    <span className="text-gray-300">Ref:</span>
-                                    <span className="ml-1 font-medium text-white">{item.reference_product_snapshot || 'N/A'}</span>
+                                    <span className="text-gray-600">Ref:</span>
+                                    <span className="ml-1 font-medium" style={{ color: '#212937' }}>{item.reference_product_snapshot || 'N/A'}</span>
                                   </div>
                                   <div>
-                                    <span className="text-gray-300">Taille:</span>
-                                    <span className="ml-1 font-medium text-white">{item.size_selected || 'N/A'}</span>
+                                    <span className="text-gray-600">Taille:</span>
+                                    <span className="ml-1 font-medium" style={{ color: '#212937' }}>{item.size_selected || 'N/A'}</span>
                                   </div>
                                   <div>
-                                    <span className="text-gray-300">Couleur:</span>
-                                    <span className="ml-1 font-medium text-white">{item.color_selected || 'N/A'}</span>
+                                    <span className="text-gray-600">Couleur:</span>
+                                    <span className="ml-1 font-medium" style={{ color: '#212937' }}>{item.color_selected || 'N/A'}</span>
                                   </div>
                                   <div>
-                                    <span className="text-gray-300">Qté:</span>
-                                    <span className="ml-1 font-bold text-white">{safeNumber(item.quantity_ordered)}</span>
+                                    <span className="text-gray-600">Qté:</span>
+                                    <span className="ml-1 font-bold" style={{ color: '#212937' }}>{safeNumber(item.quantity_ordered)}</span>
                                   </div>
                                 </div>
                               </div>
                               <div className="text-right flex-shrink-0">
-                                <p className="font-bold text-lg text-green-400">€{safeToFixed(item.total_item)}</p>
-                                <p className="text-sm text-gray-300">€{safeToFixed(item.price_product_snapshot)} / unité</p>
+                                <p className="font-bold text-lg text-green-600">€{safeToFixed(item.total_item)}</p>
+                                <p className="text-sm text-gray-600">€{safeToFixed(item.price_product_snapshot)} / unité</p>
                               </div>
                             </div>
                           ))}
@@ -686,32 +687,32 @@ const AdminOrders = () => {
 
                   {/* Order Summary */}
                   <div className="px-6">
-                    <Card className="border border-gray-600" style={{ backgroundColor: '#212937' }}>
+                    <Card className="border border-gray-200 bg-white">
                       <CardHeader className="pb-3">
-                        <CardTitle className="text-lg flex items-center text-white">
+                        <CardTitle className="text-lg flex items-center" style={{ color: '#212937' }}>
                           <Euro className="mr-2 h-5 w-5" />
                           Récapitulatif Financier
                         </CardTitle>
                       </CardHeader>
                       <CardContent>
-                        <div className="bg-gray-700 p-6 rounded-lg">
+                        <div className="bg-gray-50 p-6 rounded-lg">
                           <div className="space-y-3">
                             <div className="flex justify-between items-center">
-                              <span className="text-gray-300">Sous-total:</span>
-                              <span className="font-semibold text-white">€{safeToFixed(selectedOrder.sous_total_order)}</span>
+                              <span className="text-gray-600">Sous-total:</span>
+                              <span className="font-semibold" style={{ color: '#212937' }}>€{safeToFixed(selectedOrder.sous_total_order)}</span>
                             </div>
                             {selectedOrder.discount_amount_order > 0 && (
-                              <div className="flex justify-between items-center text-red-400">
+                              <div className="flex justify-between items-center text-red-600">
                                 <span>Remise ({safeToFixed(selectedOrder.discount_percentage_order)}%):</span>
                                 <span className="font-semibold">-€{safeToFixed(selectedOrder.discount_amount_order)}</span>
                               </div>
                             )}
                             <div className="flex justify-between items-center">
-                              <span className="text-gray-300">Frais de livraison:</span>
-                              <span className="font-semibold text-white">€{safeToFixed(selectedOrder.delivery_cost_order)}</span>
+                              <span className="text-gray-600">Frais de livraison:</span>
+                              <span className="font-semibold" style={{ color: '#212937' }}>€{safeToFixed(selectedOrder.delivery_cost_order)}</span>
                             </div>
-                            <div className="border-t border-gray-500 pt-3">
-                              <div className="flex justify-between items-center text-xl font-bold text-green-400">
+                            <div className="border-t border-gray-300 pt-3">
+                              <div className="flex justify-between items-center text-xl font-bold text-green-600">
                                 <span>Total:</span>
                                 <span>€{safeToFixed(selectedOrder.total_order)}</span>
                               </div>
@@ -723,20 +724,21 @@ const AdminOrders = () => {
                   </div>
 
                   {/* Action Buttons */}
-                  <div className="flex justify-center space-x-4 pt-4 border-t border-gray-600 pb-6">
+                  <div className="flex justify-center space-x-4 pt-4 border-t border-gray-200 pb-6">
                     <div className="flex items-center space-x-2">
                       <Select value={receiptLanguage} onValueChange={(value: 'fr' | 'en') => setReceiptLanguage(value)}>
-                        <SelectTrigger className="w-20 bg-gray-700 border-gray-500 text-white">
+                        <SelectTrigger className="w-20 bg-white border-gray-300">
                           <SelectValue />
                         </SelectTrigger>
-                        <SelectContent className="bg-gray-700 border-gray-500">
-                          <SelectItem value="fr" className="text-white hover:bg-gray-600">Français</SelectItem>
-                          <SelectItem value="en" className="text-white hover:bg-gray-600">English</SelectItem>
+                        <SelectContent className="bg-white border-gray-300">
+                          <SelectItem value="fr">Français</SelectItem>
+                          <SelectItem value="en">English</SelectItem>
                         </SelectContent>
                       </Select>
                       <Button
                         onClick={() => handleGenerateReceipt(selectedOrder, receiptLanguage)}
-                        className="bg-blue-600 hover:bg-blue-700 text-white"
+                        style={{ backgroundColor: '#212937' }}
+                        className="text-white hover:opacity-90"
                       >
                         <Download className="h-4 w-4 mr-2" />
                         Télécharger le Reçu
