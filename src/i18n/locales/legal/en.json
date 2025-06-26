@@ -1,0 +1,147 @@
+
+{
+  "privacy": {
+    "title": "Privacy Policy",
+    "dataCollection": {
+      "title": "Data Collection",
+      "description": "We collect information you provide directly to us, such as when you create an account, make a purchase, or contact us. This may include:",
+      "items": {
+        "personal": "Personal information (name, email address, phone number)",
+        "contact": "Contact preferences and communication history",
+        "usage": "Website usage data and preferences"
+      }
+    },
+    "dataUsage": {
+      "title": "How We Use Your Data",
+      "description": "We use the information we collect to:",
+      "items": {
+        "service": "Provide, maintain, and improve our services",
+        "communication": "Send you technical notices and customer support messages",
+        "improvement": "Develop new products and services"
+      }
+    },
+    "dataSharing": {
+      "title": "Data Sharing",
+      "description": "We do not sell, trade, or otherwise transfer your personal information to third parties without your consent, except as described in this policy."
+    },
+    "rights": {
+      "title": "Your Rights",
+      "description": "You have the right to:",
+      "items": {
+        "access": "Access your personal data",
+        "correction": "Correct inaccurate data",
+        "deletion": "Request deletion of your data",
+        "portability": "Data portability"
+      }
+    },
+    "contact": {
+      "title": "Contact Us",
+      "description": "If you have questions about this Privacy Policy, please contact us at contact@luccybyey.fr"
+    }
+  },
+  "terms": {
+    "title": "Terms of Service",
+    "acceptance": {
+      "title": "Acceptance of Terms",
+      "description": "By accessing and using this website, you accept and agree to be bound by the terms and provision of this agreement."
+    },
+    "services": {
+      "title": "Use of Services",
+      "description": "Our services include:",
+      "items": {
+        "products": "Access to our luxury fashion products",
+        "appointments": "Booking private fitting appointments",
+        "consultations": "Personal styling consultations"
+      }
+    },
+    "userObligations": {
+      "title": "User Obligations",
+      "description": "You agree to:",
+      "items": {
+        "accurate": "Provide accurate and complete information",
+        "lawful": "Use our services for lawful purposes only",
+        "respect": "Respect intellectual property rights"
+      }
+    },
+    "intellectualProperty": {
+      "title": "Intellectual Property",
+      "description": "All content on this website, including text, graphics, logos, and images, is the property of Luccy By E.Y and is protected by copyright and trademark laws."
+    },
+    "limitation": {
+      "title": "Limitation of Liability",
+      "description": "We shall not be liable for any indirect, incidental, special, or consequential damages resulting from the use of our services."
+    },
+    "modifications": {
+      "title": "Modifications",
+      "description": "We reserve the right to modify these terms at any time. Changes will be effective immediately upon posting."
+    }
+  },
+  "cookies": {
+    "title": "Cookie Policy",
+    "whatAreCookies": {
+      "title": "What are Cookies?",
+      "description": "Cookies are small text files that are placed on your computer or mobile device when you visit our website. They help us provide you with a better experience."
+    },
+    "typesOfCookies": {
+      "title": "Types of Cookies We Use",
+      "essential": {
+        "title": "Essential Cookies",
+        "description": "These cookies are necessary for the website to function properly and cannot be disabled."
+      },
+      "analytics": {
+        "title": "Analytics Cookies",
+        "description": "These cookies help us understand how visitors interact with our website by collecting and reporting information anonymously."
+      },
+      "marketing": {
+        "title": "Marketing Cookies",
+        "description": "These cookies are used to deliver advertisements that are relevant to you and your interests."
+      }
+    },
+    "manageCookies": {
+      "title": "Managing Cookies",
+      "description": "You can control cookies through:",
+      "items": {
+        "browser": "Your browser settings",
+        "settings": "Our cookie preference center",
+        "thirdParty": "Third-party opt-out tools"
+      }
+    },
+    "updates": {
+      "title": "Updates to This Policy",
+      "description": "We may update this Cookie Policy from time to time. Any changes will be posted on this page."
+    }
+  },
+  "accessibility": {
+    "title": "Accessibility Statement",
+    "commitment": {
+      "title": "Our Commitment",
+      "description": "Luccy By E.Y is committed to ensuring digital accessibility for people with disabilities. We are continually improving the user experience for everyone and applying the relevant accessibility standards."
+    },
+    "features": {
+      "title": "Accessibility Features",
+      "items": {
+        "keyboard": "Full keyboard navigation support",
+        "screenReader": "Screen reader compatibility",
+        "colorContrast": "High color contrast options",
+        "textSize": "Adjustable text sizes",
+        "altText": "Alternative text for images"
+      }
+    },
+    "guidelines": {
+      "title": "Conformance Standards",
+      "description": "This website strives to conform to WCAG 2.1 Level AA guidelines and other accessibility standards."
+    },
+    "feedback": {
+      "title": "Feedback and Contact",
+      "description": "We welcome your feedback on the accessibility of our website. If you encounter any accessibility barriers, please contact us:"
+    },
+    "limitations": {
+      "title": "Known Limitations",
+      "description": "Despite our efforts, some parts of our website may not be fully accessible. We are working to address these issues."
+    },
+    "improvements": {
+      "title": "Ongoing Improvements",
+      "description": "We regularly review our website's accessibility and make improvements as part of our commitment to digital inclusion."
+    }
+  }
+}

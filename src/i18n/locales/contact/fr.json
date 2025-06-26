@@ -1,0 +1,21 @@
+
+{
+  "title": "Nous Contacter",
+  "subtitle": "Envoyez-nous un message et nous vous répondrons rapidement",
+  "name": "Nom Complet",
+  "email": "Adresse Email",
+  "phone": "Numéro de Téléphone",
+  "message": "Message",
+  "messagePlaceholder": "Écrivez votre message ici...",
+  "submit": "ENVOYER LE MESSAGE",
+  "submitting": "Envoi en cours...",
+  "success": "Succès !",
+  "successMessage": "Votre message a été envoyé avec succès. Nous vous répondrons bientôt.",
+  "error": "Erreur",
+  "nameRequired": "Le nom est requis",
+  "emailRequired": "L'email est requis",
+  "emailInvalid": "Veuillez entrer un email valide",
+  "phoneRequired": "Le numéro de téléphone est requis",
+  "messageRequired": "Le message est requis",
+  "errorMessage": "Une erreur est survenue lors de l'envoi du message"
+}

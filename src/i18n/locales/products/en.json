@@ -1,0 +1,63 @@
+
+{
+  "categories": {
+    "surMesure": "Bespoke",
+    "pretAPorter": "Ready to Wear",
+    "accessoires": "Accessories"
+  },
+  "surMesure": {
+    "homme": {
+      "title": "Men",
+      "blazers": "Blazers",
+      "blouson": "Jacket",
+      "manteau": "Coat",
+      "djine": "Djine",
+      "slack": "Slack",
+      "pantalon": "Trousers"
+    },
+    "femme": {
+      "title": "Women",
+      "chemise": "Shirt",
+      "costume": "Suit",
+      "blazer": "Blazer"
+    }
+  },
+  "pretAPorter": {
+    "chemise": "Shirt",
+    "tshirt": "T-shirt",
+    "polo": "Polo",
+    "chaussure": "Shoes",
+    "ceinture": "Belt",
+    "maroquinerie": "Leather Goods"
+  },
+  "accessoires": {
+    "cravate": "Tie",
+    "pochette": "Pocket Square",
+    "maroquinerie": "Leather Goods",
+    "autre": "Other"
+  },
+  "filters": {
+    "productType": "Product Type",
+    "size": "Size",
+    "category": "Category",
+    "color": "Color",
+    "sortBy": "Sort By",
+    "priceLowToHigh": "Price Low to High",
+    "priceHighToLow": "Price High to Low"
+  },
+  "categoryDescription": "Discover our {{category}} collection with {{count}} items available.",
+  "availableSizes": "Available",
+  "homme-blazers": "Men's Blazers",
+  "homme-blouson": "Men's Jackets",
+  "homme-manteau": "Men's Coats",
+  "homme-djine": "Men's Djine",
+  "homme-slack": "Men's Slack",
+  "homme-pantalon": "Men's Trousers",
+  "femme-chemise": "Women's Shirts",
+  "femme-costume": "Women's Suits",
+  "femme-blazer": "Women's Blazers",
+  "exclusiveCollection": "Exclusive Collection",
+  "exclusiveCollectionDescription": "Discover our carefully curated selection featuring the finest pieces from each collection",
+  "viewAllProducts": "View All Products",
+  "youMayAlsoLike": "You may also like"
+}

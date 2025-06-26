@@ -1,0 +1,21 @@
+
+{
+  "title": "Contact Us",
+  "subtitle": "Send us a message and we'll get back to you quickly",
+  "name": "Full Name",
+  "email": "Email Address",
+  "phone": "Phone Number",
+  "message": "Message",
+  "messagePlaceholder": "Write your message here...",
+  "submit": "SEND MESSAGE",
+  "submitting": "Submitting...",
+  "success": "Success!",
+  "successMessage": "Your message has been sent successfully. We'll get back to you soon.",
+  "error": "Error",
+  "nameRequired": "Name is required",
+  "emailRequired": "Email is required",
+  "emailInvalid": "Please enter a valid email",
+  "phoneRequired": "Phone number is required",
+  "messageRequired": "Message is required",
+  "errorMessage": "An error occurred while sending the message"
+}

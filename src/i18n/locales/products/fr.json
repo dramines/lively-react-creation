@@ -1,0 +1,63 @@
+
+{
+  "categories": {
+    "surMesure": "Sur Mesure",
+    "pretAPorter": "Prêt à Porter",
+    "accessoires": "Accessoires"
+  },
+  "surMesure": {
+    "homme": {
+      "title": "Homme",
+      "blazers": "Blazers",
+      "blouson": "Blouson",
+      "manteau": "Manteau",
+      "djine": "Djine",
+      "slack": "Slack",
+      "pantalon": "Pantalon"
+    },
+    "femme": {
+      "title": "Femme",
+      "chemise": "Chemise",
+      "costume": "Costume",
+      "blazer": "Blazer"
+    }
+  },
+  "pretAPorter": {
+    "chemise": "Chemise",
+    "tshirt": "T-shirt",
+    "polo": "Polo",
+    "chaussure": "Chaussure",
+    "ceinture": "Ceinture",
+    "maroquinerie": "Maroquinerie"
+  },
+  "accessoires": {
+    "cravate": "Cravate",
+    "pochette": "Pochette",
+    "maroquinerie": "Maroquinerie",
+    "autre": "Autre"
+  },
+  "filters": {
+    "productType": "Type de Produit",
+    "size": "Taille",
+    "category": "Catégorie",
+    "color": "Couleur",
+    "sortBy": "Trier par",
+    "priceLowToHigh": "Prix croissant",
+    "priceHighToLow": "Prix décroissant"
+  },
+  "categoryDescription": "Découvrez notre collection {{category}} avec {{count}} articles disponibles.",
+  "availableSizes": "Disponible",
+  "homme-blazers": "Blazers Homme",
+  "homme-blouson": "Blousons Homme",
+  "homme-manteau": "Manteaux Homme",
+  "homme-djine": "Djine Homme",
+  "homme-slack": "Slack Homme",
+  "homme-pantalon": "Pantalons Homme",
+  "femme-chemise": "Chemises Femme",
+  "femme-costume": "Costumes Femme",
+  "femme-blazer": "Blazers Femme",
+  "exclusiveCollection": "Collection Exclusive",
+  "exclusiveCollectionDescription": "Découvrez notre sélection soigneusement organisée avec les plus belles pièces de chaque collection",
+  "viewAllProducts": "Voir Tous les Produits",
+  "youMayAlsoLike": "Vous aimerez aussi"
+}
