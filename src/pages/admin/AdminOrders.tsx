@@ -495,24 +495,24 @@ const AdminOrders = () => {
 
           {/* Enhanced Order Details Dialog */}
           <Dialog open={isDetailsOpen} onOpenChange={setIsDetailsOpen}>
-            <DialogContent className="max-w-6xl max-h-[90vh] overflow-y-auto">
+            <DialogContent className="max-w-6xl max-h-[90vh] overflow-y-auto bg-white">
               <DialogHeader>
-                <DialogTitle className="text-2xl font-bold flex items-center">
+                <DialogTitle className="text-2xl font-bold flex items-center text-white">
                   <Package className="mr-3 h-6 w-6" />
                   Commande {selectedOrder?.numero_commande}
                 </DialogTitle>
-                <DialogDescription>
+                <DialogDescription className="text-gray-300">
                   Informations détaillées et complètes de la commande
                 </DialogDescription>
               </DialogHeader>
               {selectedOrder && (
-                <div className="space-y-8">
+                <div className="space-y-6" style={{ backgroundColor: '#212937' }}>
                   {/* Customer and Order Info Grid */}
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 p-6">
                     {/* Customer Info */}
-                    <Card className="border-l-4 border-l-blue-500">
+                    <Card className="border border-gray-600" style={{ backgroundColor: '#212937' }}>
                       <CardHeader className="pb-3">
-                        <CardTitle className="text-lg flex items-center text-blue-700">
+                        <CardTitle className="text-lg flex items-center text-white">
                           <User className="mr-2 h-5 w-5" />
                           Informations Client
                         </CardTitle>
@@ -520,34 +520,34 @@ const AdminOrders = () => {
                       <CardContent className="space-y-3">
                         <div className="grid grid-cols-2 gap-3">
                           <div>
-                            <p className="text-sm font-medium text-gray-500">Nom complet</p>
-                            <p className="font-semibold">{selectedOrder.customer?.prenom || 'N/A'} {selectedOrder.customer?.nom || 'N/A'}</p>
+                            <p className="text-sm font-medium text-gray-300">Nom complet</p>
+                            <p className="font-semibold text-white">{selectedOrder.customer?.prenom || 'N/A'} {selectedOrder.customer?.nom || 'N/A'}</p>
                           </div>
                           <div>
-                            <p className="text-sm font-medium text-gray-500">Email</p>
-                            <p className="font-semibold text-blue-600">{selectedOrder.customer?.email || 'N/A'}</p>
+                            <p className="text-sm font-medium text-gray-300">Email</p>
+                            <p className="font-semibold text-blue-400">{selectedOrder.customer?.email || 'N/A'}</p>
                           </div>
                           <div>
-                            <p className="text-sm font-medium text-gray-500">Téléphone</p>
-                            <p className="font-semibold">{selectedOrder.customer?.telephone || 'N/A'}</p>
+                            <p className="text-sm font-medium text-gray-300">Téléphone</p>
+                            <p className="font-semibold text-white">{selectedOrder.customer?.telephone || 'N/A'}</p>
                           </div>
                           <div>
-                            <p className="text-sm font-medium text-gray-500">Pays</p>
-                            <p className="font-semibold">{selectedOrder.customer?.pays || 'N/A'}</p>
+                            <p className="text-sm font-medium text-gray-300">Pays</p>
+                            <p className="font-semibold text-white">{selectedOrder.customer?.pays || 'N/A'}</p>
                           </div>
                         </div>
                         <div>
-                          <p className="text-sm font-medium text-gray-500">Adresse complète</p>
-                          <p className="font-semibold">{selectedOrder.customer?.adresse || 'N/A'}</p>
-                          <p className="text-sm text-gray-600">{selectedOrder.customer?.ville || ''} {selectedOrder.customer?.code_postal || ''}</p>
+                          <p className="text-sm font-medium text-gray-300">Adresse complète</p>
+                          <p className="font-semibold text-white">{selectedOrder.customer?.adresse || 'N/A'}</p>
+                          <p className="text-sm text-gray-400">{selectedOrder.customer?.ville || ''} {selectedOrder.customer?.code_postal || ''}</p>
                         </div>
                       </CardContent>
                     </Card>
                     
                     {/* Order Details */}
-                    <Card className="border-l-4 border-l-green-500">
+                    <Card className="border border-gray-600" style={{ backgroundColor: '#212937' }}>
                       <CardHeader className="pb-3">
-                        <CardTitle className="text-lg flex items-center text-green-700">
+                        <CardTitle className="text-lg flex items-center text-white">
                           <ShoppingBag className="mr-2 h-5 w-5" />
                           Détails Commande
                         </CardTitle>
@@ -555,28 +555,28 @@ const AdminOrders = () => {
                       <CardContent className="space-y-3">
                         <div className="grid grid-cols-2 gap-3">
                           <div>
-                            <p className="text-sm font-medium text-gray-500">N° Commande</p>
-                            <p className="font-bold text-lg">{selectedOrder.numero_commande || 'N/A'}</p>
+                            <p className="text-sm font-medium text-gray-300">N° Commande</p>
+                            <p className="font-bold text-lg text-white">{selectedOrder.numero_commande || 'N/A'}</p>
                           </div>
                           <div>
-                            <p className="text-sm font-medium text-gray-500">Statut</p>
+                            <p className="text-sm font-medium text-gray-300">Statut</p>
                             <div className="mt-1">{getStatusBadge(selectedOrder.status_order || 'unknown')}</div>
                           </div>
                           <div>
-                            <p className="text-sm font-medium text-gray-500">Date de commande</p>
-                            <p className="font-semibold">{selectedOrder.date_creation_order ? new Date(selectedOrder.date_creation_order).toLocaleString('fr-FR') : 'N/A'}</p>
+                            <p className="text-sm font-medium text-gray-300">Date de commande</p>
+                            <p className="font-semibold text-white">{selectedOrder.date_creation_order ? new Date(selectedOrder.date_creation_order).toLocaleString('fr-FR') : 'N/A'}</p>
                           </div>
                           <div>
-                            <p className="text-sm font-medium text-gray-500">Mode de paiement</p>
-                            <p className="font-semibold flex items-center">
+                            <p className="text-sm font-medium text-gray-300">Mode de paiement</p>
+                            <p className="font-semibold flex items-center text-white">
                               <CreditCard className="mr-1 h-4 w-4" />
                               {selectedOrder.payment_method || 'N/A'}
                             </p>
                           </div>
                         </div>
                         <div>
-                          <p className="text-sm font-medium text-gray-500">Date de livraison souhaitée</p>
-                          <p className="font-semibold">{
+                          <p className="text-sm font-medium text-gray-300">Date de livraison souhaitée</p>
+                          <p className="font-semibold text-white">{
                             selectedOrder.date_livraison_souhaitee ? 
                             new Date(selectedOrder.date_livraison_souhaitee).toLocaleDateString('fr-FR') : 
                             'Non spécifiée'
@@ -584,8 +584,8 @@ const AdminOrders = () => {
                         </div>
                         {selectedOrder.notes_order && (
                           <div>
-                            <p className="text-sm font-medium text-gray-500">Notes</p>
-                            <p className="font-semibold bg-gray-50 p-2 rounded">{selectedOrder.notes_order}</p>
+                            <p className="text-sm font-medium text-gray-300">Notes</p>
+                            <p className="font-semibold bg-gray-700 text-white p-2 rounded">{selectedOrder.notes_order}</p>
                           </div>
                         )}
                       </CardContent>
@@ -594,143 +594,149 @@ const AdminOrders = () => {
 
                   {/* Delivery Address */}
                   {selectedOrder.delivery_address && (
-                    <Card className="border-l-4 border-l-orange-500">
-                      <CardHeader className="pb-3">
-                        <CardTitle className="text-lg flex items-center text-orange-700">
-                          <MapPin className="mr-2 h-5 w-5" />
-                          Adresse de Livraison
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="grid grid-cols-2 gap-4">
-                          <div>
-                            <p className="text-sm font-medium text-gray-500">Destinataire</p>
-                            <p className="font-semibold">{selectedOrder.delivery_address.prenom_destinataire} {selectedOrder.delivery_address.nom_destinataire}</p>
-                          </div>
-                          <div>
-                            <p className="text-sm font-medium text-gray-500">Téléphone</p>
-                            <p className="font-semibold">{selectedOrder.delivery_address.telephone_destinataire}</p>
-                          </div>
-                          <div className="col-span-2">
-                            <p className="text-sm font-medium text-gray-500">Adresse complète</p>
-                            <p className="font-semibold">{selectedOrder.delivery_address.adresse_livraison}</p>
-                            <p className="text-sm text-gray-600">{selectedOrder.delivery_address.ville_livraison} {selectedOrder.delivery_address.code_postal_livraison}, {selectedOrder.delivery_address.pays_livraison}</p>
-                          </div>
-                          {selectedOrder.delivery_address.instructions_livraison && (
-                            <div className="col-span-2">
-                              <p className="text-sm font-medium text-gray-500">Instructions de livraison</p>
-                              <p className="font-semibold bg-orange-50 p-2 rounded">{selectedOrder.delivery_address.instructions_livraison}</p>
+                    <div className="px-6">
+                      <Card className="border border-gray-600" style={{ backgroundColor: '#212937' }}>
+                        <CardHeader className="pb-3">
+                          <CardTitle className="text-lg flex items-center text-white">
+                            <MapPin className="mr-2 h-5 w-5" />
+                            Adresse de Livraison
+                          </CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                          <div className="grid grid-cols-2 gap-4">
+                            <div>
+                              <p className="text-sm font-medium text-gray-300">Destinataire</p>
+                              <p className="font-semibold text-white">{selectedOrder.delivery_address.prenom_destinataire} {selectedOrder.delivery_address.nom_destinataire}</p>
                             </div>
-                          )}
-                        </div>
-                      </CardContent>
-                    </Card>
+                            <div>
+                              <p className="text-sm font-medium text-gray-300">Téléphone</p>
+                              <p className="font-semibold text-white">{selectedOrder.delivery_address.telephone_destinataire}</p>
+                            </div>
+                            <div className="col-span-2">
+                              <p className="text-sm font-medium text-gray-300">Adresse complète</p>
+                              <p className="font-semibold text-white">{selectedOrder.delivery_address.adresse_livraison}</p>
+                              <p className="text-sm text-gray-400">{selectedOrder.delivery_address.ville_livraison} {selectedOrder.delivery_address.code_postal_livraison}, {selectedOrder.delivery_address.pays_livraison}</p>
+                            </div>
+                            {selectedOrder.delivery_address.instructions_livraison && (
+                              <div className="col-span-2">
+                                <p className="text-sm font-medium text-gray-300">Instructions de livraison</p>
+                                <p className="font-semibold bg-gray-700 text-white p-2 rounded">{selectedOrder.delivery_address.instructions_livraison}</p>
+                              </div>
+                            )}
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </div>
                   )}
 
                   {/* Order Items */}
-                  <Card className="border-l-4 border-l-purple-500">
-                    <CardHeader className="pb-3">
-                      <CardTitle className="text-lg flex items-center text-purple-700">
-                        <Package className="mr-2 h-5 w-5" />
-                        Articles Commandés ({selectedOrder.items?.length || 0} articles)
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="space-y-4">
-                        {(selectedOrder.items || []).map((item, index) => (
-                          <div key={index} className="flex items-center space-x-4 p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
-                            <div className="flex-shrink-0">
-                              <img
-                                src={getProductImage(item.img_product || '', item.reference_product_snapshot)}
-                                alt={item.nom_product_snapshot}
-                                className="w-16 h-16 object-cover rounded-md border shadow-sm"
-                                onError={(e) => {
-                                  e.currentTarget.src = '/lovable-uploads/1e127b10-9a18-47a3-b8df-ff0d939224ba.png';
-                                }}
-                              />
-                            </div>
-                            <div className="flex-grow">
-                              <h4 className="font-semibold text-lg">{item.nom_product_snapshot || 'N/A'}</h4>
-                              <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mt-2 text-sm">
-                                <div>
-                                  <span className="text-gray-500">Ref:</span>
-                                  <span className="ml-1 font-medium">{item.reference_product_snapshot || 'N/A'}</span>
-                                </div>
-                                <div>
-                                  <span className="text-gray-500">Taille:</span>
-                                  <span className="ml-1 font-medium">{item.size_selected || 'N/A'}</span>
-                                </div>
-                                <div>
-                                  <span className="text-gray-500">Couleur:</span>
-                                  <span className="ml-1 font-medium">{item.color_selected || 'N/A'}</span>
-                                </div>
-                                <div>
-                                  <span className="text-gray-500">Qté:</span>
-                                  <span className="ml-1 font-bold">{safeNumber(item.quantity_ordered)}</span>
+                  <div className="px-6">
+                    <Card className="border border-gray-600" style={{ backgroundColor: '#212937' }}>
+                      <CardHeader className="pb-3">
+                        <CardTitle className="text-lg flex items-center text-white">
+                          <Package className="mr-2 h-5 w-5" />
+                          Articles Commandés ({selectedOrder.items?.length || 0} articles)
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="space-y-4">
+                          {(selectedOrder.items || []).map((item, index) => (
+                            <div key={index} className="flex items-center space-x-4 p-4 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors">
+                              <div className="flex-shrink-0">
+                                <img
+                                  src={getProductImage(item.img_product || '', item.reference_product_snapshot)}
+                                  alt={item.nom_product_snapshot}
+                                  className="w-16 h-16 object-cover rounded-md border border-gray-500 shadow-sm"
+                                  onError={(e) => {
+                                    e.currentTarget.src = '/lovable-uploads/1e127b10-9a18-47a3-b8df-ff0d939224ba.png';
+                                  }}
+                                />
+                              </div>
+                              <div className="flex-grow">
+                                <h4 className="font-semibold text-lg text-white">{item.nom_product_snapshot || 'N/A'}</h4>
+                                <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mt-2 text-sm">
+                                  <div>
+                                    <span className="text-gray-300">Ref:</span>
+                                    <span className="ml-1 font-medium text-white">{item.reference_product_snapshot || 'N/A'}</span>
+                                  </div>
+                                  <div>
+                                    <span className="text-gray-300">Taille:</span>
+                                    <span className="ml-1 font-medium text-white">{item.size_selected || 'N/A'}</span>
+                                  </div>
+                                  <div>
+                                    <span className="text-gray-300">Couleur:</span>
+                                    <span className="ml-1 font-medium text-white">{item.color_selected || 'N/A'}</span>
+                                  </div>
+                                  <div>
+                                    <span className="text-gray-300">Qté:</span>
+                                    <span className="ml-1 font-bold text-white">{safeNumber(item.quantity_ordered)}</span>
+                                  </div>
                                 </div>
                               </div>
+                              <div className="text-right flex-shrink-0">
+                                <p className="font-bold text-lg text-green-400">€{safeToFixed(item.total_item)}</p>
+                                <p className="text-sm text-gray-300">€{safeToFixed(item.price_product_snapshot)} / unité</p>
+                              </div>
                             </div>
-                            <div className="text-right flex-shrink-0">
-                              <p className="font-bold text-lg text-green-600">€{safeToFixed(item.total_item)}</p>
-                              <p className="text-sm text-gray-500">€{safeToFixed(item.price_product_snapshot)} / unité</p>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </CardContent>
-                  </Card>
+                          ))}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </div>
 
                   {/* Order Summary */}
-                  <Card className="border-l-4 border-l-emerald-500">
-                    <CardHeader className="pb-3">
-                      <CardTitle className="text-lg flex items-center text-emerald-700">
-                        <Euro className="mr-2 h-5 w-5" />
-                        Récapitulatif Financier
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="bg-emerald-50 p-6 rounded-lg">
-                        <div className="space-y-3">
-                          <div className="flex justify-between items-center">
-                            <span className="text-gray-600">Sous-total:</span>
-                            <span className="font-semibold">€{safeToFixed(selectedOrder.sous_total_order)}</span>
-                          </div>
-                          {selectedOrder.discount_amount_order > 0 && (
-                            <div className="flex justify-between items-center text-red-600">
-                              <span>Remise ({safeToFixed(selectedOrder.discount_percentage_order)}%):</span>
-                              <span className="font-semibold">-€{safeToFixed(selectedOrder.discount_amount_order)}</span>
+                  <div className="px-6">
+                    <Card className="border border-gray-600" style={{ backgroundColor: '#212937' }}>
+                      <CardHeader className="pb-3">
+                        <CardTitle className="text-lg flex items-center text-white">
+                          <Euro className="mr-2 h-5 w-5" />
+                          Récapitulatif Financier
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="bg-gray-700 p-6 rounded-lg">
+                          <div className="space-y-3">
+                            <div className="flex justify-between items-center">
+                              <span className="text-gray-300">Sous-total:</span>
+                              <span className="font-semibold text-white">€{safeToFixed(selectedOrder.sous_total_order)}</span>
                             </div>
-                          )}
-                          <div className="flex justify-between items-center">
-                            <span className="text-gray-600">Frais de livraison:</span>
-                            <span className="font-semibold">€{safeToFixed(selectedOrder.delivery_cost_order)}</span>
-                          </div>
-                          <div className="border-t border-emerald-200 pt-3">
-                            <div className="flex justify-between items-center text-xl font-bold text-emerald-700">
-                              <span>Total:</span>
-                              <span>€{safeToFixed(selectedOrder.total_order)}</span>
+                            {selectedOrder.discount_amount_order > 0 && (
+                              <div className="flex justify-between items-center text-red-400">
+                                <span>Remise ({safeToFixed(selectedOrder.discount_percentage_order)}%):</span>
+                                <span className="font-semibold">-€{safeToFixed(selectedOrder.discount_amount_order)}</span>
+                              </div>
+                            )}
+                            <div className="flex justify-between items-center">
+                              <span className="text-gray-300">Frais de livraison:</span>
+                              <span className="font-semibold text-white">€{safeToFixed(selectedOrder.delivery_cost_order)}</span>
+                            </div>
+                            <div className="border-t border-gray-500 pt-3">
+                              <div className="flex justify-between items-center text-xl font-bold text-green-400">
+                                <span>Total:</span>
+                                <span>€{safeToFixed(selectedOrder.total_order)}</span>
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                    </CardContent>
-                  </Card>
+                      </CardContent>
+                    </Card>
+                  </div>
 
                   {/* Action Buttons */}
-                  <div className="flex justify-center space-x-4 pt-4 border-t">
+                  <div className="flex justify-center space-x-4 pt-4 border-t border-gray-600 pb-6">
                     <div className="flex items-center space-x-2">
                       <Select value={receiptLanguage} onValueChange={(value: 'fr' | 'en') => setReceiptLanguage(value)}>
-                        <SelectTrigger className="w-20">
+                        <SelectTrigger className="w-20 bg-gray-700 border-gray-500 text-white">
                           <SelectValue />
                         </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="fr">Français</SelectItem>
-                          <SelectItem value="en">English</SelectItem>
+                        <SelectContent className="bg-gray-700 border-gray-500">
+                          <SelectItem value="fr" className="text-white hover:bg-gray-600">Français</SelectItem>
+                          <SelectItem value="en" className="text-white hover:bg-gray-600">English</SelectItem>
                         </SelectContent>
                       </Select>
                       <Button
                         onClick={() => handleGenerateReceipt(selectedOrder, receiptLanguage)}
-                        className="bg-blue-600 hover:bg-blue-700"
+                        className="bg-blue-600 hover:bg-blue-700 text-white"
                       >
                         <Download className="h-4 w-4 mr-2" />
                         Télécharger le Reçu
