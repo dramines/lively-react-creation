@@ -5,27 +5,25 @@ import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import AdminLayout from '@/components/admin/AdminLayout';
-import { Eye, Search, FileText, Package, Euro, TrendingUp, Calendar, Filter } from 'lucide-react';
+import { Eye, Search, FileText, Package, Euro, TrendingUp, Calendar, Filter, Download, User, MapPin, ShoppingBag, CreditCard } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { fetchOrderDetails, type OrderDetails } from '@/services/orderDetailsService';
 import { generateOrderReceiptPDF } from '@/utils/orderReceiptGenerator';
 import { StatusFilter } from '@/components/admin/filters/StatusFilter';
 import { DateFilter } from '@/components/admin/filters/DateFilter';
+import { getProductImage } from '@/utils/imageUtils';
 
-// Enhanced helper function to safely convert to number and format
 const safeToFixed = (value: any, decimals: number = 2): string => {
-  // Handle null, undefined, empty strings
   if (value === null || value === undefined || value === '') {
     return '0.00';
   }
   
-  // Convert to string first, then to number to handle various input types
   const stringValue = String(value).trim();
   const num = parseFloat(stringValue);
   
-  // Check if conversion resulted in NaN
   if (isNaN(num)) {
     console.warn('safeToFixed: Invalid numeric value:', value);
     return '0.00';
@@ -34,18 +32,14 @@ const safeToFixed = (value: any, decimals: number = 2): string => {
   return num.toFixed(decimals);
 };
 
-// Enhanced helper function to safely get numeric value
 const safeNumber = (value: any): number => {
-  // Handle null, undefined, empty strings
   if (value === null || value === undefined || value === '') {
     return 0;
   }
   
-  // Convert to string first, then to number to handle various input types
   const stringValue = String(value).trim();
   const num = parseFloat(stringValue);
   
-  // Check if conversion resulted in NaN
   if (isNaN(num)) {
     console.warn('safeNumber: Invalid numeric value:', value);
     return 0;
@@ -54,7 +48,6 @@ const safeNumber = (value: any): number => {
   return num;
 };
 
-// Safe order data transformation
 const transformOrderData = (order: any): CompleteOrder => {
   return {
     ...order,
@@ -87,7 +80,6 @@ const transformOrderData = (order: any): CompleteOrder => {
   };
 };
 
-// Update the interface to match what the API returns
 export interface CompleteOrder {
   id_order: number;
   numero_commande: string;
@@ -123,6 +115,7 @@ export interface CompleteOrder {
     subtotal_item: number;
     discount_item: number;
     total_item: number;
+    img_product?: string;
   }>;
   delivery_address?: {
     nom_destinataire: string;
@@ -144,7 +137,6 @@ const fetchAllOrders = async (): Promise<CompleteOrder[]> => {
       throw new Error(response.data.message || 'Failed to fetch orders');
     }
     
-    // Transform and validate all order data
     const orders = (response.data.data || []).map((order: any) => {
       console.log('Raw order data:', order);
       return transformOrderData(order);
@@ -164,6 +156,7 @@ const AdminOrders = () => {
   const [dateFilter, setDateFilter] = useState('all');
   const [selectedOrder, setSelectedOrder] = useState<CompleteOrder | null>(null);
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
+  const [receiptLanguage, setReceiptLanguage] = useState<'fr' | 'en'>('fr');
 
   const { data: orders = [], isLoading, error, refetch } = useQuery({
     queryKey: ['adminOrders'],
@@ -225,22 +218,19 @@ const AdminOrders = () => {
     }
   };
 
-  const handleGenerateReceipt = (order: CompleteOrder) => {
+  const handleGenerateReceipt = (order: CompleteOrder, language: 'fr' | 'en' = 'fr') => {
     try {
-      // Convert CompleteOrder to OrderDetails format for PDF generation
       const orderForPDF: OrderDetails = {
         ...order,
         payment_method: order.payment_method || 'N/A',
         notes_order: order.notes_order || '',
         date_livraison_souhaitee: order.date_livraison_souhaitee || order.date_creation_order
       };
-      generateOrderReceiptPDF(orderForPDF);
+      generateOrderReceiptPDF(orderForPDF, language);
     } catch (error) {
       console.error('Error generating receipt:', error);
     }
   };
-
-  // ... keep existing code (getStatusBadge function and statusOptions)
 
   const getStatusBadge = (status: string) => {
     const statusMap = {
@@ -474,14 +464,25 @@ const AdminOrders = () => {
                               <Eye className="h-4 w-4 mr-1" />
                               Voir
                             </Button>
-                            <Button
-                              variant="outline"
-                              size="sm"
-                              onClick={() => handleGenerateReceipt(order)}
-                            >
-                              <FileText className="h-4 w-4 mr-1" />
-                              Reçu
-                            </Button>
+                            <div className="flex items-center space-x-1">
+                              <Select value={receiptLanguage} onValueChange={(value: 'fr' | 'en') => setReceiptLanguage(value)}>
+                                <SelectTrigger className="w-16 h-8">
+                                  <SelectValue />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectItem value="fr">FR</SelectItem>
+                                  <SelectItem value="en">EN</SelectItem>
+                                </SelectContent>
+                              </Select>
+                              <Button
+                                variant="outline"
+                                size="sm"
+                                onClick={() => handleGenerateReceipt(order, receiptLanguage)}
+                              >
+                                <Download className="h-4 w-4 mr-1" />
+                                Reçu
+                              </Button>
+                            </div>
                           </div>
                         </TableCell>
                       </TableRow>
@@ -492,74 +493,186 @@ const AdminOrders = () => {
             </CardContent>
           </Card>
 
-          {/* Order Details Dialog */}
+          {/* Enhanced Order Details Dialog */}
           <Dialog open={isDetailsOpen} onOpenChange={setIsDetailsOpen}>
-            <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
+            <DialogContent className="max-w-6xl max-h-[90vh] overflow-y-auto">
               <DialogHeader>
-                <DialogTitle>Détails de la Commande {selectedOrder?.numero_commande}</DialogTitle>
+                <DialogTitle className="text-2xl font-bold flex items-center">
+                  <Package className="mr-3 h-6 w-6" />
+                  Commande {selectedOrder?.numero_commande}
+                </DialogTitle>
                 <DialogDescription>
-                  Informations complètes sur cette commande
+                  Informations détaillées et complètes de la commande
                 </DialogDescription>
               </DialogHeader>
               {selectedOrder && (
-                <div className="space-y-6">
-                  {/* Customer Info */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <Card>
-                      <CardHeader>
-                        <CardTitle className="text-lg">Informations Client</CardTitle>
+                <div className="space-y-8">
+                  {/* Customer and Order Info Grid */}
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    {/* Customer Info */}
+                    <Card className="border-l-4 border-l-blue-500">
+                      <CardHeader className="pb-3">
+                        <CardTitle className="text-lg flex items-center text-blue-700">
+                          <User className="mr-2 h-5 w-5" />
+                          Informations Client
+                        </CardTitle>
                       </CardHeader>
-                      <CardContent className="space-y-2">
-                        <p><strong>Nom:</strong> {selectedOrder.customer?.nom || 'N/A'}</p>
-                        <p><strong>Prénom:</strong> {selectedOrder.customer?.prenom || 'N/A'}</p>
-                        <p><strong>Email:</strong> {selectedOrder.customer?.email || 'N/A'}</p>
-                        <p><strong>Téléphone:</strong> {selectedOrder.customer?.telephone || 'N/A'}</p>
-                        <p><strong>Adresse:</strong> {selectedOrder.customer?.adresse || 'N/A'}</p>
-                        <p><strong>Ville:</strong> {selectedOrder.customer?.ville || 'N/A'}</p>
-                        <p><strong>Code Postal:</strong> {selectedOrder.customer?.code_postal || 'N/A'}</p>
-                        <p><strong>Pays:</strong> {selectedOrder.customer?.pays || 'N/A'}</p>
+                      <CardContent className="space-y-3">
+                        <div className="grid grid-cols-2 gap-3">
+                          <div>
+                            <p className="text-sm font-medium text-gray-500">Nom complet</p>
+                            <p className="font-semibold">{selectedOrder.customer?.prenom || 'N/A'} {selectedOrder.customer?.nom || 'N/A'}</p>
+                          </div>
+                          <div>
+                            <p className="text-sm font-medium text-gray-500">Email</p>
+                            <p className="font-semibold text-blue-600">{selectedOrder.customer?.email || 'N/A'}</p>
+                          </div>
+                          <div>
+                            <p className="text-sm font-medium text-gray-500">Téléphone</p>
+                            <p className="font-semibold">{selectedOrder.customer?.telephone || 'N/A'}</p>
+                          </div>
+                          <div>
+                            <p className="text-sm font-medium text-gray-500">Pays</p>
+                            <p className="font-semibold">{selectedOrder.customer?.pays || 'N/A'}</p>
+                          </div>
+                        </div>
+                        <div>
+                          <p className="text-sm font-medium text-gray-500">Adresse complète</p>
+                          <p className="font-semibold">{selectedOrder.customer?.adresse || 'N/A'}</p>
+                          <p className="text-sm text-gray-600">{selectedOrder.customer?.ville || ''} {selectedOrder.customer?.code_postal || ''}</p>
+                        </div>
                       </CardContent>
                     </Card>
                     
-                    <Card>
-                      <CardHeader>
-                        <CardTitle className="text-lg">Détails Commande</CardTitle>
+                    {/* Order Details */}
+                    <Card className="border-l-4 border-l-green-500">
+                      <CardHeader className="pb-3">
+                        <CardTitle className="text-lg flex items-center text-green-700">
+                          <ShoppingBag className="mr-2 h-5 w-5" />
+                          Détails Commande
+                        </CardTitle>
                       </CardHeader>
-                      <CardContent className="space-y-2">
-                        <p><strong>N° Commande:</strong> {selectedOrder.numero_commande || 'N/A'}</p>
-                        <p><strong>Date:</strong> {selectedOrder.date_creation_order ? new Date(selectedOrder.date_creation_order).toLocaleString('fr-FR') : 'N/A'}</p>
-                        <p><strong>Statut:</strong> {getStatusBadge(selectedOrder.status_order || 'unknown')}</p>
-                        <p><strong>Méthode de paiement:</strong> {selectedOrder.payment_method || 'N/A'}</p>
-                        <p><strong>Notes:</strong> {selectedOrder.notes_order || 'Aucune note'}</p>
-                        <p><strong>Date de livraison souhaitée:</strong> {
-                          selectedOrder.date_livraison_souhaitee ? 
-                          new Date(selectedOrder.date_livraison_souhaitee).toLocaleDateString('fr-FR') : 
-                          'Non spécifiée'
-                        }</p>
+                      <CardContent className="space-y-3">
+                        <div className="grid grid-cols-2 gap-3">
+                          <div>
+                            <p className="text-sm font-medium text-gray-500">N° Commande</p>
+                            <p className="font-bold text-lg">{selectedOrder.numero_commande || 'N/A'}</p>
+                          </div>
+                          <div>
+                            <p className="text-sm font-medium text-gray-500">Statut</p>
+                            <div className="mt-1">{getStatusBadge(selectedOrder.status_order || 'unknown')}</div>
+                          </div>
+                          <div>
+                            <p className="text-sm font-medium text-gray-500">Date de commande</p>
+                            <p className="font-semibold">{selectedOrder.date_creation_order ? new Date(selectedOrder.date_creation_order).toLocaleString('fr-FR') : 'N/A'}</p>
+                          </div>
+                          <div>
+                            <p className="text-sm font-medium text-gray-500">Mode de paiement</p>
+                            <p className="font-semibold flex items-center">
+                              <CreditCard className="mr-1 h-4 w-4" />
+                              {selectedOrder.payment_method || 'N/A'}
+                            </p>
+                          </div>
+                        </div>
+                        <div>
+                          <p className="text-sm font-medium text-gray-500">Date de livraison souhaitée</p>
+                          <p className="font-semibold">{
+                            selectedOrder.date_livraison_souhaitee ? 
+                            new Date(selectedOrder.date_livraison_souhaitee).toLocaleDateString('fr-FR') : 
+                            'Non spécifiée'
+                          }</p>
+                        </div>
+                        {selectedOrder.notes_order && (
+                          <div>
+                            <p className="text-sm font-medium text-gray-500">Notes</p>
+                            <p className="font-semibold bg-gray-50 p-2 rounded">{selectedOrder.notes_order}</p>
+                          </div>
+                        )}
                       </CardContent>
                     </Card>
                   </div>
 
+                  {/* Delivery Address */}
+                  {selectedOrder.delivery_address && (
+                    <Card className="border-l-4 border-l-orange-500">
+                      <CardHeader className="pb-3">
+                        <CardTitle className="text-lg flex items-center text-orange-700">
+                          <MapPin className="mr-2 h-5 w-5" />
+                          Adresse de Livraison
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="grid grid-cols-2 gap-4">
+                          <div>
+                            <p className="text-sm font-medium text-gray-500">Destinataire</p>
+                            <p className="font-semibold">{selectedOrder.delivery_address.prenom_destinataire} {selectedOrder.delivery_address.nom_destinataire}</p>
+                          </div>
+                          <div>
+                            <p className="text-sm font-medium text-gray-500">Téléphone</p>
+                            <p className="font-semibold">{selectedOrder.delivery_address.telephone_destinataire}</p>
+                          </div>
+                          <div className="col-span-2">
+                            <p className="text-sm font-medium text-gray-500">Adresse complète</p>
+                            <p className="font-semibold">{selectedOrder.delivery_address.adresse_livraison}</p>
+                            <p className="text-sm text-gray-600">{selectedOrder.delivery_address.ville_livraison} {selectedOrder.delivery_address.code_postal_livraison}, {selectedOrder.delivery_address.pays_livraison}</p>
+                          </div>
+                          {selectedOrder.delivery_address.instructions_livraison && (
+                            <div className="col-span-2">
+                              <p className="text-sm font-medium text-gray-500">Instructions de livraison</p>
+                              <p className="font-semibold bg-orange-50 p-2 rounded">{selectedOrder.delivery_address.instructions_livraison}</p>
+                            </div>
+                          )}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  )}
+
                   {/* Order Items */}
-                  <Card>
-                    <CardHeader>
-                      <CardTitle className="text-lg">Articles Commandés</CardTitle>
+                  <Card className="border-l-4 border-l-purple-500">
+                    <CardHeader className="pb-3">
+                      <CardTitle className="text-lg flex items-center text-purple-700">
+                        <Package className="mr-2 h-5 w-5" />
+                        Articles Commandés ({selectedOrder.items?.length || 0} articles)
+                      </CardTitle>
                     </CardHeader>
                     <CardContent>
                       <div className="space-y-4">
                         {(selectedOrder.items || []).map((item, index) => (
-                          <div key={index} className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-                            <div>
-                              <p className="font-medium">{item.nom_product_snapshot || 'N/A'}</p>
-                              <p className="text-sm text-gray-600">Ref: {item.reference_product_snapshot || 'N/A'}</p>
-                              <p className="text-sm text-gray-600">
-                                Taille: {item.size_selected || 'N/A'} - Couleur: {item.color_selected || 'N/A'}
-                              </p>
-                              <p className="text-sm text-gray-600">Quantité: {safeNumber(item.quantity_ordered)}</p>
+                          <div key={index} className="flex items-center space-x-4 p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                            <div className="flex-shrink-0">
+                              <img
+                                src={getProductImage(item.img_product || '', item.reference_product_snapshot)}
+                                alt={item.nom_product_snapshot}
+                                className="w-16 h-16 object-cover rounded-md border shadow-sm"
+                                onError={(e) => {
+                                  e.currentTarget.src = '/lovable-uploads/1e127b10-9a18-47a3-b8df-ff0d939224ba.png';
+                                }}
+                              />
                             </div>
-                            <div className="text-right">
-                              <p className="font-medium">€{safeToFixed(item.total_item)}</p>
-                              <p className="text-sm text-gray-600">€{safeToFixed(item.price_product_snapshot)} / unité</p>
+                            <div className="flex-grow">
+                              <h4 className="font-semibold text-lg">{item.nom_product_snapshot || 'N/A'}</h4>
+                              <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mt-2 text-sm">
+                                <div>
+                                  <span className="text-gray-500">Ref:</span>
+                                  <span className="ml-1 font-medium">{item.reference_product_snapshot || 'N/A'}</span>
+                                </div>
+                                <div>
+                                  <span className="text-gray-500">Taille:</span>
+                                  <span className="ml-1 font-medium">{item.size_selected || 'N/A'}</span>
+                                </div>
+                                <div>
+                                  <span className="text-gray-500">Couleur:</span>
+                                  <span className="ml-1 font-medium">{item.color_selected || 'N/A'}</span>
+                                </div>
+                                <div>
+                                  <span className="text-gray-500">Qté:</span>
+                                  <span className="ml-1 font-bold">{safeNumber(item.quantity_ordered)}</span>
+                                </div>
+                              </div>
+                            </div>
+                            <div className="text-right flex-shrink-0">
+                              <p className="font-bold text-lg text-green-600">€{safeToFixed(item.total_item)}</p>
+                              <p className="text-sm text-gray-500">€{safeToFixed(item.price_product_snapshot)} / unité</p>
                             </div>
                           </div>
                         ))}
@@ -568,31 +681,62 @@ const AdminOrders = () => {
                   </Card>
 
                   {/* Order Summary */}
-                  <Card>
-                    <CardHeader>
-                      <CardTitle className="text-lg">Récapitulatif</CardTitle>
+                  <Card className="border-l-4 border-l-emerald-500">
+                    <CardHeader className="pb-3">
+                      <CardTitle className="text-lg flex items-center text-emerald-700">
+                        <Euro className="mr-2 h-5 w-5" />
+                        Récapitulatif Financier
+                      </CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <div className="space-y-2">
-                        <div className="flex justify-between">
-                          <span>Sous-total:</span>
-                          <span>€{safeToFixed(selectedOrder.sous_total_order)}</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span>Remise:</span>
-                          <span>-€{safeToFixed(selectedOrder.discount_amount_order)}</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span>Frais de livraison:</span>
-                          <span>€{safeToFixed(selectedOrder.delivery_cost_order)}</span>
-                        </div>
-                        <div className="flex justify-between font-bold text-lg border-t pt-2">
-                          <span>Total:</span>
-                          <span>€{safeToFixed(selectedOrder.total_order)}</span>
+                      <div className="bg-emerald-50 p-6 rounded-lg">
+                        <div className="space-y-3">
+                          <div className="flex justify-between items-center">
+                            <span className="text-gray-600">Sous-total:</span>
+                            <span className="font-semibold">€{safeToFixed(selectedOrder.sous_total_order)}</span>
+                          </div>
+                          {selectedOrder.discount_amount_order > 0 && (
+                            <div className="flex justify-between items-center text-red-600">
+                              <span>Remise ({safeToFixed(selectedOrder.discount_percentage_order)}%):</span>
+                              <span className="font-semibold">-€{safeToFixed(selectedOrder.discount_amount_order)}</span>
+                            </div>
+                          )}
+                          <div className="flex justify-between items-center">
+                            <span className="text-gray-600">Frais de livraison:</span>
+                            <span className="font-semibold">€{safeToFixed(selectedOrder.delivery_cost_order)}</span>
+                          </div>
+                          <div className="border-t border-emerald-200 pt-3">
+                            <div className="flex justify-between items-center text-xl font-bold text-emerald-700">
+                              <span>Total:</span>
+                              <span>€{safeToFixed(selectedOrder.total_order)}</span>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </CardContent>
                   </Card>
+
+                  {/* Action Buttons */}
+                  <div className="flex justify-center space-x-4 pt-4 border-t">
+                    <div className="flex items-center space-x-2">
+                      <Select value={receiptLanguage} onValueChange={(value: 'fr' | 'en') => setReceiptLanguage(value)}>
+                        <SelectTrigger className="w-20">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="fr">Français</SelectItem>
+                          <SelectItem value="en">English</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <Button
+                        onClick={() => handleGenerateReceipt(selectedOrder, receiptLanguage)}
+                        className="bg-blue-600 hover:bg-blue-700"
+                      >
+                        <Download className="h-4 w-4 mr-2" />
+                        Télécharger le Reçu
+                      </Button>
+                    </div>
+                  </div>
                 </div>
               )}
             </DialogContent>
