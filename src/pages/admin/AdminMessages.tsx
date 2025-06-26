@@ -170,14 +170,14 @@ const AdminMessages = () => {
 
   return (
     <AdminLayout>
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-50">
+      <div className="min-h-screen bg-white">
         {/* Header */}
-        <div className="bg-white shadow-sm border-b">
+        <div className="bg-white shadow-sm border-b border-gray-200">
           <div className="px-6 py-6">
             <div className="flex items-center justify-between">
               <div>
-                <h1 className="text-3xl font-playfair font-bold text-gray-900 flex items-center">
-                  <MessageSquare className="mr-3 h-8 w-8 text-gray-700" />
+                <h1 className="text-3xl font-playfair font-bold" style={{ color: '#212937' }}>
+                  <MessageSquare className="mr-3 h-8 w-8 inline" style={{ color: '#212937' }} />
                   Messages
                 </h1>
                 <p className="text-gray-600 mt-2">
@@ -199,58 +199,49 @@ const AdminMessages = () => {
         <div className="p-6 space-y-8">
           {/* Stats Cards */}
           <div className="grid gap-4 md:grid-cols-3">
-            <Card className="border-0 shadow-lg bg-gradient-to-br from-blue-50 to-blue-100 hover:shadow-xl transition-all duration-300 hover:scale-105">
+            <Card style={{ backgroundColor: '#212937' }} className="border-0 shadow-lg">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium text-blue-900">Total Messages</CardTitle>
-                <MessageSquare className="h-5 w-5 text-blue-600" />
+                <CardTitle className="text-sm font-medium text-white">Total Messages</CardTitle>
+                <MessageSquare className="h-5 w-5 text-white" />
               </CardHeader>
               <CardContent>
-                <div className="text-3xl font-bold text-blue-900 mb-1">{pagination?.total_records || messages.length}</div>
-                <div className="flex items-center text-xs text-blue-700">
-                  <MessageSquare className="h-3 w-3 mr-1" />
-                  Tous les messages
-                </div>
+                <div className="text-3xl font-bold text-white">{pagination?.total_records || messages.length}</div>
+                <p className="text-xs text-gray-300">Tous les messages</p>
               </CardContent>
             </Card>
             
-            <Card className="border-0 shadow-lg bg-gradient-to-br from-red-50 to-red-100 hover:shadow-xl transition-all duration-300 hover:scale-105">
+            <Card style={{ backgroundColor: '#212937' }} className="border-0 shadow-lg">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium text-red-900">Messages Non Lus</CardTitle>
-                <Eye className="h-5 w-5 text-red-600" />
+                <CardTitle className="text-sm font-medium text-white">Messages Non Lus</CardTitle>
+                <Eye className="h-5 w-5 text-white" />
               </CardHeader>
               <CardContent>
-                <div className="text-3xl font-bold text-red-900 mb-1">
+                <div className="text-3xl font-bold text-white">
                   {messages.filter(msg => !isMessageViewed(msg.vue_par_admin)).length}
                 </div>
-                <div className="flex items-center text-xs text-red-700">
-                  <Eye className="h-3 w-3 mr-1" />
-                  À traiter
-                </div>
+                <p className="text-xs text-gray-300">À traiter</p>
               </CardContent>
             </Card>
             
-            <Card className="border-0 shadow-lg bg-gradient-to-br from-green-50 to-green-100 hover:shadow-xl transition-all duration-300 hover:scale-105">
+            <Card style={{ backgroundColor: '#212937' }} className="border-0 shadow-lg">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium text-green-900">Messages Lus</CardTitle>
-                <Eye className="h-5 w-5 text-green-600" />
+                <CardTitle className="text-sm font-medium text-white">Messages Lus</CardTitle>
+                <Eye className="h-5 w-5 text-white" />
               </CardHeader>
               <CardContent>
-                <div className="text-3xl font-bold text-green-900 mb-1">
+                <div className="text-3xl font-bold text-white">
                   {messages.filter(msg => isMessageViewed(msg.vue_par_admin)).length}
                 </div>
-                <div className="flex items-center text-xs text-green-700">
-                  <Eye className="h-3 w-3 mr-1" />
-                  Traités
-                </div>
+                <p className="text-xs text-gray-300">Traités</p>
               </CardContent>
             </Card>
           </div>
 
           {/* Messages Table */}
-          <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300">
+          <Card className="bg-white border-0 shadow-lg">
             <CardHeader>
-              <CardTitle className="font-playfair text-gray-900 flex items-center">
-                <MessageSquare className="mr-2 h-5 w-5" />
+              <CardTitle className="font-playfair" style={{ color: '#212937' }}>
+                <MessageSquare className="mr-2 h-5 w-5 inline" style={{ color: '#212937' }} />
                 Messages des Clients
               </CardTitle>
               <CardDescription>
@@ -266,12 +257,13 @@ const AdminMessages = () => {
                       placeholder="Rechercher par nom, email ou message..."
                       value={searchTerm}
                       onChange={(e) => handleSearch(e.target.value)}
-                      className="pl-8"
+                      className="pl-8 border"
+                      style={{ borderColor: '#212937' }}
                     />
                   </div>
                 </div>
                 <Select value={vueFilter} onValueChange={handleFilterChange}>
-                  <SelectTrigger className="w-[180px]">
+                  <SelectTrigger className="w-[180px] border" style={{ borderColor: '#212937' }}>
                     <SelectValue placeholder="Filtrer par statut" />
                   </SelectTrigger>
                   <SelectContent>
@@ -282,17 +274,17 @@ const AdminMessages = () => {
                 </Select>
               </div>
 
-              <div className="rounded-md border">
+              <div className="rounded-md border" style={{ borderColor: '#212937' }}>
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>Statut</TableHead>
-                      <TableHead>Client</TableHead>
-                      <TableHead>Email</TableHead>
-                      <TableHead>Téléphone</TableHead>
-                      <TableHead>Message</TableHead>
-                      <TableHead>Date</TableHead>
-                      <TableHead>Actions</TableHead>
+                      <TableHead style={{ color: '#212937' }}>Statut</TableHead>
+                      <TableHead style={{ color: '#212937' }}>Client</TableHead>
+                      <TableHead style={{ color: '#212937' }}>Email</TableHead>
+                      <TableHead style={{ color: '#212937' }}>Téléphone</TableHead>
+                      <TableHead style={{ color: '#212937' }}>Message</TableHead>
+                      <TableHead style={{ color: '#212937' }}>Date</TableHead>
+                      <TableHead style={{ color: '#212937' }}>Actions</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -332,6 +324,8 @@ const AdminMessages = () => {
                               variant="outline"
                               size="sm"
                               onClick={() => handleViewMessage(message)}
+                              className="border"
+                              style={{ borderColor: '#212937', color: '#212937' }}
                             >
                               <Eye className="h-4 w-4" />
                             </Button>
@@ -355,6 +349,8 @@ const AdminMessages = () => {
                       size="sm"
                       onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
                       disabled={!pagination.has_prev}
+                      className="border"
+                      style={{ borderColor: '#212937', color: '#212937' }}
                     >
                       Précédent
                     </Button>
@@ -363,6 +359,8 @@ const AdminMessages = () => {
                       size="sm"
                       onClick={() => setCurrentPage(prev => prev + 1)}
                       disabled={!pagination.has_next}
+                      className="border"
+                      style={{ borderColor: '#212937', color: '#212937' }}
                     >
                       Suivant
                     </Button>
@@ -376,9 +374,9 @@ const AdminMessages = () => {
 
       {/* Message Detail Modal */}
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-        <DialogContent className="max-w-2xl max-h-[80vh]">
+        <DialogContent className="max-w-2xl max-h-[80vh] bg-white">
           <DialogHeader>
-            <DialogTitle className="flex items-center gap-2">
+            <DialogTitle className="flex items-center gap-2" style={{ color: '#212937' }}>
               <MessageSquare className="h-5 w-5" />
               Message de {selectedMessage?.nom_client}
             </DialogTitle>
@@ -389,7 +387,7 @@ const AdminMessages = () => {
               <div className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <div className="flex items-center gap-2 text-sm font-medium">
+                    <div className="flex items-center gap-2 text-sm font-medium" style={{ color: '#212937' }}>
                       <User className="h-4 w-4" />
                       Nom du client
                     </div>
@@ -397,7 +395,7 @@ const AdminMessages = () => {
                   </div>
                   
                   <div className="space-y-2">
-                    <div className="flex items-center gap-2 text-sm font-medium">
+                    <div className="flex items-center gap-2 text-sm font-medium" style={{ color: '#212937' }}>
                       <Mail className="h-4 w-4" />
                       Email
                     </div>
@@ -405,7 +403,7 @@ const AdminMessages = () => {
                   </div>
                   
                   <div className="space-y-2">
-                    <div className="flex items-center gap-2 text-sm font-medium">
+                    <div className="flex items-center gap-2 text-sm font-medium" style={{ color: '#212937' }}>
                       <Phone className="h-4 w-4" />
                       Téléphone
                     </div>
@@ -413,7 +411,7 @@ const AdminMessages = () => {
                   </div>
                   
                   <div className="space-y-2">
-                    <div className="flex items-center gap-2 text-sm font-medium">
+                    <div className="flex items-center gap-2 text-sm font-medium" style={{ color: '#212937' }}>
                       <Calendar className="h-4 w-4" />
                       Date de création
                     </div>
@@ -424,18 +422,18 @@ const AdminMessages = () => {
                 </div>
                 
                 <div className="space-y-2">
-                  <div className="flex items-center gap-2 text-sm font-medium">
+                  <div className="flex items-center gap-2 text-sm font-medium" style={{ color: '#212937' }}>
                     <MessageSquare className="h-4 w-4" />
                     Message
                   </div>
-                  <div className="bg-muted p-4 rounded-lg">
+                  <div className="bg-muted p-4 rounded-lg border" style={{ borderColor: '#212937' }}>
                     <p className="text-sm whitespace-pre-wrap">{selectedMessage.message_client}</p>
                   </div>
                 </div>
                 
-                <div className="flex items-center justify-between pt-4 border-t">
+                <div className="flex items-center justify-between pt-4 border-t" style={{ borderColor: '#212937' }}>
                   <div className="flex items-center gap-2">
-                    <span className="text-sm font-medium">Statut:</span>
+                    <span className="text-sm font-medium" style={{ color: '#212937' }}>Statut:</span>
                     {getStatusBadge(selectedMessage.vue_par_admin)}
                   </div>
                   

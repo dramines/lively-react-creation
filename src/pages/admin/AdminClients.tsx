@@ -27,7 +27,7 @@ interface Customer {
   code_postal_customer: string;
   date_creation_customer: string;
   total_orders?: number;
-  total_spent?: number;
+  total_spent?: string | number;
   last_order_date?: string;
 }
 
@@ -77,7 +77,11 @@ const AdminClients = () => {
     return customerDate.getMonth() === currentMonth && customerDate.getFullYear() === currentYear;
   }).length || 0;
 
-  const totalSpent = customers?.reduce((sum, customer) => sum + (customer.total_spent || 0), 0) || 0;
+  // Fix: Convert total_spent to number before doing calculations
+  const totalSpent = customers?.reduce((sum, customer) => {
+    const spent = customer.total_spent ? parseFloat(customer.total_spent.toString()) : 0;
+    return sum + (isNaN(spent) ? 0 : spent);
+  }, 0) || 0;
   const averageBasket = totalCustomers > 0 ? totalSpent / totalCustomers : 0;
 
   if (isLoading) {
@@ -251,7 +255,7 @@ const AdminClients = () => {
                               {customer.total_orders || 0} commande(s)
                             </div>
                             <div className="text-gray-600">
-                              €{(customer.total_spent || 0).toFixed(2)}
+                              €{(parseFloat((customer.total_spent || 0).toString()) || 0).toFixed(2)}
                             </div>
                           </div>
                         </td>
