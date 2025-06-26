@@ -66,47 +66,47 @@ export const ProductStats = ({ products }: ProductStatsProps) => {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-      <Card style={{ backgroundColor: '#212937' }} className="border-0 shadow-lg">
+      <Card>
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium text-white">Total Produits</CardTitle>
-          <Package className="h-4 w-4 text-white" />
+          <CardTitle className="text-sm font-medium">Total Produits</CardTitle>
+          <Package className="h-4 w-4 text-muted-foreground" />
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold text-white">{stats.totalProducts}</div>
-          <p className="text-xs text-gray-300">
+          <div className="text-2xl font-bold">{stats.totalProducts}</div>
+          <p className="text-xs text-muted-foreground">
             Produits dans le catalogue
           </p>
         </CardContent>
       </Card>
 
-      <Card style={{ backgroundColor: '#212937' }} className="border-0 shadow-lg">
+      <Card>
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium text-white">Stock Faible</CardTitle>
-          <AlertTriangle className="h-4 w-4 text-orange-400" />
+          <CardTitle className="text-sm font-medium">Stock Faible</CardTitle>
+          <AlertTriangle className="h-4 w-4 text-orange-500" />
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold text-orange-400">{stats.lowStockProducts}</div>
-          <p className="text-xs text-gray-300">
+          <div className="text-2xl font-bold text-orange-600">{stats.lowStockProducts}</div>
+          <p className="text-xs text-muted-foreground">
             Produits nécessitant un réapprovisionnement
           </p>
         </CardContent>
       </Card>
 
-      <Card style={{ backgroundColor: '#212937' }} className="border-0 shadow-lg">
+      <Card>
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium text-white">Plus Vendus</CardTitle>
-          <TrendingUp className="h-4 w-4 text-green-400" />
+          <CardTitle className="text-sm font-medium">Plus Vendus</CardTitle>
+          <TrendingUp className="h-4 w-4 text-green-500" />
         </CardHeader>
         <CardContent>
           <div className="space-y-2">
             {stats.mostBoughtProducts.slice(0, 2).map((product, index) => (
               <div key={product.id_product} className="flex items-center justify-between">
-                <span className="text-sm truncate flex-1 text-white">{product.nom_product}</span>
-                <span className="text-sm font-medium ml-2 text-green-400">#{index + 1}</span>
+                <span className="text-sm truncate flex-1">{product.nom_product}</span>
+                <span className="text-sm font-medium ml-2">#{index + 1}</span>
               </div>
             ))}
             {stats.mostBoughtProducts.length === 0 && (
-              <p className="text-xs text-gray-300">Aucune donnée disponible</p>
+              <p className="text-xs text-muted-foreground">Aucune donnée disponible</p>
             )}
           </div>
         </CardContent>
