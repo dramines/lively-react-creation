@@ -2,6 +2,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { getProductImage } from '@/utils/imageUtils';
 
 interface ProductImageGalleryProps {
   images: string[];
@@ -15,29 +16,6 @@ const ProductImageGallery = ({ images, productName, productId = 1 }: ProductImag
   const [magnifierPos, setMagnifierPos] = useState({ x: 0, y: 0 });
   const [imagePos, setImagePos] = useState({ x: 0, y: 0 });
   const imageRef = useRef<HTMLImageElement>(null);
-
-  // Array of placeholder images to use randomly
-  const placeholderImages = [
-    '/lovable-uploads/b89b1719-64f0-4f92-bbdb-cfb07951073a.png',
-    '/lovable-uploads/1e127b10-9a18-47a3-b8df-ff0d939224ba.png',
-    '/lovable-uploads/2842003f-8573-41de-8f49-c3331a6aa59b.png'
-  ];
-
-  const getImageSrc = (imagePath: string, index: number = 0) => {
-    if (!imagePath || imagePath.includes('placeholder.svg')) {
-      // Use a random placeholder image based on product ID and index
-      const randomIndex = (productId + index) % placeholderImages.length;
-      return placeholderImages[randomIndex];
-    }
-    
-    // If it's already a full URL, return as is
-    if (imagePath.startsWith('http') || imagePath.startsWith('/lovable-uploads/')) {
-      return imagePath;
-    }
-    
-    // Construct the full server path
-    return `https://draminesaid.com/lucci/uploads/${imagePath}`;
-  };
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!imageRef.current) return;
@@ -74,7 +52,7 @@ const ProductImageGallery = ({ images, productName, productId = 1 }: ProductImag
         >
           <img
             ref={imageRef}
-            src={getImageSrc(images[0])}
+            src={getProductImage(images[0], productId?.toString())}
             alt={productName}
             className="w-full h-full object-cover"
           />
@@ -88,7 +66,7 @@ const ProductImageGallery = ({ images, productName, productId = 1 }: ProductImag
                 height: '120px',
                 left: `${magnifierPos.x - 60}px`,
                 top: `${magnifierPos.y - 60}px`,
-                backgroundImage: `url(${getImageSrc(images[0])})`,
+                backgroundImage: `url(${getProductImage(images[0], productId?.toString())})`,
                 backgroundSize: `${imageRef.current?.naturalWidth! * 2}px ${imageRef.current?.naturalHeight! * 2}px`,
                 backgroundPosition: `-${imagePos.x * 2 - 60}px -${imagePos.y * 2 - 60}px`,
                 backgroundRepeat: 'no-repeat',
@@ -112,7 +90,7 @@ const ProductImageGallery = ({ images, productName, productId = 1 }: ProductImag
         >
           <img
             ref={imageRef}
-            src={getImageSrc(images[selectedImageIndex], selectedImageIndex)}
+            src={getProductImage(images[selectedImageIndex], productId?.toString())}
             alt={`${productName} - Vue ${selectedImageIndex + 1}`}
             className="w-full h-full object-cover"
           />
@@ -126,7 +104,7 @@ const ProductImageGallery = ({ images, productName, productId = 1 }: ProductImag
                 height: '120px',
                 left: `${magnifierPos.x - 60}px`,
                 top: `${magnifierPos.y - 60}px`,
-                backgroundImage: `url(${getImageSrc(images[selectedImageIndex], selectedImageIndex)})`,
+                backgroundImage: `url(${getProductImage(images[selectedImageIndex], productId?.toString())})`,
                 backgroundSize: `${imageRef.current?.naturalWidth! * 2}px ${imageRef.current?.naturalHeight! * 2}px`,
                 backgroundPosition: `-${imagePos.x * 2 - 60}px -${imagePos.y * 2 - 60}px`,
                 backgroundRepeat: 'no-repeat',
@@ -179,7 +157,7 @@ const ProductImageGallery = ({ images, productName, productId = 1 }: ProductImag
               }`}
             >
               <img
-                src={getImageSrc(image, index)}
+                src={getProductImage(image, productId?.toString())}
                 alt={`${productName} - Miniature ${index + 1}`}
                 className="w-full h-full object-cover"
               />
