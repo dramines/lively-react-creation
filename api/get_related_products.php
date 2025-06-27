@@ -45,9 +45,8 @@ try {
         $params[] = $id_product;
     }
     
-    // Order randomly and limit results
-    $query .= " ORDER BY RAND() LIMIT ?";
-    $params[] = $limit;
+    // Order randomly and add limit directly to query (not as parameter)
+    $query .= " ORDER BY RAND() LIMIT " . $limit;
     
     $stmt = $db->prepare($query);
     $stmt->execute($params);
