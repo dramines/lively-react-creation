@@ -323,9 +323,9 @@ const FeaturedProducts = () => {
               })}
             </CarouselContent>
             
-            {/* Navigation Arrows - Bigger size */}
-            <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 border border-gray-300 bg-white/80 hover:bg-white" />
-            <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 border border-gray-300 bg-white/80 hover:bg-white" />
+            {/* Navigation Arrows - Centered to images and closer to edges */}
+            <CarouselPrevious className="absolute left-2 top-[45%] -translate-y-1/2 w-12 h-12 border border-gray-300 bg-white/80 hover:bg-white" />
+            <CarouselNext className="absolute right-2 top-[45%] -translate-y-1/2 w-12 h-12 border border-gray-300 bg-white/80 hover:bg-white" />
           </Carousel>
         </div>
 
