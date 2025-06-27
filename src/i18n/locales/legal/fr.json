@@ -1,0 +1,147 @@
+
+{
+  "privacy": {
+    "title": "Politique de Confidentialité",
+    "dataCollection": {
+      "title": "Collecte de Données",
+      "description": "Nous collectons les informations que vous nous fournissez directement, par exemple lorsque vous créez un compte, effectuez un achat ou nous contactez. Cela peut inclure :",
+      "items": {
+        "personal": "Informations personnelles (nom, adresse e-mail, numéro de téléphone)",
+        "contact": "Préférences de contact et historique de communication",
+        "usage": "Données d'utilisation du site web et préférences"
+      }
+    },
+    "dataUsage": {
+      "title": "Comment Nous Utilisons Vos Données",
+      "description": "Nous utilisons les informations que nous collectons pour :",
+      "items": {
+        "service": "Fournir, maintenir et améliorer nos services",
+        "communication": "Vous envoyer des notifications techniques et des messages de support client",
+        "improvement": "Développer de nouveaux produits et services"
+      }
+    },
+    "dataSharing": {
+      "title": "Partage de Données",
+      "description": "Nous ne vendons, n'échangeons ou ne transférons pas vos informations personnelles à des tiers sans votre consentement, sauf comme décrit dans cette politique."
+    },
+    "rights": {
+      "title": "Vos Droits",
+      "description": "Vous avez le droit de :",
+      "items": {
+        "access": "Accéder à vos données personnelles",
+        "correction": "Corriger les données inexactes",
+        "deletion": "Demander la suppression de vos données",
+        "portability": "Portabilité des données"
+      }
+    },
+    "contact": {
+      "title": "Nous Contacter",
+      "description": "Si vous avez des questions concernant cette Politique de Confidentialité, veuillez nous contacter à contact@luccybyey.fr"
+    }
+  },
+  "terms": {
+    "title": "Conditions d'Utilisation",
+    "acceptance": {
+      "title": "Acceptation des Conditions",
+      "description": "En accédant et en utilisant ce site web, vous acceptez et vous engagez à être lié par les termes et dispositions de cet accord."
+    },
+    "services": {
+      "title": "Utilisation des Services",
+      "description": "Nos services incluent :",
+      "items": {
+        "products": "Accès à nos produits de mode de luxe",
+        "appointments": "Réservation de rendez-vous privés pour essayage",
+        "consultations": "Consultations de stylisme personnel"
+      }
+    },
+    "userObligations": {
+      "title": "Obligations de l'Utilisateur",
+      "description": "Vous acceptez de :",
+      "items": {
+        "accurate": "Fournir des informations exactes et complètes",
+        "lawful": "Utiliser nos services uniquement à des fins légales",
+        "respect": "Respecter les droits de propriété intellectuelle"
+      }
+    },
+    "intellectualProperty": {
+      "title": "Propriété Intellectuelle",
+      "description": "Tout le contenu de ce site web, y compris le texte, les graphiques, les logos et les images, est la propriété de Luccy By E.Y et est protégé par les lois sur le droit d'auteur et les marques."
+    },
+    "limitation": {
+      "title": "Limitation de Responsabilité",
+      "description": "Nous ne serons pas responsables des dommages indirects, accessoires, spéciaux ou consécutifs résultant de l'utilisation de nos services."
+    },
+    "modifications": {
+      "title": "Modifications",
+      "description": "Nous nous réservons le droit de modifier ces conditions à tout moment. Les modifications prendront effet immédiatement après publication."
+    }
+  },
+  "cookies": {
+    "title": "Politique des Cookies",
+    "whatAreCookies": {
+      "title": "Que sont les Cookies ?",
+      "description": "Les cookies sont de petits fichiers texte qui sont placés sur votre ordinateur ou appareil mobile lorsque vous visitez notre site web. Ils nous aident à vous offrir une meilleure expérience."
+    },
+    "typesOfCookies": {
+      "title": "Types de Cookies que Nous Utilisons",
+      "essential": {
+        "title": "Cookies Essentiels",
+        "description": "Ces cookies sont nécessaires au bon fonctionnement du site web et ne peuvent pas être désactivés."
+      },
+      "analytics": {
+        "title": "Cookies d'Analyse",
+        "description": "Ces cookies nous aident à comprendre comment les visiteurs interagissent avec notre site web en collectant et rapportant des informations de manière anonyme."
+      },
+      "marketing": {
+        "title": "Cookies Marketing",
+        "description": "Ces cookies sont utilisés pour diffuser des publicités pertinentes et adaptées à vos intérêts."
+      }
+    },
+    "manageCookies": {
+      "title": "Gestion des Cookies",
+      "description": "Vous pouvez contrôler les cookies via :",
+      "items": {
+        "browser": "Les paramètres de votre navigateur",
+        "settings": "Notre centre de préférences des cookies",
+        "thirdParty": "Les outils de désactivation tiers"
+      }
+    },
+    "updates": {
+      "title": "Mises à Jour de cette Politique",
+      "description": "Nous pouvons mettre à jour cette Politique des Cookies de temps à autre. Tout changement sera publié sur cette page."
+    }
+  },
+  "accessibility": {
+    "title": "Déclaration d'Accessibilité",
+    "commitment": {
+      "title": "Notre Engagement",
+      "description": "Luccy By E.Y s'engage à garantir l'accessibilité numérique pour les personnes handicapées. Nous améliorons continuellement l'expérience utilisateur pour tous et appliquons les normes d'accessibilité pertinentes."
+    },
+    "features": {
+      "title": "Fonctionnalités d'Accessibilité",
+      "items": {
+        "keyboard": "Support complet de la navigation au clavier",
+        "screenReader": "Compatibilité avec les lect​eurs d'écran",
+        "colorContrast": "Options de contraste de couleur élevé",
+        "textSize": "Tailles de texte ajustables",
+        "altText": "Texte alternatif pour les images"
+      }
+    },
+    "guidelines": {
+      "title": "Normes de Conformité",
+      "description": "Ce site web s'efforce de se conformer aux directives WCAG 2.1 Niveau AA et autres normes d'accessibilité."
+    },
+    "feedback": {
+      "title": "Commentaires et Contact",
+      "description": "Nous accueillons vos commentaires sur l'accessibilité de notre site web. Si vous rencontrez des obstacles d'accessibilité, veuillez nous contacter :"
+    },
+    "limitations": {
+      "title": "Limitations Connues",
+      "description": "Malgré nos efforts, certaines parties de notre site web peuvent ne pas être entièrement accessibles. Nous travaillons à résoudre ces problèmes."
+    },
+    "improvements": {
+      "title": "Améliorations Continues",
+      "description": "Nous examinons régulièrement l'accessibilité de notre site web et apportons des améliorations dans le cadre de notre engagement envers l'inclusion numérique."
+    }
+  }
+}

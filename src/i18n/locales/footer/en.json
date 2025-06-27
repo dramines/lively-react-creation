@@ -1,0 +1,54 @@
+
+{
+  "newsletter": {
+    "title": "Stay Connected",
+    "subtitle": "Subscribe to our newsletter to receive the latest news, exclusive offers and previews of new collections.",
+    "emailPlaceholder": "Your email address",
+    "subscribe": "Subscribe",
+    "subscribing": "Submitting...",
+    "success": "Success!",
+    "successMessage": "You are now subscribed to our newsletter",
+    "emailRequired": "Please enter your email address",
+    "emailInvalid": "Please enter a valid email address",
+    "subscriptionError": "An error occurred during subscription"
+  },
+  "brand": {
+    "description": "Tunisian elegance redefined. Discover our exclusive collection of timeless pieces that combine sophistication and modernity."
+  },
+  "contact": {
+    "phone": "+216 55542230",
+    "email": "contact@luccybyey.com",
+    "address": "Rue de la Feuille d'Érable, Tunis 1053"
+  },
+  "customerCare": {
+    "title": "Customer Service",
+    "contactUs": "Contact Us",
+    "shipping": "Shipping & Returns",
+    "sizeGuide": "Size Guide",
+    "faq": "FAQ"
+  },
+  "about": {
+    "title": "About",
+    "ourStory": "Our Story",
+    "storeLocator": "Store Locator",
+    "paymentMethods": "We Accept"
+  },
+  "social": {
+    "title": "Follow Us"
+  },
+  "legal": {
+    "privacyPolicy": "Privacy Policy",
+    "termsOfService": "Terms of Service",
+    "cookiePolicy": "Cookie Policy",
+    "accessibility": "Accessibility"
+  },
+  "copyright": "© 2024 Luccy By Ey. All rights reserved.",
+  "developedBy": "Developed by",
+  "help": {
+    "needHelp": "Need our help? If you have any queries or need further assistance, please",
+    "contactUs": "Contact Us"
+  },
+  "secureShoppingText": "SECURE SHOPPING",
+  "allRightsReserved": "All rights reserved",
+  "paymentMethods": "Accepted payment methods"
+}
