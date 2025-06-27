@@ -1,4 +1,3 @@
-
 // Utility function to get random product images from uploaded files
 const uploadedImages = [
   '/lovable-uploads/1e127b10-9a18-47a3-b8df-ff0d939224ba.png',
@@ -16,8 +15,8 @@ export const getRandomProductImage = (productId?: string) => {
 };
 
 export const getProductImage = (originalImage: string, productId?: string) => {
-  // If original image is placeholder or null/empty, use random uploaded image
-  if (!originalImage || originalImage === '/placeholder.svg' || originalImage.includes('placeholder') || originalImage === 'null') {
+  // If original image is null, empty, or placeholder, use random uploaded image
+  if (!originalImage || originalImage === 'null' || originalImage === '/placeholder.svg' || originalImage.includes('placeholder')) {
     return getRandomProductImage(productId);
   }
   
@@ -31,11 +30,15 @@ export const getProductImage = (originalImage: string, productId?: string) => {
     return originalImage;
   }
   
-  // If it's a server upload path, construct the full URL
-  if (originalImage.startsWith('uploads/')) {
-    return `https://draminesaid.com/lucci/${originalImage}`;
+  // For all API images, construct the full URL with the server path
+  // Remove any leading slash to avoid double slashes
+  const cleanPath = originalImage.startsWith('/') ? originalImage.substring(1) : originalImage;
+  
+  // If it already starts with 'uploads/', use it directly
+  if (cleanPath.startsWith('uploads/')) {
+    return `https://draminesaid.com/lucci/${cleanPath}`;
   }
   
-  // For any other path, assume it's a server path and construct full URL
-  return `https://draminesaid.com/lucci/uploads/${originalImage}`;
+  // Otherwise, assume it needs the uploads/ prefix
+  return `https://draminesaid.com/lucci/uploads/${cleanPath}`;
 };
