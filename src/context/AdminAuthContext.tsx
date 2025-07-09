@@ -1,3 +1,4 @@
+
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
 interface AdminAuthContextType {
@@ -46,7 +47,7 @@ export const AdminAuthProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   }, []);
 
   const login = (username: string, password: string): boolean => {
-    if (username === 'admin' && password === 'adminspada') {
+    if (username === 'admin' && password === 'admin') {
       setIsAuthenticated(true);
       
       try {
