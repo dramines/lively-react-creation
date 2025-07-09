@@ -1,8 +1,0 @@
-
-{
-  "title": "Tous les Produits",
-  "description": "Découvrez notre collection complète avec {{count}} articles disponibles.",
-  "noProducts": "Aucun produit trouvé.",
-  "loading": "Chargement...",
-  "backButton": "Retour"
-}
