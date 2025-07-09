@@ -15,9 +15,9 @@ const ProductDropdown: React.FC<ProductDropdownProps> = ({ isOpen, activeCategor
 
   const getCategoryImage = (categoryKey: string | null) => {
     const categoryImages = {
-      surMesure: 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=800&h=800&fit=crop&crop=center',
-      pretAPorter: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&h=800&fit=crop&crop=center', 
-      accessoires: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&h=800&fit=crop&crop=center'
+      surMesure: 'https://placeholder.co/800x800/e2e8f0/64748b?text=Sur+Mesure',
+      pretAPorter: 'https://placeholder.co/800x800/f1f5f9/475569?text=Pret+a+Porter', 
+      accessoires: 'https://placeholder.co/800x800/f8fafc/334155?text=Accessoires'
     };
     return categoryImages[categoryKey as keyof typeof categoryImages] || categoryImages.surMesure;
   };
@@ -47,7 +47,7 @@ const ProductDropdown: React.FC<ProductDropdownProps> = ({ isOpen, activeCategor
   const categories = {
     surMesure: {
       title: 'Sur Mesure',
-      image: 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=800&h=800&fit=crop&crop=center',
+      image: 'https://placeholder.co/800x800/e2e8f0/64748b?text=Sur+Mesure',
       url: '/category/surMesure',
       sections: [
         {
@@ -73,7 +73,7 @@ const ProductDropdown: React.FC<ProductDropdownProps> = ({ isOpen, activeCategor
     },
     pretAPorter: {
       title: 'Prêt à Porter',
-      image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&h=800&fit=crop&crop=center',
+      image: 'https://placeholder.co/800x800/f1f5f9/475569?text=Pret+a+Porter',
       url: '/category/pretAPorter',
       sections: [
         {
@@ -91,7 +91,7 @@ const ProductDropdown: React.FC<ProductDropdownProps> = ({ isOpen, activeCategor
     },
     accessoires: {
       title: 'Accessoires',
-      image: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&h=800&fit=crop&crop=center',
+      image: 'https://placeholder.co/800x800/f8fafc/334155?text=Accessoires',
       url: '/category/accessoires',
       sections: [
         {
