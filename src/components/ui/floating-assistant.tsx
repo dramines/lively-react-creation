@@ -53,6 +53,7 @@ export const FloatingAssistant: React.FC<FloatingAssistantProps> = ({
   const [lastMessageId, setLastMessageId] = useState<number | null>(null);
   const isMobile = useIsMobile();
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const checkStatusIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const messagePollingRef = useRef<NodeJS.Timeout | null>(null);
   
@@ -201,9 +202,6 @@ export const FloatingAssistant: React.FC<FloatingAssistantProps> = ({
       }
     };
   }, [isVisible, checkAgentStatus]);
-
-  // Don't auto-show contact form when chat opens - let user interact first
-  // Removed the auto-show contact form effect
 
   const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -359,76 +357,91 @@ export const FloatingAssistant: React.FC<FloatingAssistantProps> = ({
     setIsPollingMessages(false);
   }, []);
 
-  const handleSendMessage = useCallback(async () => {
-    if (message.trim()) {
-      const userMessage = message.trim();
-      setMessage('');
-      
-      // Add user message to UI immediately
-      setMessages(prev => [...prev, {
-        text: userMessage,
-        isUser: true
-      }]);
+  // New input change handler
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setMessage(e.target.value);
+  };
 
-      // Show contact form after first message if user info not collected
-      if (!userInfoCollected && !showContactForm) {
-        setTimeout(() => {
-          setShowContactForm(true);
-          setMessages(prev => [...prev, {
-            text: t('contactFormRequest'),
-            isUser: false
-          }]);
-        }, 1000);
-        return;
-      }
+  // New send message handler
+  const handleSendMessage = useCallback(() => {
+    const trimmedMessage = message.trim();
+    if (!trimmedMessage) return;
+    
+    // Clear input immediately
+    setMessage('');
+    
+    // Add user message to UI
+    setMessages(prev => [...prev, {
+      text: trimmedMessage,
+      isUser: true
+    }]);
 
-      // If agents are online and user info is collected, send to real chat system
-      if (agentsOnline && userInfoCollected) {
-        try {
-          const response = await fetch('https://draminesaid.com/lucci/api/chat_messages.php', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              session_id: sessionId,
-              sender_type: 'client',
-              sender_name: contactForm.name || 'Client',
-              message_content: userMessage,
-              message_type: 'text'
-            }),
-          });
+    // Show contact form after first message if user info not collected
+    if (!userInfoCollected && !showContactForm) {
+      setTimeout(() => {
+        setShowContactForm(true);
+        setMessages(prev => [...prev, {
+          text: t('contactFormRequest'),
+          isUser: false
+        }]);
+      }, 1000);
+      return;
+    }
 
-          const data = await response.json();
-          if (data.success) {
-            setLastMessageId(data.message.id_message);
-            // Start polling for agent responses if not already polling
-            if (!isPollingMessages) {
-              startMessagePolling();
-            }
+    // If agents are online and user info is collected, send to real chat system
+    if (agentsOnline && userInfoCollected) {
+      fetch('https://draminesaid.com/lucci/api/chat_messages.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          session_id: sessionId,
+          sender_type: 'client',
+          sender_name: contactForm.name || 'Client',
+          message_content: trimmedMessage,
+          message_type: 'text'
+        }),
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          setLastMessageId(data.message.id_message);
+          // Start polling for agent responses if not already polling
+          if (!isPollingMessages) {
+            startMessagePolling();
           }
-        } catch (error) {
-          console.error('Error sending message:', error);
         }
-      } else if (userInfoCollected) {
-        // Fallback to automated responses for offline agents
-        setTimeout(() => {
-          let autoResponse = t('autoResponses.general');
-          
-          if (userMessage.toLowerCase().includes('prix') || userMessage.toLowerCase().includes('price')) {
-            autoResponse = t('autoResponses.pricing');
-          } else if (userMessage.toLowerCase().includes('livraison') || userMessage.toLowerCase().includes('delivery')) {
-            autoResponse = t('autoResponses.delivery');
-          } else if (userMessage.toLowerCase().includes('taille') || userMessage.toLowerCase().includes('size')) {
-            autoResponse = t('autoResponses.sizing');
-          }
+      })
+      .catch(error => {
+        console.error('Error sending message:', error);
+      });
+    } else if (userInfoCollected) {
+      // Fallback to automated responses for offline agents
+      setTimeout(() => {
+        let autoResponse = t('autoResponses.general');
+        
+        if (trimmedMessage.toLowerCase().includes('prix') || trimmedMessage.toLowerCase().includes('price')) {
+          autoResponse = t('autoResponses.pricing');
+        } else if (trimmedMessage.toLowerCase().includes('livraison') || trimmedMessage.toLowerCase().includes('delivery')) {
+          autoResponse = t('autoResponses.delivery');
+        } else if (trimmedMessage.toLowerCase().includes('taille') || trimmedMessage.toLowerCase().includes('size')) {
+          autoResponse = t('autoResponses.sizing');
+        }
 
-          setMessages(prev => [...prev, {
-            text: autoResponse,
-            isUser: false
-          }]);
-        }, 1000);
-      }
+        setMessages(prev => [...prev, {
+          text: autoResponse,
+          isUser: false
+        }]);
+      }, 1000);
     }
   }, [message, agentsOnline, userInfoCollected, sessionId, contactForm.name, isPollingMessages, t, startMessagePolling, showContactForm]);
+
+  // Handle Enter key press
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleSendMessage();
+    }
+  };
 
   const predefinedQuestions = [
     {
@@ -672,13 +685,13 @@ export const FloatingAssistant: React.FC<FloatingAssistantProps> = ({
         </div>
       )}
       
-      {/* Always show input area when chat is open */}
+      {/* Completely rewritten input area */}
       <div className="p-4 border-t border-border bg-card">
         <div className="flex items-center gap-3">
           {/* Hidden File Input */}
           <input
-            type="file"
             ref={fileInputRef}
+            type="file"
             onChange={handleImageUpload}
             accept="image/*"
             className="hidden"
@@ -690,7 +703,7 @@ export const FloatingAssistant: React.FC<FloatingAssistantProps> = ({
               type="button"
               onClick={() => fileInputRef.current?.click()}
               disabled={uploadingImage}
-              className="flex-shrink-0 w-10 h-10 rounded-full bg-gradient-to-r from-primary to-accent text-white flex items-center justify-center hover:shadow-lg transition-all disabled:opacity-50"
+              className="flex-shrink-0 w-10 h-10 rounded-full bg-gradient-to-r from-primary to-accent text-white flex items-center justify-center hover:shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {uploadingImage ? (
                 <div className="w-4 h-4 animate-spin border-2 border-white border-t-transparent rounded-full" />
@@ -700,29 +713,27 @@ export const FloatingAssistant: React.FC<FloatingAssistantProps> = ({
             </button>
           )}
           
-          {/* Text Input */}
+          {/* Rewritten Text Input */}
           <div className="flex-1">
             <input
+              ref={inputRef}
               type="text"
               value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' && !e.shiftKey) {
-                  e.preventDefault();
-                  handleSendMessage();
-                }
-              }}
+              onChange={handleInputChange}
+              onKeyDown={handleKeyPress}
               placeholder={t('typeMessage')}
-              className="w-full px-4 py-3 rounded-full border border-border bg-muted/30 focus:bg-background focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all placeholder:text-muted-foreground text-base"
+              className="w-full h-12 px-4 py-3 rounded-full border border-input bg-background text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:border-input transition-all duration-200"
+              autoComplete="off"
+              spellCheck="false"
             />
           </div>
           
-          {/* Send Button */}
+          {/* Rewritten Send Button */}
           <button
             type="button"
             onClick={handleSendMessage}
             disabled={!message.trim()}
-            className="flex-shrink-0 w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center hover:bg-primary/90 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
+            className="flex-shrink-0 w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center hover:bg-primary/90 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg disabled:shadow-none"
           >
             <Send className="w-4 h-4" />
           </button>
@@ -795,7 +806,7 @@ export const FloatingAssistant: React.FC<FloatingAssistantProps> = ({
             )}
           </div>
 
-          {/* Mobile Full Screen Modal with image support */}
+          {/* Mobile Full Screen Modal with updated input */}
           <Dialog open={isMobileModalOpen} onOpenChange={setIsMobileModalOpen}>
             <DialogContent className="w-full h-full max-w-none max-h-none p-0 gap-0">
               <div className="flex flex-col h-full">
@@ -933,13 +944,13 @@ export const FloatingAssistant: React.FC<FloatingAssistantProps> = ({
                   </div>
                 )}
                 
-                {/* Always show input area in mobile when chat is open */}
+                {/* Rewritten mobile input area */}
                 <div className="sticky bottom-0 p-4 border-t border-border bg-card">
                   <div className="flex items-center gap-3">
                     {/* Hidden File Input */}
                     <input
-                      type="file"
                       ref={fileInputRef}
+                      type="file"
                       onChange={handleImageUpload}
                       accept="image/*"
                       className="hidden"
@@ -951,7 +962,7 @@ export const FloatingAssistant: React.FC<FloatingAssistantProps> = ({
                         type="button"
                         onClick={() => fileInputRef.current?.click()}
                         disabled={uploadingImage}
-                        className="flex-shrink-0 w-12 h-12 rounded-full bg-gradient-to-r from-primary to-accent text-white flex items-center justify-center hover:shadow-lg transition-all disabled:opacity-50"
+                        className="flex-shrink-0 w-12 h-12 rounded-full bg-gradient-to-r from-primary to-accent text-white flex items-center justify-center hover:shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                       >
                         {uploadingImage ? (
                           <div className="w-5 h-5 animate-spin border-2 border-white border-t-transparent rounded-full" />
@@ -961,29 +972,26 @@ export const FloatingAssistant: React.FC<FloatingAssistantProps> = ({
                       </button>
                     )}
                     
-                    {/* Text Input */}
+                    {/* Rewritten Mobile Text Input */}
                     <div className="flex-1">
                       <input
                         type="text"
                         value={message}
-                        onChange={(e) => setMessage(e.target.value)}
-                        onKeyDown={(e) => {
-                          if (e.key === 'Enter' && !e.shiftKey) {
-                            e.preventDefault();
-                            handleSendMessage();
-                          }
-                        }}
+                        onChange={handleInputChange}
+                        onKeyDown={handleKeyPress}
                         placeholder={t('typeMessage')}
-                        className="w-full px-4 py-3 rounded-full border border-border bg-muted/30 focus:bg-background focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all placeholder:text-muted-foreground text-base"
+                        className="w-full h-12 px-4 py-3 rounded-full border border-input bg-background text-base placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:border-input transition-all duration-200"
+                        autoComplete="off"
+                        spellCheck="false"
                       />
                     </div>
                     
-                    {/* Send Button */}
+                    {/* Rewritten Mobile Send Button */}
                     <button
                       type="button"
                       onClick={handleSendMessage}
                       disabled={!message.trim()}
-                      className="flex-shrink-0 w-12 h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center hover:bg-primary/90 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
+                      className="flex-shrink-0 w-12 h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center hover:bg-primary/90 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg disabled:shadow-none"
                     >
                       <Send className="w-5 h-5" />
                     </button>
