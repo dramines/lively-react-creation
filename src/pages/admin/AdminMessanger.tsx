@@ -86,20 +86,17 @@ const AdminMessanger = () => {
   const { toast } = useToast();
   const isMobile = useIsMobile();
   
-  const API_BASE = 'api';
+  const API_BASE = 'https://draminesaid.com/lucci/api';
 
   // Set agent online status
   const setAgentStatus = async (online: boolean) => {
     try {
       console.log('Setting agent status to:', online);
       const response = await fetch(`${API_BASE}/agent_status.php`, {
-        method: 'POST',
+        method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          action: online ? 'online' : 'offline',
-          agent_name: agentName,
-          agent_email: agentEmail,
-          status_message: online ? 'Disponible maintenant' : 'Absent temporairement'
+          is_online: online
         }),
       });
       
@@ -112,24 +109,6 @@ const AdminMessanger = () => {
           title: online ? "Vous êtes en ligne" : "Vous êtes hors ligne",
           description: online ? "Vous pouvez maintenant recevoir des messages" : "Vous ne recevrez plus de nouveaux messages"
         });
-        
-        // Send heartbeat every 30 seconds when online
-        if (online) {
-          const heartbeatInterval = setInterval(async () => {
-            if (isOnline) {
-              await fetch(`${API_BASE}/agent_status.php`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                  action: 'heartbeat',
-                  agent_email: agentEmail
-                }),
-              });
-            } else {
-              clearInterval(heartbeatInterval);
-            }
-          }, 30000);
-        }
       } else {
         toast({
           title: "Erreur",
@@ -166,7 +145,7 @@ const AdminMessanger = () => {
   // Fetch messages
   const fetchMessages = async (sessionId: string, lastMsgId?: number) => {
     try {
-      const url = new URL(`${API_BASE}/chat_messages.php`, window.location.origin);
+      const url = new URL(`${API_BASE}/chat_messages.php`);
       url.searchParams.append('session_id', sessionId);
       if (lastMsgId) {
         url.searchParams.append('last_message_id', lastMsgId.toString());
