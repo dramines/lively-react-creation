@@ -1,0 +1,14 @@
+
+{
+  "freeDelivery": "Livraison gratuite pour les commandes de plus de 150 TND",
+  "standardDelivery": "Livraison standard : 3-5 jours ouvrables (15 TND)",
+  "expressDelivery": "Livraison express : 1-2 jours ouvrables (25 TND)",
+  "freeReturns": "Retours : Retours gratuits dans les 30 jours suivant l'achat",
+  "returnConditions": "Les articles doivent être dans leur état d'origine avec les étiquettes attachées",
+  "creditDebitCards": "Cartes de crédit et de débit : Visa, Mastercard (fonctionne en Tunisie et à l'international)",
+  "paypal": "PayPal : Payez en toute sécurité avec votre compte PayPal",
+  "bankTransfer": "Virement bancaire : Virement bancaire direct disponible",
+  "cashOnDelivery": "Paiement à la livraison : Payez à la réception de votre commande",
+  "storeCollection": "Retrait en magasin : Vous pouvez récupérer votre commande dans notre magasin",
+  "securePayment": "Tous les paiements sont traités de manière sécurisée avec cryptage SSL"
+}

@@ -1,0 +1,65 @@
+
+{
+  "assistantName": "Assistant Luxe",
+  "onlineNow": "En ligne maintenant",
+  "greeting": "Bonjour ! Je suis votre assistant personnel de luxe. Comment puis-je vous aider aujourd'hui ? ✨",
+  "writeMessage": "Écrivez votre message...",
+  "typeMessage": "Tapez votre message...",
+  "contactFormRequest": "Merci pour votre question ! Pour mieux vous aider, pourriez-vous remplir ce formulaire ?",
+  "contactFormThank": "Merci {{name}} ! Votre demande a été transmise. Comment puis-je vous aider davantage ?",
+  "imageReceived": "J'ai bien reçu votre image ! Comment puis-je vous aider à ce sujet ?",
+  "imageShared": "Image partagée",
+  "tooltip": "✨ Si vous avez besoin de moi, je suis là !",
+  "form": {
+    "fullName": "Nom complet",
+    "fullNamePlaceholder": "Votre nom complet",
+    "email": "Email",
+    "emailPlaceholder": "votre.email@exemple.com",
+    "phone": "Téléphone",
+    "phonePlaceholder": "+33 1 23 45 67 89",
+    "send": "Envoyer"
+  },
+  "frequentQuestions": "Questions fréquentes :",
+  "questions": {
+    "delivery": {
+      "text": "📦 Délais",
+      "description": "Temps de livraison",
+      "answer": "Nos délais de livraison sont de 3-5 jours ouvrés pour la France métropolitaine et 7-10 jours pour les autres destinations."
+    },
+    "pricing": {
+      "text": "💰 Tarifs",
+      "description": "Coût de livraison",
+      "answer": "La livraison est gratuite à partir de 150€ d'achat. En dessous, les frais sont de 9.90€ pour la France métropolitaine."
+    },
+    "appointment": {
+      "text": "📅 Rendez-vous",
+      "description": "Sur mesure",
+      "answer": "Parfait ! Nous allons vous contacter sous 24h pour planifier votre rendez-vous sur mesure dans notre atelier."
+    },
+    "sizing": {
+      "text": "📏 Tailles",
+      "description": "Guide & mesures",
+      "answer": "Je vais vous envoyer notre guide des tailles personnalisé par email. Vous recevrez aussi des instructions vidéo pour prendre vos mesures."
+    },
+    "advisor": {
+      "text": "👨‍💼 Conseiller",
+      "description": "Contact direct",
+      "answer": "Un de nos conseillers vous contactera dans les prochaines heures au numéro que vous avez fourni."
+    }
+  },
+  "defaultAnswer": "Merci pour votre question ! Notre équipe vous répondra rapidement.",
+  "errors": {
+    "fileType": "Type de fichier non autorisé. Utilisez JPG, PNG, WebP ou GIF.",
+    "fileSize": "Fichier trop volumineux. Maximum 5MB.",
+    "uploadError": "Erreur lors du téléchargement",
+    "uploadTimeout": "Téléchargement interrompu - délai dépassé"
+  },
+  "productSuggestion": {
+    "newItemAdded": "Excellent choix ! 🛍️ Je vois que vous avez ajouté '{{productName}}' à votre panier.",
+    "suggestSimilar": "Souhaitez-vous voir d'autres produits qui s'accordent parfaitement avec votre sélection ? Je peux vous montrer des pièces incroyables qui complètent cet article ! ✨",
+    "relatedProducts": "Voici quelques produits qui s'accorderont magnifiquement avec votre choix :",
+    "viewProduct": "Voir Détails",
+    "addToCart": "Ajouter au Panier",
+    "loading": "Je trouve les parfaits assortiments pour vous..."
+  }
+}

@@ -1,0 +1,26 @@
+
+{
+  "title": "Liste de Souhaits",
+  "subtitle": "Vos articles favoris vous attendent",
+  "empty": {
+    "title": "Votre liste de souhaits est vide",
+    "description": "Découvrez nos collections et ajoutez vos articles préférés",
+    "button": "Découvrir nos collections"
+  },
+  "itemCount": "{{count}} article",
+  "itemCount_plural": "{{count}} articles",
+  "clearAll": "Vider la liste",
+  "addToBag": "Ajouter",
+  "viewProduct": "Voir le produit",
+  "remove": "Retirer",
+  "notifications": {
+    "added": "Ajouté aux favoris",
+    "addedDescription": "L'article a été ajouté à votre liste de souhaits.",
+    "removed": "Article retiré",
+    "removedDescription": "L'article a été retiré de votre liste de souhaits.",
+    "cleared": "Liste vidée",
+    "clearedDescription": "Votre liste de souhaits a été vidée.",
+    "addedToBag": "Ajouté au panier",
+    "addedToBagDescription": "{{name}} a été ajouté à votre panier."
+  }
+}

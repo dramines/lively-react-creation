@@ -1,0 +1,49 @@
+
+{
+  "categories": {
+    "surMesure": "Sur Mesure",
+    "pretAPorter": "Prêt à Porter",
+    "accessoires": "Accessoires",
+    "all": "Tous les Produits"
+  },
+  "subcategories": {
+    "surMesure-homme-blazers": "Blazers Homme",
+    "surMesure-homme-blouson": "Blousons Homme",
+    "surMesure-homme-manteau": "Manteaux Homme",
+    "surMesure-homme-costume": "Costumes Homme",
+    "surMesure-homme-djine": "Djine Homme",
+    "surMesure-homme-slack": "Slack Homme",
+    "surMesure-homme-pantalon": "Pantalons Homme",
+    "surMesure-femme-chemise": "Chemises Femme",
+    "surMesure-femme-costume": "Costumes Femme",
+    "surMesure-femme-blazer": "Blazers Femme",
+    "pretAPorter-chemise": "Chemises",
+    "pretAPorter-tshirt": "T-shirts",
+    "pretAPorter-polo": "Polos",
+    "pretAPorter-chaussure": "Chaussures",
+    "pretAPorter-ceinture": "Ceintures",
+    "pretAPorter-maroquinerie": "Maroquinerie",
+    "accessoires-cravate": "Cravates",
+    "accessoires-pochette": "Pochettes",
+    "accessoires-maroquinerie": "Maroquinerie",
+    "accessoires-autre": "Autres Accessoires"
+  },
+  "descriptions": {
+    "surMesure": "Découvrez notre collection sur mesure avec des créations uniques conçues pour vous",
+    "surMesure-homme": "Collection homme sur mesure - L'élégance masculine redéfinie",
+    "surMesure-homme-costume": "Costumes homme sur mesure - Coupe parfaite et élégance intemporelle",
+    "surMesure-femme": "Collection femme sur mesure - La sophistication féminine à l'état pur",
+    "pretAPorter": "Notre collection prêt-à-porter allie style contemporain et savoir-faire traditionnel",
+    "pretAPorter-polo": "Découvrez notre collection de polos - Élégance décontractée pour toutes les occasions",
+    "pretAPorter-chemise": "Chemises premium confectionnées avec une attention aux détails",
+    "pretAPorter-tshirt": "T-shirts essentiels pour un confort contemporain",
+    "pretAPorter-chaussure": "Chaussures raffinées pour l'homme moderne",
+    "pretAPorter-ceinture": "Ceintures en cuir qui complètent votre tenue",
+    "pretAPorter-maroquinerie": "Maroquinerie de luxe et accessoires",
+    "accessoires": "Complétez votre look avec nos accessoires raffinés et intemporels",
+    "accessoires-cravate": "Cravates en soie pour un style sophistiqué",
+    "accessoires-pochette": "Pochettes pour la touche finale",
+    "accessoires-maroquinerie": "Accessoires en cuir premium",
+    "accessoires-autre": "Accessoires uniques pour les goûts exigeants"
+  }
+}

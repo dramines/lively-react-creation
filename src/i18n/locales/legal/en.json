@@ -1,0 +1,134 @@
+{
+  "privacyPolicy": {
+    "title": "Privacy Policy",
+    "lastUpdated": "Last updated: January 2025",
+    "sections": {
+      "intro": {
+        "title": "Introduction",
+        "content": "At Luccy By EY, we are committed to protecting your privacy and personal information. This Privacy Policy explains how we collect, use, and safeguard your data when you visit our website or use our services."
+      },
+      "dataCollection": {
+        "title": "Information We Collect",
+        "content": "We collect information you provide directly to us, such as when you create an account, make a purchase, or contact us. This may include your name, email address, phone number, shipping address, and payment information."
+      },
+      "dataUse": {
+        "title": "How We Use Your Information",
+        "content": "We use your information to process orders, provide customer service, send marketing communications (with your consent), and improve our services. We may also use your data for analytics and to prevent fraud."
+      },
+      "dataSharing": {
+        "title": "Information Sharing",
+        "content": "We do not sell, trade, or rent your personal information to third parties. We may share your information with trusted service providers who assist us in operating our business, subject to confidentiality agreements."
+      },
+      "security": {
+        "title": "Data Security",
+        "content": "We implement appropriate technical and organizational measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction."
+      },
+      "rights": {
+        "title": "Your Rights",
+        "content": "You have the right to access, update, or delete your personal information. You may also opt out of marketing communications at any time. Contact us to exercise these rights."
+      },
+      "contact": {
+        "title": "Contact Us",
+        "content": "If you have any questions about this Privacy Policy, please contact us at contact@luccybyey.com or through our contact page."
+      }
+    }
+  },
+  "termsOfService": {
+    "title": "Terms of Service",
+    "lastUpdated": "Last updated: January 2025",
+    "sections": {
+      "acceptance": {
+        "title": "Acceptance of Terms",
+        "content": "By accessing and using the Luccy By EY website, you accept and agree to be bound by the terms and provision of this agreement."
+      },
+      "products": {
+        "title": "Products and Services",
+        "content": "All products are subject to availability. We reserve the right to limit quantities and discontinue products at any time. Product descriptions and prices are subject to change without notice."
+      },
+      "orders": {
+        "title": "Orders and Payment",
+        "content": "When you place an order, you are making an offer to purchase the product. We reserve the right to accept or decline your order. Payment must be made in full before shipment."
+      },
+      "shipping": {
+        "title": "Shipping and Delivery",
+        "content": "Shipping times are estimates and may vary. Risk of loss passes to you upon delivery to the carrier. We are not responsible for delays caused by the shipping carrier."
+      },
+      "returns": {
+        "title": "Returns and Exchanges",
+        "content": "Returns must be initiated within 30 days of purchase. Items must be in original condition with tags attached. Custom or personalized items cannot be returned."
+      },
+      "liability": {
+        "title": "Limitation of Liability",
+        "content": "Our liability is limited to the maximum extent permitted by law. We are not liable for any indirect, incidental, or consequential damages."
+      },
+      "governing": {
+        "title": "Governing Law",
+        "content": "These terms are governed by the laws of Tunisia. Any disputes will be resolved in the courts of Tunisia."
+      }
+    }
+  },
+  "cookiePolicy": {
+    "title": "Cookie Policy",
+    "lastUpdated": "Last updated: January 2025",
+    "sections": {
+      "intro": {
+        "title": "What Are Cookies",
+        "content": "Cookies are small text files that are stored on your device when you visit our website. They help us provide you with a better browsing experience and analyze website traffic."
+      },
+      "types": {
+        "title": "Types of Cookies We Use",
+        "content": "We use essential cookies for website functionality, performance cookies to analyze usage, and marketing cookies to provide personalized content and advertisements."
+      },
+      "essential": {
+        "title": "Essential Cookies",
+        "content": "These cookies are necessary for the website to function properly. They enable basic features like page navigation, shopping cart functionality, and secure areas access."
+      },
+      "analytics": {
+        "title": "Analytics Cookies",
+        "content": "We use analytics cookies to understand how visitors interact with our website. This helps us improve our services and user experience."
+      },
+      "marketing": {
+        "title": "Marketing Cookies",
+        "content": "These cookies track your browsing habits to show you relevant advertisements and measure the effectiveness of our marketing campaigns."
+      },
+      "control": {
+        "title": "Managing Cookies",
+        "content": "You can control and delete cookies through your browser settings. However, disabling certain cookies may affect the functionality of our website."
+      },
+      "thirdParty": {
+        "title": "Third-Party Cookies",
+        "content": "We may use third-party services that place cookies on your device. These services have their own privacy policies and cookie practices."
+      }
+    }
+  },
+  "accessibility": {
+    "title": "Accessibility Statement",
+    "lastUpdated": "Last updated: January 2025",
+    "sections": {
+      "commitment": {
+        "title": "Our Commitment",
+        "content": "Luccy By EY is committed to ensuring digital accessibility for people with disabilities. We continually improve the user experience for everyone and apply relevant accessibility standards."
+      },
+      "standards": {
+        "title": "Accessibility Standards",
+        "content": "We aim to conform to the Web Content Accessibility Guidelines (WCAG) 2.1 at the AA level. These guidelines explain how to make web content more accessible for people with disabilities."
+      },
+      "features": {
+        "title": "Accessibility Features",
+        "content": "Our website includes features such as keyboard navigation, screen reader compatibility, alt text for images, and sufficient color contrast ratios."
+      },
+      "assistance": {
+        "title": "Accessibility Assistance",
+        "content": "If you experience any difficulty accessing our website or have suggestions for improvement, please contact our customer service team."
+      },
+      "feedback": {
+        "title": "Feedback Process",
+        "content": "We welcome your feedback on the accessibility of our website. Please let us know if you encounter accessibility barriers or have suggestions for improvement."
+      },
+      "contact": {
+        "title": "Contact Information",
+        "content": "For accessibility-related assistance or to report accessibility issues, please contact us at contact@luccybyey.com or call us during business hours."
+      }
+    }
+  }
+}

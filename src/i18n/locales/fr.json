@@ -1,0 +1,106 @@
+
+{
+  "nav": {
+    "home": "Accueil",
+    "surMesure": "Sur Mesure",
+    "pretAPorter": "Prêt à Porter",
+    "accessoires": "Accessoires",
+    "contact": "Contact",
+    "about": "À Propos",
+    "language": "Langue"
+  },
+  "hero": {
+    "title": "L'Excellence de la Haute Couture",
+    "subtitle": "Découvrez l'art de la couture tunisienne avec nos créations sur mesure et prêt-à-porter de luxe",
+    "cta": "Découvrir la Collection",
+    "bookAppointmentBtn": "Prendre Rendez-vous",
+    "discount": "Jusqu'à 30% de réduction sur toute la collection",
+    "seeDetails": "Voir les détails"
+  },
+  "sophisticatedSportswear": {
+    "brand": "LUCCI FASHION",
+    "title": "Sportswear Sophistiqué",
+    "subtitle1": "Élégance moderne pour",
+    "subtitle2": "l'homme contemporain",
+    "bookNow": "Réserver maintenant"
+  },
+  "wimbledon": {
+    "brand": "LUCCI FASHION",
+    "title": "Wimbledon",
+    "subtitle": "Collection exclusive pour l'été",
+    "aboutUs": "À propos de nous",
+    "aboutTitle": "À propos de Lucci by E.Y",
+    "aboutDescription": "Bienvenue chez Lucci by E.Y, où l'élégance intemporelle rencontre la sophistication contemporaine. Notre boutique représente le summum de la mode de luxe, offrant des pièces méticuleusement confectionnées qui incarnent l'essence du style raffiné. De nos collections exclusives à notre service personnalisé, nous nous consacrons à offrir une expérience d'achat inégalée pour l'homme exigeant.",
+    "rlxBrand": "RLX COLLECTION",
+    "summerTitle": "Été 2024",
+    "summerSubtitle1": "Collection raffinée",
+    "summerSubtitle2": "pour homme",
+    "shopMen": "Acheter Homme"
+  },
+  "worldOfLuxury": {
+    "title": "Monde du Luxe",
+    "subtitle": "Découvrez nos collections exclusives",
+    "privateSalon": "Salon Privé",
+    "exclusiveConsultation": "Consultation Exclusive",
+    "shopNow": "Acheter maintenant",
+    "ceremonialElegance": "Élégance Cérémoniale",
+    "weddingCollection": "Collection Mariage",
+    "shopWedding": "Acheter Mariage",
+    "eveningWear": "Tenue de Soirée",
+    "formalCollection": "Collection Formelle",
+    "shopFormal": "Acheter Formel",
+    "businessLuxury": "Luxe Business",
+    "executiveStyle": "Style Exécutif",
+    "shopBusiness": "Acheter Business",
+    "parisianElegance": "Élégance Parisienne",
+    "parisCollection": "Collection Paris",
+    "shopParis": "Acheter Paris",
+    "summerSophistication": "Sophistication Estivale",
+    "summerLuxury": "Luxe d'Été",
+    "shopSummer": "Acheter Été",
+    "heritageStyle": "Style Héritage",
+    "timelessElegance": "Élégance Intemporelle",
+    "shopHeritage": "Acheter Héritage"
+  },
+  "sections": {
+    "featuredProducts": "Produits Vedettes",
+    "exclusiveCollection": "Collection Exclusive",
+    "newsletter": "Inscrivez-vous à notre Newsletter"
+  },
+  "common": {
+    "loading": "Chargement...",
+    "error": "Erreur",
+    "close": "Fermer",
+    "search": "Rechercher",
+    "cart": "Panier",
+    "wishlist": "Liste de souhaits",
+    "account": "Compte",
+    "login": "Connexion",
+    "register": "S'inscrire",
+    "logout": "Déconnexion",
+    "readMore": "Lire plus",
+    "learnMore": "En savoir plus",
+    "discover": "Découvrir",
+    "shopNow": "Acheter maintenant",
+    "addToCart": "Ajouter au panier",
+    "buyNow": "Acheter maintenant",
+    "viewDetails": "Voir les détails",
+    "backToHome": "Retour à l'accueil",
+    "previous": "Précédent",
+    "next": "Suivant",
+    "page": "Page",
+    "of": "de",
+    "results": "résultats",
+    "clearFilters": "Effacer les filtres",
+    "available": "Disponible",
+    "piece": "pièce",
+    "pieces": "pièces"
+  },
+  "footer": {
+    "company": "L'Entreprise",
+    "customer": "Service Client",
+    "legal": "Mentions Légales",
+    "follow": "Suivez-nous",
+    "rights": "Tous droits réservés"
+  }
+}

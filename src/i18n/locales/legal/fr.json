@@ -1,0 +1,134 @@
+{
+  "privacyPolicy": {
+    "title": "Politique de Confidentialité",
+    "lastUpdated": "Dernière mise à jour : Janvier 2025",
+    "sections": {
+      "intro": {
+        "title": "Introduction",
+        "content": "Chez Luccy By EY, nous nous engageons à protéger votre vie privée et vos informations personnelles. Cette Politique de Confidentialité explique comment nous collectons, utilisons et protégeons vos données lorsque vous visitez notre site web ou utilisez nos services."
+      },
+      "dataCollection": {
+        "title": "Informations que nous collectons",
+        "content": "Nous collectons les informations que vous nous fournissez directement, comme lors de la création d'un compte, d'un achat ou lorsque vous nous contactez. Cela peut inclure votre nom, adresse e-mail, numéro de téléphone, adresse de livraison et informations de paiement."
+      },
+      "dataUse": {
+        "title": "Comment nous utilisons vos informations",
+        "content": "Nous utilisons vos informations pour traiter les commandes, fournir un service client, envoyer des communications marketing (avec votre consentement) et améliorer nos services. Nous pouvons également utiliser vos données à des fins d'analyse et pour prévenir la fraude."
+      },
+      "dataSharing": {
+        "title": "Partage d'informations",
+        "content": "Nous ne vendons, n'échangeons ni ne louons vos informations personnelles à des tiers. Nous pouvons partager vos informations avec des prestataires de services de confiance qui nous aident à gérer notre entreprise, sous réserve d'accords de confidentialité."
+      },
+      "security": {
+        "title": "Sécurité des données",
+        "content": "Nous mettons en place des mesures techniques et organisationnelles appropriées pour protéger vos informations personnelles contre l'accès non autorisé, l'altération, la divulgation ou la destruction."
+      },
+      "rights": {
+        "title": "Vos droits",
+        "content": "Vous avez le droit d'accéder, de mettre à jour ou de supprimer vos informations personnelles. Vous pouvez également vous désinscrire des communications marketing à tout moment. Contactez-nous pour exercer ces droits."
+      },
+      "contact": {
+        "title": "Nous contacter",
+        "content": "Si vous avez des questions concernant cette Politique de Confidentialité, veuillez nous contacter à contact@luccybyey.com ou via notre page de contact."
+      }
+    }
+  },
+  "termsOfService": {
+    "title": "Conditions d'Utilisation",
+    "lastUpdated": "Dernière mise à jour : Janvier 2025",
+    "sections": {
+      "acceptance": {
+        "title": "Acceptation des conditions",
+        "content": "En accédant et en utilisant le site web Luccy By EY, vous acceptez et vous engagez à respecter les termes et conditions de cet accord."
+      },
+      "products": {
+        "title": "Produits et services",
+        "content": "Tous les produits sont sujets à disponibilité. Nous nous réservons le droit de limiter les quantités et d'arrêter les produits à tout moment. Les descriptions et prix des produits sont sujets à modification sans préavis."
+      },
+      "orders": {
+        "title": "Commandes et paiement",
+        "content": "Lorsque vous passez une commande, vous faites une offre d'achat du produit. Nous nous réservons le droit d'accepter ou de refuser votre commande. Le paiement doit être effectué intégralement avant l'expédition."
+      },
+      "shipping": {
+        "title": "Expédition et livraison",
+        "content": "Les délais d'expédition sont des estimations et peuvent varier. Le risque de perte vous incombe dès la livraison au transporteur. Nous ne sommes pas responsables des retards causés par le transporteur."
+      },
+      "returns": {
+        "title": "Retours et échanges",
+        "content": "Les retours doivent être initiés dans les 30 jours suivant l'achat. Les articles doivent être dans leur état d'origine avec les étiquettes attachées. Les articles personnalisés ne peuvent pas être retournés."
+      },
+      "liability": {
+        "title": "Limitation de responsabilité",
+        "content": "Notre responsabilité est limitée dans la mesure maximale autorisée par la loi. Nous ne sommes pas responsables des dommages indirects, accessoires ou consécutifs."
+      },
+      "governing": {
+        "title": "Droit applicable",
+        "content": "Ces conditions sont régies par les lois de la Tunisie. Tout litige sera résolu devant les tribunaux de Tunisie."
+      }
+    }
+  },
+  "cookiePolicy": {
+    "title": "Politique des Cookies",
+    "lastUpdated": "Dernière mise à jour : Janvier 2025",
+    "sections": {
+      "intro": {
+        "title": "Que sont les cookies",
+        "content": "Les cookies sont de petits fichiers texte stockés sur votre appareil lorsque vous visitez notre site web. Ils nous aident à vous offrir une meilleure expérience de navigation et à analyser le trafic du site web."
+      },
+      "types": {
+        "title": "Types de cookies que nous utilisons",
+        "content": "Nous utilisons des cookies essentiels pour le fonctionnement du site web, des cookies de performance pour analyser l'utilisation, et des cookies marketing pour fournir du contenu et des publicités personnalisés."
+      },
+      "essential": {
+        "title": "Cookies essentiels",
+        "content": "Ces cookies sont nécessaires au bon fonctionnement du site web. Ils permettent des fonctionnalités de base comme la navigation des pages, le fonctionnement du panier d'achat et l'accès aux zones sécurisées."
+      },
+      "analytics": {
+        "title": "Cookies d'analyse",
+        "content": "Nous utilisons des cookies d'analyse pour comprendre comment les visiteurs interagissent avec notre site web. Cela nous aide à améliorer nos services et l'expérience utilisateur."
+      },
+      "marketing": {
+        "title": "Cookies marketing",
+        "content": "Ces cookies suivent vos habitudes de navigation pour vous montrer des publicités pertinentes et mesurer l'efficacité de nos campagnes marketing."
+      },
+      "control": {
+        "title": "Gestion des cookies",
+        "content": "Vous pouvez contrôler et supprimer les cookies via les paramètres de votre navigateur. Cependant, désactiver certains cookies peut affecter le fonctionnement de notre site web."
+      },
+      "thirdParty": {
+        "title": "Cookies tiers",
+        "content": "Nous pouvons utiliser des services tiers qui placent des cookies sur votre appareil. Ces services ont leurs propres politiques de confidentialité et pratiques en matière de cookies."
+      }
+    }
+  },
+  "accessibility": {
+    "title": "Déclaration d'Accessibilité",
+    "lastUpdated": "Dernière mise à jour : Janvier 2025",
+    "sections": {
+      "commitment": {
+        "title": "Notre engagement",
+        "content": "Luccy By EY s'engage à assurer l'accessibilité numérique pour les personnes handicapées. Nous améliorons continuellement l'expérience utilisateur pour tous et appliquons les normes d'accessibilité pertinentes."
+      },
+      "standards": {
+        "title": "Normes d'accessibilité",
+        "content": "Nous visons à nous conformer aux Directives pour l'accessibilité du contenu Web (WCAG) 2.1 au niveau AA. Ces directives expliquent comment rendre le contenu web plus accessible aux personnes handicapées."
+      },
+      "features": {
+        "title": "Fonctionnalités d'accessibilité",
+        "content": "Notre site web inclut des fonctionnalités telles que la navigation au clavier, la compatibilité avec les lecteurs d'écran, le texte alternatif pour les images et des ratios de contraste de couleur suffisants."
+      },
+      "assistance": {
+        "title": "Assistance à l'accessibilité",
+        "content": "Si vous rencontrez des difficultés pour accéder à notre site web ou avez des suggestions d'amélioration, veuillez contacter notre équipe de service client."
+      },
+      "feedback": {
+        "title": "Processus de retour",
+        "content": "Nous accueillons vos commentaires sur l'accessibilité de notre site web. Veuillez nous faire savoir si vous rencontrez des obstacles d'accessibilité ou avez des suggestions d'amélioration."
+      },
+      "contact": {
+        "title": "Informations de contact",
+        "content": "Pour une assistance liée à l'accessibilité ou pour signaler des problèmes d'accessibilité, veuillez nous contacter à contact@luccybyey.com ou nous appeler pendant les heures d'ouverture."
+      }
+    }
+  }
+}

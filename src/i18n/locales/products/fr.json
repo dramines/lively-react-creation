@@ -1,0 +1,75 @@
+
+{
+  "categories": {
+    "surMesure": "Sur Mesure",
+    "pretAPorter": "Prêt à Porter",
+    "accessoires": "Accessoires"
+  },
+  "surMesure": {
+    "homme": {
+      "title": "Homme",
+      "blazers": "Blazers",
+      "blouson": "Blouson",
+      "manteau": "Manteau",
+      "costume": "Costume",
+      "djine": "Djine",
+      "slack": "Slack",
+      "pantalon": "Pantalon"
+    },
+    "femme": {
+      "title": "Femme",
+      "chemise": "Chemise",
+      "costume": "Costume",
+      "blazer": "Blazer"
+    }
+  },
+  "pretAPorter": {
+    "chemise": "Chemise",
+    "tshirt": "T-shirt",
+    "polo": "Polo",
+    "chaussure": "Chaussure",
+    "ceinture": "Ceinture",
+    "maroquinerie": "Maroquinerie"
+  },
+  "accessoires": {
+    "cravate": "Cravate",
+    "pochette": "Pochette",
+    "maroquinerie": "Maroquinerie",
+    "autre": "Autre"
+  },
+  "filters": {
+    "productType": "Type de Produit",
+    "size": "Taille",
+    "category": "Catégorie",
+    "color": "Couleur",
+    "sortBy": "Trier par",
+    "priceLowToHigh": "Prix croissant",
+    "priceHighToLow": "Prix décroissant"
+  },
+  "categoryDescription": "Découvrez notre collection {{category}} avec {{count}} articles disponibles.",
+  "availableSizes": "Disponible",
+  "homme-blazers": "Blazers Homme",
+  "homme-blouson": "Blousons Homme",
+  "homme-manteau": "Manteaux Homme",
+  "homme-costume": "Costumes Homme",
+  "homme-djine": "Djine Homme",
+  "homme-slack": "Slack Homme",
+  "homme-pantalon": "Pantalons Homme",
+  "femme-chemise": "Chemises Femme",
+  "femme-costume": "Costumes Femme",
+  "femme-blazer": "Blazers Femme",
+  "exclusiveCollection": "Collection Exclusive",
+  "exclusiveCollectionDescription": "Découvrez notre sélection soigneusement organisée avec les plus belles pièces de chaque collection",
+  "viewAllProducts": "Voir Tous les Produits",
+  "youMayAlsoLike": "Vous aimerez aussi",
+  "outOfStock": "Rupture de stock",
+  "addToBag": "AJOUTER AU PANIER",
+  "deliveryReturns": "LIVRAISON & RETOURS",
+  "paymentOptions": "OPTIONS DE PAIEMENT",
+  "emptyState": {
+    "title": "Aucun produit disponible",
+    "description": "Il n'y a actuellement aucun produit disponible dans cette catégorie.",
+    "suggestion": "Nous travaillons constamment pour enrichir notre collection. Revenez bientôt ou explorez nos autres catégories.",
+    "exploreOtherCategories": "Explorer d'autres catégories"
+  }
+}

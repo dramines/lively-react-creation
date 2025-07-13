@@ -1,0 +1,65 @@
+
+{
+  "assistantName": "Luxury Assistant",
+  "onlineNow": "Online now",
+  "greeting": "Hello! I'm your personal luxury assistant. How can I help you today? ✨",
+  "writeMessage": "Write your message...",
+  "typeMessage": "Type your message...",
+  "contactFormRequest": "Thank you for your question! To better assist you, could you please fill out this form?",
+  "contactFormThank": "Thank you {{name}}! Your request has been submitted. How can I help you further?",
+  "imageReceived": "I received your image! How can I help you with this?",
+  "imageShared": "Image shared",
+  "tooltip": "✨ If you need me, I'm here!",
+  "form": {
+    "fullName": "Full Name",
+    "fullNamePlaceholder": "Your full name",
+    "email": "Email",
+    "emailPlaceholder": "your.email@example.com",
+    "phone": "Phone",
+    "phonePlaceholder": "+33 1 23 45 67 89",
+    "send": "Send"
+  },
+  "frequentQuestions": "Frequently asked questions:",
+  "questions": {
+    "delivery": {
+      "text": "📦 Delivery",
+      "description": "Delivery time",
+      "answer": "Our delivery times are 3-5 business days for mainland France and 7-10 days for other destinations."
+    },
+    "pricing": {
+      "text": "💰 Pricing",
+      "description": "Delivery cost",
+      "answer": "Free delivery from €150 purchase. Below that, fees are €9.90 for mainland France."
+    },
+    "appointment": {
+      "text": "📅 Appointment",
+      "description": "Custom fitting",
+      "answer": "Perfect! We will contact you within 24 hours to schedule your custom appointment in our atelier."
+    },
+    "sizing": {
+      "text": "📏 Sizes",
+      "description": "Size guide & measurements",
+      "answer": "I will send you our personalized size guide by email. You will also receive video instructions for taking your measurements."
+    },
+    "advisor": {
+      "text": "👨‍💼 Advisor",
+      "description": "Direct contact",
+      "answer": "One of our advisors will contact you in the next few hours at the number you provided."
+    }
+  },
+  "defaultAnswer": "Thank you for your question! Our team will respond to you quickly.",
+  "errors": {
+    "fileType": "File type not allowed. Use JPG, PNG, WebP or GIF.",
+    "fileSize": "File too large. Maximum 5MB.",
+    "uploadError": "Upload error",
+    "uploadTimeout": "Upload interrupted - timeout exceeded"
+  },
+  "productSuggestion": {
+    "newItemAdded": "Great choice! 🛍️ I see you added '{{productName}}' to your cart.",
+    "suggestSimilar": "Would you like to see other products that match perfectly with your selection? I can show you some amazing pieces that complement this item! ✨",
+    "relatedProducts": "Here are some products that would go beautifully with your choice:",
+    "viewProduct": "View Details",
+    "addToCart": "Add to Cart",
+    "loading": "Finding perfect matches for you..."
+  }
+}

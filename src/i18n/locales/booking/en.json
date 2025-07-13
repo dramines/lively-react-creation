@@ -1,0 +1,24 @@
+
+{
+  "title": "Book an Appointment",
+  "subtitle": "Schedule your visit to our boutique",
+  "selectDate": "Select a date",
+  "pickDate": "Pick a date",
+  "selectTime": "Select a time",
+  "personalInfo": "Personal Information",
+  "name": "Name",
+  "nameRequired": "Name is required",
+  "email": "Email",
+  "emailRequired": "Email is required",
+  "emailInvalid": "Invalid email format",
+  "phone": "Phone",
+  "phoneRequired": "Phone is required",
+  "dateRequired": "Date is required",
+  "timeRequired": "Time is required",
+  "notes": "Notes (optional)",
+  "notesPlaceholder": "Specific details about your request...",
+  "submit": "Confirm Appointment",
+  "submitting": "Submitting...",
+  "success": "Appointment confirmed successfully",
+  "error": "Please correct the errors in the form"
+}

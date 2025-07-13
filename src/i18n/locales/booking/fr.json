@@ -1,0 +1,24 @@
+
+{
+  "title": "Réserver un Rendez-vous",
+  "subtitle": "Planifiez votre visite dans notre boutique",
+  "selectDate": "Sélectionner une date",
+  "pickDate": "Choisir une date",
+  "selectTime": "Sélectionner une heure",
+  "personalInfo": "Informations personnelles",
+  "name": "Nom",
+  "nameRequired": "Le nom est requis",
+  "email": "Email",
+  "emailRequired": "L'email est requis",
+  "emailInvalid": "Format d'email invalide",
+  "phone": "Téléphone",
+  "phoneRequired": "Le téléphone est requis",
+  "dateRequired": "La date est requise",
+  "timeRequired": "L'heure est requise",
+  "notes": "Notes (optionnel)",
+  "notesPlaceholder": "Détails spécifiques sur votre demande...",
+  "submit": "Confirmer le rendez-vous",
+  "submitting": "Envoi en cours...",
+  "success": "Rendez-vous confirmé avec succès",
+  "error": "Veuillez corriger les erreurs dans le formulaire"
+}

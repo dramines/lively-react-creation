@@ -1,0 +1,26 @@
+
+{
+  "title": "Wishlist",
+  "subtitle": "Your favorite items await",
+  "empty": {
+    "title": "Your wishlist is empty",
+    "description": "Discover our collections and add your favorite items",
+    "button": "Discover our collections"
+  },
+  "itemCount": "{{count}} item",
+  "itemCount_plural": "{{count}} items",
+  "clearAll": "Clear list",
+  "addToBag": "Add",
+  "viewProduct": "View product",
+  "remove": "Remove",
+  "notifications": {
+    "added": "Added to favorites",
+    "addedDescription": "The item has been added to your wishlist.",
+    "removed": "Item removed",
+    "removedDescription": "The item has been removed from your wishlist.",
+    "cleared": "List cleared",
+    "clearedDescription": "Your wishlist has been cleared.",
+    "addedToBag": "Added to bag",
+    "addedToBagDescription": "{{name}} has been added to your bag."
+  }
+}

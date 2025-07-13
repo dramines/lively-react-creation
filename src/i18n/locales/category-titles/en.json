@@ -1,0 +1,49 @@
+
+{
+  "categories": {
+    "surMesure": "Bespoke",
+    "pretAPorter": "Ready to Wear",
+    "accessoires": "Accessories",
+    "all": "All Products"
+  },
+  "subcategories": {
+    "surMesure-homme-blazers": "Men's Blazers",
+    "surMesure-homme-blouson": "Men's Jackets",
+    "surMesure-homme-manteau": "Men's Coats",
+    "surMesure-homme-costume": "Men's Suits",
+    "surMesure-homme-djine": "Men's Djine",
+    "surMesure-homme-slack": "Men's Slack",
+    "surMesure-homme-pantalon": "Men's Trousers",
+    "surMesure-femme-chemise": "Women's Shirts",
+    "surMesure-femme-costume": "Women's Suits",
+    "surMesure-femme-blazer": "Women's Blazers",
+    "pretAPorter-chemise": "Shirts",
+    "pretAPorter-tshirt": "T-shirts",
+    "pretAPorter-polo": "Polos",
+    "pretAPorter-chaussure": "Shoes",
+    "pretAPorter-ceinture": "Belts",
+    "pretAPorter-maroquinerie": "Leather Goods",
+    "accessoires-cravate": "Ties",
+    "accessoires-pochette": "Pocket Squares",
+    "accessoires-maroquinerie": "Leather Goods",
+    "accessoires-autre": "Other Accessories"
+  },
+  "descriptions": {
+    "surMesure": "Discover our bespoke collection with unique creations designed for you",
+    "surMesure-homme": "Men's bespoke collection - Masculine elegance redefined",
+    "surMesure-homme-costume": "Bespoke men's suits - Perfect fit and timeless elegance",
+    "surMesure-femme": "Women's bespoke collection - Feminine sophistication in its purest form",
+    "pretAPorter": "Our ready-to-wear collection combines contemporary style with traditional craftsmanship",
+    "pretAPorter-polo": "Discover our polo collection - Casual elegance for every occasion",
+    "pretAPorter-chemise": "Premium shirts crafted with attention to detail",
+    "pretAPorter-tshirt": "Essential t-shirts for contemporary comfort",
+    "pretAPorter-chaussure": "Fine footwear for the modern gentleman",
+    "pretAPorter-ceinture": "Leather belts that complete your outfit",
+    "pretAPorter-maroquinerie": "Luxury leather goods and accessories",
+    "accessoires": "Complete your look with our refined and timeless accessories",
+    "accessoires-cravate": "Silk ties for sophisticated styling",
+    "accessoires-pochette": "Pocket squares for the finishing touch",
+    "accessoires-maroquinerie": "Premium leather accessories",
+    "accessoires-autre": "Unique accessories for discerning tastes"
+  }
+}

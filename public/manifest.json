@@ -1,0 +1,21 @@
+{
+  "name": "LUCCI BY E.Y - Mode de Luxe",
+  "short_name": "LUCCI",
+  "description": "Mode de luxe sur mesure et collections exclusives",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1e293b",
+  "icons": [
+    {
+      "src": "/lovable-uploads/04272c72-7979-4c68-9c37-efc9954ca58f.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/lovable-uploads/04272c72-7979-4c68-9c37-efc9954ca58f.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
