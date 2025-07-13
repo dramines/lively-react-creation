@@ -173,10 +173,15 @@ export const FloatingAssistant: React.FC<FloatingAssistantProps> = ({
   };
 
   useEffect(() => {
-    // Show assistant after 4 seconds
+    // Show assistant after 4 seconds with just the bubble, not opened
     const timer = setTimeout(() => {
       setIsVisible(true);
-      setIsOpen(true);
+      // Show tooltip instead of opening chat directly
+      setShowTooltip(true);
+      // Hide tooltip after a few seconds
+      setTimeout(() => {
+        setShowTooltip(false);
+      }, 5000);
     }, 4000);
     return () => clearTimeout(timer);
   }, []);
@@ -197,16 +202,8 @@ export const FloatingAssistant: React.FC<FloatingAssistantProps> = ({
     };
   }, [isVisible, checkAgentStatus]);
 
-  // Removed auto-close behavior - chat will only close when user clicks X button
-
-  // Auto-show contact form when chat opens if user info not collected
-  useEffect(() => {
-    if (isOpen && !userInfoCollected && !showContactForm) {
-      setTimeout(() => {
-        setShowContactForm(true);
-      }, 1000);
-    }
-  }, [isOpen, userInfoCollected, showContactForm]);
+  // Don't auto-show contact form when chat opens - let user interact first
+  // Removed the auto-show contact form effect
 
   const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -373,6 +370,18 @@ export const FloatingAssistant: React.FC<FloatingAssistantProps> = ({
         isUser: true
       }]);
 
+      // Show contact form after first message if user info not collected
+      if (!userInfoCollected && !showContactForm) {
+        setTimeout(() => {
+          setShowContactForm(true);
+          setMessages(prev => [...prev, {
+            text: t('contactFormRequest'),
+            isUser: false
+          }]);
+        }, 1000);
+        return;
+      }
+
       // If agents are online and user info is collected, send to real chat system
       if (agentsOnline && userInfoCollected) {
         try {
@@ -399,38 +408,27 @@ export const FloatingAssistant: React.FC<FloatingAssistantProps> = ({
         } catch (error) {
           console.error('Error sending message:', error);
         }
-      } else {
-        // Show contact form if user info not collected
-        if (!userInfoCollected) {
-          setTimeout(() => {
-            setShowContactForm(true);
-            setMessages(prev => [...prev, {
-              text: t('contactFormRequest'),
-              isUser: false
-            }]);
-          }, 1000);
-        } else {
-          // Fallback to automated responses for offline agents
-          setTimeout(() => {
-            let autoResponse = t('autoResponses.general');
-            
-            if (userMessage.toLowerCase().includes('prix') || userMessage.toLowerCase().includes('price')) {
-              autoResponse = t('autoResponses.pricing');
-            } else if (userMessage.toLowerCase().includes('livraison') || userMessage.toLowerCase().includes('delivery')) {
-              autoResponse = t('autoResponses.delivery');
-            } else if (userMessage.toLowerCase().includes('taille') || userMessage.toLowerCase().includes('size')) {
-              autoResponse = t('autoResponses.sizing');
-            }
+      } else if (userInfoCollected) {
+        // Fallback to automated responses for offline agents
+        setTimeout(() => {
+          let autoResponse = t('autoResponses.general');
+          
+          if (userMessage.toLowerCase().includes('prix') || userMessage.toLowerCase().includes('price')) {
+            autoResponse = t('autoResponses.pricing');
+          } else if (userMessage.toLowerCase().includes('livraison') || userMessage.toLowerCase().includes('delivery')) {
+            autoResponse = t('autoResponses.delivery');
+          } else if (userMessage.toLowerCase().includes('taille') || userMessage.toLowerCase().includes('size')) {
+            autoResponse = t('autoResponses.sizing');
+          }
 
-            setMessages(prev => [...prev, {
-              text: autoResponse,
-              isUser: false
-            }]);
-          }, 1000);
-        }
+          setMessages(prev => [...prev, {
+            text: autoResponse,
+            isUser: false
+          }]);
+        }, 1000);
       }
     }
-  }, [message, agentsOnline, userInfoCollected, sessionId, contactForm.name, isPollingMessages, t, startMessagePolling]);
+  }, [message, agentsOnline, userInfoCollected, sessionId, contactForm.name, isPollingMessages, t, startMessagePolling, showContactForm]);
 
   const predefinedQuestions = [
     {
@@ -674,69 +672,62 @@ export const FloatingAssistant: React.FC<FloatingAssistantProps> = ({
         </div>
       )}
       
-      {/* Input Area - Show when user info collected or when agents offline with predefined questions (but not after question selected) */}
-      {(userInfoCollected || (!agentsOnline && (showPredefinedQuestions || questionSelected))) && (
-        <div className="p-4 border-t border-border bg-card">
-          <div className="flex items-center gap-3">
-            {/* Hidden File Input */}
-            <input
-              type="file"
-              ref={fileInputRef}
-              onChange={handleImageUpload}
-              accept="image/*"
-              className="hidden"
-            />
-            
-            {/* Camera Button - Only show when agents are online */}
-            {agentsOnline && userInfoCollected && (
-              <button
-                type="button"
-                onClick={() => fileInputRef.current?.click()}
-                disabled={uploadingImage}
-                className="flex-shrink-0 w-10 h-10 rounded-full bg-gradient-to-r from-primary to-accent text-white flex items-center justify-center hover:shadow-lg transition-all disabled:opacity-50"
-              >
-                {uploadingImage ? (
-                  <div className="w-4 h-4 animate-spin border-2 border-white border-t-transparent rounded-full" />
-                ) : (
-                  <Camera className="w-5 h-5" />
-                )}
-              </button>
-            )}
-            
-            {/* Text Input */}
-            <div className="flex-1">
-              <input
-                type="text"
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' && !e.shiftKey) {
-                    e.preventDefault();
-                    handleSendMessage();
-                  }
-                }}
-                placeholder={
-                  agentsOnline && userInfoCollected 
-                    ? t('typeMessage') 
-                    : t('chooseQuestion')
-                }
-                disabled={!userInfoCollected && agentsOnline}
-                className="w-full px-4 py-3 rounded-full border border-border bg-muted/30 focus:bg-background focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all placeholder:text-muted-foreground text-base disabled:opacity-50"
-              />
-            </div>
-            
-            {/* Send Button */}
+      {/* Always show input area when chat is open */}
+      <div className="p-4 border-t border-border bg-card">
+        <div className="flex items-center gap-3">
+          {/* Hidden File Input */}
+          <input
+            type="file"
+            ref={fileInputRef}
+            onChange={handleImageUpload}
+            accept="image/*"
+            className="hidden"
+          />
+          
+          {/* Camera Button - Only show when agents are online and user info collected */}
+          {agentsOnline && userInfoCollected && (
             <button
               type="button"
-              onClick={handleSendMessage}
-              disabled={!message.trim() || (!userInfoCollected && agentsOnline)}
-              className="flex-shrink-0 w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center hover:bg-primary/90 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
+              onClick={() => fileInputRef.current?.click()}
+              disabled={uploadingImage}
+              className="flex-shrink-0 w-10 h-10 rounded-full bg-gradient-to-r from-primary to-accent text-white flex items-center justify-center hover:shadow-lg transition-all disabled:opacity-50"
             >
-              <Send className="w-4 h-4" />
+              {uploadingImage ? (
+                <div className="w-4 h-4 animate-spin border-2 border-white border-t-transparent rounded-full" />
+              ) : (
+                <Camera className="w-5 h-5" />
+              )}
             </button>
+          )}
+          
+          {/* Text Input */}
+          <div className="flex-1">
+            <input
+              type="text"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                  e.preventDefault();
+                  handleSendMessage();
+                }
+              }}
+              placeholder={t('typeMessage')}
+              className="w-full px-4 py-3 rounded-full border border-border bg-muted/30 focus:bg-background focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all placeholder:text-muted-foreground text-base"
+            />
           </div>
+          
+          {/* Send Button */}
+          <button
+            type="button"
+            onClick={handleSendMessage}
+            disabled={!message.trim()}
+            className="flex-shrink-0 w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center hover:bg-primary/90 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
+          >
+            <Send className="w-4 h-4" />
+          </button>
         </div>
-      )}
+      </div>
     </div>
   );
 
@@ -942,69 +933,62 @@ export const FloatingAssistant: React.FC<FloatingAssistantProps> = ({
                   </div>
                 )}
                 
-                {/* Mobile Input - Show when user info collected or when agents offline with predefined questions (but not after question selected) */}
-                {(userInfoCollected || (!agentsOnline && (showPredefinedQuestions || questionSelected))) && (
-                  <div className="sticky bottom-0 p-4 border-t border-border bg-card">
-                    <div className="flex items-center gap-3">
-                      {/* Hidden File Input */}
-                      <input
-                        type="file"
-                        ref={fileInputRef}
-                        onChange={handleImageUpload}
-                        accept="image/*"
-                        className="hidden"
-                      />
-                      
-                      {/* Camera Button - Only show when agents are online */}
-                      {agentsOnline && userInfoCollected && (
-                        <button
-                          type="button"
-                          onClick={() => fileInputRef.current?.click()}
-                          disabled={uploadingImage}
-                          className="flex-shrink-0 w-12 h-12 rounded-full bg-gradient-to-r from-primary to-accent text-white flex items-center justify-center hover:shadow-lg transition-all disabled:opacity-50"
-                        >
-                          {uploadingImage ? (
-                            <div className="w-5 h-5 animate-spin border-2 border-white border-t-transparent rounded-full" />
-                          ) : (
-                            <Camera className="w-6 h-6" />
-                          )}
-                        </button>
-                      )}
-                      
-                      {/* Text Input */}
-                      <div className="flex-1">
-                        <input
-                          type="text"
-                          value={message}
-                          onChange={(e) => setMessage(e.target.value)}
-                          onKeyDown={(e) => {
-                            if (e.key === 'Enter' && !e.shiftKey) {
-                              e.preventDefault();
-                              handleSendMessage();
-                            }
-                          }}
-                          placeholder={
-                            agentsOnline && userInfoCollected 
-                              ? t('typeMessage') 
-                              : t('chooseQuestion')
-                          }
-                          disabled={!userInfoCollected && agentsOnline}
-                          className="w-full px-4 py-3 rounded-full border border-border bg-muted/30 focus:bg-background focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all placeholder:text-muted-foreground text-base disabled:opacity-50"
-                        />
-                      </div>
-                      
-                      {/* Send Button */}
+                {/* Always show input area in mobile when chat is open */}
+                <div className="sticky bottom-0 p-4 border-t border-border bg-card">
+                  <div className="flex items-center gap-3">
+                    {/* Hidden File Input */}
+                    <input
+                      type="file"
+                      ref={fileInputRef}
+                      onChange={handleImageUpload}
+                      accept="image/*"
+                      className="hidden"
+                    />
+                    
+                    {/* Camera Button - Only show when agents are online and user info collected */}
+                    {agentsOnline && userInfoCollected && (
                       <button
                         type="button"
-                        onClick={handleSendMessage}
-                        disabled={!message.trim() || (!userInfoCollected && agentsOnline)}
-                        className="flex-shrink-0 w-12 h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center hover:bg-primary/90 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
+                        onClick={() => fileInputRef.current?.click()}
+                        disabled={uploadingImage}
+                        className="flex-shrink-0 w-12 h-12 rounded-full bg-gradient-to-r from-primary to-accent text-white flex items-center justify-center hover:shadow-lg transition-all disabled:opacity-50"
                       >
-                        <Send className="w-5 h-5" />
+                        {uploadingImage ? (
+                          <div className="w-5 h-5 animate-spin border-2 border-white border-t-transparent rounded-full" />
+                        ) : (
+                          <Camera className="w-6 h-6" />
+                        )}
                       </button>
+                    )}
+                    
+                    {/* Text Input */}
+                    <div className="flex-1">
+                      <input
+                        type="text"
+                        value={message}
+                        onChange={(e) => setMessage(e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' && !e.shiftKey) {
+                            e.preventDefault();
+                            handleSendMessage();
+                          }
+                        }}
+                        placeholder={t('typeMessage')}
+                        className="w-full px-4 py-3 rounded-full border border-border bg-muted/30 focus:bg-background focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all placeholder:text-muted-foreground text-base"
+                      />
                     </div>
+                    
+                    {/* Send Button */}
+                    <button
+                      type="button"
+                      onClick={handleSendMessage}
+                      disabled={!message.trim()}
+                      className="flex-shrink-0 w-12 h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center hover:bg-primary/90 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
+                    >
+                      <Send className="w-5 h-5" />
+                    </button>
                   </div>
-                )}
+                </div>
               </div>
             </DialogContent>
           </Dialog>
