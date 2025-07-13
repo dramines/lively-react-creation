@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { MessageCircle, X, Send, User, Bot, Sparkles, Camera, Paperclip, Plus } from 'lucide-react';
 import { Button } from './button';
@@ -38,6 +37,7 @@ export const FloatingAssistant: React.FC<FloatingAssistantProps> = ({
   const [isMobileModalOpen, setIsMobileModalOpen] = useState(false);
   const [showContactForm, setShowContactForm] = useState(false);
   const [showPredefinedQuestions, setShowPredefinedQuestions] = useState(false);
+  const [questionSelected, setQuestionSelected] = useState(false);
   const [contactForm, setContactForm] = useState({
     name: '',
     email: '',
@@ -516,6 +516,10 @@ export const FloatingAssistant: React.FC<FloatingAssistantProps> = ({
       isUser: true
     }]);
     
+    // Hide predefined questions after selection
+    setQuestionSelected(true);
+    setShowPredefinedQuestions(false);
+    
     // Simulate assistant response based on question
     setTimeout(() => {
       setMessages(prev => [...prev, {
@@ -525,7 +529,6 @@ export const FloatingAssistant: React.FC<FloatingAssistantProps> = ({
     }, 1000);
   };
 
-  // Simplified handlers - no side effects
   const openMobileModal = () => {
     if (isMobile) {
       setIsMobileModalOpen(true);
@@ -650,8 +653,8 @@ export const FloatingAssistant: React.FC<FloatingAssistantProps> = ({
         </div>
       )}
 
-      {/* Show predefined questions only when agents are offline */}
-      {showPredefinedQuestions && !agentsOnline && (
+      {/* Show predefined questions only when agents are offline and no question has been selected */}
+      {showPredefinedQuestions && !agentsOnline && !questionSelected && (
         <div className="p-3 border-t border-border bg-muted/30">
           <p className="text-xs font-medium text-muted-foreground mb-2">{t('frequentQuestions')}</p>
           <div className="grid grid-cols-2 gap-2">
@@ -671,8 +674,8 @@ export const FloatingAssistant: React.FC<FloatingAssistantProps> = ({
         </div>
       )}
       
-      {/* Input Area - Show only when user info collected or when agents offline with predefined questions */}
-      {(userInfoCollected || (!agentsOnline && showPredefinedQuestions)) && (
+      {/* Input Area - Show when user info collected or when agents offline with predefined questions (but not after question selected) */}
+      {(userInfoCollected || (!agentsOnline && (showPredefinedQuestions || questionSelected))) && (
         <div className="p-4 border-t border-border bg-card">
           <div className="flex items-center gap-3">
             {/* Hidden File Input */}
@@ -714,11 +717,11 @@ export const FloatingAssistant: React.FC<FloatingAssistantProps> = ({
                 }}
                 placeholder={
                   agentsOnline && userInfoCollected 
-                    ? t('writeMessage') 
+                    ? t('typeMessage') 
                     : t('chooseQuestion')
                 }
                 disabled={!userInfoCollected && agentsOnline}
-                className="w-full px-4 py-3 rounded-full border border-border bg-muted/30 focus:bg-background focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all placeholder:text-muted-foreground disabled:opacity-50"
+                className="w-full px-4 py-3 rounded-full border border-border bg-muted/30 focus:bg-background focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all placeholder:text-muted-foreground text-base disabled:opacity-50"
               />
             </div>
             
@@ -919,8 +922,8 @@ export const FloatingAssistant: React.FC<FloatingAssistantProps> = ({
                   </div>
                 )}
 
-                {/* Show predefined questions only when agents are offline */}
-                {showPredefinedQuestions && !agentsOnline && (
+                {/* Show predefined questions only when agents are offline and no question has been selected */}
+                {showPredefinedQuestions && !agentsOnline && !questionSelected && (
                   <div className="p-4 border-t border-border bg-muted/30">
                     <p className="text-sm font-medium text-muted-foreground mb-3">{t('frequentQuestions')}</p>
                     <div className="grid grid-cols-2 gap-3">
@@ -939,8 +942,8 @@ export const FloatingAssistant: React.FC<FloatingAssistantProps> = ({
                   </div>
                 )}
                 
-                {/* Mobile Input - Show only when user info collected or when agents offline with predefined questions */}
-                {(userInfoCollected || (!agentsOnline && showPredefinedQuestions)) && (
+                {/* Mobile Input - Show when user info collected or when agents offline with predefined questions (but not after question selected) */}
+                {(userInfoCollected || (!agentsOnline && (showPredefinedQuestions || questionSelected))) && (
                   <div className="sticky bottom-0 p-4 border-t border-border bg-card">
                     <div className="flex items-center gap-3">
                       {/* Hidden File Input */}
